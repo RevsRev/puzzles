@@ -3,6 +3,7 @@ package com.rev.aoc.util;
 import com.rev.aoc.AocCoordinate;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,10 +25,17 @@ public final class ResourceReader {
     }
 
     public static List<String> readLines(final String resourcePath) throws IOException {
+        return readLines(resourcePath, ResourceReader.class.getClassLoader());
+    }
+
+    public static List<String> readLines(final String resourcePath, final ClassLoader classLoader) throws IOException {
         List<String> lines = new ArrayList<>();
         InputStream is = null;
         try {
-            is = ResourceReader.class.getResourceAsStream(resourcePath);
+            is = classLoader.getResourceAsStream(resourcePath);
+            if (is == null) {
+                throw new FileNotFoundException(resourcePath);
+            }
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader r = new BufferedReader(isr);
             String line = r.readLine();
