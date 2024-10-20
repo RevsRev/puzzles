@@ -5,10 +5,9 @@ import lombok.Getter;
 import java.util.Comparator;
 import java.util.regex.Pattern;
 
-public class AocCoordinate implements Comparable<AocCoordinate> {
-    @Getter
+@Getter
+public final class AocCoordinate implements Comparable<AocCoordinate> {
     private final int year;
-    @Getter
     private final int day;
 
     private static final int Y2K = 2000;
@@ -34,7 +33,7 @@ public class AocCoordinate implements Comparable<AocCoordinate> {
     }
 
     @Override
-    public final int compareTo(final AocCoordinate o) {
+    public int compareTo(final AocCoordinate o) {
         return COMPARATOR.compare(this, o);
     }
 
@@ -52,5 +51,10 @@ public class AocCoordinate implements Comparable<AocCoordinate> {
             return new AocCoordinate(yyyy, dd);
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s:%s", year, day);
     }
 }

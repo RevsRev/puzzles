@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 public final class AocEngine implements Runnable {
+    private static final String AOC_PROBLEMS_PACKAGE = "com.rev.aoc.problems";
     private final AocCoordinate firstAocCoordinate;
     private final AocCoordinate secondAocCoordinate;
 
@@ -24,7 +25,7 @@ public final class AocEngine implements Runnable {
         List<AocProblem> problems = loadProblems();
         System.out.println("Executing Advent Of Code problems...");
         for (AocProblem problem : problems) {
-            System.out.println("" + problem.solvePartOne());
+            System.out.println("" + problem.partOne());
         }
     }
 
@@ -32,7 +33,7 @@ public final class AocEngine implements Runnable {
         try {
             List<AocProblem> problems = new ArrayList<>();
             ClassPath cp = ClassPath.from(AocEngine.class.getClassLoader());
-            ImmutableSet<ClassPath.ClassInfo> allClasses = cp.getTopLevelClassesRecursive("com.rev.aoc.problems");
+            ImmutableSet<ClassPath.ClassInfo> allClasses = cp.getTopLevelClassesRecursive(AOC_PROBLEMS_PACKAGE);
             for (ClassPath.ClassInfo classInfo : allClasses) {
                 Class<?> clazz = classInfo.load();
                 Class<?> superClazz = clazz.getSuperclass();
