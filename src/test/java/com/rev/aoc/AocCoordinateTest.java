@@ -1,27 +1,25 @@
 package com.rev.aoc;
 
-import org.apache.commons.cli.ParseException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 
-public class AocCoordinateTest
-{
+public final class AocCoordinateTest {
 
     @ParameterizedTest
     @MethodSource("getFailureCases")
-    public void testFailureCases(String invalid) {
+    public void testFailureCases(final String invalid) {
         Assertions.assertNull(AocCoordinate.parse(invalid));
     }
 
     @ParameterizedTest
     @MethodSource("getSuccessCases")
-    public void testSuccessCases(AocCoordinateSuccessTestCase successTestCase) {
+    public void testSuccessCases(final AocCoordinateSuccessTestCase successTestCase) {
         AocCoordinate coord = AocCoordinate.parse(successTestCase.str);
-        Assertions.assertEquals(successTestCase.year, coord.year);
-        Assertions.assertEquals(successTestCase.day, coord.day);
+        Assertions.assertEquals(successTestCase.year, coord.getYear());
+        Assertions.assertEquals(successTestCase.day, coord.getDay());
     }
 
     public static List<String> getFailureCases() {
@@ -45,13 +43,12 @@ public class AocCoordinateTest
         );
     }
 
-    private static class AocCoordinateSuccessTestCase {
+    private static final class AocCoordinateSuccessTestCase {
         private final String str;
         private final int year;
         private final int day;
 
-        private AocCoordinateSuccessTestCase(String str, int year, int day)
-        {
+        private AocCoordinateSuccessTestCase(final String str, final int year, final int day) {
             this.str = str;
             this.year = year;
             this.day = day;
