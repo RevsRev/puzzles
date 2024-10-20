@@ -23,7 +23,7 @@ public class AocCoordinate implements Comparable<AocCoordinate> {
     private static final Pattern YYYY_MM_REGEX =
             Pattern.compile("[0-9]{4}:[0-9]{1,2}");
 
-    public AocCoordinate(final int year, final int day) {
+    public AocCoordinate(int year, final int day) {
         this.year = year;
         this.day = day;
     }
