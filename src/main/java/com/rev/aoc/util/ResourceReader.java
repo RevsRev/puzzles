@@ -12,7 +12,7 @@ import java.util.List;
 
 public final class ResourceReader {
 
-    private static final String AOC_RESOURCES_PATH = "";
+    private static final String AOC_RESOURCES_PATH = "problems";
     private static final int TEN = 10;
 
     private ResourceReader() {

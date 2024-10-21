@@ -1,13 +1,14 @@
 package com.rev.aoc.cli;
 
+import com.rev.aoc.AocPart;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 public final class CliOptions {
     public static final Option HELP = helpOption();
     public static final Option PROBLEM_NUMBER = problemNumberOption();
-    public static final Option PROBLEM_OTHER_NUMBER =
-            problemOtherNumberOption();
+    public static final Option PROBLEM_OTHER_NUMBER = problemOtherNumberOption();
+    public static final Option PROBLEM_PART = partOption();
 
     private CliOptions() {
     }
@@ -17,6 +18,7 @@ public final class CliOptions {
         options.addOption(HELP);
         options.addOption(PROBLEM_NUMBER);
         options.addOption(PROBLEM_OTHER_NUMBER);
+        options.addOption(PROBLEM_PART);
         return options;
     }
 
@@ -50,4 +52,13 @@ public final class CliOptions {
                 .build();
     }
 
+    private static Option partOption() {
+        return Option.builder()
+                .option("pt")
+                .longOpt("part")
+                .desc("The part of the advent of code problem to solve: ALL, ONE or TWO")
+                .hasArg()
+                .type(AocPart.class)
+                .build();
+    }
 }

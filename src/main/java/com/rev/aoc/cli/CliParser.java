@@ -2,6 +2,7 @@ package com.rev.aoc.cli;
 
 import com.rev.aoc.AocCoordinate;
 import com.rev.aoc.AocEngine;
+import com.rev.aoc.AocPart;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -44,11 +45,13 @@ public final class CliParser {
         AocCoordinate secondAocCoordinate = parseAocCoordinate(
                 cl.getOptionValue(CliOptions.PROBLEM_OTHER_NUMBER));
 
+        AocPart part = cl.getParsedOptionValue(CliOptions.PROBLEM_PART, AocPart.ALL);
+
         if (firstAocCoordinate != null && secondAocCoordinate != null
                 && firstAocCoordinate.compareTo(secondAocCoordinate) < 0) {
-            return new AocEngine(secondAocCoordinate, firstAocCoordinate);
+            return new AocEngine(secondAocCoordinate, firstAocCoordinate, part);
         }
-        return new AocEngine(firstAocCoordinate, secondAocCoordinate);
+        return new AocEngine(firstAocCoordinate, secondAocCoordinate, part);
     }
 
     private static AocCoordinate parseAocCoordinate(final String optionValue)

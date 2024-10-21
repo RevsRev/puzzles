@@ -1,37 +1,77 @@
 package com.rev.aoc;
 
 import com.google.common.collect.ImmutableSet;
-import com.rev.aoc.problems.AocProblem;
 import com.google.common.reflect.ClassPath;
+import com.rev.aoc.problems.AocProblem;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public final class AocEngine implements Runnable {
     private static final String AOC_PROBLEMS_PACKAGE = "com.rev.aoc.problems";
     private final AocCoordinate firstAocCoordinate;
     private final AocCoordinate secondAocCoordinate;
+    private final AocPart part;
 
     public AocEngine(final AocCoordinate firstAocCoordinate,
-                     final AocCoordinate secondAocCoordinate) {
+                     final AocCoordinate secondAocCoordinate,
+                     final AocPart part) {
         this.firstAocCoordinate = firstAocCoordinate;
         this.secondAocCoordinate = secondAocCoordinate;
+        this.part = part;
     }
 
 
     @Override
     public void run() {
-        List<AocProblem> problems = loadProblems();
-        System.out.println("Executing Advent Of Code problems...");
-        for (AocProblem problem : problems) {
-            System.out.println("" + problem.partOne());
+        NavigableMap<AocCoordinate, AocProblem> problems = loadProblems();
+        SortedMap<AocCoordinate, AocProblem> problemsInRange = getProblemsInRange(problems);
+        if (problemsInRange == null) {
+            return;
+        }
+        Iterator<Map.Entry<AocCoordinate, AocProblem>> it = problemsInRange.entrySet().iterator();
+        while (it.hasNext()) {
+            AocProblem problem = it.next().getValue();
+            solve(problem);
         }
     }
 
-    private List<AocProblem> loadProblems() {
+    private SortedMap<AocCoordinate, AocProblem> getProblemsInRange(
+            final NavigableMap<AocCoordinate, AocProblem> problems) {
+        if (problems.isEmpty()) {
+            //TODO - Probably want some logging here!
+            return null;
+        }
+
+        AocCoordinate fromKey = firstAocCoordinate;
+        AocCoordinate toKey = secondAocCoordinate;
+        if (fromKey == null) {
+            fromKey = problems.firstKey();
+        }
+        if (secondAocCoordinate == null) {
+            toKey = fromKey;
+        }
+
+        SortedMap<AocCoordinate, AocProblem> problemsInRange = problems.subMap(fromKey, true, toKey, true);
+        return problemsInRange;
+    }
+
+    private void solve(final AocProblem problem) {
+        if (AocPart.ALL.equals(part) || AocPart.ONE.equals(part)) {
+            System.out.println("PartOne: " + problem.partOne());
+        }
+        if (AocPart.ALL.equals(part) || AocPart.TWO.equals(part)) {
+            System.out.println("PartTwo: " + problem.partTwo());
+        }
+    }
+
+    private NavigableMap<AocCoordinate, AocProblem> loadProblems() {
         try {
-            List<AocProblem> problems = new ArrayList<>();
+            NavigableMap<AocCoordinate, AocProblem> problems = new TreeMap<>(AocCoordinate::compareTo);
             ClassPath cp = ClassPath.from(AocEngine.class.getClassLoader());
             ImmutableSet<ClassPath.ClassInfo> allClasses = cp.getTopLevelClassesRecursive(AOC_PROBLEMS_PACKAGE);
             for (ClassPath.ClassInfo classInfo : allClasses) {
@@ -40,12 +80,12 @@ public final class AocEngine implements Runnable {
                 if (AocProblem.class.equals(superClazz)) {
                     Class<? extends AocProblem> problemClazz = (Class<? extends AocProblem>) clazz;
                     AocProblem aocProblem = problemClazz.getConstructor().newInstance();
-                    problems.add(aocProblem);
+                    problems.put(aocProblem.getCoordinate(), aocProblem);
                 }
             }
             return problems;
         } catch (Exception e) {
-            return Collections.emptyList();
+            return Collections.emptyNavigableMap();
         }
     }
 }

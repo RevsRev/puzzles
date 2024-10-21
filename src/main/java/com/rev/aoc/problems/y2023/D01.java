@@ -16,7 +16,7 @@ public final class D01 extends AocProblem {
     }
 
     @Override
-    public long partOneImpl() {
+    protected long partOneImpl() {
         List<String> trebLines = loadResources();
         long calibrationSum = 0;
         for (int i = 0; i < trebLines.size(); i++) {
@@ -27,7 +27,7 @@ public final class D01 extends AocProblem {
     }
 
     @Override
-    public long partTwoImpl() {
+    protected long partTwoImpl() {
         return 0;
     }
 

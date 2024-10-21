@@ -19,7 +19,7 @@ public abstract class AocProblem {
 
     public final long partTwo() {
         try {
-            return partOneImpl();
+            return partTwoImpl();
         } catch (Exception e) {
             return fail("two", e);
         }
@@ -31,8 +31,8 @@ public abstract class AocProblem {
     }
 
 
-    public abstract long partOneImpl();
-    public abstract long partTwoImpl();
+    protected abstract long partOneImpl();
+    protected abstract long partTwoImpl();
 
     protected final List<String> loadResources() {
         try {
