@@ -10,6 +10,9 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import java.io.PrintWriter;
+import java.util.Arrays;
+
 public final class CliParser {
     private static final CommandLineParser PARSER = new DefaultParser();
 
@@ -28,6 +31,12 @@ public final class CliParser {
             return parse(cl);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+//            Get the actual arg rather than using cli, incase it was the cli that failed!
+            if (Arrays.stream(args).anyMatch(s -> "-d".equals(s) || "--debug".equals(s))) {
+                PrintWriter pw = new PrintWriter(System.out);
+                e.printStackTrace(pw);
+                pw.flush();
+            }
             printHelp(options);
             return null;
         }
@@ -45,13 +54,20 @@ public final class CliParser {
         AocCoordinate secondAocCoordinate = parseAocCoordinate(
                 cl.getOptionValue(CliOptions.PROBLEM_OTHER_NUMBER));
 
-        AocPart part = cl.getParsedOptionValue(CliOptions.PROBLEM_PART, AocPart.ALL);
+        AocPart part = AocPart.ALL;
+        if (cl.hasOption(CliOptions.PROBLEM_PART)) {
+            part = AocPart.valueOf(cl.getParsedOptionValue(CliOptions.PROBLEM_PART));
+        }
 
+        AocEngine engine;
         if (firstAocCoordinate != null && secondAocCoordinate != null
                 && firstAocCoordinate.compareTo(secondAocCoordinate) < 0) {
-            return new AocEngine(secondAocCoordinate, firstAocCoordinate, part);
+            engine = new AocEngine(secondAocCoordinate, firstAocCoordinate, part);
+        } else {
+            engine = new AocEngine(firstAocCoordinate, secondAocCoordinate, part);
         }
-        return new AocEngine(firstAocCoordinate, secondAocCoordinate, part);
+        engine.setDebug(cl.hasOption(CliOptions.DEBUG));
+        return engine;
     }
 
     private static AocCoordinate parseAocCoordinate(final String optionValue)

@@ -3,6 +3,7 @@ package com.rev.aoc;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.rev.aoc.problems.AocProblem;
+import lombok.Setter;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -16,6 +17,9 @@ public final class AocEngine implements Runnable {
     private final AocCoordinate firstAocCoordinate;
     private final AocCoordinate secondAocCoordinate;
     private final AocPart part;
+
+    @Setter
+    private boolean debug = false;
 
     public AocEngine(final AocCoordinate firstAocCoordinate,
                      final AocCoordinate secondAocCoordinate,

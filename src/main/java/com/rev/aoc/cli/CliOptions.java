@@ -9,6 +9,7 @@ public final class CliOptions {
     public static final Option PROBLEM_NUMBER = problemNumberOption();
     public static final Option PROBLEM_OTHER_NUMBER = problemOtherNumberOption();
     public static final Option PROBLEM_PART = partOption();
+    public static final Option DEBUG = debugOption();
 
     private CliOptions() {
     }
@@ -19,6 +20,7 @@ public final class CliOptions {
         options.addOption(PROBLEM_NUMBER);
         options.addOption(PROBLEM_OTHER_NUMBER);
         options.addOption(PROBLEM_PART);
+        options.addOption(DEBUG);
         return options;
     }
 
@@ -59,6 +61,14 @@ public final class CliOptions {
                 .desc("The part of the advent of code problem to solve: ALL, ONE or TWO")
                 .hasArg()
                 .type(AocPart.class)
+                .build();
+    }
+
+    private static Option debugOption() {
+        return Option.builder()
+                .option("d")
+                .longOpt("debug")
+                .desc("Use debug logging")
                 .build();
     }
 }
