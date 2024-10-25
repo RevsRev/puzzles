@@ -3,11 +3,11 @@ package com.rev.aoc;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.rev.aoc.problems.AocProblem;
+import com.rev.aoc.util.AocResult;
+import com.rev.aoc.util.AocResultPrinter;
 import lombok.Setter;
 
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.NavigableMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -17,6 +17,7 @@ public final class AocEngine implements Runnable {
     private final AocCoordinate firstAocCoordinate;
     private final AocCoordinate secondAocCoordinate;
     private final AocPart part;
+    private final AocResultPrinter printer = new AocResultPrinter();
 
     @Setter
     private boolean debug = false;
@@ -37,11 +38,7 @@ public final class AocEngine implements Runnable {
         if (problemsInRange == null) {
             return;
         }
-        Iterator<Map.Entry<AocCoordinate, AocProblem>> it = problemsInRange.entrySet().iterator();
-        while (it.hasNext()) {
-            AocProblem problem = it.next().getValue();
-            solve(problem);
-        }
+        solveAndPrint(problemsInRange.values());
     }
 
     private SortedMap<AocCoordinate, AocProblem> getProblemsInRange(
@@ -55,8 +52,11 @@ public final class AocEngine implements Runnable {
         AocCoordinate toKey = secondAocCoordinate;
         if (fromKey == null) {
             fromKey = problems.firstKey();
+            if (toKey == null) {
+                toKey = problems.lastKey();
+            }
         }
-        if (secondAocCoordinate == null) {
+        if (toKey == null) {
             toKey = fromKey;
         }
 
@@ -64,12 +64,31 @@ public final class AocEngine implements Runnable {
         return problemsInRange;
     }
 
-    private void solve(final AocProblem problem) {
-        if (AocPart.ALL.equals(part) || AocPart.ONE.equals(part)) {
-            System.out.println("PartOne: " + problem.partOne());
+    private void solveAndPrint(final Iterable<AocProblem> problems) {
+        for (AocProblem problem : problems) {
+            AocResult result;
+            try {
+                result = solve(problem);
+            } catch (Throwable t) {
+                result = AocResult.error(problem.getCoordinate(), t);
+            }
+            printer.printResult(result);
         }
-        if (AocPart.ALL.equals(part) || AocPart.TWO.equals(part)) {
-            System.out.println("PartTwo: " + problem.partTwo());
+        printer.printSeparator();
+    }
+    private AocResult solve(final AocProblem problem) {
+        try {
+            AocResult.Builder builder = new AocResult.Builder();
+            builder.setCoordinate(problem.getCoordinate());
+            if (AocPart.ALL.equals(part) || AocPart.ONE.equals(part)) {
+                builder.setPartOne(problem.partOne());
+            }
+            if (AocPart.ALL.equals(part) || AocPart.TWO.equals(part)) {
+                builder.setPartTwo(problem.partTwo());
+            }
+            return builder.build();
+        } catch (Throwable t) {
+            return AocResult.error(problem.getCoordinate(), t);
         }
     }
 
