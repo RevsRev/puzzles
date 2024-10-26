@@ -12,11 +12,9 @@ import java.util.Map;
 
 public final class D02 extends AocProblem {
 
-    public static final int YEAR = 2023;
-
     @Override
     public AocCoordinate getCoordinate() {
-        return new AocCoordinate(YEAR, 2);
+        return new AocCoordinate(2023, 2);
     }
 
     @Override

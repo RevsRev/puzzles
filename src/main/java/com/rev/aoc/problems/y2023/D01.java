@@ -11,12 +11,9 @@ import java.util.function.Function;
 
 public final class D01 extends AocProblem {
 
-    //TODO - Change checkstyle to ignore this magic numbers
-    private static final int YEAR = 2023;
-
     @Override
     public AocCoordinate getCoordinate() {
-        return new AocCoordinate(YEAR, 1);
+        return new AocCoordinate(2023, 1);
     }
 
     @Override
