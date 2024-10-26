@@ -7,7 +7,9 @@ import com.rev.aoc.util.AocResult;
 import com.rev.aoc.util.AocResultPrinter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.NavigableMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -38,7 +40,10 @@ public final class AocEngine implements Runnable {
         if (problemsInRange == null) {
             return;
         }
-        solveAndPrint(problemsInRange.values());
+        List<Throwable> errors = solveAndPrint(problemsInRange.values());
+        for (int i = 0; i < errors.size() && debug; i++) {
+            errors.get(i).printStackTrace();
+        }
     }
 
     private SortedMap<AocCoordinate, AocProblem> getProblemsInRange(
@@ -64,17 +69,18 @@ public final class AocEngine implements Runnable {
         return problemsInRange;
     }
 
-    private void solveAndPrint(final Iterable<AocProblem> problems) {
+    private List<Throwable> solveAndPrint(final Iterable<AocProblem> problems) {
+        List<Throwable> errors = new ArrayList<>();
         for (AocProblem problem : problems) {
             AocResult result;
-            try {
-                result = solve(problem);
-            } catch (Throwable t) {
-                result = AocResult.error(problem.getCoordinate(), t);
+            result = solve(problem);
+            if (result.getError().isPresent()) {
+                errors.add(result.getError().get());
             }
             printer.printResult(result);
         }
         printer.printSeparator();
+        return errors;
     }
     private AocResult solve(final AocProblem problem) {
         try {
