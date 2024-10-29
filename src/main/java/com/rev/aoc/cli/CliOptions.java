@@ -9,6 +9,7 @@ public final class CliOptions {
     public static final Option PROBLEM_NUMBER = problemNumberOption();
     public static final Option PROBLEM_OTHER_NUMBER = problemOtherNumberOption();
     public static final Option PROBLEM_PART = partOption();
+    public static final Option PROBLEM_VISUALISE = writeOption();
     public static final Option DEBUG = debugOption();
 
     private CliOptions() {
@@ -20,6 +21,7 @@ public final class CliOptions {
         options.addOption(PROBLEM_NUMBER);
         options.addOption(PROBLEM_OTHER_NUMBER);
         options.addOption(PROBLEM_PART);
+        options.addOption(PROBLEM_VISUALISE);
         options.addOption(DEBUG);
         return options;
     }
@@ -61,6 +63,14 @@ public final class CliOptions {
                 .desc("The part of the advent of code problem to solve: ALL, ONE or TWO")
                 .hasArg()
                 .type(AocPart.class)
+                .build();
+    }
+
+    private static Option writeOption() {
+        return Option.builder()
+                .option("v")
+                .longOpt("visualise")
+                .desc("Visualise a problem, if visualisation has been implemented.")
                 .build();
     }
 

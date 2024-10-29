@@ -67,6 +67,7 @@ public final class CliParser {
             engine = new AocEngine(firstAocCoordinate, secondAocCoordinate, part);
         }
         engine.setDebug(cl.hasOption(CliOptions.DEBUG));
+        engine.setVisualise(cl.hasOption(CliOptions.PROBLEM_VISUALISE));
         return engine;
     }
 

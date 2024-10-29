@@ -5,6 +5,7 @@ import com.google.common.reflect.ClassPath;
 import com.rev.aoc.problems.AocProblem;
 import com.rev.aoc.util.AocResult;
 import com.rev.aoc.util.AocResultPrinter;
+import com.rev.aoc.vis.VisualisationException;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public final class AocEngine implements Runnable {
 
     @Setter
     private boolean debug = false;
+    @Setter
+    private boolean visualise = false;
 
     public AocEngine(final AocCoordinate firstAocCoordinate,
                      final AocCoordinate secondAocCoordinate,
@@ -40,9 +43,14 @@ public final class AocEngine implements Runnable {
         if (problemsInRange == null) {
             return;
         }
+        if (visualise) {
+            visualise(problemsInRange.values());
+            return;
+        }
+
         List<Throwable> errors = solveAndPrint(problemsInRange.values());
         for (int i = 0; i < errors.size() && debug; i++) {
-            errors.get(i).printStackTrace();
+            errors.get(i).printStackTrace(System.out);
         }
     }
 
@@ -67,6 +75,19 @@ public final class AocEngine implements Runnable {
 
         SortedMap<AocCoordinate, AocProblem> problemsInRange = problems.subMap(fromKey, true, toKey, true);
         return problemsInRange;
+    }
+
+    private void visualise(final Iterable<AocProblem> problems) {
+        for (AocProblem problem : problems) {
+            try {
+                problem.visualiseProblem();
+            } catch (VisualisationException e) {
+                System.out.println(e.getMessage());
+                if (debug) {
+                    e.printStackTrace(System.out);
+                }
+            }
+        }
     }
 
     private List<Throwable> solveAndPrint(final Iterable<AocProblem> problems) {

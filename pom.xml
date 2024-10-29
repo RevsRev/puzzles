@@ -19,6 +19,7 @@
         <maven-checkstyle-plugin.version>3.5.0</maven-checkstyle-plugin.version>
         <lombok.version>1.18.34</lombok.version>
         <guava.version>33.2.1-jre</guava.version>
+        <jgrapht.version>1.5.2</jgrapht.version>
     </properties>
 
     <dependencies>
@@ -56,7 +57,16 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.jgrapht</groupId>
+            <artifactId>jgrapht-core</artifactId>
+            <version>${jgrapht.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jgrapht</groupId>
+            <artifactId>jgrapht-io</artifactId>
+            <version>${jgrapht.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -2,6 +2,7 @@ package com.rev.aoc.problems;
 
 import com.rev.aoc.AocCoordinate;
 import com.rev.aoc.util.ResourceReader;
+import com.rev.aoc.vis.VisualisationException;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,6 +24,14 @@ public abstract class AocProblem {
         } catch (Exception e) {
             return fail("two", e);
         }
+    }
+
+    /**
+     * Override to visualise a particular problem.
+     */
+    public void visualiseProblem() throws VisualisationException {
+        String msg = String.format("%s does not have visualisation implemented%n", getCoordinate());
+        throw new VisualisationException(msg);
     }
 
     private long fail(final String part, final Exception e) {

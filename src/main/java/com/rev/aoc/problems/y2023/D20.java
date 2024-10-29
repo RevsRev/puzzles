@@ -2,7 +2,15 @@ package com.rev.aoc.problems.y2023;
 
 import com.rev.aoc.AocCoordinate;
 import com.rev.aoc.problems.AocProblem;
+import com.rev.aoc.vis.GraphVisualiser;
+import com.rev.aoc.vis.VisualisationException;
 import lombok.Getter;
+import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.nio.Attribute;
+import org.jgrapht.nio.DefaultAttribute;
+import org.jgrapht.nio.dot.DOTExporter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public final class D20 extends AocProblem {
 
@@ -20,6 +29,7 @@ public final class D20 extends AocProblem {
     public static final String BUTTON = "button";
 
     private static final int NUM_BUTTON_PRESSES = 1000;
+    public static final String RX = "rx";
 
     @Override
     public AocCoordinate getCoordinate() {
@@ -33,7 +43,7 @@ public final class D20 extends AocProblem {
 
         PartOnePulseCounter pulseCounter = new PartOnePulseCounter();
         for (Module m : modules.values()) {
-            m.pulseConsumer = pulseCounter;
+            m.pulseSendConsumer = pulseCounter;
         }
         Module button = modules.get(BUTTON);
         for (int i = 0; i < NUM_BUTTON_PRESSES; i++) {
@@ -44,7 +54,68 @@ public final class D20 extends AocProblem {
 
     @Override
     protected long partTwoImpl() {
+//        List<String> strings = loadResources();
+//        Map<String, Module> modules = parseToModules(strings);
+//        Module rx = modules.get(RX);
+//        PartTwoLowPulseDetector receiveConsumer = new PartTwoLowPulseDetector();
+//        rx.pulseReceiveConsumer = receiveConsumer;
+//        Module button = modules.get(BUTTON);
+//        long buttonPresses = 0;
+//        while (!receiveConsumer.lowReceived) {
+//            buttonPresses++;
+//            start(button);
+//        }
+//        return buttonPresses;
+        //TODO - Too slow - need a better way!
         return 0;
+    }
+
+    @Override
+    public void visualiseProblem() throws VisualisationException {
+        List<String> strings = loadResources();
+        Map<String, Module> modules = parseToModules(strings);
+        Graph<Module, DefaultEdge> graph = asGraph(modules);
+        DOTExporter<Module, DefaultEdge> exporter = new DOTExporter<>(Module::getName);
+        exporter.setVertexAttributeProvider(vertexAttributeProvider());
+        GraphVisualiser<Module, DefaultEdge> visualiser = new GraphVisualiser<>(exporter);
+        visualiser.visualise(graph);
+    }
+
+    private Function<Module, Map<String, Attribute>> vertexAttributeProvider() {
+        return module -> getColorMap(module.getClass());
+    }
+
+    private Map<String, Attribute> getColorMap(final Class<? extends Module> moduleClazz) {
+        Map<String, Attribute> colorMap = new HashMap<>();
+        colorMap.put("style", DefaultAttribute.createAttribute("filled"));
+        String color = "white";
+        if (Broadcast.class.equals(moduleClazz)) {
+            color = "greenyellow";
+        } else if (Button.class.equals(moduleClazz)) {
+            color = "darkslategray2";
+        } else if (Output.class.equals(moduleClazz)) {
+            color = "mediumpurple1";
+        } else if (FlipFlop.class.equals(moduleClazz)) {
+            color = "orange";
+        } else if (Conjunction.class.equals(moduleClazz)) {
+            color = "yellow";
+        }
+        colorMap.put("color", DefaultAttribute.createAttribute(color));
+        return colorMap;
+    }
+
+    private Graph<Module, DefaultEdge> asGraph(final Map<String, Module> modules) {
+        Graph<Module, DefaultEdge> graph = new DefaultDirectedGraph<>(DefaultEdge.class);
+        for (Module m : modules.values()) {
+            graph.addVertex(m);
+        }
+
+        for (Module m : modules.values()) {
+            for (Module target: m.outputs) {
+                graph.addEdge(m, target);
+            }
+        }
+        return graph;
     }
 
     public void start(final Module m) {
@@ -95,12 +166,26 @@ public final class D20 extends AocProblem {
         }
     }
 
+    private static final class PartTwoLowPulseDetector implements Consumer<Pulse> {
+
+        private boolean lowReceived = false;
+
+        @Override
+        public void accept(final Pulse pulse) {
+            if (Pulse.LOW.equals(pulse)) {
+                lowReceived = true;
+            }
+        }
+    }
+
     @Getter
     private abstract static class Module {
         private final String name;
         private final List<Module> outputs = new ArrayList<>();
         private final List<Module> inputs = new ArrayList<>();
-        private Consumer<Pulse> pulseConsumer = p -> {
+        private Consumer<Pulse> pulseSendConsumer = p -> {
+        };
+        private Consumer<Pulse> pulseReceiveConsumer = p -> {
         };
 
         private Module(final String name) {
@@ -115,7 +200,7 @@ public final class D20 extends AocProblem {
 
         public void send(final Pulse p, final Queue<Runnable> runQueue) {
             for (Module m: outputs) {
-                pulseConsumer.accept(p);
+                pulseSendConsumer.accept(p);
                 runQueue.add(() -> m.receive(this, p, runQueue));
             }
         }
@@ -127,7 +212,21 @@ public final class D20 extends AocProblem {
             if (nameAndType.contains(CONJUNCTION)) {
                 return new Conjunction(nameAndType.replace(CONJUNCTION, ""));
             }
-            return new Broadcast(nameAndType);
+            if (BROADCASTER.equals(nameAndType)) {
+                return new Broadcast(nameAndType);
+            }
+            return new Output(nameAndType);
+        }
+    }
+    private static final class Output extends Module {
+
+        private Output(final String name) {
+            super(name);
+        }
+
+        @Override
+        public void receive(final Module sender, final Pulse p, final Queue<Runnable> runQueue) {
+            getPulseReceiveConsumer().accept(p);
         }
     }
     private static final class Button extends Module {
