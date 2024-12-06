@@ -43,6 +43,15 @@ public abstract class AocProblem {
     protected abstract long partOneImpl();
     protected abstract long partTwoImpl();
 
+    protected final char[][] loadResourcesAsCharArray() {
+        List<String> lines = loadResources();
+        char[][] arr = new char[lines.size()][];
+        for (int i = 0; i < lines.size(); i++) {
+            arr[i] = lines.get(i).toCharArray();
+        }
+        return arr;
+    }
+
     protected final List<String> loadResources() {
         try {
             return ResourceReader.readLines(getCoordinate());

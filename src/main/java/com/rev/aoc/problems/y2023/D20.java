@@ -130,7 +130,7 @@ public final class D20 extends AocProblem {
         Map<String, Module> modules = new HashMap<>();
         Map<String, String[]> moduleConnections = new HashMap<>();
         for (String s : strings) {
-            String[] nameAndConnections = s.replaceAll("\s", "").split("->");
+            String[] nameAndConnections = s.replaceAll("\\s", "").split("->");
             String nameAndType = nameAndConnections[0];
             String[] connections = nameAndConnections[1].split(",");
             String name = nameAndType.replace(FLIP_FLOP, "").replace(CONJUNCTION, "");
