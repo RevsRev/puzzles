@@ -60,9 +60,12 @@ public final class CliParser {
         }
 
         AocEngine engine;
-        if (firstAocCoordinate != null && secondAocCoordinate != null
-                && firstAocCoordinate.compareTo(secondAocCoordinate) < 0) {
-            engine = new AocEngine(secondAocCoordinate, firstAocCoordinate, part);
+        if (firstAocCoordinate != null && secondAocCoordinate != null) {
+            if (firstAocCoordinate.compareTo(secondAocCoordinate) < 0) {
+                engine = new AocEngine(firstAocCoordinate, secondAocCoordinate, part);
+            } else {
+                engine = new AocEngine(secondAocCoordinate, firstAocCoordinate, part);
+            }
         } else {
             engine = new AocEngine(firstAocCoordinate, secondAocCoordinate, part);
         }
