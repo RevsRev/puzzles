@@ -13,7 +13,7 @@ public final class D06 extends AocProblem {
 
     private static final char START_CHAR = '^';
     private static final char OBSTACLE_CHAR = '#';
-    private static final int[][] DIRECTIONS = new int[][] {{-1,0}, {0,1}, {1,0}, {0,-1}};
+    private static final int[][] DIRECTIONS = new int[][] {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
     @Override
     public AocCoordinate getCoordinate() {
@@ -26,7 +26,7 @@ public final class D06 extends AocProblem {
         int[] position = findStart(map);
         int dirIndex = 0;
 
-        Map<Pair<Integer,Integer>, Set<Integer>> visited = new HashMap<>();
+        Map<Pair<Integer, Integer>, Set<Integer>> visited = new HashMap<>();
         traverse(map, position, visited, dirIndex);
         return visited.size();
     }
@@ -40,11 +40,11 @@ public final class D06 extends AocProblem {
         int width = map[0].length;
         int dirIndex = 0;
 
-        Map<Pair<Integer,Integer>, Set<Integer>> visited = new HashMap<>();
+        Map<Pair<Integer, Integer>, Set<Integer>> visited = new HashMap<>();
         traverse(map, position, visited, dirIndex);
 
         int count = 0;
-        for (Pair<Integer,Integer> path : visited.keySet()) {
+        for (Pair<Integer, Integer> path : visited.keySet()) {
             Integer i = path.getLeft();
             Integer j = path.getRight();
             if (i == position[0] && j.equals(position[1])) {
@@ -55,7 +55,7 @@ public final class D06 extends AocProblem {
             if (traverse(map, position, new HashMap<>(), dirIndex)) {
                 count++;
             }
-            map[i][j] =c;
+            map[i][j] = c;
         }
         return count;
     }
@@ -63,12 +63,13 @@ public final class D06 extends AocProblem {
     /**
      * Return true if stuck in a loop
      */
-    private static boolean traverse(char[][] map, int[] startPosition,
-                                    Map<Pair<Integer,Integer>, Set<Integer>> visited,
-                                    int dirIndex) {
+    private static boolean traverse(final char[][] map, final int[] startPosition,
+                                    final Map<Pair<Integer, Integer>, Set<Integer>> visited,
+                                    final int directionIndex) {
         int[] position = new int[]{startPosition[0], startPosition[1]};
         int height = map.length;
         int width = map[0].length;
+        int dirIndex = directionIndex;
 
         while (position[0] >= 0 && position[0] < height && position[1] >= 0 && position[1] < width) {
             Pair<Integer, Integer> key = Pair.of(position[0], position[1]);
@@ -96,13 +97,13 @@ public final class D06 extends AocProblem {
         return false;
     }
 
-    private int[] findStart(char[][] map) {
+    private int[] findStart(final char[][] map) {
         int height = map.length;
         int width = map[0].length;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (map[i][j] == START_CHAR) {
-                    return new int[]{i,j};
+                    return new int[]{i, j};
                 }
             }
         }
