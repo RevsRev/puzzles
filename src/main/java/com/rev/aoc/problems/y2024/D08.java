@@ -60,35 +60,31 @@ public final class D08 extends AocProblem {
             for (int j = i + 1; j < antennasForCharList.size(); j++) {
                 Pair<Integer, Integer> top = antennasForCharList.get(i);
                 Pair<Integer, Integer> bottom = antennasForCharList.get(j);
-                Pair<Integer, Integer> diff =
+                Pair<Integer, Integer> forwardsDiff =
                         Pair.of(bottom.getLeft() - top.getLeft(), bottom.getRight() - top.getRight());
+                Pair<Integer, Integer> backwardsDiff =
+                        Pair.of(top.getLeft() - bottom.getLeft(), top.getRight() - bottom.getRight());
 
-                int iterations = 0;
-                while (inBounds(height, width, top)) {
-                    if (!partTwo && iterations == 1 && inBounds(height, width, top)) {
-                        antinodes.add(top);
-                    } else if (partTwo) {
-                        if (inBounds(height, width, top)) {
-                            antinodes.add(top);
-                        }
-                    }
-                    top = Pair.of(top.getLeft() - diff.getLeft(), top.getRight() - diff.getRight());
-                    iterations++;
-                }
+                iterateOverVectors(height, width, antinodes, partTwo, top, forwardsDiff);
+                iterateOverVectors(height, width, antinodes, partTwo, bottom, backwardsDiff);
+            }
+        }
+    }
 
-                iterations = 0;
-                while (inBounds(height, width, bottom)) {
-                    if (!partTwo && iterations == 1 && inBounds(height, width, bottom)) {
-                        antinodes.add(bottom);
-                    } else if (partTwo) {
-                        if (inBounds(height, width, bottom)) {
-                            antinodes.add(bottom);
-                        }
-                    }
-                    bottom = Pair.of(bottom.getLeft() + diff.getLeft(), bottom.getRight() + diff.getRight());
-                    iterations++;
+    @SuppressWarnings("checkstyle:FinalParameters")
+    private void iterateOverVectors(int height, int width, final Set<Pair<Integer, Integer>> antinodes, boolean partTwo,
+                                    Pair<Integer, Integer> top, final Pair<Integer, Integer> diff) {
+        int iterations = 0;
+        while (inBounds(height, width, top)) {
+            if (!partTwo && iterations == 1 && inBounds(height, width, top)) {
+                antinodes.add(top);
+            } else if (partTwo) {
+                if (inBounds(height, width, top)) {
+                    antinodes.add(top);
                 }
             }
+            top = Pair.of(top.getLeft() - diff.getLeft(), top.getRight() - diff.getRight());
+            iterations++;
         }
     }
 
