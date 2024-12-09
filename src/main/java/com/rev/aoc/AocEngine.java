@@ -108,10 +108,18 @@ public final class AocEngine implements Runnable {
             AocResult.Builder builder = new AocResult.Builder();
             builder.setCoordinate(problem.getCoordinate());
             if (AocPart.ALL.equals(part) || AocPart.ONE.equals(part)) {
-                builder.setPartOne(problem.partOne());
+                long time = System.nanoTime();
+                long result = problem.partOne();
+                time = System.nanoTime() - time;
+                builder.setPartOne(result);
+                builder.setPartOneTime(time);
             }
             if (AocPart.ALL.equals(part) || AocPart.TWO.equals(part)) {
-                builder.setPartTwo(problem.partTwo());
+                long time = System.nanoTime();
+                long result = problem.partTwo();
+                time = System.nanoTime() - time;
+                builder.setPartTwo(result);
+                builder.setPartTwoTime(time);
             }
             return builder.build();
         } catch (Throwable t) {

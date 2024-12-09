@@ -9,7 +9,7 @@ public final class AocResultPrinter {
     private static final char WHITE_SPACE = ' ';
     private static final char SEPARATOR = '-';
     private static final char DELIMETER = '|';
-    private static final int[] COL_WIDTHS = new int[]{6, 6, 20, 20, 50};
+    private static final int[] COL_WIDTHS = new int[]{6, 6, 20, 20, 20, 20, 50};
 
     private boolean firstPass = true;
     private PrintWriter printWriter = new PrintWriter(System.out);
@@ -25,12 +25,14 @@ public final class AocResultPrinter {
 
     private void printHeader() {
         printSeparator();
-        printWriter.println(format(new String[]{"Year", "Day", "PartOne", "PartTwo", "Error"}));
+        printWriter.println(format(
+                new String[]{"Year", "Day", "PartOne", "PartOneTime", "PartTwo", "PartTwoTime", "Error"})
+        );
         printWriter.flush();
         printSeparator();
     }
     public void printSeparator() {
-        printWriter.println(format(new String[]{"", "", "", "", ""}, SEPARATOR));
+        printWriter.println(format(new String[]{"", "", "", "", "", "", ""}, SEPARATOR));
         printWriter.flush();
     }
 
@@ -42,8 +44,10 @@ public final class AocResultPrinter {
             return format(cols);
         } else {
             Object p1 = result.getPartOne().isPresent() ? result.getPartOne().get() : "";
+            Object p1Time = result.getPartOneTime().isPresent() ? result.getPartOneTime().get() : "";
             Object p2 = result.getPartTwo().isPresent() ? result.getPartTwo().get() : "";
-            cols = new Object[]{coord.getYear(), coord.getDay(), p1, p2, ""};
+            Object p2Time = result.getPartTwoTime().isPresent() ? result.getPartTwoTime().get() : "";
+            cols = new Object[]{coord.getYear(), coord.getDay(), p1, p1Time, p2, p2Time, ""};
             return format(cols);
         }
     }
