@@ -22,7 +22,7 @@ public final class D06 extends AocProblem {
 
     @Override
     protected long partOneImpl() {
-        char[][] map = loadResourcesAsCharArray();
+        char[][] map = loadResourcesAsCharMatrix();
         int[] position = findStart(map);
         int dirIndex = 0;
 
@@ -33,7 +33,7 @@ public final class D06 extends AocProblem {
 
     @Override
     protected long partTwoImpl() {
-        char[][] map = loadResourcesAsCharArray();
+        char[][] map = loadResourcesAsCharMatrix();
         int[] position = findStart(map);
 
         int height = map.length;

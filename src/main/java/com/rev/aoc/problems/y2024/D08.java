@@ -21,7 +21,7 @@ public final class D08 extends AocProblem {
 
     @Override
     protected long partOneImpl() {
-        char[][] grid = loadResourcesAsCharArray();
+        char[][] grid = loadResourcesAsCharMatrix();
         int height = grid.length;
         int width = grid[0].length;
 
@@ -37,7 +37,7 @@ public final class D08 extends AocProblem {
 
     @Override
     protected long partTwoImpl() {
-        char[][] grid = loadResourcesAsCharArray();
+        char[][] grid = loadResourcesAsCharMatrix();
         int height = grid.length;
         int width = grid[0].length;
 
