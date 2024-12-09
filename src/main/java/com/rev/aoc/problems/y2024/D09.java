@@ -3,9 +3,14 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.AocCoordinate;
 import com.rev.aoc.problems.AocProblem;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+
 public final class D09 extends AocProblem {
 
     public static final int EMPTY_VALUE = -1;
+    public static final int NOT_FOUND_INDEX = -1;
 
     @Override
     public AocCoordinate getCoordinate() {
@@ -64,41 +69,63 @@ public final class D09 extends AocProblem {
         }
     }
     private void moveFileBlocksPartTwo(final int[] disk) {
-        int start = 0;
-        int end = disk.length - 1;
-        while (start < end) {
-            while (start < end && disk[start] != EMPTY_VALUE) {
-                start++;
+        TreeMap<Integer, Integer> spacesByIndex = new TreeMap<>();
+        int index = 0;
+        while (index < disk.length) {
+            while (index < disk.length && disk[index] != EMPTY_VALUE) {
+                index++;
             }
-            while (start < end && disk[end] == EMPTY_VALUE) {
-                end--;
+            int spaceSize = 0;
+            while (index + spaceSize < disk.length && disk[index + spaceSize] == EMPTY_VALUE) {
+                spaceSize++;
             }
+            spacesByIndex.put(index, spaceSize);
+            index += spaceSize;
+        }
 
-            if (start >= end) {
+        index = disk.length - 1;
+        while (index >= 0) {
+            while (index >= 0 && disk[index] == EMPTY_VALUE) {
+                index--;
+            }
+            if (index == NOT_FOUND_INDEX) {
                 break;
             }
+            int blockSize = 0;
+            int id = disk[index];
+            while (index - blockSize >= 0 && disk[index - blockSize] == id) {
+                blockSize++;
+            }
 
-            int freeSpace = 0;
-            while (disk[start + freeSpace] == EMPTY_VALUE) {
-                freeSpace++;
+            Iterator<Map.Entry<Integer, Integer>> it = spacesByIndex.entrySet().iterator();
+            int emptyIndex = NOT_FOUND_INDEX;
+            int emptySize = NOT_FOUND_INDEX;
+            while (it.hasNext()) {
+                Map.Entry<Integer, Integer> entry = it.next();
+                if (entry.getKey() > index) {
+                    break;
+                }
+                if (entry.getValue() >= blockSize) {
+                    emptyIndex = entry.getKey();
+                    emptySize = entry.getValue();
+                    break;
+                }
             }
-            int fileSize = 0;
-            int id = disk[end];
-            while (disk[end - fileSize] == id) {
-                fileSize++;
-            }
-            if (freeSpace >= fileSize) {
-                for (int i = start; i < start + fileSize; i++) {
+
+            if (emptyIndex != NOT_FOUND_INDEX) {
+                for (int i = emptyIndex; i < emptyIndex + blockSize; i++) {
                     disk[i] = id;
                 }
-                for (int i = end - fileSize + 1; i <= end; i++) {
+                spacesByIndex.remove(emptyIndex);
+                int remaining = emptySize - blockSize;
+                if (remaining > 0) {
+                    spacesByIndex.put(emptyIndex + blockSize, remaining);
+                }
+                for (int i = index; i > index - blockSize; i--) {
                     disk[i] = EMPTY_VALUE;
                 }
-                start = start + fileSize;
-                end = end - fileSize;
-            } else {
-                end = end - fileSize;
             }
+            index -= blockSize;
         }
     }
     private long checksum(final int[] disk) {
