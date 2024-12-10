@@ -52,6 +52,19 @@ public abstract class AocProblem {
         return arr;
     }
 
+    protected final int[][] loadResourcesAsIntMatrix() {
+        List<String> lines = loadResources();
+        int[][] arr = new int[lines.size()][];
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            arr[i] = new int[line.length()];
+            for (int j = 0; j < lines.size(); j++) {
+                arr[i][j] = Character.getNumericValue(line.charAt(j));
+            }
+        }
+        return arr;
+    }
+
     protected final char[] loadResourcesAsCharArray() {
         char[][] charMatrix = loadResourcesAsCharMatrix();
         int size = 0;
