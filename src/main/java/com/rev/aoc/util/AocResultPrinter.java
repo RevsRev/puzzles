@@ -40,7 +40,7 @@ public final class AocResultPrinter {
         Object[] cols;
         AocCoordinate coord = result.getCoordinate();
         if (result.getError().isPresent()) {
-            cols = new Object[]{coord.getYear(), coord.getDay(), "", "", result.getError().get().getMessage()};
+            cols = new Object[]{coord.getYear(), coord.getDay(), "", "", result.getError().get()};
             return format(cols);
         } else {
             Object p1 = result.getPartOne().isPresent() ? result.getPartOne().get() : "";
