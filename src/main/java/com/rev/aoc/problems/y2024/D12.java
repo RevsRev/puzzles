@@ -18,7 +18,7 @@ public final class D12 extends AocProblem {
     @Override
     protected long partOneImpl() {
         char[][] plots = loadResourcesAsCharMatrix();
-        Set<Pair<Integer,Integer>> unvisited = new HashSet<>();
+        Set<Pair<Integer, Integer>> unvisited = new HashSet<>();
 
         int height = plots.length;
         int width = plots[0].length;
@@ -27,14 +27,15 @@ public final class D12 extends AocProblem {
                 unvisited.add(Pair.of(i, j));
             }
         }
-        char[][] borders = new char[2*height+1][2*width+1];
+        char[][] borders = new char[2 * height + 1][2 * width + 1];
 
         long score = 0;
         while (!unvisited.isEmpty()) {
             Pair<Integer, Integer> seed = unvisited.iterator().next();
             Integer i = seed.getLeft();
             Integer j = seed.getRight();
-            Pair<Integer, Integer> perimeterAndArea = calcPerimeterAndArea(plots, unvisited, width, height, i, j, borders);
+            Pair<Integer, Integer> perimeterAndArea =
+                    calcPerimeterAndArea(plots, unvisited, width, height, i, j, borders);
             score += perimeterAndArea.getLeft() * perimeterAndArea.getRight();
         }
         return score;
@@ -44,7 +45,7 @@ public final class D12 extends AocProblem {
     @Override
     protected long partTwoImpl() {
         char[][] plots = loadResourcesAsCharMatrix();
-        Set<Pair<Integer,Integer>> unvisited = new HashSet<>();
+        Set<Pair<Integer, Integer>> unvisited = new HashSet<>();
 
         int height = plots.length;
         int width = plots[0].length;
@@ -59,7 +60,7 @@ public final class D12 extends AocProblem {
             Pair<Integer, Integer> seed = unvisited.iterator().next();
             Integer i = seed.getLeft();
             Integer j = seed.getRight();
-            char[][] borders = new char[2*height+1][2*width+1];
+            char[][] borders = new char[2 * height + 1][2 * width + 1];
             Pair<Integer, Integer> pAndA = calcPerimeterAndArea(plots, unvisited, width, height, i, j, borders);
             long sides = countSides(borders);
             score += sides * pAndA.getRight();
@@ -67,7 +68,7 @@ public final class D12 extends AocProblem {
         return score;
     }
 
-    private long countSides(char[][] borders) {
+    private long countSides(final char[][] borders) {
         int height = borders.length;
         int width = borders[0].length;
 
@@ -79,8 +80,8 @@ public final class D12 extends AocProblem {
         }
 
         long sides = 0;
-        for (int i = 0; i < height; i+=2) {
-            for (int j = 0; j < width; j+=2) {
+        for (int i = 0; i < height; i += 2) {
+            for (int j = 0; j < width; j += 2) {
                 if (visited[i][j]) {
                     continue;
                 }
@@ -88,27 +89,27 @@ public final class D12 extends AocProblem {
                     int k = j;
                     while (k < width && borders[i][k] == '-') {
                         visited[i][k] = true;
-                        k+=2;
+                        k += 2;
                     }
-                    k = j-1;
-                    while (k >=0 && borders[i][k] == '-') {
+                    k = j - 1;
+                    while (k >= 0 && borders[i][k] == '-') {
                         visited[i][k] = true;
-                        k-=2;
+                        k -= 2;
                     }
-                    sides+=1;
+                    sides += 1;
                 }
                 if (borders[i][j] == '|') {
                     int k = i;
                     while (k < height && borders[k][j] == '|') {
                         visited[i][k] = true;
-                        k+=2;
+                        k += 2;
                     }
-                    k= i - 1;
+                    k = i - 1;
                     while (k >= 0 && borders[k][j] == '|') {
                         visited[i][k] = true;
-                        k-=2;
+                        k -= 2;
                     }
-                    sides+=1;
+                    sides += 1;
                 }
             }
         }
@@ -139,7 +140,8 @@ public final class D12 extends AocProblem {
                 addBorder(borders, i, nextI, j, nextJ);
                 perimeter++;
             } else if (unvisited.contains(Pair.of(nextI, nextJ))) {
-                Pair<Integer, Integer> pAndA = calcPerimeterAndArea(plots, unvisited, width, height, nextI, nextJ, borders);
+                Pair<Integer, Integer> pAndA =
+                        calcPerimeterAndArea(plots, unvisited, width, height, nextI, nextJ, borders);
                 perimeter += pAndA.getLeft();
                 area += pAndA.getRight();
             }
