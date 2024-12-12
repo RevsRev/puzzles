@@ -19,7 +19,7 @@ public final class UnitCell<T> {
     /**
      * Border vectors go clockwise around the unit cell
      *   # -> #
-     *   ^    -
+     *   ^    |
      *   |    V
      *   # <- #
      */
