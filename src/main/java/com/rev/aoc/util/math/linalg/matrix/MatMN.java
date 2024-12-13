@@ -1,4 +1,4 @@
-package com.rev.aoc.util.math.linear.matrix;
+package com.rev.aoc.util.math.linalg.matrix;
 
 import lombok.Getter;
 

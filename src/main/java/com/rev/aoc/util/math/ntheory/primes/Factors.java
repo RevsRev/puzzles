@@ -1,7 +1,7 @@
-package com.rev.aoc.util.math.primes;
+package com.rev.aoc.util.math.ntheory.primes;
 
 
-import com.rev.aoc.util.math.util.Pow;
+import com.rev.aoc.util.math.ntheory.util.Pow;
 
 import java.util.HashMap;
 import java.util.Iterator;

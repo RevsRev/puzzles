@@ -1,4 +1,4 @@
-package com.rev.aoc.util.math.primes;
+package com.rev.aoc.util.math.ntheory.primes;
 
 public final class Gcd {
 

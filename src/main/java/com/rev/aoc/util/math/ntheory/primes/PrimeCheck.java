@@ -1,7 +1,7 @@
-package com.rev.aoc.util.math.primes;
+package com.rev.aoc.util.math.ntheory.primes;
 
 
-import com.rev.aoc.util.math.modular.Mod;
+import com.rev.aoc.util.math.ntheory.modular.Mod;
 import lombok.Getter;
 
 import java.util.Iterator;

@@ -1,4 +1,4 @@
-package com.rev.aoc.util.math.primes;
+package com.rev.aoc.util.math.ntheory.primes;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;

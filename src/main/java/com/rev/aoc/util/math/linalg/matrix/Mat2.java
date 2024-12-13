@@ -1,7 +1,7 @@
-package com.rev.aoc.util.math.linear.matrix;
+package com.rev.aoc.util.math.linalg.matrix;
 
 
-import com.rev.aoc.util.math.linear.vec.Vec2;
+import com.rev.aoc.util.math.linalg.vec.Vec2;
 
 public final class Mat2 {
     /**

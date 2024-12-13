@@ -1,4 +1,4 @@
-package com.rev.aoc.util.math.modular;
+package com.rev.aoc.util.math.ntheory.modular;
 
 public final class Mod {
 

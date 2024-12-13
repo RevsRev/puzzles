@@ -1,4 +1,4 @@
-package com.rev.aoc.util.math.util;
+package com.rev.aoc.util.math.ntheory.util;
 
 public final class Pow {
     private Pow() {

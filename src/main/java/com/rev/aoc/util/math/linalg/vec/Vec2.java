@@ -1,4 +1,4 @@
-package com.rev.aoc.util.math.linear.vec;
+package com.rev.aoc.util.math.linalg.vec;
 
 import lombok.Getter;
 
