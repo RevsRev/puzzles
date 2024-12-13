@@ -3,6 +3,7 @@ package com.rev.aoc.framework.problem;
 import lombok.Getter;
 
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 @Getter
@@ -56,5 +57,19 @@ public final class AocCoordinate implements Comparable<AocCoordinate> {
     @Override
     public String toString() {
         return String.format("%s:%s", year, day);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AocCoordinate that = (AocCoordinate) o;
+        return year == that.year && day == that.day;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, day);
     }
 }

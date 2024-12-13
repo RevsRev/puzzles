@@ -1,9 +1,8 @@
 package com.rev.aoc;
 
-import com.rev.aoc.framework.io.cli.CliParser;
 import com.rev.aoc.framework.AocEngine;
+import com.rev.aoc.framework.io.cli.CliParser;
 import com.rev.aoc.framework.io.load.AocInputLoader;
-import lombok.Getter;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -17,7 +16,6 @@ import java.util.ServiceLoader;
 public final class Main {
 
     public static final String PROPERTIES_FILE = "aoc.properties";
-    @Getter
     private static AocInputLoader inputLoader;
 
     private Main() {
@@ -33,20 +31,27 @@ public final class Main {
         engine.run();
     }
 
+    public static AocInputLoader getInputLoader() {
+        if (inputLoader == null) {
+            loadAocProblemLoader();
+        }
+        return inputLoader;
+    }
+
     private static void loadAocProblemLoader() {
         ServiceLoader<AocInputLoader> inputLoaders = ServiceLoader.load(AocInputLoader.class);
         long count = inputLoaders.stream().count();
         if (count > 1) {
-            System.out.println("WARNING: Multiple AocInputLoader instances found.");
+            System.out.println("[\u001B[31mWARNING\u001B[0m] Multiple AocInputLoader instances found.");
         }
         Optional<AocInputLoader> inputLoaderOptional = inputLoaders.findFirst();
         if (inputLoaderOptional.isEmpty()) {
-            throw new RuntimeException("No AocInputLoader found");
+            throw new RuntimeException("[\u001B[31mFatal\u001B[0m] No AocInputLoader found");
         }
 
         inputLoader = inputLoaderOptional.get();
         if (count > 1) {
-            System.out.println("WARNING: Loaded " + inputLoader.getClass().getName());
+            System.out.println("[\u001B[31mWARNING\u001B[0m] Loaded " + inputLoader.getClass().getName());
         }
 
     }
