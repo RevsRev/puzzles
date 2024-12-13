@@ -11,6 +11,11 @@ import java.util.List;
 import java.util.function.Function;
 
 public final class D13 extends AocProblem {
+
+    public static final int PART_ONE_LIMIT = 100;
+    public static final double EPSILON = 0.0001;
+    public static final long PART_TWO_ERROR = 10000000000000L;
+
     @Override
     public AocCoordinate getCoordinate() {
         return new AocCoordinate(2024, 13);
@@ -27,7 +32,7 @@ public final class D13 extends AocProblem {
         return computeCost(solvers, D13::validResultPartTwo);
     }
 
-    private long computeCost(List<SimultaneousSolver> solvers, Function<Double, Boolean> validator) {
+    private long computeCost(final List<SimultaneousSolver> solvers, final Function<Double, Boolean> validator) {
         long cost = 0;
         for (SimultaneousSolver solver : solvers) {
             if (solver.canSolve()) {
@@ -42,18 +47,18 @@ public final class D13 extends AocProblem {
     }
 
     private static boolean validResultPartOne(double x) {
-        return x >= 0 && x <= 100 && isInteger(x);
+        return x >= 0 && x <= PART_ONE_LIMIT && isInteger(x);
     }
     private static boolean validResultPartTwo(double x) {
         return x >= 0 && isInteger(x);
     }
     private static boolean isInteger(double x) {
-        return Math.abs(x - Math.round(x)) < 0.0001;
+        return Math.abs(x - Math.round(x)) < EPSILON;
     }
 
     private List<SimultaneousSolver> loadSolvers(boolean partTwo) {
         List<String> lines = loadResources();
-        long amountExtra = partTwo ? 10000000000000L: 0;
+        long amountExtra = partTwo ? PART_TWO_ERROR : 0;
         List<SimultaneousSolver> retval = new ArrayList<>(lines.size() / 3);
         for (int i = 0; i < lines.size(); i += 4) {
             String[] aStr = lines.get(i)

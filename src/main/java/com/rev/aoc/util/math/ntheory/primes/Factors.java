@@ -3,11 +3,11 @@ package com.rev.aoc.util.math.ntheory.primes;
 
 import com.rev.aoc.util.math.ntheory.util.Pow;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.HashMap;
 
 public final class Factors {
 

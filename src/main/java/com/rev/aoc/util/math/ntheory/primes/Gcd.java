@@ -4,43 +4,53 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("checkstyle:MagicNumber")
 public final class Gcd {
 
     private Gcd() {
     }
 
-    public static long euclid(long a, long b) {
-        if (a < b) {
-            long c = a;
-            a = b;
-            b = c;
+    public static long gcd(long a, long b) {
+        List<long[]> steps = euclid(a, b);
+        if (steps.isEmpty()) {
+            return -1;
         }
-
-        if (a == 0) {
-            return b;
-        }
-        if (b == 0) {
-            return a;
-        }
-
-        long rem = a % b;
-        while (rem != 0) {
-            a = b;
-            b = rem;
-            rem = a % b;
-        }
-        return b;
+        return steps.get(steps.size() - 1)[3];
     }
 
-    /**
-     * Returns the steps of Euclid's algorithm as a list of arrays of the form [a,b,q,r]
-     *
-     * <p>If the input is invalid, then an empty result is returned.
-     */
+    public static List<long[]> euclid(long a, long b) {
+        if (b < a) {
+            return euclid(b, a);
+        }
+
+        if (a <= 0 || b <= 0) {
+            return new ArrayList<>();
+        }
+
+        List<long[]> retval = new ArrayList<>();
+        do {
+            long r = a % b;
+            long q = a / b;
+            retval.add(new long[] {a, b, q, r});
+            a = b;
+            b = r;
+        } while (b != 0);
+        return retval;
+    }
+
+
+    public static BigInteger gcd(final BigInteger a, final BigInteger b) {
+        List<BigInteger[]> steps = euclid(a, b);
+        if (steps.isEmpty()) {
+            return BigInteger.ZERO.subtract(BigInteger.ONE);
+        }
+        return steps.get(steps.size() - 1)[3];
+    }
+
     @SuppressWarnings("checkstyle:FinalParameters")
     public static List<BigInteger[]> euclid(BigInteger a,
                                             BigInteger b) {
-        if (b.compareTo(a) == 1) {
+        if (b.compareTo(a) > 0) {
             return euclid(b, a);
         }
 

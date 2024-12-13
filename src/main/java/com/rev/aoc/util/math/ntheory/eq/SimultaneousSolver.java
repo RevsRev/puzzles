@@ -3,6 +3,7 @@ package com.rev.aoc.util.math.ntheory.eq;
 import com.rev.aoc.util.math.linalg.matrix.Mat2;
 import com.rev.aoc.util.math.linalg.vec.Vec2;
 
+@SuppressWarnings("checkstyle:MagicNumber")
 public final class SimultaneousSolver {
 
     /**
@@ -12,7 +13,7 @@ public final class SimultaneousSolver {
     private final Mat2 lhs;
     private final Vec2 rhs;
 
-    public SimultaneousSolver(Mat2 lhs, Vec2 rhs) {
+    public SimultaneousSolver(final Mat2 lhs, final Vec2 rhs) {
         this.lhs = lhs;
         this.rhs = rhs;
     }

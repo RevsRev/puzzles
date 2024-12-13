@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@SuppressWarnings("checkstyle:MagicNumber")
 public final class DiophantineSolver {
 
     private final BigInteger a;
