@@ -1,6 +1,7 @@
 package com.rev.aoc.framework.problem;
 
-import com.rev.aoc.framework.io.load.ResourceReader;
+import com.rev.aoc.framework.io.load.AocInputLoader;
+import com.rev.aoc.framework.io.load.AocInputLoaderFile;
 import com.rev.aoc.vis.VisualisationException;
 
 import java.io.IOException;
@@ -8,8 +9,7 @@ import java.util.List;
 
 public abstract class AocProblem {
 
-    private static final String AOC_RESOURCES_PATH = System.getProperty("user.dir") + "/problems";
-    private static final ResourceReader RESOURCE_READER = new ResourceReader(AOC_RESOURCES_PATH);
+    private static final AocInputLoader LOADER = new AocInputLoaderFile();
 
     public abstract AocCoordinate getCoordinate();
     protected abstract long partOneImpl();
@@ -83,7 +83,7 @@ public abstract class AocProblem {
 
     protected final List<String> loadResources() {
         try {
-            return RESOURCE_READER.readLines(getCoordinate());
+            return LOADER.load(getCoordinate());
         } catch (IOException e) {
             String msg = String.format("Could not load resource for problem %s", getCoordinate());
             throw new ProblemExecutionException(msg, e);
