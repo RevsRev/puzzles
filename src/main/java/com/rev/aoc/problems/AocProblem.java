@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.util.List;
 
 public abstract class AocProblem {
+
     public abstract AocCoordinate getCoordinate();
+    protected abstract long partOneImpl();
+    protected abstract long partTwoImpl();
 
     public final long partOne() {
         try {
@@ -38,10 +41,6 @@ public abstract class AocProblem {
         String message = String.format("Execution of problem %s part %s failed", getCoordinate(), part);
         throw new ProblemExecutionException(message, e);
     }
-
-
-    protected abstract long partOneImpl();
-    protected abstract long partTwoImpl();
 
     protected final char[][] loadResourcesAsCharMatrix() {
         List<String> lines = loadResources();
