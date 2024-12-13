@@ -1,4 +1,4 @@
-package com.rev.aoc.problems;
+package com.rev.aoc.framework.problem;
 
 public final class ProblemExecutionException extends RuntimeException {
 

@@ -1,7 +1,7 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.AocCoordinate;
-import com.rev.aoc.problems.AocProblem;
+import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.problem.AocProblem;
 
 import java.util.Iterator;
 import java.util.Map;

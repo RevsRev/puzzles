@@ -1,8 +1,9 @@
-package com.rev.aoc.util;
+package com.rev.aoc.framework.io.load;
 
-import com.rev.aoc.AocCoordinate;
+import com.rev.aoc.framework.problem.AocCoordinate;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,28 +12,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ResourceReader {
-
-    private static final String AOC_RESOURCES_PATH = "problems";
     private static final int TEN = 10;
 
-    private ResourceReader() {
+    private final String basePath;
+
+    public ResourceReader(final String basePath) {
+        this.basePath = basePath;
     }
 
-    public static List<String> readLines(final AocCoordinate coordinate) throws IOException {
-        String resource = String.format("%s/y%s/D%s.txt", AOC_RESOURCES_PATH,
-                coordinate.getYear(), pad(coordinate.getDay()));
-        return readLines(resource);
+    public List<String> readLines(final AocCoordinate coordinate) throws IOException {
+        return readLines(String.format("y%s/D%s.txt", coordinate.getYear(), pad(coordinate.getDay())));
     }
 
-    public static List<String> readLines(final String resourcePath) throws IOException {
-        return readLines(resourcePath, ResourceReader.class.getClassLoader());
+    public List<String> readLines(final String fileName) throws IOException {
+        String fullyQualifiedName = String.format("%s/%s", basePath, fileName);
+        return readLines(fullyQualifiedName, ResourceReader.class.getClassLoader());
     }
 
-    public static List<String> readLines(final String resourcePath, final ClassLoader classLoader) throws IOException {
+    public List<String> readLines(final String resourcePath, final ClassLoader classLoader) throws IOException {
         List<String> lines = new ArrayList<>();
         InputStream is = null;
         try {
-            is = classLoader.getResourceAsStream(resourcePath);
+            is = new FileInputStream(resourcePath);
+//            is = classLoader.getResourceAsStream(resourcePath);
             if (is == null) {
                 throw new FileNotFoundException(resourcePath);
             }

@@ -1,6 +1,6 @@
-package com.rev.aoc.cli;
+package com.rev.aoc.framework.io.cli;
 
-import com.rev.aoc.AocPart;
+import com.rev.aoc.framework.problem.AocPart;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 

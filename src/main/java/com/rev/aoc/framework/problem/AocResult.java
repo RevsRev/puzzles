@@ -1,6 +1,5 @@
-package com.rev.aoc.util;
+package com.rev.aoc.framework.problem;
 
-import com.rev.aoc.AocCoordinate;
 import lombok.Getter;
 import lombok.Setter;
 

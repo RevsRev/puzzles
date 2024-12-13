@@ -1,10 +1,12 @@
-package com.rev.aoc;
+package com.rev.aoc.framework;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
-import com.rev.aoc.problems.AocProblem;
-import com.rev.aoc.util.AocResult;
-import com.rev.aoc.util.AocResultPrinter;
+import com.rev.aoc.framework.io.AocResultPrinter;
+import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.problem.AocPart;
+import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocResult;
 import com.rev.aoc.vis.VisualisationException;
 import lombok.Setter;
 

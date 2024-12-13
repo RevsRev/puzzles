@@ -1,4 +1,4 @@
-package com.rev.aoc;
+package com.rev.aoc.framework.problem;
 
 import lombok.Getter;
 

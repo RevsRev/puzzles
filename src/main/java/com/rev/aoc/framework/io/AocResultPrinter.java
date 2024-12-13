@@ -1,6 +1,7 @@
-package com.rev.aoc.util;
+package com.rev.aoc.framework.io;
 
-import com.rev.aoc.AocCoordinate;
+import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.problem.AocResult;
 
 import java.io.PrintWriter;
 

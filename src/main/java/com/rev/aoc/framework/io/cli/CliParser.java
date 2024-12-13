@@ -1,8 +1,8 @@
-package com.rev.aoc.cli;
+package com.rev.aoc.framework.io.cli;
 
-import com.rev.aoc.AocCoordinate;
-import com.rev.aoc.AocEngine;
-import com.rev.aoc.AocPart;
+import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.AocEngine;
+import com.rev.aoc.framework.problem.AocPart;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;

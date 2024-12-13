@@ -1,7 +1,7 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.AocCoordinate;
-import com.rev.aoc.problems.AocProblem;
+import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.util.math.linalg.matrix.Mat2;
 import com.rev.aoc.util.math.linalg.vec.Vec2;
 import com.rev.aoc.util.math.ntheory.eq.SimultaneousSolver;
