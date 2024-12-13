@@ -1,4 +1,4 @@
-package com.rev.aoc.util.math.ntheory.diophantine;
+package com.rev.aoc.util.math.ntheory.eq.diophantine;
 
 import com.rev.aoc.util.math.ntheory.primes.Gcd;
 
