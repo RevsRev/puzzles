@@ -79,8 +79,8 @@ public final class D13 extends AocProblem {
                     Double.parseDouble(aStr[1]),
                     Double.parseDouble(bStr[1]));
             Vec2 rhs = new Vec2(
-                    Double.parseDouble(cStr[0] + amountExtra),
-                    Double.parseDouble(cStr[1] + amountExtra));
+                    Double.parseDouble(cStr[0]) + amountExtra,
+                    Double.parseDouble(cStr[1]) + amountExtra);
             retval.add(new SimultaneousSolver(lhs, rhs));
         }
         return retval;
