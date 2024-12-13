@@ -1,6 +1,6 @@
 package com.rev.aoc.framework;
 
-import com.rev.aoc.framework.io.AocResultPrinter;
+import com.rev.aoc.framework.io.display.AocResultPrinter;
 import com.rev.aoc.framework.problem.AocResult;
 
 public final class ExecutorListenerPrinter implements ExecutorListener {
