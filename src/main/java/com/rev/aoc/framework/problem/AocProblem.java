@@ -1,15 +1,12 @@
 package com.rev.aoc.framework.problem;
 
-import com.rev.aoc.framework.io.load.AocInputLoader;
-import com.rev.aoc.framework.io.load.AocInputLoaderFile;
+import com.rev.aoc.Main;
 import com.rev.aoc.vis.VisualisationException;
 
 import java.io.IOException;
 import java.util.List;
 
 public abstract class AocProblem {
-
-    private static final AocInputLoader LOADER = new AocInputLoaderFile();
 
     public abstract AocCoordinate getCoordinate();
     protected abstract long partOneImpl();
@@ -83,7 +80,7 @@ public abstract class AocProblem {
 
     protected final List<String> loadResources() {
         try {
-            return LOADER.load(getCoordinate());
+            return Main.getInputLoader().load(getCoordinate());
         } catch (IOException e) {
             String msg = String.format("Could not load resource for problem %s", getCoordinate());
             throw new ProblemExecutionException(msg, e);
