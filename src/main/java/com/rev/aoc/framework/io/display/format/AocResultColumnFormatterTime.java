@@ -12,19 +12,42 @@ public final class AocResultColumnFormatterTime extends AocResultColumnFormatter
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected String formatImpl(final AocResult result) {
-        if (result.getError().isPresent()) {
+        long time = getTime(result);
+        if (time == -1) {
             return "";
+        }
+        return Long.toString(time);
+    }
+
+    @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
+    protected String getColor(final AocResult result) {
+        long time = getTime(result);
+        if (time == -1) {
+            return BLACK;
+        }
+        if (time < 500 * 1000 * 1000) {
+            return GREEN;
+        }
+        return RED;
+    }
+
+    @SuppressWarnings("checkstyle:MagicNumber")
+    private long getTime(final AocResult result) {
+        if (result.getError().isPresent()) {
+            return -1;
         }
         if (AocPart.ONE.equals(part)) {
             if (result.getPartOneTime().isEmpty()) {
-                return "";
+                return -1;
             }
-            return Long.toString(result.getPartOneTime().get());
+            return result.getPartOneTime().get();
         }
         if (result.getPartTwoTime().isEmpty()) {
-            return "";
+            return -1;
         }
-        return Long.toString(result.getPartTwoTime().get());
+        return result.getPartTwoTime().get();
     }
 }
