@@ -1,0 +1,59 @@
+package com.rev.aoc.framework;
+
+import com.rev.aoc.framework.problem.AocPart;
+import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocResult;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public final class AocExecutor {
+
+    private final AocPart part;
+    private final ExecutorListener executorListener;
+
+    public AocExecutor(final AocPart part,
+                       final ExecutorListener executorListener) {
+        this.part = part;
+        this.executorListener = executorListener;
+    }
+
+    public List<Throwable> solve(final Iterable<AocProblem> problems) {
+        executorListener.executorStarted();
+        List<Throwable> errors = new ArrayList<>();
+        for (AocProblem problem : problems) {
+            AocResult result;
+            result = solve(problem);
+            if (result.getError().isPresent()) {
+                errors.add(result.getError().get());
+            }
+            executorListener.executorSolved(result);
+        }
+        executorListener.executorStopped();
+        return errors;
+    }
+
+    private AocResult solve(final AocProblem problem) {
+        try {
+            AocResult.Builder builder = new AocResult.Builder();
+            builder.setCoordinate(problem.getCoordinate());
+            if (AocPart.ALL.equals(part) || AocPart.ONE.equals(part)) {
+                long time = System.nanoTime();
+                long result = problem.partOne();
+                time = System.nanoTime() - time;
+                builder.setPartOne(result);
+                builder.setPartOneTime(time);
+            }
+            if (AocPart.ALL.equals(part) || AocPart.TWO.equals(part)) {
+                long time = System.nanoTime();
+                long result = problem.partTwo();
+                time = System.nanoTime() - time;
+                builder.setPartTwo(result);
+                builder.setPartTwoTime(time);
+            }
+            return builder.build();
+        } catch (Throwable t) {
+            return AocResult.error(problem.getCoordinate(), t);
+        }
+    }
+}

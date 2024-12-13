@@ -2,15 +2,11 @@ package com.rev.aoc.framework;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
-import com.rev.aoc.framework.io.AocResultPrinter;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocPart;
 import com.rev.aoc.framework.problem.AocProblem;
-import com.rev.aoc.framework.problem.AocResult;
-import com.rev.aoc.vis.VisualisationException;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NavigableMap;
@@ -21,8 +17,8 @@ public final class AocEngine implements Runnable {
     private static final String AOC_PROBLEMS_PACKAGE = "com.rev.aoc.problems";
     private final AocCoordinate firstAocCoordinate;
     private final AocCoordinate secondAocCoordinate;
-    private final AocPart part;
-    private final AocResultPrinter printer = new AocResultPrinter();
+    private final AocExecutor executor;
+    private final AocVisualiser visualiser;
 
     @Setter
     private boolean debug = false;
@@ -34,7 +30,8 @@ public final class AocEngine implements Runnable {
                      final AocPart part) {
         this.firstAocCoordinate = firstAocCoordinate;
         this.secondAocCoordinate = secondAocCoordinate;
-        this.part = part;
+        this.visualiser = new AocVisualiser();
+        this.executor = new AocExecutor(part, new ExecutorListenerPrinter());
     }
 
 
@@ -46,11 +43,16 @@ public final class AocEngine implements Runnable {
             return;
         }
         if (visualise) {
-            visualise(problemsInRange.values());
+            List<Throwable> errors = visualiser.visualise(problemsInRange.values());
+            printErrors(errors);
             return;
         }
 
-        List<Throwable> errors = solveAndPrint(problemsInRange.values());
+        List<Throwable> errors = executor.solve(problemsInRange.values());
+        printErrors(errors);
+    }
+
+    private void printErrors(final List<Throwable> errors) {
         for (int i = 0; i < errors.size() && debug; i++) {
             errors.get(i).printStackTrace(System.out);
         }
@@ -75,58 +77,7 @@ public final class AocEngine implements Runnable {
             toKey = fromKey;
         }
 
-        SortedMap<AocCoordinate, AocProblem> problemsInRange = problems.subMap(fromKey, true, toKey, true);
-        return problemsInRange;
-    }
-
-    private void visualise(final Iterable<AocProblem> problems) {
-        for (AocProblem problem : problems) {
-            try {
-                problem.visualiseProblem();
-            } catch (VisualisationException e) {
-                System.out.println(e.getMessage());
-                if (debug) {
-                    e.printStackTrace(System.out);
-                }
-            }
-        }
-    }
-
-    private List<Throwable> solveAndPrint(final Iterable<AocProblem> problems) {
-        List<Throwable> errors = new ArrayList<>();
-        for (AocProblem problem : problems) {
-            AocResult result;
-            result = solve(problem);
-            if (result.getError().isPresent()) {
-                errors.add(result.getError().get());
-            }
-            printer.printResult(result);
-        }
-        printer.printSeparator();
-        return errors;
-    }
-    private AocResult solve(final AocProblem problem) {
-        try {
-            AocResult.Builder builder = new AocResult.Builder();
-            builder.setCoordinate(problem.getCoordinate());
-            if (AocPart.ALL.equals(part) || AocPart.ONE.equals(part)) {
-                long time = System.nanoTime();
-                long result = problem.partOne();
-                time = System.nanoTime() - time;
-                builder.setPartOne(result);
-                builder.setPartOneTime(time);
-            }
-            if (AocPart.ALL.equals(part) || AocPart.TWO.equals(part)) {
-                long time = System.nanoTime();
-                long result = problem.partTwo();
-                time = System.nanoTime() - time;
-                builder.setPartTwo(result);
-                builder.setPartTwoTime(time);
-            }
-            return builder.build();
-        } catch (Throwable t) {
-            return AocResult.error(problem.getCoordinate(), t);
-        }
+        return problems.subMap(fromKey, true, toKey, true);
     }
 
     private NavigableMap<AocCoordinate, AocProblem> loadProblems() {
