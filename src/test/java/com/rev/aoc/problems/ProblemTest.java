@@ -14,14 +14,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 
-public class ProblemTest {
+public final class ProblemTest {
 
     private static final AocProblemLoader loader = new AocProblemLoader();
     private static final SortedMap<AocCoordinate, AocProblem> allProblems = loader.loadProblemsInRange(null, null);
 
     @ParameterizedTest
     @MethodSource("getHappyPaths")
-    public void testAocSolutions(Map.Entry<AocCoordinate, Pair<Long, Long>> problemAndResult) {
+    public void testAocSolutions(final Map.Entry<AocCoordinate, Pair<Long, Long>> problemAndResult) {
         AocCoordinate key = problemAndResult.getKey();
         AocProblem solution = allProblems.get(key);
         if (solution == null) {
@@ -65,6 +65,7 @@ public class ProblemTest {
         expectedResults.put(new AocCoordinate(2024, 10), Pair.of(36L,81L));
         expectedResults.put(new AocCoordinate(2024, 11), Pair.of(55312L,65601038650482L));
         expectedResults.put(new AocCoordinate(2024, 12), Pair.of(1930L,1206L));
+        expectedResults.put(new AocCoordinate(2024, 14), Pair.of(12L,1206L));
         return expectedResults;
     }
 
