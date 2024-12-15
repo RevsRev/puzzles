@@ -43,6 +43,10 @@ public abstract class AocProblem {
 
     protected final char[][] loadResourcesAsCharMatrix() {
         List<String> lines = loadResources();
+        return linesToCharMatrix(lines);
+    }
+
+    protected static char[][] linesToCharMatrix(final List<String> lines) {
         char[][] arr = new char[lines.size()][];
         for (int i = 0; i < lines.size(); i++) {
             arr[i] = lines.get(i).toCharArray();
@@ -64,7 +68,12 @@ public abstract class AocProblem {
     }
 
     protected final char[] loadResourcesAsCharArray() {
-        char[][] charMatrix = loadResourcesAsCharMatrix();
+        List<String> lines = loadResources();
+        return linesToCharArray(lines);
+    }
+
+    protected static char[] linesToCharArray(final List<String> lines) {
+        char[][] charMatrix = linesToCharMatrix(lines);
         int size = 0;
         for (int i = 0; i < charMatrix.length; i++) {
             size += charMatrix[i].length;
