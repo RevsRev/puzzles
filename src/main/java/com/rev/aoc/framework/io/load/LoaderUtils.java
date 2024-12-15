@@ -52,9 +52,9 @@ public final class LoaderUtils {
         return retval;
     }
 
-    public static <T> T[][] loadResourcesAsArray(final List<String> lines,
-                                                 final T[][] emptyArray,
-                                                 final Function<String, T[]> splitter) {
+    public static <T> T[][] loadResourcesAsMatrix(final List<String> lines,
+                                                  final T[][] emptyArray,
+                                                  final Function<String, T[]> splitter) {
         T[][] values = Arrays.copyOf(emptyArray, lines.size());
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);

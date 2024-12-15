@@ -1,12 +1,11 @@
 package com.rev.aoc.problems.y2024;
 
+import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
@@ -26,7 +25,7 @@ public final class D14 extends AocProblem {
 
     @Override
     protected long partOneImpl() {
-        Integer[][] posAndVels = loadResourcesAsArray(new Integer[][]{}, splitter());
+        Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(loadResources(), new Integer[][]{}, splitter());
 
         Map<Pair<Integer, Integer>, Integer> robotPositions =
                 calculateRobotPositions(posAndVels, PART_ONE_TIME, PART_ONE_WIDTH, PART_ONE_HEIGHT);
@@ -52,7 +51,7 @@ public final class D14 extends AocProblem {
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
     protected long partTwoImpl() {
-        Integer[][] posAndVels = loadResourcesAsArray(new Integer[][]{}, splitter());
+        Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(loadResources(), new Integer[][]{}, splitter());
         Scanner s = new Scanner(System.in);
 //        for (int i = 11; i < PART_TWO_LIMIT; i += 101) {
 //            //from inspection... 11, 112, 213, 314, ... look interesting
@@ -82,16 +81,6 @@ public final class D14 extends AocProblem {
         }
         System.out.println();
         System.out.println();
-    }
-
-    public <T> T[][] loadResourcesAsArray(final T[][] emptyArray, final Function<String, T[]> splitter) {
-        List<String> lines = loadResources();
-        T[][] values = Arrays.copyOf(emptyArray, lines.size());
-        for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i);
-            values[i] = splitter.apply(line);
-        }
-        return values;
     }
 
     private static Map<Pair<Integer, Integer>, Integer> calculateRobotPositions(final Integer[][] posAndVels,
