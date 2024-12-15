@@ -1,5 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
+import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import org.apache.commons.lang3.tuple.Pair;
@@ -21,7 +22,7 @@ public final class D08 extends AocProblem {
 
     @Override
     protected long partOneImpl() {
-        char[][] grid = loadResourcesAsCharMatrix();
+        char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(loadResources());
         int height = grid.length;
         int width = grid[0].length;
 
@@ -37,7 +38,7 @@ public final class D08 extends AocProblem {
 
     @Override
     protected long partTwoImpl() {
-        char[][] grid = loadResourcesAsCharMatrix();
+        char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(loadResources());
         int height = grid.length;
         int width = grid[0].length;
 

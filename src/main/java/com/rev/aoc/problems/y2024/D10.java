@@ -1,5 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
+import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import org.apache.commons.lang3.tuple.Pair;
@@ -17,7 +18,7 @@ public final class D10 extends AocProblem {
 
     @Override
     protected long partOneImpl() {
-        int[][] map = loadResourcesAsIntMatrix();
+        int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources());
         int height = map.length;
         int width = map[0].length;
 
@@ -36,7 +37,7 @@ public final class D10 extends AocProblem {
 
     @Override
     protected long partTwoImpl() {
-        int[][] map = loadResourcesAsIntMatrix();
+        int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources());
         int height = map.length;
         int width = map[0].length;
 

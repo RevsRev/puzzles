@@ -41,52 +41,6 @@ public abstract class AocProblem {
         throw new ProblemExecutionException(message, e);
     }
 
-    protected final char[][] loadResourcesAsCharMatrix() {
-        List<String> lines = loadResources();
-        return linesToCharMatrix(lines);
-    }
-
-    protected static char[][] linesToCharMatrix(final List<String> lines) {
-        char[][] arr = new char[lines.size()][];
-        for (int i = 0; i < lines.size(); i++) {
-            arr[i] = lines.get(i).toCharArray();
-        }
-        return arr;
-    }
-
-    protected final int[][] loadResourcesAsIntMatrix() {
-        List<String> lines = loadResources();
-        int[][] arr = new int[lines.size()][];
-        for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i);
-            arr[i] = new int[line.length()];
-            for (int j = 0; j < lines.size(); j++) {
-                arr[i][j] = Character.getNumericValue(line.charAt(j));
-            }
-        }
-        return arr;
-    }
-
-    protected final char[] loadResourcesAsCharArray() {
-        List<String> lines = loadResources();
-        return linesToCharArray(lines);
-    }
-
-    protected static char[] linesToCharArray(final List<String> lines) {
-        char[][] charMatrix = linesToCharMatrix(lines);
-        int size = 0;
-        for (int i = 0; i < charMatrix.length; i++) {
-            size += charMatrix[i].length;
-        }
-        char[] retval = new char[size];
-        for (int i = 0; i < charMatrix.length; i++) {
-            for (int j = 0; j < charMatrix[i].length; j++) {
-                retval[i * charMatrix[i].length + j] = charMatrix[i][j];
-            }
-        }
-        return retval;
-    }
-
     protected final List<String> loadResources() {
         try {
             return Main.getInputLoader().load(getCoordinate());

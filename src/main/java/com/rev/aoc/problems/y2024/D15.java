@@ -1,5 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
+import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import org.apache.commons.lang3.tuple.Pair;
@@ -191,7 +192,7 @@ public final class D15 extends AocProblem {
 
         List<String> warehouse = strings.subList(0, blankLineIndex);
         List<String> moves = strings.subList(blankLineIndex + 1, strings.size());
-        return Pair.of(linesToCharMatrix(warehouse), linesToCharArray(moves));
+        return Pair.of(LoaderUtils.linesToCharMatrix(warehouse), LoaderUtils.linesToCharArray(moves));
 
     }
 }

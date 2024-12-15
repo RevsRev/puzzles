@@ -1,5 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
+import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 
@@ -19,7 +20,7 @@ public final class D09 extends AocProblem {
 
     @Override
     protected long partOneImpl() {
-        char[] diskMap = loadResourcesAsCharArray();
+        char[] diskMap = LoaderUtils.loadResourcesAsCharArray(loadResources());
         int[] disk = loadDisk(diskMap);
         moveFileBlocksPartOne(disk);
         return checksum(disk);
@@ -27,7 +28,7 @@ public final class D09 extends AocProblem {
 
     @Override
     protected long partTwoImpl() {
-        char[] diskMap = loadResourcesAsCharArray();
+        char[] diskMap = LoaderUtils.loadResourcesAsCharArray(loadResources());
         int[] disk = loadDisk(diskMap);
         moveFileBlocksPartTwo(disk);
         return checksum(disk);
