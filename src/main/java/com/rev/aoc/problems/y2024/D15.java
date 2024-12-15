@@ -120,13 +120,6 @@ public final class D15 extends AocProblem {
             return canMove(warehouse, i + dir[0], j + dir[1], dir, false);
         }
 
-        if (cellChar == '[' && nextChar == ']') {
-            return false;
-        }
-        if (cellChar == ']' && nextChar == '[') {
-            return false;
-        }
-
         int neighbourDir = cellChar == '[' ? 1 : -1;
         if (checkingNeighbour) {
             if (nextChar == '.') {
