@@ -4,7 +4,6 @@ import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.io.Console;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -135,6 +134,7 @@ public final class D14 extends AocProblem {
     private boolean inQuadrant(final Pair<Integer, Integer> key, int width, int height) {
         return key.getLeft() == width / 2 || key.getRight() == height / 2;
     }
+    @SuppressWarnings("checkstyle:MagicNumber")
     private Optional<Pair<Integer, Integer>> getQuadrant(final Pair<Integer, Integer> key, int width, int height) {
         int xMiddle = width / 2;
         int yMiddle = height / 2;
