@@ -6,7 +6,6 @@ import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.util.geom.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -37,6 +36,7 @@ public final class D16 extends AocProblem {
         return endScores.values().stream().min(Long::compare).get();
     }
 
+    @SuppressWarnings("checkstyle:MagicNumber")
     @Override
     protected long partTwoImpl() {
         return -1L;

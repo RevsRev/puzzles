@@ -70,7 +70,7 @@ public final class LoaderUtils {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (arr[i][j] == c) {
-                    return new int[]{i ,j};
+                    return new int[]{i, j};
                 }
             }
         }
