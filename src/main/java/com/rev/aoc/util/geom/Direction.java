@@ -14,7 +14,7 @@ public enum Direction implements Iterable<Direction> {
     DOWN(1, 0),
     LEFT(0, -1);
 
-    public static final Direction[] DIRECTIONS = new Direction[]{
+    private static final Direction[] DIRECTIONS = new Direction[]{
             Direction.UP,
             Direction.RIGHT,
             Direction.DOWN,
