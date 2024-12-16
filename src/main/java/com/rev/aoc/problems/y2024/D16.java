@@ -39,7 +39,63 @@ public final class D16 extends AocProblem {
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
     protected long partTwoImpl() {
-        return -1L;
+        List<String> lines = loadResources();
+        char[][] maze = LoaderUtils.linesToCharMatrix(lines);
+        int[] start = LoaderUtils.findOneAndOnly(maze, START_CHAR);
+        int[] end = LoaderUtils.findOneAndOnly(maze, END_CHAR);
+
+        Map<Direction, Long>[][] scores = computeScore(maze, start, Direction.RIGHT);
+        Map<Direction, Long> endScores = scores[end[0]][end[1]];
+        long minScore = endScores.values().stream().min(Long::compare).get();
+
+        Set<Pair<Integer, Integer>> optimalTiles = new HashSet<>();
+        for (Map.Entry<Direction, Long> entry : endScores.entrySet()) {
+            if (entry.getValue() == minScore) {
+                backTrack(scores, end, entry.getKey(), optimalTiles);
+            }
+        }
+        return optimalTiles.size();
+    }
+
+    private void backTrack(final Map<Direction, Long>[][] scores,
+                           final int[] position,
+                           final Direction direction,
+                           final Set<Pair<Integer, Integer>> optimalTiles) {
+        optimalTiles.add(Pair.of(position[0], position[1]));
+        if (scores[position[0]][position[1]].get(direction) == 0) {
+            return;
+        }
+
+        Direction dir = direction;
+        final long score = scores[position[0]][position[1]].get(direction);
+
+        //First check if we've rotated on this same spot
+        for (int dirIndex = 0; dirIndex < Direction.DIRECTIONS.length; dirIndex++) {
+            int i = position[0];
+            int j = position[1];
+
+            long rotationCost = 0;
+            if (dirIndex != 0) {
+                rotationCost += ROT_COST;
+            }
+            if (dirIndex == 2) {
+                rotationCost += ROT_COST;
+            }
+
+            long targetScore = score - rotationCost;
+            if (dirIndex != 0 && scores[i][j].get(dir) == targetScore) {
+                backTrack(scores, position, dir, optimalTiles);
+            }
+            dir = Direction.previous(dir);
+        }
+
+        //Now check if we could have come from an adjacent cell
+        long targetScore = score - 1;
+        int prevI = position[0] - dir.getI();
+        int prevJ = position[1] - dir.getJ();
+        if (scores[prevI][prevJ].containsKey(dir) && scores[prevI][prevJ].get(dir) == targetScore) {
+            backTrack(scores, new int[]{prevI, prevJ}, dir, optimalTiles);
+        }
     }
 
     private Map<Direction, Long>[][] computeScore(final char[][] maze, final int[] start, final Direction direction) {

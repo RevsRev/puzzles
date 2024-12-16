@@ -33,7 +33,7 @@ public enum Direction {
     }
     @SuppressWarnings("checkstyle:MagicNumber")
     public static Direction previous(final Direction d) {
-        return add(d, -1);
+        return add(d, 3);
     }
     public static Direction next(final Direction d) {
         return add(d, 1);
