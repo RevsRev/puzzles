@@ -107,46 +107,48 @@ public final class D16 extends AocProblem {
         int width = maze[0].length;
         Map<Direction, Long>[][] scores = LoaderUtils.emptyArray(new Map[1][1], height, width, () -> new HashMap());
 
-        long rotScore = 0;
-        int numRotations = 0;
-        for (Direction dir : direction) {
-            scores[start[0]][start[1]].put(dir, getRotationCost(numRotations));
-            numRotations++;
-        }
-
         Set<Pair<Integer, Integer>> frontiere = new HashSet<>();
-        frontiere.add(Pair.of(start[0], start[1]));
+
+        int i = start[0];
+        int j = start[1];
+        updateScores(direction, scores, i, j, 0, frontiere);
+
         while (!frontiere.isEmpty()) {
             Set<Pair<Integer, Integer>> nextFrontiere = new HashSet<>();
             Iterator<Pair<Integer, Integer>> it = frontiere.iterator();
             while (it.hasNext()) {
                 Pair<Integer, Integer> front = it.next();
-                for (Direction outerDir : Direction.UP) {
-                    Direction dir = outerDir;
+                for (Direction dir : Direction.UP) {
                     int nextI = front.getLeft() + dir.getI();
                     int nextJ = front.getRight() + dir.getJ();
                     if (maze[nextI][nextJ] == '#') {
                         continue;
                     }
-                    Map<Direction, Long> cellScores = scores[nextI][nextJ];
-                    long cellScore = scores[front.getLeft()][front.getRight()].get(dir) + 1;
-                    for (int i = 0; i < Direction.DIRECTIONS.length; i++) {
-                        long bestCellScore = cellScores.getOrDefault(dir, Long.MAX_VALUE);
-                        if (cellScore < bestCellScore) {
-                            cellScores.put(dir, cellScore);
-                            nextFrontiere.add(Pair.of(nextI, nextJ));
-                        }
-                        dir = Direction.next(dir);
-                        if (i == 2) { //hacky, tidy up later
-                            cellScore -= ROT_COST;
-                        } else {
-                            cellScore += ROT_COST;
-                        }
-                    }
+                    long startCellScore = scores[front.getLeft()][front.getRight()].get(dir) + 1;
+                    updateScores(dir, scores, nextI, nextJ, startCellScore, nextFrontiere);
                 }
             }
             frontiere = nextFrontiere;
         }
         return scores;
+    }
+
+    private static void updateScores(final Direction direction,
+                                     final Map<Direction, Long>[][] scores,
+                                     final int i,
+                                     final int j,
+                                     final long startCellScore,
+                                     final Set<Pair<Integer, Integer>> frontiere) {
+        Map<Direction, Long> startCellScores = scores[i][j];
+        int numRotations = 0;
+        for (Direction dir : direction) {
+            long bestCellScore = startCellScores.getOrDefault(dir, Long.MAX_VALUE);
+            long cellScore = startCellScore + getRotationCost(numRotations);
+            if (cellScore < bestCellScore) {
+                startCellScores.put(dir, cellScore);
+                frontiere.add(Pair.of(i, j));
+            }
+            numRotations++;
+        }
     }
 }
