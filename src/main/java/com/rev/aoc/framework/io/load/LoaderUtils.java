@@ -3,6 +3,7 @@ package com.rev.aoc.framework.io.load;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public final class LoaderUtils {
 
@@ -61,5 +62,32 @@ public final class LoaderUtils {
             values[i] = splitter.apply(line);
         }
         return values;
+    }
+
+    public static int[] findOneAndOnly(final char[][] arr, char c) {
+        int height = arr.length;
+        int width = arr[0].length;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (arr[i][j] == c) {
+                    return new int[]{i ,j};
+                }
+            }
+        }
+        return null;
+    }
+
+    public static <T> T[][] emptyArray(final T[][] unitEmptyArray,
+                                       int height,
+                                       int width,
+                                       final Supplier<T> initializer) {
+        T[][] retval = Arrays.copyOf(unitEmptyArray, height);
+        for (int i = 0; i < height; i++) {
+            retval[i] = Arrays.copyOf(unitEmptyArray[0], width);
+            for (int j = 0; j < width; j++) {
+                retval[i][j] = initializer.get();
+            }
+        }
+        return retval;
     }
 }

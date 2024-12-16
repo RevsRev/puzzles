@@ -8,13 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public final class UnitCell<T> {
+import static com.rev.aoc.util.geom.Direction.DIRECTIONS;
 
-    public static final Direction[] DIRECTIONS = new Direction[]{
-            Direction.UP,
-            Direction.RIGHT,
-            Direction.DOWN,
-            Direction.LEFT};
+public final class UnitCell<T> {
 
     /**
      * Border vectors go clockwise around the unit cell
@@ -43,7 +39,7 @@ public final class UnitCell<T> {
 
     public void addNeighbour(final UnitCell<T> neighbour, final Direction dir) {
         neighbours.put(dir, neighbour);
-        neighbour.neighbours.put(opposite(dir), this);
+        neighbour.neighbours.put(Direction.opposite(dir), this);
     }
 
     public long area(final Set<UnitCell<T>> visited) {
@@ -135,7 +131,7 @@ public final class UnitCell<T> {
             }
 
             //remove the border they share in common, and link the other sides...
-            Direction opposite = opposite(dir);
+            Direction opposite = Direction.opposite(dir);
             BorderVector side = borders.remove(dir);
             BorderVector neighbourOpposite = neighbour.borders.remove(opposite);
 
@@ -164,42 +160,6 @@ public final class UnitCell<T> {
         directions.get(Direction.LEFT).setPrevious(directions.get(Direction.DOWN));
         directions.get(Direction.LEFT).setNext(directions.get(Direction.UP));
         return directions;
-    }
-
-    private static Direction opposite(final Direction d) {
-        return add(d, 2);
-    }
-    @SuppressWarnings("checkstyle:MagicNumber")
-    private static Direction previous(final Direction d) {
-        return add(d, -1);
-    }
-    private static Direction next(final Direction d) {
-        return add(d, 1);
-    }
-    private static Direction add(final Direction d, final int amount) {
-        for (int i = 0; i < DIRECTIONS.length; i++) {
-            if (DIRECTIONS[i] == d) {
-                return DIRECTIONS[ (i + amount) % 4];
-            }
-        }
-        return null;
-    }
-
-    @Getter
-    public enum Direction {
-
-        UP(-1, 0),
-        RIGHT(0, -1),
-        DOWN(1, 0),
-        LEFT(0, 1);
-
-        private final int i;
-        private final int j;
-
-        Direction(int i, int j) {
-            this.i = i;
-            this.j = j;
-        }
     }
 
     public static final class BorderVector {

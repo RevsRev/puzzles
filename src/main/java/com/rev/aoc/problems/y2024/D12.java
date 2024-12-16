@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.util.geom.Direction;
 import com.rev.aoc.util.geom.UnitCell;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -68,7 +69,7 @@ public final class D12 extends AocProblem {
         //link cells
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < height; j++) {
-                for (UnitCell.Direction dir : UnitCell.DIRECTIONS) {
+                for (Direction dir : Direction.DIRECTIONS) {
                     int nextI = i + dir.getI();
                     int nextJ = j + dir.getJ();
 
