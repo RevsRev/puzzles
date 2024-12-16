@@ -2,8 +2,12 @@ package com.rev.aoc.util.geom;
 
 import lombok.Getter;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 @Getter
-public enum Direction {
+public enum Direction implements Iterable<Direction> {
 
     UP(-1, 0),
     RIGHT(0, 1),
@@ -16,12 +20,19 @@ public enum Direction {
             Direction.DOWN,
             Direction.LEFT};
 
+    private static final List<Direction> DIRECTIONS_LIST = List.of(DIRECTIONS);
+
     private final int i;
     private final int j;
 
     Direction(int i, int j) {
         this.i = i;
         this.j = j;
+    }
+
+    @Override
+    public Iterator<Direction> iterator() {
+        return new DirectionIterator(this);
     }
 
     public static Direction get(int dirIndex) {
@@ -45,5 +56,33 @@ public enum Direction {
             }
         }
         return null;
+    }
+
+    private static final class DirectionIterator implements Iterator<Direction> {
+        private Direction start;
+        private Direction current;
+
+        private DirectionIterator(final Direction direction) {
+            start = direction;
+            current = direction;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public Direction next() {
+            if (current == null) {
+                throw new NoSuchElementException();
+            }
+            Direction curr = current;
+            current = Direction.next(current);
+            if (current == start) {
+                current = null;
+            }
+            return curr;
+        }
     }
 }

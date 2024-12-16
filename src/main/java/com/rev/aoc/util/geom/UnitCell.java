@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static com.rev.aoc.util.geom.Direction.DIRECTIONS;
-
 public final class UnitCell<T> {
 
     /**
@@ -119,8 +117,7 @@ public final class UnitCell<T> {
     }
 
     public void mergeBorders() {
-        for (int dirIndex = 0; dirIndex < DIRECTIONS.length; dirIndex++) {
-            Direction dir = DIRECTIONS[dirIndex];
+        for (Direction dir : Direction.UP) {
             if (!neighbours.containsKey(dir) || neighbours.get(dir) == null || !borders.containsKey(dir)) {
                 continue;
                 //can't merge / have already merged

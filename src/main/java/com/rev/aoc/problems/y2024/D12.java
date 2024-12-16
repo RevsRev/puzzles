@@ -69,7 +69,7 @@ public final class D12 extends AocProblem {
         //link cells
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < height; j++) {
-                for (Direction dir : Direction.DIRECTIONS) {
+                for (Direction dir : Direction.UP) {
                     int nextI = i + dir.getI();
                     int nextJ = j + dir.getJ();
 

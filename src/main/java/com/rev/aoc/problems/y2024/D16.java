@@ -66,36 +66,40 @@ public final class D16 extends AocProblem {
             return;
         }
 
-        Direction dir = direction;
         final long score = scores[position[0]][position[1]].get(direction);
 
         //First check if we've rotated on this same spot
-        for (int dirIndex = 0; dirIndex < Direction.DIRECTIONS.length; dirIndex++) {
+        int numRotations = 0;
+        for (Direction dir : direction) {
             int i = position[0];
             int j = position[1];
 
-            long rotationCost = 0;
-            if (dirIndex != 0) {
-                rotationCost += ROT_COST;
-            }
-            if (dirIndex == 2) {
-                rotationCost += ROT_COST;
-            }
-
+            long rotationCost = getRotationCost(numRotations);
             long targetScore = score - rotationCost;
-            if (dirIndex != 0 && scores[i][j].get(dir) == targetScore) {
+            if (numRotations != 0 && scores[i][j].get(dir) == targetScore) {
                 backTrack(scores, position, dir, optimalTiles);
             }
-            dir = Direction.previous(dir);
+            numRotations++;
         }
 
         //Now check if we could have come from an adjacent cell
         long targetScore = score - 1;
-        int prevI = position[0] - dir.getI();
-        int prevJ = position[1] - dir.getJ();
-        if (scores[prevI][prevJ].containsKey(dir) && scores[prevI][prevJ].get(dir) == targetScore) {
-            backTrack(scores, new int[]{prevI, prevJ}, dir, optimalTiles);
+        int prevI = position[0] - direction.getI();
+        int prevJ = position[1] - direction.getJ();
+        if (scores[prevI][prevJ].containsKey(direction) && scores[prevI][prevJ].get(direction) == targetScore) {
+            backTrack(scores, new int[]{prevI, prevJ}, direction, optimalTiles);
         }
+    }
+
+    private static long getRotationCost(int numRotations) {
+        long rotationCost = 0;
+        if (numRotations != 0) {
+            rotationCost += ROT_COST;
+        }
+        if (numRotations == 2) {
+            rotationCost += ROT_COST;
+        }
+        return rotationCost;
     }
 
     private Map<Direction, Long>[][] computeScore(final char[][] maze, final int[] start, final Direction direction) {
@@ -103,16 +107,11 @@ public final class D16 extends AocProblem {
         int width = maze[0].length;
         Map<Direction, Long>[][] scores = LoaderUtils.emptyArray(new Map[1][1], height, width, () -> new HashMap());
 
-        Direction dir = direction;
         long rotScore = 0;
-        for (int i = 0; i < Direction.DIRECTIONS.length; i++) {
-            scores[start[0]][start[1]].put(dir, rotScore);
-            dir = Direction.next(dir);
-            if (i == 2) { //hacky, tidy up later
-                rotScore -= ROT_COST;
-            } else {
-                rotScore += ROT_COST;
-            }
+        int numRotations = 0;
+        for (Direction dir : direction) {
+            scores[start[0]][start[1]].put(dir, getRotationCost(numRotations));
+            numRotations++;
         }
 
         Set<Pair<Integer, Integer>> frontiere = new HashSet<>();
@@ -122,8 +121,8 @@ public final class D16 extends AocProblem {
             Iterator<Pair<Integer, Integer>> it = frontiere.iterator();
             while (it.hasNext()) {
                 Pair<Integer, Integer> front = it.next();
-                for (int dirIndex = 0; dirIndex < Direction.DIRECTIONS.length; dirIndex++) {
-                    dir = Direction.get(dirIndex);
+                for (Direction outerDir : Direction.UP) {
+                    Direction dir = outerDir;
                     int nextI = front.getLeft() + dir.getI();
                     int nextJ = front.getRight() + dir.getJ();
                     if (maze[nextI][nextJ] == '#') {
