@@ -68,6 +68,7 @@ public final class ProblemTest {
         expectedResults.put(new AocCoordinate(2024, 14), Pair.of(21L, 7687L)); //TODO - Make better?
         expectedResults.put(new AocCoordinate(2024, 15), Pair.of(10092L, 9021L));
         expectedResults.put(new AocCoordinate(2024, 16), Pair.of(11048L, 64L));
+        expectedResults.put(new AocCoordinate(2024, 17), Pair.of(4635635210L, 64L));
         return expectedResults;
     }
 

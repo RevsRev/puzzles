@@ -16,34 +16,39 @@ public final class D17 extends AocProblem {
     private static final int OUT = 5;
     private static final int BDV = 6;
     private static final int CDV = 7;
+    public static final int UNSOLVED_RETURN_VAL = -1;
 
     @Override
     public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2024, 7);
+        return new AocCoordinate(2024, 17);
     }
 
     @Override
     protected long partOneImpl() {
         Computer comp = loadResourcesAsComputer();
-        return 0;
+        final StringBuilder sb = new StringBuilder();
+        comp.listener = i -> sb.append(i).append(",");
+        comp.start();
+//        sb.toString(); TODO - CHANGE FRAMEWORK TO ALLOW FOR DIFFERENT TYPES OF RETURN VALUE
+        return UNSOLVED_RETURN_VAL;
     }
 
     @Override
     protected long partTwoImpl() {
-        return 0;
+        return UNSOLVED_RETURN_VAL;
     }
 
     private Computer loadResourcesAsComputer() {
         List<String> lines = loadResources();
         int registerA = Integer.parseInt(lines.get(0)
-                .trim().replace("\\s+", "").replace("RegisterA:", "").toString());
+                .trim().replaceAll("\\s+", "").replaceAll("RegisterA:", ""));
         int registerB = Integer.parseInt(lines.get(1)
-                .trim().replace("\\s+", "").replace("RegisterB:", "").toString());
+                .trim().replaceAll("\\s+", "").replaceAll("RegisterB:", ""));
         int registerC = Integer.parseInt(lines.get(2)
-                .trim().replace("\\s+", "").replace("RegisterC:", "").toString());
+                .trim().replaceAll("\\s+", "").replaceAll("RegisterC:", ""));
 
-        String[] programStrs = lines.get(3)
-                .replace("\\s+", "").replace("Program:", "").split(",");
+        String[] programStrs = lines.get(4)
+                .replaceAll("\\s+", "").replaceAll("Program:", "").split(",");
         int[] program = new int[programStrs.length];
         for (int i = 0; i < program.length; i++) {
             program[i] = Integer.parseInt(programStrs[i]);
@@ -70,30 +75,30 @@ public final class D17 extends AocProblem {
             this.program = program;
         }
 
-        private void start() {
+        public void start() {
             while (stackPointer < program.length) {
-                int instructionCode = program[stackPointer];
+                int opCode = program[stackPointer];
                 int operand = program[stackPointer + 1];
-                execute(instructionCode, operand);
+                execute(opCode, operand);
             }
         }
-        private void execute(final int instructionCode, final int operand) {
-            if (instructionCode == ADV) {
+        private void execute(final int opCode, final int operand) {
+            if (opCode == ADV) {
                 registerA = registerA /  (1 << comboOperand(operand));
                 stackPointer += 2;
                 return;
             }
-            if (instructionCode == BXL) {
+            if (opCode == BXL) {
                 registerB = registerB ^ operand;
                 stackPointer += 2;
                 return;
             }
-            if (instructionCode == BST) {
-                registerB = (comboOperand(operand) % 8) & 7;
+            if (opCode == BST) {
+                registerB = comboOperand(operand) % 8;
                 stackPointer += 2;
                 return;
             }
-            if (instructionCode == JNZ) {
+            if (opCode == JNZ) {
                 if (registerA == 0) {
                     stackPointer += 2;
                     return;
@@ -101,24 +106,24 @@ public final class D17 extends AocProblem {
                 stackPointer = operand;
                 return;
             }
-            if (instructionCode == BXC) {
+            if (opCode == BXC) {
                 registerB = registerB ^ registerC;
                 stackPointer += 2;
                 return;
             }
-            if (instructionCode == OUT) {
+            if (opCode == OUT) {
                 int output = comboOperand(operand) % 8;
                 out(output);
                 stackPointer += 2;
                 return;
             }
-            if (instructionCode == BDV) {
-                registerB = registerB /  (1 << comboOperand(operand));
+            if (opCode == BDV) {
+                registerB = registerA / (1 << comboOperand(operand));
                 stackPointer += 2;
                 return;
             }
-            if (instructionCode == CDV) {
-                registerC = registerC /  (1 << comboOperand(operand));
+            if (opCode == CDV) {
+                registerC = registerA / (1 << comboOperand(operand));
                 stackPointer += 2;
             }
         }
