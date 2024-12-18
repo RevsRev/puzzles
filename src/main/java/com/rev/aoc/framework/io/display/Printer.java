@@ -6,18 +6,17 @@ import com.rev.aoc.framework.io.display.format.AocResultColumnFormatterError;
 import com.rev.aoc.framework.io.display.format.AocResultColumnFormatterSolution;
 import com.rev.aoc.framework.io.display.format.AocResultColumnFormatterTime;
 import com.rev.aoc.framework.io.display.format.AocResultColumnFormatterYear;
+import com.rev.aoc.framework.io.display.format.ColumnFormatter;
 import com.rev.aoc.framework.problem.AocPart;
-import com.rev.aoc.framework.problem.AocResult;
 
 import java.io.PrintWriter;
 
-public final class AocResultPrinter {
-
+public class Printer<T> {
     private static final char WHITE_SPACE = ' ';
     private static final char SEPARATOR = '-';
     private static final char DELIMETER = '|';
 
-    private static final AocResultColumnFormatter[] COLS = new AocResultColumnFormatter[]{
+    public static final AocResultColumnFormatter[] AOC_RESULT_COLS = new AocResultColumnFormatter[]{
             new AocResultColumnFormatterYear("Year", 6, WHITE_SPACE),
             new AocResultColumnFormatterDay("Day", 6, WHITE_SPACE),
             new AocResultColumnFormatterSolution("PartOne", 20, WHITE_SPACE, AocPart.ONE),
@@ -26,11 +25,16 @@ public final class AocResultPrinter {
             new AocResultColumnFormatterTime("PartTwoTime", 20, WHITE_SPACE, AocPart.TWO),
             new AocResultColumnFormatterError("Error", 50, WHITE_SPACE),
     };
+    private final ColumnFormatter<T>[] cols;
 
     private boolean firstPass = true;
     private PrintWriter printWriter = new PrintWriter(System.out);
 
-    public void printResult(final AocResult result) {
+    public Printer(final ColumnFormatter<T>[] cols) {
+        this.cols = cols;
+    }
+
+    public final void printResult(final T result) {
         if (firstPass) {
             printHeader();
             firstPass = false;
@@ -39,40 +43,39 @@ public final class AocResultPrinter {
         printWriter.flush();
     }
 
+    public final void printSeparator() {
+        printWriter.println(separator());
+        printWriter.flush();
+    }
     private void printHeader() {
         printSeparator();
         printWriter.println(header());
         printWriter.flush();
         printSeparator();
     }
-    public void printSeparator() {
-        printWriter.println(separator());
-        printWriter.flush();
-    }
-
-    private String format(final AocResult result) {
+    private String format(final T result) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < COLS.length; i++) {
+        for (int i = 0; i < cols.length; i++) {
             sb.append(DELIMETER);
-            sb.append(COLS[i].format(result));
+            sb.append(cols[i].format(result));
         }
         sb.append(DELIMETER);
         return sb.toString();
     }
     private String header() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < COLS.length; i++) {
+        for (int i = 0; i < cols.length; i++) {
             sb.append(DELIMETER);
-            sb.append(COLS[i].header());
+            sb.append(cols[i].header());
         }
         sb.append(DELIMETER);
         return sb.toString();
     }
     private String separator() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < COLS.length; i++) {
+        for (int i = 0; i < cols.length; i++) {
             sb.append(DELIMETER);
-            sb.append(COLS[i].separator(SEPARATOR));
+            sb.append(cols[i].separator(SEPARATOR));
         }
         sb.append(DELIMETER);
         return sb.toString();
