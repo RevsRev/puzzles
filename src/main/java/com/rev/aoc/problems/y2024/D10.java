@@ -18,7 +18,7 @@ public final class D10 extends AocProblem {
 
     @Override
     protected long partOneImpl() {
-        int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources());
+        int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(), s -> s.split(""));
         int height = map.length;
         int width = map[0].length;
 
@@ -37,7 +37,7 @@ public final class D10 extends AocProblem {
 
     @Override
     protected long partTwoImpl() {
-        int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources());
+        int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(), s -> s.split(""));
         int height = map.length;
         int width = map[0].length;
 

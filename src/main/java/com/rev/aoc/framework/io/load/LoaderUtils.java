@@ -22,13 +22,14 @@ public final class LoaderUtils {
         return arr;
     }
 
-    public static int[][] loadResourcesAsIntMatrix(final List<String> lines) {
+    public static int[][] loadResourcesAsIntMatrix(final List<String> lines, Function<String, String[]> lineSplitter) {
         int[][] arr = new int[lines.size()][];
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
-            arr[i] = new int[line.length()];
-            for (int j = 0; j < lines.size(); j++) {
-                arr[i][j] = Character.getNumericValue(line.charAt(j));
+            String[] split = lineSplitter.apply(line);
+            arr[i] = new int[split.length];
+            for (int j = 0; j < split.length; j++) {
+                arr[i][j] = Integer.parseInt(split[j]);
             }
         }
         return arr;
@@ -48,6 +49,21 @@ public final class LoaderUtils {
         for (int i = 0; i < charMatrix.length; i++) {
             for (int j = 0; j < charMatrix[i].length; j++) {
                 retval[i * charMatrix[i].length + j] = charMatrix[i][j];
+            }
+        }
+        return retval;
+    }
+
+    public static int[] linesToIntArray(final List<String> lines, Function<String, String[]> lineSplitter) {
+        int[][] intMatrix = loadResourcesAsIntMatrix(lines, lineSplitter);
+        int size = 0;
+        for (int i = 0; i < intMatrix.length; i++) {
+            size += intMatrix[i].length;
+        }
+        int[] retval = new int[size];
+        for (int i = 0; i < intMatrix.length; i++) {
+            for (int j = 0; j < intMatrix[i].length; j++) {
+                retval[i * intMatrix[i].length + j] = intMatrix[i][j];
             }
         }
         return retval;
@@ -75,6 +91,18 @@ public final class LoaderUtils {
             }
         }
         return null;
+    }
+
+    public static int[][] emptyIntArray(int height,
+                                       int width) {
+        int[][] retval = new int[height][width];
+        for (int i = 0; i < height; i++) {
+            retval[i] = new int[width];
+            for (int j = 0; j < width; j++) {
+                retval[i][j] = 0;
+            }
+        }
+        return retval;
     }
 
     public static <T> T[][] emptyArray(final T[][] unitEmptyArray,
