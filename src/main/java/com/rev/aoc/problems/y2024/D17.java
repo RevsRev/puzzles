@@ -4,15 +4,25 @@ import com.rev.aoc.framework.io.display.Printer;
 import com.rev.aoc.framework.io.display.format.ColumnFormatter;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
-import com.rev.aoc.util.math.ntheory.util.Pow;
 import com.rev.aoc.vis.VisualisationException;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeSet;
 import java.util.function.Consumer;
 
 public final class D17 extends AocProblem {
+
+    private static final int DEBUG_LIMIT = 17;
+
+    private static final int FIRST_BIT_FLAG = 1;
+    private static final int SECOND_BIT_FLAG = FIRST_BIT_FLAG << 1;
+    private static final int THIRD_BIT_FLAG = SECOND_BIT_FLAG << 1;
+    private static final int[] CHECK_FLAGS = new int[]{FIRST_BIT_FLAG, SECOND_BIT_FLAG, THIRD_BIT_FLAG};
 
     private static final int ADV = 0;
     private static final int BXL = 1;
@@ -43,71 +53,109 @@ public final class D17 extends AocProblem {
     protected long partTwoImpl() {
         Computer comp = loadResourcesAsComputer();
         InputChecker checker = new InputChecker(comp.program);
-        checker.check(0);
-        comp.setPrettyPrint();
-        comp.registerA = (int) checker.regA;
-        final StringBuilder sb = new StringBuilder();
-        comp.listener = i -> sb.append(i).append(",");
+        checker.check(comp.program.length - 1, 0, 0);
+        long solution = checker.getSmallestSolution();
+        comp.reset(solution, 0, 0);
         comp.start();
-        System.out.print(Arrays.toString(comp.program));
-        System.out.println(sb);
-        return checker.regA;
+        return checker.getSmallestSolution();
     }
 
     private static final class InputChecker {
-        private long regA = 0;
-        private long checkedBits = 0;
+        private final TreeSet<Long> solutions = new TreeSet<>();
         private final int[] program;
 
         private InputChecker(final int[] program) {
             this.program = program;
         }
 
-        private boolean check(final int prgIndex) {
-            int programIndex = prgIndex;
-            if (programIndex == program.length) {
-                return true;
+        @SuppressWarnings("checkstyle:MagicNumber")
+        public long getSmallestSolution() {
+            if (solutions.isEmpty()) {
+                return -1;
             }
-
-            int shift = 3 * programIndex;
-            for (long candidateC = 0; candidateC < 8; candidateC++) {
-                final long bNot3 = program[programIndex] ^ candidateC;
-                final long b = bNot3 ^ 3;
-                final long bNot5 = b ^ 5;
-                final long checkedBNot5 = (regA >> (bNot5 + shift)) % 8;
-                if (checkedBNot5 != 0) {
-                    long compare = (regA >> (bNot5 + shift)) % 8;
-                    if (compare != candidateC) {
-                        continue;
-                    }
-                }
-                regA |= (candidateC << (bNot5 + shift));
-                checkedBits |= (7 << (bNot5 + shift));
-
-                long checkedB = (checkedBits >> shift) % 8;
-                if (checkedB != 0) {
-                    long compare = (regA >> shift) & 8;
-                    if ((checkedB & b) != (checkedB & compare)) {
-                        clearAbove(shift);
-                        continue;
-                    }
-                }
-
-                checkedBits |= (7 << shift);
-                regA |= b;
-
-                if (check(programIndex + 1)) {
-                    return true;
-                }
-                clearAbove(shift);
-            }
-            return false;
+            return solutions.first();
         }
 
-        private void clearAbove(int shift) {
-            long clearFlags = (Long.MAX_VALUE >> shift);
-            checkedBits &= clearFlags;
-            regA &= clearFlags;
+        public void check(final int prgIndex, long regA, long checkedBits) {
+            int programIndex = prgIndex;
+            if (programIndex == limit()) {
+                if (regA < 0) {
+                    return; //throw invalid solutions for now
+                }
+                solutions.add(regA);
+                return;
+            }
+
+            regA = regA << 3;
+            checkedBits = checkedBits << 3;
+
+            TreeSet<Pair<Integer, Integer>> solutionPairs = THREE_BIT_XOR_SOLUTIONS.get(program[programIndex]);
+            for (Pair<Integer, Integer> solutionPair : solutionPairs) {
+                long regAcpy = regA;
+                long checkedBitsCpy = checkedBits;
+
+                int bNot3 = solutionPair.getLeft();
+                int b = bNot3 ^ 3;
+                int bNot5 = b ^ 5;
+                int c = solutionPair.getRight();
+
+                int cShift = bNot5;
+
+                regAcpy |= b;
+                checkedBitsCpy |= 7;
+
+                if (!check3bitSegmentMatches(checkedBitsCpy, regAcpy, c, cShift)) {
+                    continue;
+                }
+
+                regAcpy |= (c << cShift);
+                checkedBitsCpy |= (7 << cShift);
+
+                check(programIndex - 1, regAcpy, checkedBitsCpy);
+            }
+        }
+
+        @SuppressWarnings("checkstyle:MagicNumber")
+        private int limit() {
+            return Math.max(-1, program.length - 1 - DEBUG_LIMIT);
+        }
+
+        private static final Map<Integer, TreeSet<Pair<Integer, Integer>>> THREE_BIT_XOR_SOLUTIONS =
+                computeThreeBitXorSolutions();
+
+        private static Map<Integer, TreeSet<Pair<Integer, Integer>>> computeThreeBitXorSolutions() {
+            Map<Integer, TreeSet<Pair<Integer, Integer>>> solutions = new HashMap<>();
+            for (int i = 0; i < 8; i++) {
+                solutions.put(i, computeThreeBitXorSolutions(i));
+            }
+            return solutions;
+        }
+
+        private static TreeSet<Pair<Integer, Integer>> computeThreeBitXorSolutions(int target) {
+            TreeSet<Pair<Integer, Integer>> solutions = new TreeSet<>(
+                    Comparator.comparingInt(i -> (i.getLeft() ^ 5)));
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if ((i ^ j) == target) {
+                        solutions.add(Pair.of(i, j));
+                    }
+                }
+            }
+            return solutions;
+        }
+
+        private boolean check3bitSegmentMatches(long checkBits, long value, long proposed3bitValue, long shift) {
+            return check3BitsMatch(checkBits >> shift, proposed3bitValue, value >> shift);
+        }
+
+        private boolean check3BitsMatch(long checked, long proposedValue, long value) {
+            for (int checkFlag : CHECK_FLAGS) {
+                if ((checked & checkFlag) != 0
+                  && (proposedValue & checkFlag) != (value & checkFlag)) {
+                    return false;
+                }
+            }
+            return true;
         }
 
     }
@@ -175,22 +223,22 @@ public final class D17 extends AocProblem {
                         comp -> Integer.toString(comp.program[comp.stackPointer + 1])),
                 new ColumnFormatter.FuncColumnFormatter<Computer>(
                         "COMBO", 20, ' ',
-                        comp -> Integer.toString(comp.comboOperand(comp.program[comp.stackPointer + 1]))),
+                        comp -> Long.toString(comp.comboOperand(comp.program[comp.stackPointer + 1]))),
                 new ColumnFormatter.FuncColumnFormatter<Computer>(
-                        "A", 20, ' ', comp -> Integer.toString(comp.registerA)),
+                        "A", 20, ' ', comp -> Long.toString(comp.registerA)),
                 new ColumnFormatter.FuncColumnFormatter<Computer>(
-                        "B", 20, ' ', comp -> Integer.toString(comp.registerB)),
+                        "B", 20, ' ', comp -> Long.toString(comp.registerB)),
                 new ColumnFormatter.FuncColumnFormatter<Computer>(
-                        "C", 20, ' ', comp -> Integer.toString(comp.registerC))
+                        "C", 20, ' ', comp -> Long.toString(comp.registerC))
         };
 
-        private int registerA;
-        private int registerB;
-        private int registerC;
+        private long registerA;
+        private long registerB;
+        private long registerC;
         private final int[] program;
 
         private int stackPointer = 0;
-        private Consumer<Integer> listener = i -> { };
+        private Consumer<Long> listener = i -> { };
         private boolean print = false;
         private Printer<Computer> printer = new Printer<>(COMPUTER_COLS);
 
@@ -252,7 +300,7 @@ public final class D17 extends AocProblem {
                 return;
             }
             if (opCode == OUT) {
-                int output = comboOperand(operand) % 8;
+                long output = comboOperand(operand) % 8;
                 out(output);
                 stackPointer += 2;
                 return;
@@ -268,11 +316,18 @@ public final class D17 extends AocProblem {
             }
         }
 
-        private void out(int value) {
+        public void reset(long regA, long regB, long regC) {
+            registerA = regA;
+            registerB = regB;
+            registerC = regC;
+            stackPointer = 0;
+        }
+
+        private void out(long value) {
             listener.accept(value);
         }
 
-        private int comboOperand(int operand) {
+        private long comboOperand(int operand) {
             if (operand <= 3) {
                 return operand;
             }
