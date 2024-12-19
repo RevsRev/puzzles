@@ -48,7 +48,7 @@ public final class D18 extends AocProblem {
     }
 
     private static Map<Pair<Integer, Integer>, Integer> getVisited(int limit, final int[] ints) {
-        int[][] mem = LoaderUtils.emptyIntArray(PROBLEM_HEIGHT, PROBLEM_WIDTH);
+        int[][] mem = LoaderUtils.emptyIntMatrix(PROBLEM_HEIGHT, PROBLEM_WIDTH);
         for (int i = 0; i < Math.min(2 * limit, ints.length); i += 2) {
             mem[ints[i + 1]][ints[i]] = CORRUPTED_FLAG;
         }

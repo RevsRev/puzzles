@@ -94,8 +94,8 @@ public final class LoaderUtils {
         return null;
     }
 
-    public static int[][] emptyIntArray(int height,
-                                       int width) {
+    public static int[][] emptyIntMatrix(int height,
+                                         int width) {
         int[][] retval = new int[height][width];
         for (int i = 0; i < height; i++) {
             retval[i] = new int[width];
@@ -106,16 +106,23 @@ public final class LoaderUtils {
         return retval;
     }
 
-    public static <T> T[][] emptyArray(final T[][] unitEmptyArray,
-                                       int height,
-                                       int width,
-                                       final Supplier<T> initializer) {
+    public static <T> T[][] emptyMatrix(final T[][] unitEmptyArray,
+                                        int height,
+                                        int width,
+                                        final Supplier<T> initializer) {
         T[][] retval = Arrays.copyOf(unitEmptyArray, height);
         for (int i = 0; i < height; i++) {
-            retval[i] = Arrays.copyOf(unitEmptyArray[0], width);
-            for (int j = 0; j < width; j++) {
-                retval[i][j] = initializer.get();
-            }
+            retval[i] = emptyArray(unitEmptyArray[0], width, initializer);
+        }
+        return retval;
+    }
+
+    public static <T> T[] emptyArray(final T[] unitEmptyArray,
+                                        int length,
+                                        final Supplier<T> initializer) {
+        T[] retval = Arrays.copyOf(unitEmptyArray, length);
+        for (int i = 0; i < length; i++) {
+            retval[i] = initializer.get();
         }
         return retval;
     }

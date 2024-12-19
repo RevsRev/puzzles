@@ -105,7 +105,7 @@ public final class D16 extends AocProblem {
     private Map<Direction, Long>[][] computeScore(final char[][] maze, final int[] start, final Direction direction) {
         int height = maze.length;
         int width = maze[0].length;
-        Map<Direction, Long>[][] scores = LoaderUtils.emptyArray(new Map[1][1], height, width, () -> new HashMap());
+        Map<Direction, Long>[][] scores = LoaderUtils.emptyMatrix(new Map[1][1], height, width, () -> new HashMap());
 
         Set<Pair<Integer, Integer>> frontiere = new HashSet<>();
 
