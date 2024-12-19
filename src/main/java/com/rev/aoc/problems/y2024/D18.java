@@ -23,14 +23,16 @@ public final class D18 extends AocProblem {
         return new AocCoordinate(2024, 18);
     }
 
+    @SuppressWarnings("checkstyle:MagicNumber")
     @Override
     protected long partOneImpl() {
         int[] ints = LoaderUtils.linesToIntArray(loadResources(), s -> s.split(","));
         int limit = 1024;
         final Map<Pair<Integer, Integer>, Integer> visited = getVisited(limit, ints);
-        return visited.get(Pair.of(PROBLEM_HEIGHT-1, PROBLEM_WIDTH-1));
+        return visited.get(Pair.of(PROBLEM_HEIGHT - 1, PROBLEM_WIDTH - 1));
     }
 
+    @SuppressWarnings("checkstyle:MagicNumber")
     @Override
     protected long partTwoImpl() {
         int[] ints = LoaderUtils.linesToIntArray(loadResources(), s -> s.split(","));
@@ -45,17 +47,17 @@ public final class D18 extends AocProblem {
         return start;
     }
 
-    private static Map<Pair<Integer, Integer>, Integer> getVisited(int limit, int[] ints) {
+    private static Map<Pair<Integer, Integer>, Integer> getVisited(int limit, final int[] ints) {
         int[][] mem = LoaderUtils.emptyIntArray(PROBLEM_HEIGHT, PROBLEM_WIDTH);
-        for (int i = 0; i < Math.min(2 * limit, ints.length); i+=2) {
-            mem[ints[i+1]][ints[i]] = CORRUPTED_FLAG;
+        for (int i = 0; i < Math.min(2 * limit, ints.length); i += 2) {
+            mem[ints[i + 1]][ints[i]] = CORRUPTED_FLAG;
         }
 
-        final Map<Pair<Integer, Integer>,Integer> visited = new HashMap<>();
+        final Map<Pair<Integer, Integer>, Integer> visited = new HashMap<>();
         visited.put(Pair.of(0, 0), 0);
 
         Set<Pair<Integer, Integer>> frontier = new HashSet<>();
-        frontier.add(Pair.of(0,0));
+        frontier.add(Pair.of(0, 0));
         while (!frontier.isEmpty()) {
             final Set<Pair<Integer, Integer>> nextFrontier = new HashSet<>();
             for (Pair<Integer, Integer> tile : frontier) {

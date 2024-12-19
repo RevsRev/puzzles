@@ -22,7 +22,8 @@ public final class LoaderUtils {
         return arr;
     }
 
-    public static int[][] loadResourcesAsIntMatrix(final List<String> lines, Function<String, String[]> lineSplitter) {
+    public static int[][] loadResourcesAsIntMatrix(final List<String> lines,
+                                                   final Function<String, String[]> lineSplitter) {
         int[][] arr = new int[lines.size()][];
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
@@ -54,7 +55,7 @@ public final class LoaderUtils {
         return retval;
     }
 
-    public static int[] linesToIntArray(final List<String> lines, Function<String, String[]> lineSplitter) {
+    public static int[] linesToIntArray(final List<String> lines, final Function<String, String[]> lineSplitter) {
         int[][] intMatrix = loadResourcesAsIntMatrix(lines, lineSplitter);
         int size = 0;
         for (int i = 0; i < intMatrix.length; i++) {
