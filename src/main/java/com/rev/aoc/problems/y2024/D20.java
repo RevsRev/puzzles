@@ -72,7 +72,8 @@ public final class D20 extends AocProblem {
                                                         final int j, int maxCheatHop) {
         Map<Integer, Integer> savedAmounts = new HashMap<>();
         for (int x = -maxCheatHop; x <= maxCheatHop; x++) {
-            for (int y = -maxCheatHop; y <= maxCheatHop; y++) {
+            int yLimit = maxCheatHop - Math.abs(x);
+            for (int y = -yLimit; y <= yLimit; y++) {
                 int taxiDistance = Math.abs(x) + Math.abs(y);
                 if (taxiDistance >= 1 && taxiDistance <= maxCheatHop
                     && 0 <= i + x && i + x < traversedState.length
