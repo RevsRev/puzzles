@@ -28,8 +28,8 @@ public final class D16 extends AocProblem {
     protected long partOneImpl() {
         List<String> lines = loadResources();
         char[][] maze = LoaderUtils.linesToCharMatrix(lines);
-        int[] start = LoaderUtils.findOneAndOnly(maze, START_CHAR);
-        int[] end = LoaderUtils.findOneAndOnly(maze, END_CHAR);
+        int[] start = LoaderUtils.findOne(maze, START_CHAR);
+        int[] end = LoaderUtils.findOne(maze, END_CHAR);
 
         Map<Direction, Long>[][] scores = computeScore(maze, start, Direction.RIGHT);
         Map<Direction, Long> endScores = scores[end[0]][end[1]];
@@ -41,8 +41,8 @@ public final class D16 extends AocProblem {
     protected long partTwoImpl() {
         List<String> lines = loadResources();
         char[][] maze = LoaderUtils.linesToCharMatrix(lines);
-        int[] start = LoaderUtils.findOneAndOnly(maze, START_CHAR);
-        int[] end = LoaderUtils.findOneAndOnly(maze, END_CHAR);
+        int[] start = LoaderUtils.findOne(maze, START_CHAR);
+        int[] end = LoaderUtils.findOne(maze, END_CHAR);
 
         Map<Direction, Long>[][] scores = computeScore(maze, start, Direction.RIGHT);
         Map<Direction, Long> endScores = scores[end[0]][end[1]];

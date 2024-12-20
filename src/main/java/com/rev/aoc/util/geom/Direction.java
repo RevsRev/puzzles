@@ -35,10 +35,34 @@ public enum Direction implements Iterable<Direction> {
         return new DirectionIterator(this);
     }
 
+    public Direction previous() {
+        return Direction.previous(this);
+    }
+
+    public Direction next() {
+        return Direction.next(this);
+    }
+
+    @SuppressWarnings("checkstyle:MagicNumber")
+    public static Direction of(int i, int j) {
+        if (i == -1 && j == 0) {
+            return UP;
+        }
+        if (i == 1 && j == 0) {
+            return DOWN;
+        }
+        if (i == 0 && j == 1) {
+            return RIGHT;
+        }
+        if (i == 0 && j == -1) {
+            return LEFT;
+        }
+        throw new NoSuchElementException(String.format("No direction for (i,j) = (%s,%s)", i, j));
+    }
+
     public static Direction get(int dirIndex) {
         return DIRECTIONS[dirIndex];
     }
-
     public static Direction opposite(final Direction d) {
         return add(d, 2);
     }

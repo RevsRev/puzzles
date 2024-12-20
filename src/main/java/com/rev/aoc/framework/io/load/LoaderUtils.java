@@ -24,13 +24,18 @@ public final class LoaderUtils {
 
     public static int[][] loadResourcesAsIntMatrix(final List<String> lines,
                                                    final Function<String, String[]> lineSplitter) {
+        return loadResourcesAsIntMatrix(lines, lineSplitter, Integer::parseInt);
+    }
+    public static int[][] loadResourcesAsIntMatrix(final List<String> lines,
+                                                   final Function<String, String[]> lineSplitter,
+                                                   final Function<String, Integer> stringParser) {
         int[][] arr = new int[lines.size()][];
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
             String[] split = lineSplitter.apply(line);
             arr[i] = new int[split.length];
             for (int j = 0; j < split.length; j++) {
-                arr[i][j] = Integer.parseInt(split[j]);
+                arr[i][j] = stringParser.apply(split[j]);
             }
         }
         return arr;
@@ -81,7 +86,19 @@ public final class LoaderUtils {
         return values;
     }
 
-    public static int[] findOneAndOnly(final char[][] arr, char c) {
+    public static int[] findOne(final char[][] arr, char c) {
+        int height = arr.length;
+        int width = arr[0].length;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (arr[i][j] == c) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return null;
+    }
+    public static int[] findOne(final int[][] arr, int c) {
         int height = arr.length;
         int width = arr[0].length;
         for (int i = 0; i < height; i++) {

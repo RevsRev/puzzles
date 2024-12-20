@@ -34,8 +34,8 @@ public final class D20 extends AocProblem {
     }
 
     private long solvePartOne(final char[][] chars, final int maxCheatHop) {
-        int[] start = LoaderUtils.findOneAndOnly(chars, 'S');
-        int[] end = LoaderUtils.findOneAndOnly(chars, 'E');
+        int[] start = LoaderUtils.findOne(chars, 'S');
+        int[] end = LoaderUtils.findOne(chars, 'E');
 
         final Integer[][] traversedState = new Integer[chars.length][chars[0].length];
 
