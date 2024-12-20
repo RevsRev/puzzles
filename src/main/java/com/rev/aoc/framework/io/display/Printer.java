@@ -20,9 +20,9 @@ public class Printer<T> {
             new AocResultColumnFormatterYear("Year", 6, WHITE_SPACE),
             new AocResultColumnFormatterDay("Day", 6, WHITE_SPACE),
             new AocResultColumnFormatterSolution("PartOne", 20, WHITE_SPACE, AocPart.ONE),
-            new AocResultColumnFormatterTime("PartOneTime", 20, WHITE_SPACE, AocPart.ONE),
+            new AocResultColumnFormatterTime("PartOneTime (ms)", 20, WHITE_SPACE, AocPart.ONE),
             new AocResultColumnFormatterSolution("PartTwo", 20, WHITE_SPACE, AocPart.TWO),
-            new AocResultColumnFormatterTime("PartTwoTime", 20, WHITE_SPACE, AocPart.TWO),
+            new AocResultColumnFormatterTime("PartTwoTime (ms)", 20, WHITE_SPACE, AocPart.TWO),
             new AocResultColumnFormatterError("Error", 50, WHITE_SPACE),
     };
     private final ColumnFormatter<T>[] cols;
