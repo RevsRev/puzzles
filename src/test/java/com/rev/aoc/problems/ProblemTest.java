@@ -71,6 +71,7 @@ public final class ProblemTest {
         expectedResults.put(new AocCoordinate(2024, 17), Pair.of(4635635210L, 105576L));
         expectedResults.put(new AocCoordinate(2024, 19), Pair.of(6L, 16L));
         expectedResults.put(new AocCoordinate(2024, 20), Pair.of(0L, 0L));
+        expectedResults.put(new AocCoordinate(2024, 21), Pair.of(126384L, 0L));
         return expectedResults;
     }
 
