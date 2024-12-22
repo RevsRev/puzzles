@@ -4,8 +4,10 @@ import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.util.geom.Direction;
 import com.rev.aoc.util.math.perm.Permutations;
+import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,6 +33,8 @@ public final class D21 extends AocProblem {
             (i, j) -> !(i == 3 && j == 0));
     private static final KeypadOperator ROBOT_KEYPAD = new KeypadOperator(ROBOT_KEYPAD_CHARS,
             (i, j) -> !(i == 0 && j == 0));
+    private static final int PART_ONE_DEPTH = 3;
+    private static final int PART_TWO_DEPTH = 27;
 
     @Override
     public AocCoordinate getCoordinate() {
@@ -42,7 +46,7 @@ public final class D21 extends AocProblem {
         List<String> codes = loadResources();
         long totalComplexity = 0;
         for (String code : codes) {
-            String s = solve(code);
+            String s = solve(code, PART_ONE_DEPTH);
             totalComplexity += getNumeric(code) * s.length();
         }
         return totalComplexity;
@@ -50,15 +54,21 @@ public final class D21 extends AocProblem {
 
     @Override
     protected long partTwoImpl() {
-        return 0;
+        List<String> codes = loadResources();
+        long totalComplexity = 0;
+//        for (String code : codes) {
+//            String s = solve(code, PART_TWO_DEPTH);
+//            totalComplexity += getNumeric(code) * s.length();
+//        }
+        return totalComplexity;
     }
 
     public long getNumeric(final String s) {
         return Long.parseLong(s.replaceAll("[^\\d.]", ""));
     }
 
-    public String solve(final String target) {
-        List<String> allSolutions = solve(target, 3, 0);
+    public String solve(final String target, int maxDepth) {
+        List<String> allSolutions = solve(target, maxDepth, 0);
         String minimumSolution = null;
         long minSolutionLength = Long.MAX_VALUE;
         for (String solution : allSolutions) {
@@ -69,9 +79,19 @@ public final class D21 extends AocProblem {
         }
         return minimumSolution;
     }
+
+    private static final Map<Triple<String, Integer, Integer>, List<String>> SOLUTION_CACHE = new HashMap();
+
     public List<String> solve(final String target, final int maxDepth, final int depth) {
+//        System.out.println(depth);
+        Triple<String, Integer, Integer> key = Triple.of(target, maxDepth, depth);
+        if (SOLUTION_CACHE.containsKey(key)) {
+            return SOLUTION_CACHE.get(key);
+        }
+
         if (depth == maxDepth) {
-            return List.of(target);
+            SOLUTION_CACHE.put(key, List.of(target));
+            return SOLUTION_CACHE.get(key);
         }
 
         final KeypadOperator keypadOperator = depth == 0 ? DOOR_KEYPAD : ROBOT_KEYPAD;
@@ -99,7 +119,8 @@ public final class D21 extends AocProblem {
             List<String> solved = solve(sb.toString(), maxDepth, depth + 1);
             uniqueSolutions.addAll(solved);
         }
-        return uniqueSolutions.stream().toList();
+        SOLUTION_CACHE.put(key, uniqueSolutions.stream().toList());
+        return SOLUTION_CACHE.get(key);
     }
 
     private static final class KeypadOperator {
@@ -149,15 +170,28 @@ public final class D21 extends AocProblem {
             int verticalAmount = Math.abs(endI - startI);
             int horizontalAmount = Math.abs(endJ - startJ);
 
-            Direction[] dirs = new Direction[verticalAmount + horizontalAmount];
+            Direction[] dirsVertFirst = new Direction[verticalAmount + horizontalAmount];
             for (int i = 0; i < verticalAmount; i++) {
-                dirs[i] = vertDir;
+                dirsVertFirst[i] = vertDir;
             }
             for (int i = verticalAmount; i < verticalAmount + horizontalAmount; i++) {
-                dirs[i] = horizDir;
+                dirsVertFirst[i] = horizDir;
+            }
+            Direction[] dirsHorizFirst = new Direction[verticalAmount + horizontalAmount];
+            for (int i = 0; i < horizontalAmount; i++) {
+                dirsHorizFirst[i] = horizDir;
+            }
+            for (int i = horizontalAmount; i < verticalAmount + horizontalAmount; i++) {
+                dirsHorizFirst[i] = vertDir;
             }
 
-            Collection<Direction[]> directions = Permutations.uniquePermutations(dirs);
+            Collection<Direction[]> directions = new ArrayList<>();
+            directions.add(dirsVertFirst);
+            if (Arrays.hashCode(dirsVertFirst) != Arrays.hashCode(dirsHorizFirst)) {
+                directions.add(dirsHorizFirst);
+            }
+
+//            Collection<Direction[]> directions = Permutations.uniquePermutations(dirsVertFirst);
 
             List<String> cacheStrings = new ArrayList<>(directions.size());
             for (Direction[] route : directions) {
