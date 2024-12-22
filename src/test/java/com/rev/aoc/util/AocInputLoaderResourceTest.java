@@ -17,7 +17,8 @@ public final class AocInputLoaderResourceTest {
         try {
             AocInputLoaderResource reader = new AocInputLoaderResource();
             List<String> lines = reader.load(new AocCoordinate(2010, 1));
-            Assertions.assertEquals(List.of("This problem does not exist.", "This file is used to test loading resources!"), lines);
+            Assertions.assertEquals(
+                    List.of("This problem does not exist.", "This file is used to test loading resources!"), lines);
         } catch (Exception e) {
             Assertions.fail(e);
         }

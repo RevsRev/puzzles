@@ -16,16 +16,17 @@ import java.util.SortedMap;
 
 public final class ProblemTest {
 
-    private static final AocProblemLoader loader = new AocProblemLoader();
-    private static final SortedMap<AocCoordinate, AocProblem> allProblems = loader.loadProblemsInRange(null, null);
+    private static final AocProblemLoader LOADER = new AocProblemLoader();
+    private static final SortedMap<AocCoordinate, AocProblem> ALL_PROBLEMS = LOADER.loadProblemsInRange(null, null);
 
     @ParameterizedTest
     @MethodSource("getHappyPaths")
     public void testAocSolutions(final Map.Entry<AocCoordinate, Pair<Long, Long>> problemAndResult) {
         AocCoordinate key = problemAndResult.getKey();
-        AocProblem solution = allProblems.get(key);
+        AocProblem solution = ALL_PROBLEMS.get(key);
         if (solution == null) {
-            System.out.printf("[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", key);
+            System.out.printf(
+                    "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", key);
             return;
         }
         Pair<Long, Long> results = problemAndResult.getValue();
@@ -40,9 +41,10 @@ public final class ProblemTest {
     @Test
     public void testAllSolutionsHaveTests() {
         Map<AocCoordinate, Pair<Long, Long>> happyPaths = getHappyPathsMap();
-        for (AocCoordinate coord : allProblems.keySet()) {
+        for (AocCoordinate coord : ALL_PROBLEMS.keySet()) {
             if (!happyPaths.containsKey(coord)) {
-                System.out.printf("[\u001B[31mWARNING\u001B[0m] %s has a solution but no tests have been implemented%n", coord);
+                System.out.printf(
+                        "[\u001B[31mWARNING\u001B[0m] %s has a solution but no tests have been implemented%n", coord);
             }
         }
     }
@@ -78,7 +80,8 @@ public final class ProblemTest {
 
     private static void assertResult(final AocCoordinate coord, long expected, long actual) {
         if (actual == -1) {
-            System.out.printf("[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", coord);
+            System.out.printf(
+                    "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", coord);
             return;
         }
         Assertions.assertEquals(expected, actual);

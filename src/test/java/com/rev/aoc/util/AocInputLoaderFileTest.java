@@ -1,7 +1,6 @@
 package com.rev.aoc.util;
 
 import com.rev.aoc.framework.io.load.AocInputLoaderFile;
-import com.rev.aoc.framework.io.load.AocInputLoaderResource;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,8 @@ public final class AocInputLoaderFileTest {
         try {
             AocInputLoaderFile reader = new AocInputLoaderFile();
             List<String> lines = reader.load(new AocCoordinate(2010, 1));
-            Assertions.assertEquals(List.of("This problem does not exist.", "This file is used to test loading resources!"), lines);
+            Assertions.assertEquals(
+                    List.of("This problem does not exist.", "This file is used to test loading resources!"), lines);
         } catch (Exception e) {
             Assertions.fail(e);
         }
