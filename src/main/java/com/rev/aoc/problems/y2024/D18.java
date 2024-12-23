@@ -4,6 +4,7 @@ import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.util.geom.Direction;
+import com.rev.aoc.util.search.BinarySolutionSearch;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public final class D18 extends AocProblem<Long, Long> {
+public final class D18 extends AocProblem<Long, String> {
 
     private static final int CORRUPTED_FLAG = 1;
     private static final int VISITED_FLAG = CORRUPTED_FLAG << 1;
@@ -34,17 +35,18 @@ public final class D18 extends AocProblem<Long, Long> {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
-    protected Long partTwoImpl() {
+    protected String partTwoImpl() {
         int[] ints = LoaderUtils.linesToIntArray(loadResources(), s -> s.split(","));
         int start = 1025;
-        Map<Pair<Integer, Integer>, Integer> visited = getVisited(start, ints);
-        while (visited.containsKey(Pair.of(PROBLEM_HEIGHT - 1, PROBLEM_WIDTH - 1))) {
-            start++;
-            visited = getVisited(start, ints);
-        }
-        int yCoord = ints[start * 2 - 1];
-        int xCoord = ints[start * 2 - 2];
-        return (long) start;
+        final Map<Pair<Integer, Integer>, Integer> visited = new HashMap<>();
+        int firstFailing = BinarySolutionSearch.search(1025, ints.length / 2, i -> {
+            visited.clear();
+            visited.putAll(getVisited(i, ints));
+            return !visited.containsKey(Pair.of(PROBLEM_HEIGHT - 1, PROBLEM_WIDTH - 1));
+        });
+        int yCoord = ints[firstFailing * 2 - 1];
+        int xCoord = ints[firstFailing * 2 - 2];
+        return xCoord + "," + yCoord;
     }
 
     private static Map<Pair<Integer, Integer>, Integer> getVisited(int limit, final int[] ints) {
