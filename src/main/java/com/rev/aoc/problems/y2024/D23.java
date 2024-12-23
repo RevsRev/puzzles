@@ -35,7 +35,6 @@ public final class D23 extends AocProblem<Long, String> {
         return count;
     }
 
-    //TODO - Change framework to include different result types!
     @Override
     protected String partTwoImpl() {
         Graph<String> graph = loadResourcesAsGraph();
