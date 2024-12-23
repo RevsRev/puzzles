@@ -1,5 +1,6 @@
 package com.rev.aoc.util.graph;
 
+import com.rev.aoc.util.set.SetUtils;
 import lombok.Getter;
 
 import java.util.Collection;
@@ -56,15 +57,14 @@ public final class Graph<T> {
         while (it.hasNext()) {
             Node<T> node = it.next();
             Set<Node<T>> neighbourSet = node.getNeighbours();
-            Set<Node<T>> nextConsidered = new HashSet<>(considered);
-            Set<Node<T>> nextRemaining = new HashSet<>(remaining);
-            Set<Node<T>> nextClique = new HashSet<>(clique);
-            nextClique.add(node);
-            nextConsidered.retainAll(neighbourSet);
-            nextRemaining.retainAll(neighbourSet);
-            getCliques(nextClique, nextRemaining, nextConsidered, consumer);
-            it.remove();
+            clique.add(node);
+            getCliques(clique,
+                    SetUtils.copyRetainAll(remaining, neighbourSet),
+                    SetUtils.copyRetainAll(considered, neighbourSet),
+                    consumer);
+            clique.remove(node);
             considered.add(node);
+            it.remove();
         }
     }
 
