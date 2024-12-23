@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class D23 extends AocProblem<Long, Long> {
+public final class D23 extends AocProblem<Long, String> {
 
     @Override
     public AocCoordinate getCoordinate() {
@@ -37,7 +37,7 @@ public final class D23 extends AocProblem<Long, Long> {
 
     //TODO - Change framework to include different result types!
     @Override
-    protected Long partTwoImpl() {
+    protected String partTwoImpl() {
         Graph<String> graph = loadResourcesAsGraph();
         Collection<Graph<String>> cliques = graph.getCliques();
         long largestCliqueSize = 0;
@@ -52,8 +52,7 @@ public final class D23 extends AocProblem<Long, Long> {
         List<String> nodeNames = new ArrayList<>(largestClique.getNodes().stream().map(Node::getValue).toList());
         Collections.sort(nodeNames);
         StringBuilder answer = new StringBuilder();
-        String result = String.join(",", nodeNames);
-        return (long) largestClique.getNodes().size();
+        return String.join(",", nodeNames);
     }
 
     private Graph<String> loadResourcesAsGraph() {

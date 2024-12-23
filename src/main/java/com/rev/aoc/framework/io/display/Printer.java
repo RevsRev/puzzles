@@ -19,9 +19,9 @@ public class Printer<T> {
     public static final AocResultColumnFormatter[] AOC_RESULT_COLS = new AocResultColumnFormatter[]{
             new AocResultColumnFormatterYear("Year", 6, WHITE_SPACE),
             new AocResultColumnFormatterDay("Day", 6, WHITE_SPACE),
-            new AocResultColumnFormatterSolution("PartOne", 20, WHITE_SPACE, AocPart.ONE),
+            new AocResultColumnFormatterSolution("PartOne", 45, WHITE_SPACE, AocPart.ONE),
             new AocResultColumnFormatterTime("PartOneTime (ms)", 20, WHITE_SPACE, AocPart.ONE),
-            new AocResultColumnFormatterSolution("PartTwo", 20, WHITE_SPACE, AocPart.TWO),
+            new AocResultColumnFormatterSolution("PartTwo", 45, WHITE_SPACE, AocPart.TWO),
             new AocResultColumnFormatterTime("PartTwoTime (ms)", 20, WHITE_SPACE, AocPart.TWO),
             new AocResultColumnFormatterError("Error", 50, WHITE_SPACE),
     };

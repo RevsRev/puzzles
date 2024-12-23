@@ -41,7 +41,7 @@ public final class ProblemTest {
 
     @Test
     public void testAllSolutionsHaveTests() {
-        Map<AocCoordinate, Pair<Long, Long>> happyPaths = getHappyPathsMap();
+        Map<AocCoordinate, Pair<Object, Object>> happyPaths = getHappyPathsMap();
         for (AocCoordinate coord : ALL_PROBLEMS.keySet()) {
             if (!happyPaths.containsKey(coord)) {
                 System.out.printf(
@@ -50,12 +50,12 @@ public final class ProblemTest {
         }
     }
 
-    public static Set<Map.Entry<AocCoordinate, Pair<Long, Long>>> getHappyPaths() {
+    public static Set<Map.Entry<AocCoordinate, Pair<Object, Object>>> getHappyPaths() {
         return getHappyPathsMap().entrySet();
     }
 
-    private static Map<AocCoordinate, Pair<Long, Long>> getHappyPathsMap() {
-        Map<AocCoordinate, Pair<Long, Long>> expectedResults = new HashMap<>();
+    private static Map<AocCoordinate, Pair<Object, Object>> getHappyPathsMap() {
+        Map<AocCoordinate, Pair<Object, Object>> expectedResults = new HashMap<>();
         expectedResults.put(new AocCoordinate(2024, 1), Pair.of(11L, 31L));
         expectedResults.put(new AocCoordinate(2024, 2), Pair.of(2L, 4L));
         expectedResults.put(new AocCoordinate(2024, 3), Pair.of(161L, 48L));
@@ -76,7 +76,7 @@ public final class ProblemTest {
         expectedResults.put(new AocCoordinate(2024, 20), Pair.of(0L, 0L));
         expectedResults.put(new AocCoordinate(2024, 21), Pair.of(126384L, 154115708116294L));
         expectedResults.put(new AocCoordinate(2024, 22), Pair.of(37990510L, 23L));
-        expectedResults.put(new AocCoordinate(2024, 23), Pair.of(7L, 4L));
+        expectedResults.put(new AocCoordinate(2024, 23), Pair.of(7L, "co,de,ka,ta"));
         return expectedResults;
     }
 

@@ -21,11 +21,11 @@ public final class AocResultColumnFormatterSolution extends AocResultColumnForma
             if (result.getPartOne().isEmpty()) {
                 return "";
             }
-            return result.getPartOne().toString();
+            return result.getPartOne().get().toString();
         }
         if (result.getPartTwo().isEmpty()) {
             return "";
         }
-        return result.getPartOne().toString();
+        return result.getPartTwo().get().toString();
     }
 }
