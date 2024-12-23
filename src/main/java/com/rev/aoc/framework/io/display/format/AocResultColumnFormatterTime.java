@@ -36,7 +36,7 @@ public final class AocResultColumnFormatterTime extends AocResultColumnFormatter
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")
-    private long getTime(final AocResult result) {
+    private long getTime(final AocResult<?, ?> result) {
         if (result.getError().isPresent()) {
             return -1;
         }

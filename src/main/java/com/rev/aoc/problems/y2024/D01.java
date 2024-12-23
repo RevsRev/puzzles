@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public final class D01 extends AocProblem {
+public final class D01 extends AocProblem<Long, Long> {
     @Override
     public AocCoordinate getCoordinate() {
         return new AocCoordinate(2024, 1);
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
         loadLists(leftList, rightList);
@@ -31,7 +31,7 @@ public final class D01 extends AocProblem {
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
         loadLists(leftList, rightList);

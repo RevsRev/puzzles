@@ -8,9 +8,9 @@ import java.util.List;
 
 public final class AocVisualiser {
 
-    public List<Throwable> visualise(final Iterable<AocProblem> problems) {
+    public List<Throwable> visualise(final Iterable<AocProblem<?, ?>> problems) {
         List<Throwable> errors = new ArrayList<>();
-        for (AocProblem problem : problems) {
+        for (AocProblem<?, ?> problem : problems) {
             try {
                 problem.visualiseProblem();
             } catch (VisualisationException e) {

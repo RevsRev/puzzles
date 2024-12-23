@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public final class D07 extends AocProblem {
+public final class D07 extends AocProblem<Long, Long> {
     @Override
     public AocCoordinate getCoordinate() {
         return new AocCoordinate(2024, 7);
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         long[][] targetAndInputs = loadTargetAndInputs();
         List<BiFunction<Long, Long, Long>> funcs = funcs(false);
 
@@ -28,7 +28,7 @@ public final class D07 extends AocProblem {
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         long[][] targetAndInputs = loadTargetAndInputs();
         List<BiFunction<Long, Long, Long>> funcs = funcs(true);
 

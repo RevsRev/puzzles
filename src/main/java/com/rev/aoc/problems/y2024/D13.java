@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public final class D13 extends AocProblem {
+public final class D13 extends AocProblem<Long, Long> {
 
     public static final int PART_ONE_LIMIT = 100;
     public static final double EPSILON = 0.0001;
@@ -22,12 +22,12 @@ public final class D13 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         List<SimultaneousSolver> solvers = loadSolvers(false);
         return computeCost(solvers, D13::validResultPartOne);
     }
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         List<SimultaneousSolver> solvers = loadSolvers(true);
         return computeCost(solvers, D13::validResultPartTwo);
     }

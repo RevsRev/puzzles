@@ -12,9 +12,9 @@ import java.util.TreeMap;
 
 public final class AocProblemLoader {
     private static final String AOC_PROBLEMS_PACKAGE = "com.rev.aoc.problems";
-    private final NavigableMap<AocCoordinate, AocProblem> problems = loadProblems();
+    private final NavigableMap<AocCoordinate, AocProblem<?, ?>> problems = loadProblems();
 
-    public SortedMap<AocCoordinate, AocProblem> loadProblemsInRange(final AocCoordinate firstAocCoordinate,
+    public SortedMap<AocCoordinate, AocProblem<?, ?>> loadProblemsInRange(final AocCoordinate firstAocCoordinate,
                                                                     final AocCoordinate secondAocCoordinate) {
         if (problems.isEmpty()) {
             //TODO - Probably want some logging here!
@@ -36,17 +36,17 @@ public final class AocProblemLoader {
         return problems.subMap(fromKey, true, toKey, true);
     }
 
-    private NavigableMap<AocCoordinate, AocProblem> loadProblems() {
+    private NavigableMap<AocCoordinate, AocProblem<?, ?>> loadProblems() {
         try {
-            NavigableMap<AocCoordinate, AocProblem> retval = new TreeMap<>(AocCoordinate::compareTo);
+            NavigableMap<AocCoordinate, AocProblem<?, ?>> retval = new TreeMap<>(AocCoordinate::compareTo);
             ClassPath cp = ClassPath.from(AocEngine.class.getClassLoader());
             ImmutableSet<ClassPath.ClassInfo> allClasses = cp.getTopLevelClassesRecursive(AOC_PROBLEMS_PACKAGE);
             for (ClassPath.ClassInfo classInfo : allClasses) {
                 Class<?> clazz = classInfo.load();
                 Class<?> superClazz = clazz.getSuperclass();
                 if (AocProblem.class.equals(superClazz)) {
-                    Class<? extends AocProblem> problemClazz = (Class<? extends AocProblem>) clazz;
-                    AocProblem aocProblem = problemClazz.getConstructor().newInstance();
+                    Class<? extends AocProblem<?, ?>> problemClazz = (Class<? extends AocProblem<?, ?>>) clazz;
+                    AocProblem<?, ?> aocProblem = problemClazz.getConstructor().newInstance();
                     retval.put(aocProblem.getCoordinate(), aocProblem);
                 }
             }

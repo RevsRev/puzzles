@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public final class D02 extends AocProblem {
+public final class D02 extends AocProblem<Long, Long> {
 
     @Override
     public AocCoordinate getCoordinate() {
@@ -18,7 +18,7 @@ public final class D02 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         List<String> lines = loadResources();
 
         Map<Integer, List<Handful>> gameHandfulMap = parseToGameMap(lines);
@@ -32,8 +32,8 @@ public final class D02 extends AocProblem {
     }
 
     @Override
-    protected long partTwoImpl() {
-        return 0;
+    protected Long partTwoImpl() {
+        return 0L;
     }
 
     Map<Integer, List<Handful>> parseToGameMap(final List<String> lines) {

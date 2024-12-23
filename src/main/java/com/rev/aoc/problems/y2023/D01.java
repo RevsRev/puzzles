@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public final class D01 extends AocProblem {
+public final class D01 extends AocProblem<Long, Long> {
 
     @Override
     public AocCoordinate getCoordinate() {
@@ -17,12 +17,12 @@ public final class D01 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         return solve(this::formatPartOne);
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         return solve(this::formatPartTwo);
     }
 

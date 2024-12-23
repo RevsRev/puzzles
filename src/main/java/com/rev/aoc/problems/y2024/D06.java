@@ -12,7 +12,7 @@ import java.util.Set;
 
 import static com.rev.aoc.util.geom.Direction.UP;
 
-public final class D06 extends AocProblem {
+public final class D06 extends AocProblem<Long, Long> {
 
     private static final char START_CHAR = '^';
     public static final char EMPTY_CHAR = '.';
@@ -37,7 +37,7 @@ public final class D06 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         try {
             int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(),
                     s -> s.split(""),
@@ -49,7 +49,7 @@ public final class D06 extends AocProblem {
 
             Set<Pair<Integer, Integer>> visited = new HashSet<>();
             traverseWithoutLoops(map, height, width, start[0], start[1], UP, visited);
-            return visited.size();
+            return (long) visited.size();
         } catch (StackOverflowError e) {
             throwProblemExecutionException(e);
         }
@@ -57,7 +57,7 @@ public final class D06 extends AocProblem {
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         try {
             int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(),
                     s -> s.split(""),
@@ -73,7 +73,7 @@ public final class D06 extends AocProblem {
 
             Set<Pair<Integer, Integer>> blockingPositions = new HashSet<>();
             traverseWithLoops(map, height, width, i, j, UP, false, blockingPositions);
-            return blockingPositions.size();
+            return (long) blockingPositions.size();
         } catch (StackOverflowError e) {
             throwProblemExecutionException(e);
         }

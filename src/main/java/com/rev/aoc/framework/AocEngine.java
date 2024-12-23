@@ -34,7 +34,7 @@ public final class AocEngine implements Runnable {
 
     @Override
     public void run() {
-        SortedMap<AocCoordinate, AocProblem> problemsInRange =
+        SortedMap<AocCoordinate, AocProblem<?, ?>> problemsInRange =
                 problemLoader.loadProblemsInRange(firstAocCoordinate, secondAocCoordinate);
         if (problemsInRange == null) {
             return;

@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 public final class TestExecutionListener implements ExecutorListener {
 
-    private final List<AocResult> results = new ArrayList<>();
+    private final List<AocResult<?, ?>> results = new ArrayList<>();
 
     @Override
     public void executorStarted() {
@@ -17,7 +17,7 @@ public final class TestExecutionListener implements ExecutorListener {
     }
 
     @Override
-    public void executorSolved(AocResult result) {
+    public void executorSolved(final AocResult<?, ?> result) {
         results.add(result);
     }
 

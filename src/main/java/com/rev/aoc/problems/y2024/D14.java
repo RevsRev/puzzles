@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Function;
 
-public final class D14 extends AocProblem {
+public final class D14 extends AocProblem<Long, Long> {
 
     public static final int PART_ONE_TIME = 100;
     public static final int PART_ONE_WIDTH = 101;
@@ -24,7 +24,7 @@ public final class D14 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(loadResources(), new Integer[][]{}, splitter());
 
         Map<Pair<Integer, Integer>, Integer> robotPositions =
@@ -50,7 +50,7 @@ public final class D14 extends AocProblem {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(loadResources(), new Integer[][]{}, splitter());
         Scanner s = new Scanner(System.in);
 //        for (int i = 11; i < PART_TWO_LIMIT; i += 101) {

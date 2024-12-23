@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public final class D18 extends AocProblem {
+public final class D18 extends AocProblem<Long, Long> {
 
     private static final int CORRUPTED_FLAG = 1;
     private static final int VISITED_FLAG = CORRUPTED_FLAG << 1;
@@ -25,16 +25,16 @@ public final class D18 extends AocProblem {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         int[] ints = LoaderUtils.linesToIntArray(loadResources(), s -> s.split(","));
         int limit = 1024;
         final Map<Pair<Integer, Integer>, Integer> visited = getVisited(limit, ints);
-        return visited.get(Pair.of(PROBLEM_HEIGHT - 1, PROBLEM_WIDTH - 1));
+        return (long) visited.get(Pair.of(PROBLEM_HEIGHT - 1, PROBLEM_WIDTH - 1));
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         int[] ints = LoaderUtils.linesToIntArray(loadResources(), s -> s.split(","));
         int start = 1025;
         Map<Pair<Integer, Integer>, Integer> visited = getVisited(start, ints);
@@ -44,7 +44,7 @@ public final class D18 extends AocProblem {
         }
         int yCoord = ints[start * 2 - 1];
         int xCoord = ints[start * 2 - 2];
-        return start;
+        return (long) start;
     }
 
     private static Map<Pair<Integer, Integer>, Integer> getVisited(int limit, final int[] ints) {

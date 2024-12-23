@@ -8,7 +8,7 @@ public final class AocResultColumnFormatterYear extends AocResultColumnFormatter
     }
 
     @Override
-    protected String formatImpl(final AocResult result) {
+    protected String formatImpl(final AocResult<?, ?> result) {
         return Integer.toString(result.getCoordinate().getYear());
     }
 }

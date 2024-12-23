@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class D05 extends AocProblem {
+public final class D05 extends AocProblem<Long, Long> {
 
     private final Map<Pair<Integer, Integer>, Boolean> ordinals = new HashMap<>();
     private final List<Integer[]> updates = new ArrayList<>();
@@ -20,7 +20,7 @@ public final class D05 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         loadMapsAndUpdates();
         List<Integer[]> orderedUpdates = new ArrayList<>();
         List<Integer[]> unorderedUpdates = new ArrayList<>();
@@ -33,7 +33,7 @@ public final class D05 extends AocProblem {
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         loadMapsAndUpdates();
         List<Integer[]> orderedUpdates = new ArrayList<>();
         List<Integer[]> unorderedUpdates = new ArrayList<>();

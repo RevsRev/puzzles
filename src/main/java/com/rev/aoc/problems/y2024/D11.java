@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class D11 extends AocProblem {
+public final class D11 extends AocProblem<Long, Long> {
     public static final int PART_ONE_ITERATIONS = 25;
     public static final int PART_TWO_ITERATIONS = 75;
 
@@ -19,12 +19,12 @@ public final class D11 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         long[] stones = loadResourcesAsLongArray();
         return countStones(stones, PART_ONE_ITERATIONS);
     }
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         long[] stones = loadResourcesAsLongArray();
         return countStones(stones, PART_TWO_ITERATIONS);
     }

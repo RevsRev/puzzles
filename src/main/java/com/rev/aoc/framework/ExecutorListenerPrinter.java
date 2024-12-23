@@ -5,7 +5,7 @@ import com.rev.aoc.framework.problem.AocResult;
 
 public final class ExecutorListenerPrinter implements ExecutorListener {
 
-    private final Printer<AocResult> printer = new Printer<>(Printer.AOC_RESULT_COLS);
+    private final Printer<AocResult<?, ?>> printer = new Printer<>(Printer.AOC_RESULT_COLS);
 
     @Override
     public void executorStarted() {
@@ -13,7 +13,7 @@ public final class ExecutorListenerPrinter implements ExecutorListener {
     }
 
     @Override
-    public void executorSolved(final AocResult result) {
+    public void executorSolved(final AocResult<?, ?> result) {
         printer.printResult(result);
     }
 

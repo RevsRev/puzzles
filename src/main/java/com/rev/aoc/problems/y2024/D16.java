@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public final class D16 extends AocProblem {
+public final class D16 extends AocProblem<Long, Long> {
 
     public static final char START_CHAR = 'S';
     public static final char END_CHAR = 'E';
@@ -25,7 +25,7 @@ public final class D16 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         List<String> lines = loadResources();
         char[][] maze = LoaderUtils.linesToCharMatrix(lines);
         int[] start = LoaderUtils.findOne(maze, START_CHAR);
@@ -38,7 +38,7 @@ public final class D16 extends AocProblem {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         List<String> lines = loadResources();
         char[][] maze = LoaderUtils.linesToCharMatrix(lines);
         int[] start = LoaderUtils.findOne(maze, START_CHAR);
@@ -54,7 +54,7 @@ public final class D16 extends AocProblem {
                 backTrack(scores, end, entry.getKey(), optimalTiles);
             }
         }
-        return optimalTiles.size();
+        return (long) optimalTiles.size();
     }
 
     private void backTrack(final Map<Direction, Long>[][] scores,

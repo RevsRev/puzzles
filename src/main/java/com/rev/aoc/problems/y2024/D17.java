@@ -15,7 +15,7 @@ import java.util.Scanner;
 import java.util.TreeSet;
 import java.util.function.Consumer;
 
-public final class D17 extends AocProblem {
+public final class D17 extends AocProblem<Long, Long> {
 
     private static final int DEBUG_LIMIT = 17;
 
@@ -40,17 +40,17 @@ public final class D17 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         Computer comp = loadResourcesAsComputer();
         final StringBuilder sb = new StringBuilder();
         comp.listener = i -> sb.append(i).append(",");
         comp.start();
 //        sb.toString(); TODO - CHANGE FRAMEWORK TO ALLOW FOR DIFFERENT TYPES OF RETURN VALUE
-        return UNSOLVED_RETURN_VAL;
+        return (long) UNSOLVED_RETURN_VAL;
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         Computer comp = loadResourcesAsComputer();
         InputChecker checker = new InputChecker(comp.program);
         checker.check(comp.program.length - 1, 0, 0);

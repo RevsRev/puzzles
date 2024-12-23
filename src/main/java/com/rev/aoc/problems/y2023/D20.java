@@ -21,7 +21,7 @@ import java.util.Queue;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class D20 extends AocProblem {
+public final class D20 extends AocProblem<Long, Long> {
 
     public static final String FLIP_FLOP = "%";
     public static final String CONJUNCTION = "&";
@@ -37,7 +37,7 @@ public final class D20 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         List<String> strings = loadResources();
         Map<String, Module> modules = parseToModules(strings);
 
@@ -49,11 +49,11 @@ public final class D20 extends AocProblem {
         for (int i = 0; i < NUM_BUTTON_PRESSES; i++) {
             start(button);
         }
-        return pulseCounter.numHigh * pulseCounter.numLow;
+        return (long) (pulseCounter.numHigh * pulseCounter.numLow);
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
 //        List<String> strings = loadResources();
 //        Map<String, Module> modules = parseToModules(strings);
 //        Module rx = modules.get(RX);
@@ -67,7 +67,7 @@ public final class D20 extends AocProblem {
 //        }
 //        return buttonPresses;
         //TODO - Too slow - need a better way!
-        return 0;
+        return 0L;
     }
 
     @Override

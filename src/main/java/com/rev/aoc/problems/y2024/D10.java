@@ -8,7 +8,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashSet;
 import java.util.Set;
 
-public final class D10 extends AocProblem {
+public final class D10 extends AocProblem<Long, Long> {
     private static final int[][] DIRECTIONS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
     @Override
@@ -17,7 +17,7 @@ public final class D10 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(), s -> s.split(""));
         int height = map.length;
         int width = map[0].length;
@@ -36,7 +36,7 @@ public final class D10 extends AocProblem {
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(), s -> s.split(""));
         int height = map.length;
         int width = map[0].length;

@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class D19 extends AocProblem {
+public final class D19 extends AocProblem<Long, Long> {
 
     public static final int REGEX_MAX_LENGTH = 100;
 
@@ -21,7 +21,7 @@ public final class D19 extends AocProblem {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         List<String> strings = loadResources();
         Set<String>[] regexes = LoaderUtils.emptyArray(new HashSet[0], 100, () -> new HashSet());
 
@@ -58,7 +58,7 @@ public final class D19 extends AocProblem {
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         List<String> strings = loadResources();
         Set<String>[] regexes = LoaderUtils.emptyArray(new HashSet[0], REGEX_MAX_LENGTH, () -> new HashSet());
 

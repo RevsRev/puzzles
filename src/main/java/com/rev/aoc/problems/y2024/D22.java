@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public final class D22 extends AocProblem {
+public final class D22 extends AocProblem<Long, Long> {
     private static final long PRUNE_MOD = 1 << 24;
     private static final int PART_ONE_ITERATIONS = 2000;
 
@@ -21,7 +21,7 @@ public final class D22 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         List<String> lines = loadResources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[] {s});
 
@@ -33,7 +33,7 @@ public final class D22 extends AocProblem {
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         List<String> lines = loadResources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[] {s});
 

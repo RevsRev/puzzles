@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class D15 extends AocProblem {
+public final class D15 extends AocProblem<Long, Long> {
 
     public static final char ROBOT_CHAR = '@';
 
@@ -33,7 +33,7 @@ public final class D15 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves();
         char[][] warehouse = warehouseAndRobotMoves.getLeft();
         char[] moves = warehouseAndRobotMoves.getRight();
@@ -67,7 +67,7 @@ public final class D15 extends AocProblem {
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves();
         char[][] warehouse = expand(warehouseAndRobotMoves.getLeft());
         char[] moves = warehouseAndRobotMoves.getRight();

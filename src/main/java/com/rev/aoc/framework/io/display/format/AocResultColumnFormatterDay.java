@@ -9,7 +9,7 @@ public final class AocResultColumnFormatterDay extends AocResultColumnFormatter 
     }
 
     @Override
-    protected String formatImpl(final AocResult result) {
+    protected String formatImpl(final AocResult<?, ?> result) {
         return Integer.toString(result.getCoordinate().getDay());
     }
 }

@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-public final class D09 extends AocProblem {
+public final class D09 extends AocProblem<Long, Long> {
 
     public static final int EMPTY_VALUE = -1;
     public static final int NOT_FOUND_INDEX = -1;
@@ -19,7 +19,7 @@ public final class D09 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         char[] diskMap = LoaderUtils.loadResourcesAsCharArray(loadResources());
         int[] disk = loadDisk(diskMap);
         moveFileBlocksPartOne(disk);
@@ -27,7 +27,7 @@ public final class D09 extends AocProblem {
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         char[] diskMap = LoaderUtils.loadResourcesAsCharArray(loadResources());
         int[] disk = loadDisk(diskMap);
         moveFileBlocksPartTwo(disk);

@@ -6,18 +6,18 @@ import lombok.Setter;
 import java.util.Optional;
 
 @Getter
-public final class AocResult {
+public final class AocResult<P1, P2> {
     private final AocCoordinate coordinate;
-    private final Optional<Long> partOne;
+    private final Optional<P1> partOne;
     private final Optional<Long> partOneTime;
-    private final Optional<Long> partTwo;
+    private final Optional<P2> partTwo;
     private final Optional<Long> partTwoTime;
     private final Optional<Throwable> error;
 
     private AocResult(final AocCoordinate coordinate,
-                      final Optional<Long> partOne,
+                      final Optional<P1> partOne,
                       final Optional<Long> partOneTime,
-                      final Optional<Long> partTwo,
+                      final Optional<P2> partTwo,
                       final Optional<Long> partTwoTime) {
         this.coordinate = coordinate;
         this.partOne = partOne;
@@ -36,19 +36,19 @@ public final class AocResult {
         this.partTwoTime = Optional.empty();
     }
 
-    public static AocResult error(final AocCoordinate coordinate, final Throwable error) {
-        return new AocResult(coordinate, error);
+    public static <P1, P2> AocResult<P1, P2> error(final AocCoordinate coordinate, final Throwable error) {
+        return new AocResult<P1, P2>(coordinate, error);
     }
 
     @Setter @Getter
-    public static final class Builder {
+    public static final class Builder<P1, P2> {
         private AocCoordinate coordinate;
-        private Long partOne = null;
+        private P1 partOne = null;
         private Long partOneTime = null;
-        private Long partTwo = null;
+        private P2 partTwo = null;
         private Long partTwoTime = null;
 
-        public AocResult build() throws UninitializedException {
+        public AocResult<P1, P2> build() throws UninitializedException {
             if (coordinate == null) {
                 throw new UninitializedException("Year and day was not specified when building solution");
             }

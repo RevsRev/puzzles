@@ -8,7 +8,7 @@ public final class AocResultColumnFormatterError extends AocResultColumnFormatte
     }
 
     @Override
-    protected String formatImpl(final AocResult result) {
+    protected String formatImpl(final AocResult<?, ?> result) {
         if (result.getError().isPresent()) {
             if (result.getError().get().getCause() != null) {
                 return result.getError().get().getCause().getMessage();

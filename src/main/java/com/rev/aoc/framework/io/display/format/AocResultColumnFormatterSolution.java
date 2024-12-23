@@ -13,7 +13,7 @@ public final class AocResultColumnFormatterSolution extends AocResultColumnForma
     }
 
     @Override
-    protected String formatImpl(final AocResult result) {
+    protected String formatImpl(final AocResult<?, ?> result) {
         if (result.getError().isPresent()) {
             return "";
         }
@@ -21,11 +21,11 @@ public final class AocResultColumnFormatterSolution extends AocResultColumnForma
             if (result.getPartOne().isEmpty()) {
                 return "";
             }
-            return Long.toString(result.getPartOne().get());
+            return result.getPartOne().toString();
         }
         if (result.getPartTwo().isEmpty()) {
             return "";
         }
-        return Long.toString(result.getPartTwo().get());
+        return result.getPartOne().toString();
     }
 }

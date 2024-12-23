@@ -17,11 +17,12 @@ import java.util.SortedMap;
 public final class ProblemTest {
 
     private static final AocProblemLoader LOADER = new AocProblemLoader();
-    private static final SortedMap<AocCoordinate, AocProblem> ALL_PROBLEMS = LOADER.loadProblemsInRange(null, null);
+    private static final SortedMap<AocCoordinate, AocProblem<?, ?>> ALL_PROBLEMS =
+            LOADER.loadProblemsInRange(null, null);
 
     @ParameterizedTest
     @MethodSource("getHappyPaths")
-    public void testAocSolutions(final Map.Entry<AocCoordinate, Pair<Long, Long>> problemAndResult) {
+    public void testAocSolutions(final Map.Entry<AocCoordinate, Pair<Object, Object>> problemAndResult) {
         AocCoordinate key = problemAndResult.getKey();
         AocProblem solution = ALL_PROBLEMS.get(key);
         if (solution == null) {
@@ -29,11 +30,11 @@ public final class ProblemTest {
                     "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", key);
             return;
         }
-        Pair<Long, Long> results = problemAndResult.getValue();
-        long partOneResult = solution.partOne();
-        long partTwoResult = solution.partTwo();
-        long expectedPartOneResult = results.getLeft();
-        long expectedPartTwoResult = results.getRight();
+        Pair<Object, Object> results = problemAndResult.getValue();
+        Object partOneResult = solution.partOne();
+        Object partTwoResult = solution.partTwo();
+        Object expectedPartOneResult = results.getLeft();
+        Object expectedPartTwoResult = results.getRight();
         assertResult(key, expectedPartOneResult, partOneResult);
         assertResult(key, expectedPartTwoResult, partTwoResult);
     }
@@ -70,16 +71,19 @@ public final class ProblemTest {
         expectedResults.put(new AocCoordinate(2024, 14), Pair.of(21L, 7687L)); //TODO - Make better?
         expectedResults.put(new AocCoordinate(2024, 15), Pair.of(10092L, 9021L));
         expectedResults.put(new AocCoordinate(2024, 16), Pair.of(11048L, 64L));
-        expectedResults.put(new AocCoordinate(2024, 17), Pair.of(4635635210L, 105576L));
+        expectedResults.put(new AocCoordinate(2024, 17), Pair.of(-1L, 105576L));
         expectedResults.put(new AocCoordinate(2024, 19), Pair.of(6L, 16L));
         expectedResults.put(new AocCoordinate(2024, 20), Pair.of(0L, 0L));
         expectedResults.put(new AocCoordinate(2024, 21), Pair.of(126384L, 154115708116294L));
         expectedResults.put(new AocCoordinate(2024, 22), Pair.of(37990510L, 23L));
+        expectedResults.put(new AocCoordinate(2024, 23), Pair.of(7L, 4L));
         return expectedResults;
     }
 
-    private static void assertResult(final AocCoordinate coord, long expected, long actual) {
-        if (actual == -1) {
+    private static void assertResult(final AocCoordinate coord,
+                                     final Object expected,
+                                     final Object actual) {
+        if (actual == null) {
             System.out.printf(
                     "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", coord);
             return;

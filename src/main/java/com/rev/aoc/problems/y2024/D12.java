@@ -10,7 +10,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashSet;
 import java.util.Set;
 
-public final class D12 extends AocProblem {
+public final class D12 extends AocProblem<Long, Long> {
     private static final int[][] DIRS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
     @Override
@@ -19,7 +19,7 @@ public final class D12 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         UnitCell<Character>[][] unitCells = getUnitCells();
         Set<UnitCell<Character>> visitedArea = new HashSet<>();
         Set<UnitCell<Character>> visitedPerimeter = new HashSet<>();
@@ -37,7 +37,7 @@ public final class D12 extends AocProblem {
 
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         UnitCell<Character>[][] unitCells = getUnitCells();
         Set<UnitCell<Character>> visitedArea = new HashSet<>();
         Set<UnitCell<Character>> visitedEdgeCells = new HashSet<>();

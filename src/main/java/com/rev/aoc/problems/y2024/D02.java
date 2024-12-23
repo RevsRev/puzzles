@@ -7,22 +7,22 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class D02 extends AocProblem {
+public final class D02 extends AocProblem<Long, Long> {
     @Override
     public AocCoordinate getCoordinate() {
         return new AocCoordinate(2024, 2);
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         Integer[][] reports = parseReports();
         List<Integer[]> safeReports = new ArrayList<>();
         getSafeReportsNoDampening(reports, safeReports, new ArrayList<>());
-        return safeReports.size();
+        return (long) safeReports.size();
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         Integer[][] reports = parseReports();
         List<Integer[]> safeReports = new ArrayList<>();
         List<Integer[]> unsafeReports = new ArrayList<>();
@@ -30,7 +30,7 @@ public final class D02 extends AocProblem {
         getSafeReportsNoDampening(reports, safeReports, unsafeReports);
         getSafeReportsDampening(unsafeReports, dampedReports);
 
-        return safeReports.size() + dampedReports.size();
+        return (long) (safeReports.size() + dampedReports.size());
     }
 
     private static void getSafeReportsNoDampening(final Integer[][] reports,

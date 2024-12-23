@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public final class D08 extends AocProblem {
+public final class D08 extends AocProblem<Long, Long> {
 
     public static final char EMPTY_CHAR = '.';
 
@@ -21,7 +21,7 @@ public final class D08 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(loadResources());
         int height = grid.length;
         int width = grid[0].length;
@@ -33,11 +33,11 @@ public final class D08 extends AocProblem {
             List<Pair<Integer, Integer>> antennasForCharList = antennasForChar.stream().toList();
             addAntinodesForAntennas(height, width, antinodes, antennasForCharList, false);
         }
-        return antinodes.size();
+        return (long) antinodes.size();
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(loadResources());
         int height = grid.length;
         int width = grid[0].length;
@@ -49,7 +49,7 @@ public final class D08 extends AocProblem {
             List<Pair<Integer, Integer>> antennasForCharList = antennasForChar.stream().toList();
             addAntinodesForAntennas(height, width, antinodes, antennasForCharList, true);
         }
-        return antinodes.size();
+        return (long) antinodes.size();
     }
 
     private void addAntinodesForAntennas(final int height,

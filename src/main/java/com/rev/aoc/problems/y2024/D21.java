@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-public final class D21 extends AocProblem {
+public final class D21 extends AocProblem<Long, Long> {
 
     private static final char[][] DOOR_KEYPAD_CHARS = {
             {'7', '8', '9'},
@@ -38,7 +38,7 @@ public final class D21 extends AocProblem {
     }
 
     @Override
-    protected long partOneImpl() {
+    protected Long partOneImpl() {
         List<String> codes = loadResources();
         long totalComplexity = 0;
         for (String code : codes) {
@@ -49,7 +49,7 @@ public final class D21 extends AocProblem {
     }
 
     @Override
-    protected long partTwoImpl() {
+    protected Long partTwoImpl() {
         List<String> codes = loadResources();
         long totalComplexity = 0;
         for (String code : codes) {

@@ -18,11 +18,11 @@ public final class AocExecutor {
         this.executorListener = executorListener;
     }
 
-    public List<Throwable> solve(final Iterable<AocProblem> problems) {
+    public List<Throwable> solve(final Iterable<AocProblem<?, ?>> problems) {
         executorListener.executorStarted();
         List<Throwable> errors = new ArrayList<>();
-        for (AocProblem problem : problems) {
-            AocResult result;
+        for (AocProblem<?, ?> problem : problems) {
+            AocResult<?, ?> result;
             result = solve(problem);
             if (result.getError().isPresent()) {
                 errors.add(result.getError().get());
@@ -33,20 +33,20 @@ public final class AocExecutor {
         return errors;
     }
 
-    private AocResult solve(final AocProblem problem) {
+    private <P1, P2> AocResult<P1, P2> solve(final AocProblem<P1, P2> problem) {
         try {
-            AocResult.Builder builder = new AocResult.Builder();
+            AocResult.Builder<P1, P2> builder = new AocResult.Builder<>();
             builder.setCoordinate(problem.getCoordinate());
             if (AocPart.ALL.equals(part) || AocPart.ONE.equals(part)) {
                 long time = System.nanoTime();
-                long result = problem.partOne();
+                P1 result = problem.partOne();
                 time = System.nanoTime() - time;
                 builder.setPartOne(result);
                 builder.setPartOneTime(time);
             }
             if (AocPart.ALL.equals(part) || AocPart.TWO.equals(part)) {
                 long time = System.nanoTime();
-                long result = problem.partTwo();
+                P2 result = problem.partTwo();
                 time = System.nanoTime() - time;
                 builder.setPartTwo(result);
                 builder.setPartTwoTime(time);

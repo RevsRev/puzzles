@@ -6,25 +6,27 @@ import com.rev.aoc.vis.VisualisationException;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AocProblem {
+public abstract class AocProblem<P1, P2> {
 
     public abstract AocCoordinate getCoordinate();
-    protected abstract long partOneImpl();
-    protected abstract long partTwoImpl();
+    protected abstract P1 partOneImpl();
+    protected abstract P2 partTwoImpl();
 
-    public final long partOne() {
+    public final P1 partOne() {
         try {
             return partOneImpl();
         } catch (Exception e) {
-            return fail("one", e);
+            String message = String.format("Execution of problem %s part one failed", getCoordinate());
+            throw new ProblemExecutionException(message, e);
         }
     }
 
-    public final long partTwo() {
+    public final P2 partTwo() {
         try {
             return partTwoImpl();
         } catch (Exception e) {
-            return fail("two", e);
+            String message = String.format("Execution of problem %s part two failed", getCoordinate());
+            throw new ProblemExecutionException(message, e);
         }
     }
 
@@ -34,11 +36,6 @@ public abstract class AocProblem {
     public void visualiseProblem() throws VisualisationException {
         String msg = String.format("%s does not have visualisation implemented%n", getCoordinate());
         throw new VisualisationException(msg);
-    }
-
-    private long fail(final String part, final Exception e) {
-        String message = String.format("Execution of problem %s part %s failed", getCoordinate(), part);
-        throw new ProblemExecutionException(message, e);
     }
 
     protected final List<String> loadResources() {
