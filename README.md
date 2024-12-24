@@ -77,7 +77,8 @@ e.g. to solve all problems between day 3 and 7 (inclusive) in 2024:
 ```
 (Note: There is no requirement for `pb` to be less than `p`, specifying in either order is acceptable).
 
-To display a pretty picture of the graph from 2023:20:
+To display a pretty picture of the graph from 2024:24:
 ```shell
 java -jar target/advent-of-code-1.0-SNAPSHOT-jar-with-dependencies.jar -p 2023:20 -v
 ```
+![2024:24](/img/2024-04-24:060440_cropped.png)
