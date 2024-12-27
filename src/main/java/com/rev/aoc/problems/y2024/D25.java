@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
 
-public final class D25 extends AocProblem<Long, Long> {
+public final class D25 extends AocProblem<Long, String> {
     @Override
     public AocCoordinate getCoordinate() {
         return new AocCoordinate(2024, 25);
@@ -32,8 +32,8 @@ public final class D25 extends AocProblem<Long, Long> {
     }
 
     @Override
-    protected Long partTwoImpl() {
-        return null;
+    protected String partTwoImpl() {
+        return "n/a";
     }
 
     private void loadKeysAndLocks(final Set<KeyOrLock> keys, final Set<KeyOrLock> locks) {
@@ -74,14 +74,6 @@ public final class D25 extends AocProblem<Long, Long> {
 
         private KeyOrLock(final int[] pins) {
             this.pins = pins;
-        }
-
-        public KeyOrLock getInverse() {
-            int[] inverse = new int[pins.length];
-            for (int i = 0; i < pins.length; i++) {
-                inverse[i] = PIN_DEPTH - pins[i];
-            }
-            return new KeyOrLock(inverse);
         }
 
         public boolean accepts(final KeyOrLock other) {
