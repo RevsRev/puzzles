@@ -3,12 +3,15 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
+import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
 public final class D22 extends AocProblem<Long, Long> {
@@ -37,64 +40,41 @@ public final class D22 extends AocProblem<Long, Long> {
         List<String> lines = loadResources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[] {s});
 
-        List<int[]> priceChanges = new ArrayList<>();
+        Map<List<Integer>, Integer> runsAndScores = new HashMap<>();
+        long bestScore = Long.MIN_VALUE;
         for (int i : inputs) {
-            priceChanges.add(calculatePriceChanges(i, PART_ONE_ITERATIONS));
+            bestScore = computePriceChangeScores(i, runsAndScores, bestScore);
         }
-        Map<List<Integer>, Map<Integer, Integer>> runsAndScores = cacheSequences(inputs, priceChanges);
-        long maxScore = Integer.MIN_VALUE;
-        for (Map<Integer, Integer> scores : runsAndScores.values()) {
-            if (scores == null || scores.isEmpty()) {
-                continue;
-            }
-            long score = 0;
-            for (int val : scores.values()) {
-                score += val;
-            }
-            if (score > maxScore) {
-                maxScore = score;
-            }
-        }
-        return maxScore;
+        return bestScore;
     }
 
-    private Map<List<Integer>, Map<Integer, Integer>> cacheSequences(final int[] inputs,
-                                                                     final List<int[]> priceChanges) {
-        Map<List<Integer>, Map<Integer, Integer>> runsAndScores = new HashMap<>();
-        for (int i = 0; i < inputs.length; i++) {
-            cacheSequences(inputs[i], priceChanges.get(i), runsAndScores);
-        }
-        return runsAndScores;
-    }
-
-    private void cacheSequences(final int seed,
-                                final int[] priceChanges,
-                                final Map<List<Integer>, Map<Integer, Integer>> runsAndScores) {
+    private long computePriceChangeScores(final int seed,
+                                          final Map<List<Integer>, Integer> runsAndScores,
+                                          long bestScoreSoFar) {
+        long price = seed;
+        Queue<Integer> priceChanges = new ArrayDeque<>();
         Set<List<Integer>> visited = new HashSet<>();
-        long hash = seed;
-        for (int i = 0; i < priceChanges.length; i++) {
-            hash = hashOnce(hash);
-            if (i >= 3) {
-                List<Integer> run = new ArrayList<>(4);
-                for (int j = i - 3; j <= i; j++) {
-                    run.add(priceChanges[j]);
-                }
-                if (!visited.contains(run)) {
-                    visited.add(run);
-                    runsAndScores.computeIfAbsent(run, k -> new HashMap<>()).put(seed, (int) (hash % 10));
+        for (int i = 0; i < PART_ONE_ITERATIONS; i++) {
+            long nextPrice = hashOnce(price);
+            priceChanges.add((int) ((nextPrice % 10) - (price % 10)));
+            if (priceChanges.size() > 4) {
+                priceChanges.remove();
+            }
+            if (priceChanges.size() == 4) {
+                List<Integer> priceChangesCpy = List.copyOf(priceChanges);
+                if (!visited.contains(priceChangesCpy)) {
+                    visited.add(priceChangesCpy);
+                    int score = runsAndScores.getOrDefault(priceChangesCpy, 0);
+                    int newScore = score + ((int) (nextPrice % 10));
+                    if (newScore > bestScoreSoFar) {
+                        bestScoreSoFar = newScore;
+                    }
+                    runsAndScores.put(priceChangesCpy, newScore);
                 }
             }
+            price = nextPrice;
         }
-    }
-
-    private int[] calculatePriceChanges(long secretNumber, int iterations) {
-        int[] priceChanges = new int[iterations - 1];
-        for (int i = 0; i < iterations - 1; i++) {
-            long nextSecretNumber = hashOnce(secretNumber);
-            priceChanges[i] = (int) (nextSecretNumber % 10 - secretNumber % 10);
-            secretNumber = nextSecretNumber;
-        }
-        return priceChanges;
+        return bestScoreSoFar;
     }
 
     private long calculateHash(long secretNumber, long iterations) {
