@@ -81,4 +81,4 @@ To display a pretty picture of the graph from 2024:24:
 ```shell
 java -jar target/advent-of-code-1.0-SNAPSHOT-jar-with-dependencies.jar -p 2024:24 -v
 ```
-![2024:24](/img/2024-04-24:060440_cropped.png)
+![2024:24](/img/2024-04-24_060440_cropped.png)
