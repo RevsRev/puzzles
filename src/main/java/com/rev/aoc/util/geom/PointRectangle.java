@@ -1,7 +1,6 @@
 package com.rev.aoc.util.geom;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -10,28 +9,17 @@ import java.util.Set;
  * Useful for problems involving overlapping regions on e.g. an array, when you don't want to load the whole array into
  * memory.
  */
-public final class PointRectangle {
-    public final int x;
-    public final int y;
-    public final int w;
-    public final int h;
-
-    public PointRectangle(int x, int y, int w, int h) {
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
-    }
+public record PointRectangle(int x, int y, int w, int h) {
 
     public static boolean overlapping(final PointRectangle a, final PointRectangle b) {
-        return     a.x <= b.x + b.w
+        return a.x <= b.x + b.w
                 && b.x <= a.x + a.w
                 && a.y <= b.y + b.h
                 && b.y <= a.y + a.h;
     }
 
     public static Optional<PointRectangle> getOverlappingRegion(final PointRectangle a, final PointRectangle b) {
-        if (!overlapping(a,b)) {
+        if (!overlapping(a, b)) {
             return Optional.empty();
         }
         int x = Math.max(a.x, b.x);
@@ -44,6 +32,7 @@ public final class PointRectangle {
 
     /**
      * Get sup ^ !sub
+     *
      * @param sup
      * @param sub
      * @return compliment of sub in sup.
@@ -111,24 +100,12 @@ public final class PointRectangle {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        PointRectangle pointRectangle = (PointRectangle) o;
-        return x == pointRectangle.x && y == pointRectangle.y && w == pointRectangle.w && h == pointRectangle.h;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y, w, h);
-    }
-
-    @Override
     public String toString() {
-        return "Rectangle{" +
-                "x=" + x +
-                ", y=" + y +
-                ", w=" + w +
-                ", h=" + h +
-                '}';
+        return "Rectangle{"
+                + "x=" + x
+                + ", y=" + y
+                + ", w=" + w
+                + ", h=" + h
+                + '}';
     }
 }

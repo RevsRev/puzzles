@@ -36,8 +36,8 @@ public final class D06 extends AocProblem<Long, Long> {
             PointRectangle rect = pair.getLeft();
             int instruction = pair.getRight();
 
-            for (int i = rect.x; i <= rect.x + rect.w; i++) {
-                for (int j = rect.y; j <= rect.y + rect.h; j++) {
+            for (int i = rect.x(); i <= rect.x() + rect.w(); i++) {
+                for (int j = rect.y(); j <= rect.y() + rect.h(); j++) {
                     if (instruction == TURN_ON) {
                         if (grid[i][j] == OFF) {
                             grid[i][j] = ON;
@@ -74,8 +74,8 @@ public final class D06 extends AocProblem<Long, Long> {
             PointRectangle rect = pair.getLeft();
             int instruction = pair.getRight();
 
-            for (int i = rect.x; i <= rect.x + rect.w; i++) {
-                for (int j = rect.y; j <= rect.y + rect.h; j++) {
+            for (int i = rect.x(); i <= rect.x() + rect.w(); i++) {
+                for (int j = rect.y(); j <= rect.y() + rect.h(); j++) {
                     if (instruction == TURN_ON) {
                         grid[i][j] += 1;
                         totalBrightness++;

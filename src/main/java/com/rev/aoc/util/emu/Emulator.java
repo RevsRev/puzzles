@@ -15,15 +15,15 @@ public final class Emulator<T> {
 
     private final Map<String, SignalInput<T>> wiring;
 
-    private Emulator(Map<String, SignalInput<T>> wiring) {
+    private Emulator(final Map<String, SignalInput<T>> wiring) {
         this.wiring = wiring;
     }
 
-    public T getSignal(String name) {
+    public T getSignal(final String name) {
         return wiring.get(name).compute();
     }
 
-    public void setSignal(String name, T value) {
+    public void setSignal(final String name, final T value) {
         wiring.get(name).set(value);
     }
 
@@ -31,17 +31,17 @@ public final class Emulator<T> {
         wiring.values().forEach(SignalInput::reset);
     }
 
-    public static Emulator<Long> create(List<String> textWiring) {
-        Map<String, String> symbolMap = new HashMap<>();
+    public static Emulator<Long> create(final List<String> textWiring) {
+        final Map<String, String> symbolMap = new HashMap<>();
         for (String line : textWiring) {
-            String s = line.replaceAll("\\s", "");
-            String[] split = s.split("->");
-            String inputs = split[0];
-            String name = split[1];
+            final String s = line.replaceAll("\\s", "");
+            final String[] split = s.split("->");
+            final String inputs = split[0];
+            final String name = split[1];
             symbolMap.put(name, inputs);
         }
 
-        Map<String, SignalInput<Long>> signalsMap = new HashMap<>();
+        final Map<String, SignalInput<Long>> signalsMap = new HashMap<>();
         for (String name : symbolMap.keySet()) {
             extractSignals(name, symbolMap, signalsMap);
         }
@@ -73,16 +73,16 @@ public final class Emulator<T> {
         }
 
         if (wires.contains("LSHIFT")) {
-            String[] split = wires.split("LSHIFT");
-            String symbol = split[0];
-            long shift = Long.parseLong(split[1]);
+            final String[] split = wires.split("LSHIFT");
+            final String symbol = split[0];
+            final long shift = Long.parseLong(split[1]);
             return Pair.of(List.of(symbol), list -> list.get(0) << shift);
         }
 
         if (wires.contains("RSHIFT")) {
-            String[] split = wires.split("RSHIFT");
-            String symbol = split[0];
-            long shift = Long.parseLong(split[1]);
+            final String[] split = wires.split("RSHIFT");
+            final String symbol = split[0];
+            final long shift = Long.parseLong(split[1]);
             return Pair.of(List.of(symbol), list -> list.get(0) >> shift);
         }
 
@@ -92,16 +92,16 @@ public final class Emulator<T> {
             final String secondSymbolOrNumeric = split[1];
 
             if (NUMBERS_PATTERN.matcher(firstSymbolOrNumeric).matches()) {
-                long first = Long.parseLong(firstSymbolOrNumeric);
+                final long first = Long.parseLong(firstSymbolOrNumeric);
                 if (NUMBERS_PATTERN.matcher(secondSymbolOrNumeric).matches()) {
-                    long second = Long.parseLong(secondSymbolOrNumeric);
+                    final long second = Long.parseLong(secondSymbolOrNumeric);
                     return Pair.of(List.of(), list -> first & second);
                 }
                 return Pair.of(List.of(secondSymbolOrNumeric), list -> first & list.get(0));
             }
 
             if (NUMBERS_PATTERN.matcher(secondSymbolOrNumeric).matches()) {
-                long second = Long.parseLong(secondSymbolOrNumeric);
+                final long second = Long.parseLong(secondSymbolOrNumeric);
                 return Pair.of(List.of(firstSymbolOrNumeric), list -> list.get(0) & second);
             }
 
@@ -114,16 +114,16 @@ public final class Emulator<T> {
             final String secondSymbolOrNumeric = split[1];
 
             if (NUMBERS_PATTERN.matcher(firstSymbolOrNumeric).matches()) {
-                long first = Long.parseLong(firstSymbolOrNumeric);
+                final long first = Long.parseLong(firstSymbolOrNumeric);
                 if (NUMBERS_PATTERN.matcher(secondSymbolOrNumeric).matches()) {
-                    long second = Long.parseLong(secondSymbolOrNumeric);
+                    final long second = Long.parseLong(secondSymbolOrNumeric);
                     return Pair.of(List.of(), list -> first | second);
                 }
                 return Pair.of(List.of(secondSymbolOrNumeric), list -> first | list.get(0));
             }
 
             if (NUMBERS_PATTERN.matcher(secondSymbolOrNumeric).matches()) {
-                long second = Long.parseLong(secondSymbolOrNumeric);
+                final long second = Long.parseLong(secondSymbolOrNumeric);
                 return Pair.of(List.of(firstSymbolOrNumeric), list -> list.get(0) | second);
             }
 
@@ -131,7 +131,7 @@ public final class Emulator<T> {
         }
 
         if (wires.contains("NOT")) {
-            String symbol = wires.replace("NOT", "");
+            final String symbol = wires.replace("NOT", "");
             return Pair.of(List.of(symbol), list -> ~list.get(0));
         }
 

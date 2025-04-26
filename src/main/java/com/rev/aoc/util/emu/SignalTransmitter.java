@@ -9,7 +9,8 @@ public final class SignalTransmitter<T> implements SignalInput<T> {
     private final Function<List<T>, T> resolver;
     private T cachedResult = null;
 
-    SignalTransmitter(List<SignalInput<T>> signalInputs, Function<List<T>, T> resolver) {
+    SignalTransmitter(final List<SignalInput<T>> signalInputs,
+                      final Function<List<T>, T> resolver) {
         this.signalInputs = signalInputs;
         this.resolver = resolver;
     }
@@ -19,7 +20,7 @@ public final class SignalTransmitter<T> implements SignalInput<T> {
         if (cachedResult != null) {
             return cachedResult;
         }
-        List<T> inputs = new ArrayList<>(signalInputs.size());
+        final List<T> inputs = new ArrayList<>(signalInputs.size());
         for (SignalInput<T> signalInput : signalInputs) {
             inputs.add(signalInput.compute());
         }
@@ -33,7 +34,7 @@ public final class SignalTransmitter<T> implements SignalInput<T> {
     }
 
     @Override
-    public void set(T value) {
+    public void set(final T value) {
         cachedResult = value;
     }
 }
