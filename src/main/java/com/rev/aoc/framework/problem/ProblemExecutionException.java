@@ -6,7 +6,11 @@ public final class ProblemExecutionException extends RuntimeException {
         super();
     }
 
-    public ProblemExecutionException(final String message, final Throwable cause) {
-        super(message, cause);
+    public ProblemExecutionException(final String msg, final Throwable cause) {
+        super(msg, cause);
+    }
+
+    public ProblemExecutionException(final String msg) {
+        super(msg);
     }
 }
