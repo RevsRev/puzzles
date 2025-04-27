@@ -3,7 +3,8 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.util.graph.Edge;
-import com.rev.aoc.util.graph.GraphAlgorithms;
+import com.rev.aoc.util.graph.algo.Cliques;
+import com.rev.aoc.util.graph.algo.SubGraphs;
 import com.rev.aoc.util.graph.Graph;
 import com.rev.aoc.util.graph.Vertex;
 
@@ -22,7 +23,7 @@ public final class D23 extends AocProblem<Long, String> {
     @Override
     protected Long partOneImpl() {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph();
-        Collection<Graph<Vertex, Edge>> subGraphsOfSize3 = GraphAlgorithms.getConnectedSubgraphsOfSize3(graph);
+        Collection<Graph<Vertex, Edge>> subGraphsOfSize3 = SubGraphs.getConnectedSubgraphsOfSize3(graph);
         long count = 0;
         for (Graph<Vertex, Edge> subGraph : subGraphsOfSize3) {
             for (Vertex element : subGraph.getVertices()) {
@@ -38,7 +39,7 @@ public final class D23 extends AocProblem<Long, String> {
     @Override
     protected String partTwoImpl() {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph();
-        Collection<Graph<Vertex, Edge>> cliques = GraphAlgorithms.getCliques(graph);
+        Collection<Graph<Vertex, Edge>> cliques = Cliques.getCliques(graph);
         long largestCliqueSize = 0;
         Graph<Vertex, Edge> largestClique = null;
         for (Graph<Vertex, Edge> clique : cliques) {

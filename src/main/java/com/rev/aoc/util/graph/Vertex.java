@@ -1,17 +1,16 @@
 package com.rev.aoc.util.graph;
 
+import lombok.Getter;
+
 import java.util.Objects;
 
 @SuppressWarnings("checkstyle:VisibilityModifier")
+@Getter
 public final class Vertex {
     final String name;
 
     public Vertex(final String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override

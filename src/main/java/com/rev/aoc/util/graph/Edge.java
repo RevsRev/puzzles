@@ -1,8 +1,11 @@
 package com.rev.aoc.util.graph;
 
+import lombok.Getter;
+
 import java.util.Objects;
 
 @SuppressWarnings("checkstyle:VisibilityModifier")
+@Getter
 public final class Edge {
     final long weight;
 

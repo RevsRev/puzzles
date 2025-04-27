@@ -1,5 +1,7 @@
 package com.rev.aoc.util.graph;
 
+import lombok.Getter;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +21,10 @@ public final class Graph<V extends Vertex, E extends Edge> {
     final Set<V> vertices;
     final Set<E> edges;
     final Map<V, Map<V, E>> vertexEdgeMap;
+
+    @Getter
     final Function<String, V> vertexCreator;
+    @Getter
     final Function<Long, E> edgeCreator;
 
     private Graph(final Function<String, V> vertexCreator,
