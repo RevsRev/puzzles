@@ -5,9 +5,11 @@ import lombok.Getter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 /**
@@ -26,6 +28,24 @@ public final class Graph<V extends Vertex, E extends Edge> {
     final Function<String, V> vertexCreator;
     @Getter
     final Function<Long, E> edgeCreator;
+
+    public static Graph<Vertex, Edge> fromResources(
+            final List<String> lines,
+            final BiConsumer<String, Builder<Vertex, Edge>> lineProcessor) {
+        return fromResources(lines, lineProcessor, Vertex::new, Edge::new);
+    }
+
+    public static <V extends Vertex, E extends Edge> Graph<V, E> fromResources(
+            final List<String> lines,
+            final BiConsumer<String, Builder<V, E>> lineProcessor,
+            final Function<String, V> vertexCreator,
+            final Function<Long, E> edgeCreator) {
+        final Graph.Builder<V, E> builder = new Graph.Builder<>(vertexCreator, edgeCreator, true);
+        for (final String line: lines) {
+            lineProcessor.accept(line, builder);
+        }
+        return builder.build();
+    }
 
     private Graph(final Function<String, V> vertexCreator,
                   final Function<Long, E> edgeCreator) {

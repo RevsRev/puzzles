@@ -57,16 +57,14 @@ public final class D23 extends AocProblem<Long, String> {
 
     private Graph<Vertex, Edge> loadResourcesAsGraph() {
         List<String> lines = loadResources();
-        Graph.Builder<Vertex, Edge> builder = new Graph.Builder<>(Vertex::new, Edge::new, true);
-        for (String line : lines) {
-            String[] split = line.split("-");
+        return Graph.fromResources(lines, (s, b) -> {
+            String[] split = s.split("-");
             String first = split[0];
             String second = split[1];
-            builder.addVertex(first);
-            builder.addVertex(second);
-            builder.addEdge(first, second, 1);
-        }
-        return builder.build();
+            b.addVertex(first);
+            b.addVertex(second);
+            b.addEdge(first, second, 1);
+        });
     }
 
 }
