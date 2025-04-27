@@ -11,24 +11,12 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 @Getter
+@Deprecated
 public final class Graph<T> {
     private final Set<Node<T>> nodes = new HashSet<>();
 
     public Graph(final Collection<Node<T>> nodes) {
         this.nodes.addAll(nodes);
-    }
-
-    public Collection<Graph<T>> getDisjointSubgraphs() {
-        Set<Node<T>> nodesToCheck = new HashSet<>(nodes);
-        Collection<Graph<T>> subgraphs = new HashSet<>();
-        for (Node<T> node: nodes) {
-            if (nodesToCheck.contains(node)) {
-                Graph<T> traversed = node.traverse();
-                nodesToCheck.removeAll(traversed.nodes);
-                subgraphs.add(traversed);
-            }
-        }
-        return subgraphs;
     }
 
     public Collection<Graph<T>> getCliques() {
