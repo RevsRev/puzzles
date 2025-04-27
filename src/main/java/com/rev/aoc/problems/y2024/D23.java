@@ -2,15 +2,15 @@ package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.util.graph.Edge;
+import com.rev.aoc.util.graph.GraphAlgorithms;
 import com.rev.aoc.util.graph.Graph;
-import com.rev.aoc.util.graph.Node;
+import com.rev.aoc.util.graph.Vertex;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public final class D23 extends AocProblem<Long, String> {
 
@@ -21,12 +21,12 @@ public final class D23 extends AocProblem<Long, String> {
 
     @Override
     protected Long partOneImpl() {
-        Graph<String> graph = loadResourcesAsGraph();
-        Collection<Graph<String>> subGraphsOfSize3 = graph.getConnectedSubgraphsOfSize3();
+        Graph<Vertex, Edge> graph = loadResourcesAsGraph();
+        Collection<Graph<Vertex, Edge>> subGraphsOfSize3 = GraphAlgorithms.getConnectedSubgraphsOfSize3(graph);
         long count = 0;
-        for (Graph<String> subGraph : subGraphsOfSize3) {
-            for (Node<String> element : subGraph.getNodes()) {
-                if (element.getValue().startsWith("t")) {
+        for (Graph<Vertex, Edge> subGraph : subGraphsOfSize3) {
+            for (Vertex element : subGraph.getVertices()) {
+                if (element.getName().startsWith("t")) {
                     count++;
                     break;
                 }
@@ -37,35 +37,35 @@ public final class D23 extends AocProblem<Long, String> {
 
     @Override
     protected String partTwoImpl() {
-        Graph<String> graph = loadResourcesAsGraph();
-        Collection<Graph<String>> cliques = graph.getCliques();
+        Graph<Vertex, Edge> graph = loadResourcesAsGraph();
+        Collection<Graph<Vertex, Edge>> cliques = GraphAlgorithms.getCliques(graph);
         long largestCliqueSize = 0;
-        Graph<String> largestClique = null;
-        for (Graph<String> clique : cliques) {
-            if (clique.getNodes().size() > largestCliqueSize) {
-                largestCliqueSize = clique.getNodes().size();
+        Graph<Vertex, Edge> largestClique = null;
+        for (Graph<Vertex, Edge> clique : cliques) {
+            if (clique.getVertices().size() > largestCliqueSize) {
+                largestCliqueSize = clique.getVertices().size();
                 largestClique = clique;
             }
         }
 
-        List<String> nodeNames = new ArrayList<>(largestClique.getNodes().stream().map(Node::getValue).toList());
+        List<String> nodeNames = new ArrayList<>(largestClique.getVertices().stream().map(Vertex::getName).toList());
         Collections.sort(nodeNames);
         StringBuilder answer = new StringBuilder();
         return String.join(",", nodeNames);
     }
 
-    private Graph<String> loadResourcesAsGraph() {
+    private Graph<Vertex, Edge> loadResourcesAsGraph() {
         List<String> lines = loadResources();
-        Map<String, Node<String>> nodes = new HashMap<>();
+        Graph.Builder<Vertex, Edge> builder = new Graph.Builder<>(Vertex::new, Edge::new, true);
         for (String line : lines) {
             String[] split = line.split("-");
             String first = split[0];
             String second = split[1];
-            Node<String> firstNode = nodes.computeIfAbsent(first, Node::new);
-            Node<String> secondNode = nodes.computeIfAbsent(second, Node::new);
-            firstNode.addNeighbour(secondNode);
+            builder.addVertex(first);
+            builder.addVertex(second);
+            builder.addEdge(first, second, 1);
         }
-        return new Graph<>(nodes.values());
+        return builder.build();
     }
 
 }
