@@ -35,8 +35,14 @@ public final class SubGraphs {
                     subGraphBuilder.addVertex(node.getName());
                     subGraphBuilder.addVertex(first.getName());
                     subGraphBuilder.addVertex(second.getName());
-                    subGraphBuilder.addEdge(node.getName(), first.getName(), graph.getEdge(node, first).getWeight());
-                    subGraphBuilder.addEdge(node.getName(), second.getName(), graph.getEdge(node, second).getWeight());
+                    subGraphBuilder.addEdge(
+                            node.getName(),
+                            first.getName(),
+                            graph.getEdge(node, first).get().getWeight());
+                    subGraphBuilder.addEdge(
+                            node.getName(),
+                            second.getName(),
+                            graph.getEdge(node, second).get().getWeight());
 
                     final Graph<V, E> subGraph = subGraphBuilder.build();
                     if (!subGraphs.contains(subGraph)) {

@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -29,13 +30,13 @@ public final class Graph<V extends Vertex, E extends Edge> {
     @Getter
     final Function<Long, E> edgeCreator;
 
-    public static Graph<Vertex, Edge> fromResources(
+    public static Builder<Vertex, Edge> fromResources(
             final List<String> lines,
             final BiConsumer<String, Builder<Vertex, Edge>> lineProcessor) {
         return fromResources(lines, lineProcessor, Vertex::new, Edge::new);
     }
 
-    public static <V extends Vertex, E extends Edge> Graph<V, E> fromResources(
+    public static <V extends Vertex, E extends Edge> Builder<V, E> fromResources(
             final List<String> lines,
             final BiConsumer<String, Builder<V, E>> lineProcessor,
             final Function<String, V> vertexCreator,
@@ -44,7 +45,7 @@ public final class Graph<V extends Vertex, E extends Edge> {
         for (final String line: lines) {
             lineProcessor.accept(line, builder);
         }
-        return builder.build();
+        return builder;
     }
 
     private Graph(final Function<String, V> vertexCreator,
@@ -77,9 +78,16 @@ public final class Graph<V extends Vertex, E extends Edge> {
         return vertices.contains(v);
     }
 
-    public boolean containsEdge(final V v1, final V v2, final E e) {
-        return vertexEdgeMap.get(v1).containsKey(e)
-                && vertexEdgeMap.get(v2).containsKey(e);
+    public boolean containsEdge(final V v1, final V v2) {
+        return !vertexEdgeMap.get(v1).isEmpty()
+                && vertexEdgeMap.get(v1).containsKey(v2);
+    }
+
+    public Optional<E> getEdge(final V v1, final V v2) {
+        if (!containsVertex(v1) || !containsVertex(v2)) {
+            throw new IllegalArgumentException("Graph does not contain the vertices requested");
+        }
+        return Optional.ofNullable(vertexEdgeMap.get(v1).get(v2));
     }
 
     private void addVertex(final V v) {
@@ -113,13 +121,6 @@ public final class Graph<V extends Vertex, E extends Edge> {
         return vertices.isEmpty();
     }
 
-    public E getEdge(final V v1, final V v2) {
-        if (!containsVertex(v1) || !containsVertex(v2)) {
-            throw new IllegalArgumentException("Graph does not contain the vertices requested");
-        }
-        return vertexEdgeMap.get(v1).get(v2);
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (o == null || getClass() != o.getClass()) {
@@ -151,7 +152,7 @@ public final class Graph<V extends Vertex, E extends Edge> {
     }
 
     private void addEdge(final V v1, final V v2, final E e) {
-        if (containsEdge(v1, v2, e)) {
+        if (containsEdge(v1, v2)) {
             throw new IllegalStateException("Trying to add a vertex/edge that already exists");
         }
         edges.add(e);
@@ -195,7 +196,7 @@ public final class Graph<V extends Vertex, E extends Edge> {
             final V v1 = vertexCreator.apply(v1Name);
             final V v2 = vertexCreator.apply(v2Name);
             final E e = edgeCreator.apply(edgeWeight);
-            if (!lenient || !graph.containsEdge(v1, v2, e)) {
+            if (!lenient || !graph.containsEdge(v1, v2)) {
                 graph.addEdge(v1, v2, e);
             }
             return this;
@@ -207,6 +208,10 @@ public final class Graph<V extends Vertex, E extends Edge> {
 
         public void removeVertex(final String name) {
             graph.removeVertex(vertexCreator.apply(name));
+        }
+
+        public Collection<V> getVertices() {
+            return graph.getVertices();
         }
     }
 }

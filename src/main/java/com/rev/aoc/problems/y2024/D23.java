@@ -64,7 +64,7 @@ public final class D23 extends AocProblem<Long, String> {
             b.addVertex(first);
             b.addVertex(second);
             b.addEdge(first, second, 1);
-        });
+        }).build();
     }
 
 }
