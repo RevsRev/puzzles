@@ -2,6 +2,7 @@ package com.rev.aoc.util.graph;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -29,19 +31,28 @@ public final class Graph<V extends Vertex, E extends Edge> {
     final Function<String, V> vertexCreator;
     @Getter
     final Function<Long, E> edgeCreator;
+    private final boolean directed;
 
     public static Builder<Vertex, Edge> fromResources(
             final List<String> lines,
             final BiConsumer<String, Builder<Vertex, Edge>> lineProcessor) {
-        return fromResources(lines, lineProcessor, Vertex::new, Edge::new);
+        return fromResources(lines, lineProcessor, false);
+    }
+
+    public static Builder<Vertex, Edge> fromResources(
+            final List<String> lines,
+            final BiConsumer<String, Builder<Vertex, Edge>> lineProcessor,
+            final boolean directed) {
+        return fromResources(lines, lineProcessor, Vertex::new, Edge::new, directed);
     }
 
     public static <V extends Vertex, E extends Edge> Builder<V, E> fromResources(
             final List<String> lines,
             final BiConsumer<String, Builder<V, E>> lineProcessor,
             final Function<String, V> vertexCreator,
-            final Function<Long, E> edgeCreator) {
-        final Graph.Builder<V, E> builder = new Graph.Builder<>(vertexCreator, edgeCreator, true);
+            final Function<Long, E> edgeCreator,
+            final boolean directed) {
+        final Graph.Builder<V, E> builder = new Graph.Builder<>(vertexCreator, edgeCreator, true, directed);
         for (final String line: lines) {
             lineProcessor.accept(line, builder);
         }
@@ -49,8 +60,9 @@ public final class Graph<V extends Vertex, E extends Edge> {
     }
 
     private Graph(final Function<String, V> vertexCreator,
-                  final Function<Long, E> edgeCreator) {
-        this(new HashSet<>(), new HashSet<>(), new HashMap<>(), vertexCreator, edgeCreator);
+                  final Function<Long, E> edgeCreator,
+                  final boolean directed) {
+        this(new HashSet<>(), new HashSet<>(), new HashMap<>(), vertexCreator, edgeCreator, directed);
     }
 
     private Graph(final Graph<V, E> copy) {
@@ -59,19 +71,44 @@ public final class Graph<V extends Vertex, E extends Edge> {
                 new HashSet<>(copy.edges),
                 new HashMap<>(copy.vertexEdgeMap),
                 copy.vertexCreator,
-                copy.edgeCreator);
+                copy.edgeCreator,
+                copy.directed);
     }
 
     private Graph(final Set<V> vertices,
                   final Set<E> edges,
                   final Map<V, Map<V, E>> vertexEdgeMap,
                   final Function<String, V> vertexCreator,
-                  final Function<Long, E> edgeCreator) {
+                  final Function<Long, E> edgeCreator,
+                  final boolean directed) {
         this.vertices = vertices;
         this.edges = edges;
         this.vertexEdgeMap = vertexEdgeMap;
         this.vertexCreator = vertexCreator;
         this.edgeCreator = edgeCreator;
+        this.directed = directed;
+    }
+
+    public static <V extends Vertex, E extends Edge> Graph<V, E> aggregate(
+            final Graph<V, E> directedGraph,
+            final BiFunction<Optional<E>, Optional<E>, Long> edgeAggregator) {
+        if (!directedGraph.directed) {
+            throw new IllegalArgumentException();
+        }
+
+        Builder<V, E> builder = new Builder<>(directedGraph.vertexCreator, directedGraph.edgeCreator, false);
+        List<V> vertices = new ArrayList<>(directedGraph.getVertices());
+        vertices.forEach(v -> builder.addVertex(v.getName()));
+        for (int i = 0; i < vertices.size(); i++) {
+            for (int j = i + 1; j < vertices.size(); j++) {
+                V first = vertices.get(i);
+                V second = vertices.get(j);
+                Optional<E> firstToSecond = directedGraph.getEdge(first, second);
+                Optional<E> secondToFirst = directedGraph.getEdge(second, first);
+                builder.addEdge(first.name, second.name, edgeAggregator.apply(firstToSecond, secondToFirst));
+            }
+        }
+        return builder.build();
     }
 
     public boolean containsVertex(final V v) {
@@ -157,7 +194,9 @@ public final class Graph<V extends Vertex, E extends Edge> {
         }
         edges.add(e);
         vertexEdgeMap.get(v1).put(v2, e);
-        vertexEdgeMap.get(v2).put(v1, e);
+        if (!directed) {
+            vertexEdgeMap.get(v2).put(v1, e);
+        }
     }
 
     public Collection<V> getVertices() {
@@ -173,11 +212,19 @@ public final class Graph<V extends Vertex, E extends Edge> {
         public Builder(
                 final Function<String, V> vertexCreator,
                 final Function<Long, E> edgeCreator,
-                boolean lenient) {
+                final boolean lenient) {
+            this(vertexCreator, edgeCreator, lenient, false);
+        }
+
+        public Builder(
+                final Function<String, V> vertexCreator,
+                final Function<Long, E> edgeCreator,
+                final boolean lenient,
+                final boolean directed) {
             this.vertexCreator = vertexCreator;
             this.edgeCreator = edgeCreator;
             this.lenient = lenient;
-            this.graph = new Graph<>(vertexCreator, edgeCreator);
+            this.graph = new Graph<>(vertexCreator, edgeCreator, directed);
         }
 
         public Graph<V, E> build() {
