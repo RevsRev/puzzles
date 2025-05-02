@@ -2,48 +2,49 @@ package com.rev.aoc.util.math.ntheory.primes;
 
 
 import com.rev.aoc.util.math.ntheory.modular.Mod;
-import lombok.Getter;
 
-import java.util.Iterator;
-import java.util.LinkedHashSet;
+import java.util.Collections;
 
 public final class PrimeCheck {
-    private static final long PRIME_CACHE_SIZE = 10000;
-    @Getter
-    private static LinkedHashSet<Long> primeCache = SieveOfEratosthenes.sieveOfEratosthenes(PRIME_CACHE_SIZE);
 
-    private static final long PRIME_WITNESSES_SIZE = 50;
-    private static LinkedHashSet<Long> primeWitnesses = SieveOfEratosthenes.sieveOfEratosthenes(PRIME_WITNESSES_SIZE);
+    private static final long FERMAT_PRIME_CHECK_LIMIT = 300;
+    public static final int INITIAL_SEARCH_SIZE = 1000;
+    private final SieveOfEratosthenes primeCache;
 
-    private PrimeCheck() {
+    private PrimeCheck(final SieveOfEratosthenes primeCache) {
+        this.primeCache = primeCache;
     }
 
-    public static boolean primeCheck(long n) {
-        //Fermat prime check
-        Iterator<Long> itWitnesses = primeWitnesses.iterator();
-        while (itWitnesses.hasNext()) {
-            long prime = itWitnesses.next();
-            if (n == prime) {
-                return true;
+    public static PrimeCheck create() {
+        SieveOfEratosthenes primeCache = SieveOfEratosthenes.create(INITIAL_SEARCH_SIZE);
+        return new PrimeCheck(primeCache);
+    }
+
+    public boolean primeCheck(long n) {
+        if (n == 1) {
+            return false;
+        }
+
+        if (Collections.binarySearch(primeCache.getPrimes(), n) >= 0) {
+            return true;
+        }
+
+        if (n < primeCache.getHighWaterMark()) {
+            return false;
+        }
+
+        for (long prime : primeCache.getPrimes()) {
+            if (prime > FERMAT_PRIME_CHECK_LIMIT) {
+                break;
             }
             if (Mod.pow(n, prime - 1, prime) != 1) {
                 return false;
             }
         }
 
-        //Just in case I ever accidentally remove from witnesses...
-        if (n == 2 || n == 3) {
-            return true;
-        }
-
-        if (n % 2 == 0) {
-            return false;
-        }
-
-        //Do the usual check
-        long limit = (long) Math.ceil(Math.sqrt(n)) + 1;
-        for (int i = 5; i <= limit; i += 2) {
-            if ((n % i) == 0) {
+        primeCache.extend((long) Math.sqrt(n));
+        for (long prime : primeCache.getPrimes()) {
+            if (n % prime == 0) {
                 return false;
             }
         }

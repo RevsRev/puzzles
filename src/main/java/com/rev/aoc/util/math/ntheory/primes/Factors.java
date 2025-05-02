@@ -3,27 +3,40 @@ package com.rev.aoc.util.math.ntheory.primes;
 
 import com.rev.aoc.util.math.ntheory.util.Pow;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 public final class Factors {
 
     private Factors() {
     }
 
-    public static LinkedHashMap<Long, Long> factorise(long n) {
-        LinkedHashSet<Long> cachedPrimes = PrimeCheck.getPrimeCache();
-        long largestCachedPrime = 2;
+    public static LinkedHashMap<Long, Long> primeFactors(final long n) {
+
         LinkedHashMap<Long, Long> factors = new LinkedHashMap<>();
 
-        long reducedN = n;
+        if (n == 1) {
+            return factors;
+        }
 
-        Iterator<Long> it = cachedPrimes.iterator();
-        while (it.hasNext()) {
-            long prime = it.next();
+        SieveOfEratosthenes sieveOfEratosthenes = SieveOfEratosthenes.create(n);
+        List<Long> primes = sieveOfEratosthenes.getPrimes();
+
+        int index = Collections.binarySearch(primes, n);
+        if (index >= 0) {
+            factors.put(n, 1L);
+            return factors;
+        }
+
+        index = -index;
+
+        long reducedN = n;
+        for (int i = 0; i < index && reducedN > 1; i++) {
+            long prime = primes.get(i);
             while (reducedN % prime == 0) {
                 if (!factors.containsKey(prime)) {
                     factors.put(prime, 0L);
@@ -31,30 +44,6 @@ public final class Factors {
                 factors.put(prime, factors.get(prime) + 1);
                 reducedN = reducedN / prime;
             }
-            largestCachedPrime = prime;
-        }
-
-        if (largestCachedPrime == 2) {
-            while (reducedN % 2 == 0) {
-                if (!factors.containsKey((2L))) {
-                    factors.put(2L, 0L);
-                }
-                factors.put(2L, factors.get(2L) + 1);
-                reducedN = reducedN / 2;
-            }
-            largestCachedPrime = 3;
-        }
-
-        long factorToCheck = largestCachedPrime;
-        while (reducedN != 1) {
-            while (reducedN % factorToCheck == 0) {
-                if (!factors.containsKey(factorToCheck)) {
-                    factors.put(factorToCheck, 0L);
-                }
-                factors.put(factorToCheck, factors.get(factorToCheck) + 1);
-                reducedN = reducedN / factorToCheck;
-            }
-            factorToCheck += 2;
         }
 
         return factors;
@@ -68,7 +57,7 @@ public final class Factors {
 
         long retval = 1;
 
-        Map<Long, Long> factors = factorise(n);
+        Map<Long, Long> factors = primeFactors(n);
         Iterator<Long> it = factors.keySet().iterator();
         while (it.hasNext()) {
             long prime = it.next();
@@ -139,20 +128,5 @@ public final class Factors {
         long result = n - 1;
         totientCache.put(n, result);
         return result;
-    }
-
-    public static void printFactors(long n) {
-        HashMap<Long, Long> factors = factorise(n);
-        StringBuilder sb = new StringBuilder();
-        Iterator<Long> itFactors = factors.keySet().iterator();
-        while (itFactors.hasNext()) {
-            long prime = itFactors.next();
-            long pow = factors.get(prime);
-            sb.append(prime + "^" + pow);
-            if (itFactors.hasNext()) {
-                sb.append(" * ");
-            }
-        }
-        System.out.print(sb);
     }
 }
