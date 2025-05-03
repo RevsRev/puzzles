@@ -3,21 +3,22 @@ package com.rev.aoc.util.math.ntheory.primes;
 
 import com.rev.aoc.util.math.ntheory.util.Pow;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public final class Factors {
 
     private Factors() {
     }
 
-    public static LinkedHashMap<Long, Long> primeFactors(final long n) {
+    public static TreeMap<Long, Long> primeFactors(final long n) {
 
-        LinkedHashMap<Long, Long> factors = new LinkedHashMap<>();
+        TreeMap<Long, Long> factors = new TreeMap<>();
 
         if (n == 1) {
             return factors;
@@ -32,7 +33,7 @@ public final class Factors {
             return factors;
         }
 
-        index = -index;
+        index = -index -1;
 
         long reducedN = n;
         for (int i = 0; i < index && reducedN > 1; i++) {
@@ -46,7 +47,44 @@ public final class Factors {
             }
         }
 
+        if (reducedN > 1) {
+            factors.put(reducedN, 1L);
+        }
         return factors;
+    }
+
+    public static List<Long> factors(long n) {
+        TreeMap<Long, Long> primeFactors = primeFactors(n);
+        int capacity = (int) (Math.log(n) / Math.log(2)) + 1;
+        final List<Long> factors = new ArrayList<>(capacity);
+
+        factors(factors, primeFactors, 1, 1);
+        Collections.sort(factors);
+        return factors;
+    }
+
+    private static void factors(
+            final List<Long> factors,
+            final TreeMap<Long, Long> primeFactors,
+            final long factor,
+            final long low) {
+;
+        Map.Entry<Long, Long> ceilingEntry = primeFactors.ceilingEntry(low);
+
+        if (ceilingEntry == null) {
+            factors.add(factor);
+            return;
+        }
+
+        final long prime = ceilingEntry.getKey();
+        final long multiplicity = ceilingEntry.getValue();
+
+        long f = factor;
+        for (int i = 0; i <= multiplicity; i++) {
+            factors(factors, primeFactors, f, prime + 1);
+            f *= prime;
+        }
+        primeFactors.ceilingEntry(prime + 1);
     }
 
     public static long eulerTotient(long n) {
