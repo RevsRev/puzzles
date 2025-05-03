@@ -77,6 +77,9 @@ public final class SieveOfEratosthenes {
     }
 
     public void extend(final long n) {
+        if (n < highWaterMark) {
+            return;
+        }
         highWaterMark = sieve(n, highWaterMark, maxSegmentSize, primes);
     }
 }

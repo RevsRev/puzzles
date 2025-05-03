@@ -16,7 +16,7 @@ public final class Factors {
     public static final int DEFAULT_CACHE_INITIALIZATION_SIZE = 1000;
     private final SieveOfEratosthenes sieve;
 
-    public Factors(SieveOfEratosthenes sieve) {
+    public Factors(final SieveOfEratosthenes sieve) {
         this.sieve = sieve;
     }
 
@@ -41,17 +41,18 @@ public final class Factors {
             return factors;
         }
 
-        index = -index -1;
+        index = -index - 1;
 
         long reducedN = n;
         for (int i = 0; i < index && reducedN > 1; i++) {
             long prime = primes.get(i);
+            long j = 0;
             while (reducedN % prime == 0) {
-                if (!factors.containsKey(prime)) {
-                    factors.put(prime, 0L);
-                }
-                factors.put(prime, factors.get(prime) + 1);
                 reducedN = reducedN / prime;
+                j++;
+            }
+            if (j != 0) {
+                factors.put(prime, j);
             }
         }
 
@@ -76,7 +77,7 @@ public final class Factors {
             final TreeMap<Long, Long> primeFactors,
             final long factor,
             final long low) {
-;
+
         Map.Entry<Long, Long> ceilingEntry = primeFactors.ceilingEntry(low);
 
         if (ceilingEntry == null) {
