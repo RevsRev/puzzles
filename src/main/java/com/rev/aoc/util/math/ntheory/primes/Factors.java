@@ -44,7 +44,7 @@ public final class Factors {
         index = -index - 1;
 
         long reducedN = n;
-        for (int i = 0; i < index && reducedN > 1; i++) {
+        for (int i = 0; i < index && reducedN > 1 && reducedN >= primes.get(i); i++) {
             long prime = primes.get(i);
             long j = 0;
             while (reducedN % prime == 0) {
