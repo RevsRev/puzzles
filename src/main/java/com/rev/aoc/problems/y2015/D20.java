@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.ProblemExecutionException;
 import com.rev.aoc.util.math.ntheory.primes.Factors;
 import com.rev.aoc.util.math.ntheory.primes.SieveOfEratosthenes;
 
@@ -21,8 +22,55 @@ public final class D20 extends AocProblem<Long, Long> {
     }
 
     @Override
-    //TODO - This solution is very slow
+    //TODO - Parallelisation?
     protected Long partOneImpl() {
+//        return partOneSlow();
+        return partOneFast();
+    }
+
+    @Override
+    protected Long partTwoImpl() {
+//        return partTwoSlow();
+        return partTwoFast();
+    }
+
+    private long partOneFast() {
+        final long target = Long.parseLong(loadResources().get(0)) / 10;
+        long[] cache = new long[(int) target + 1];
+
+        for (int i = 1; i <= target; i++) {
+            int j = i;
+            while (j < target) {
+                cache[j] += i;
+                j += i;
+            }
+            if (cache[i] >= target) {
+                return i;
+            }
+        }
+        throw new ProblemExecutionException("Solution not found");
+    }
+
+    private long partTwoFast() {
+        final long target = (long) (Long.parseLong(loadResources().get(0)) / 11d) + 1;
+        long[] cache = new long[(int) target + 1];
+
+        for (int i = 1; i <= target; i++) {
+            int j = i;
+            int count = 0;
+            while (j < target && count < PART_TWO_PRESENTS_LIMIT) {
+                cache[j] += i;
+                j += i;
+                count++;
+            }
+            if (cache[i] >= target) {
+                return i;
+            }
+        }
+        throw new ProblemExecutionException("Solution not found");
+    }
+
+    private long partOneSlow() {
         final long target = Long.parseLong(loadResources().get(0)) / 10;
         //TODO - There is a much better bound for this problem, but we need to write an inequality solver to use it.
 //        final long searchStart = (long) Math.sqrt( ( (Math.log(target) / Math.log (2)) * target * target + 1) / 2);
@@ -45,8 +93,7 @@ public final class D20 extends AocProblem<Long, Long> {
         }
     }
 
-    @Override
-    protected Long partTwoImpl() {
+    private long partTwoSlow() {
         final long target = (long) (Long.parseLong(loadResources().get(0)) / 11d) + 1;
         //TODO - There is a much better bound for this problem, but we need to write an inequality solver to use it.
 //        final long searchStart = (long) Math.sqrt( ( (Math.log(target) / Math.log (2)) * target * target + 1) / 2);
