@@ -14,13 +14,13 @@ public class FactorsTest {
     @ParameterizedTest
     @MethodSource("primeFactorsTestParameters")
     public void testPrimeFactors(final Pair<Long, Map<Long,Long>> inputAndPrimeFactors) {
-        Assertions.assertEquals(inputAndPrimeFactors.getRight(), Factors.primeFactors(inputAndPrimeFactors.getLeft()));
+        Assertions.assertEquals(inputAndPrimeFactors.getRight(), Factors.create().primeFactors(inputAndPrimeFactors.getLeft()));
     }
 
     @ParameterizedTest
     @MethodSource("factorsTestParameters")
     public void testFactors(final Pair<Long, List<Long>> inputAndFactors) {
-        Assertions.assertEquals(inputAndFactors.getRight(), Factors.factors(inputAndFactors.getLeft()));
+        Assertions.assertEquals(inputAndFactors.getRight(), Factors.create().factors(inputAndFactors.getLeft()));
     }
 
     public static List<Pair<Long, List<Long>>> factorsTestParameters() {

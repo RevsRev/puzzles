@@ -13,10 +13,18 @@ import java.util.TreeMap;
 
 public final class Factors {
 
-    private Factors() {
+    public static final int DEFAULT_CACHE_INITIALIZATION_SIZE = 1000;
+    private final SieveOfEratosthenes sieve;
+
+    public Factors(SieveOfEratosthenes sieve) {
+        this.sieve = sieve;
     }
 
-    public static TreeMap<Long, Long> primeFactors(final long n) {
+    public static Factors create() {
+        return new Factors(SieveOfEratosthenes.create(DEFAULT_CACHE_INITIALIZATION_SIZE));
+    }
+
+    public TreeMap<Long, Long> primeFactors(final long n) {
 
         TreeMap<Long, Long> factors = new TreeMap<>();
 
@@ -24,8 +32,8 @@ public final class Factors {
             return factors;
         }
 
-        SieveOfEratosthenes sieveOfEratosthenes = SieveOfEratosthenes.create((long) Math.sqrt(n));
-        List<Long> primes = sieveOfEratosthenes.getPrimes();
+        sieve.extend((long) Math.sqrt(n));
+        List<Long> primes = sieve.getPrimes();
 
         int index = Collections.binarySearch(primes, n);
         if (index >= 0) {
@@ -53,7 +61,7 @@ public final class Factors {
         return factors;
     }
 
-    public static List<Long> factors(long n) {
+    public List<Long> factors(long n) {
         TreeMap<Long, Long> primeFactors = primeFactors(n);
         int capacity = (int) (Math.log(n) / Math.log(2)) + 1;
         final List<Long> factors = new ArrayList<>(capacity);
@@ -87,7 +95,7 @@ public final class Factors {
         primeFactors.ceilingEntry(prime + 1);
     }
 
-    public static long eulerTotient(long n) {
+    public long eulerTotient(long n) {
 
         if (n == 0) {
             return 0;
