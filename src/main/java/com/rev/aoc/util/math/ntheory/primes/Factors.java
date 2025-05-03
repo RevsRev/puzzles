@@ -23,7 +23,7 @@ public final class Factors {
             return factors;
         }
 
-        SieveOfEratosthenes sieveOfEratosthenes = SieveOfEratosthenes.create(n);
+        SieveOfEratosthenes sieveOfEratosthenes = SieveOfEratosthenes.create((long) Math.sqrt(n));
         List<Long> primes = sieveOfEratosthenes.getPrimes();
 
         int index = Collections.binarySearch(primes, n);
