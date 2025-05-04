@@ -53,4 +53,34 @@ public final class SetUtils {
             setsOfSizeN(input, set, i + 1, setIndex + 1, consumer);
         }
     }
+
+    public static <T> List<T[]> subsetsOfSizeLeqN(final T[] input, final T[] set) {
+        return subsetsOfSizeLeqN(input, set, 0);
+    }
+
+    public static <T> List<T[]> subsetsOfSizeLeqN(final T[] input, final T[] set, final int inputStart) {
+        final List<T[]> results = new ArrayList<>();
+        Consumer<T[]> consumer = arr -> results.add(arr);
+        setsOfSizeLeqN(input, set, inputStart, 0, consumer);
+        return results;
+    }
+
+    private static <T> void setsOfSizeLeqN(final T[] input,
+                                        final T[] set,
+                                        final int inputIndex,
+                                        final int setIndex,
+                                        final Consumer<T[]> consumer) {
+        if (setIndex <= set.length) {
+            consumer.accept(Arrays.copyOfRange(set, 0, setIndex));
+        }
+
+        if (inputIndex == input.length || setIndex == set.length) {
+            return;
+        }
+
+        for (int i = inputIndex; i < input.length; i++) {
+            set[setIndex] = input[i];
+            setsOfSizeLeqN(input, set, i + 1, setIndex + 1, consumer);
+        }
+    }
 }
