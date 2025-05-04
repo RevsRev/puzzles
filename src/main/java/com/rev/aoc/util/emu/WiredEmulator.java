@@ -9,13 +9,13 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
-public final class Emulator<T> {
+public final class WiredEmulator<T> {
 
     private static final Pattern NUMBERS_PATTERN = Pattern.compile("^[0-9]*$");
 
     private final Map<String, SignalInput<T>> wiring;
 
-    private Emulator(final Map<String, SignalInput<T>> wiring) {
+    private WiredEmulator(final Map<String, SignalInput<T>> wiring) {
         this.wiring = wiring;
     }
 
@@ -31,7 +31,7 @@ public final class Emulator<T> {
         wiring.values().forEach(SignalInput::reset);
     }
 
-    public static Emulator<Long> create(final List<String> textWiring) {
+    public static WiredEmulator<Long> create(final List<String> textWiring) {
         final Map<String, String> symbolMap = new HashMap<>();
         for (String line : textWiring) {
             final String s = line.replaceAll("\\s", "");
@@ -45,7 +45,7 @@ public final class Emulator<T> {
         for (String name : symbolMap.keySet()) {
             extractSignals(name, symbolMap, signalsMap);
         }
-        return new Emulator<>(signalsMap);
+        return new WiredEmulator<>(signalsMap);
     }
 
     private static void extractSignals(final String name,
