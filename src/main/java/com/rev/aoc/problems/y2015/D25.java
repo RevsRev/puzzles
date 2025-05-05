@@ -3,7 +3,7 @@ package com.rev.aoc.problems.y2015;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 
-public final class D25 extends AocProblem<Long, Long> {
+public final class D25 extends AocProblem<Long, String> {
 
 
     public static final int STARTING_CODE = 20151125;
@@ -32,7 +32,7 @@ public final class D25 extends AocProblem<Long, Long> {
     }
 
     @Override
-    protected Long partTwoImpl() {
-        return null;
+    protected String partTwoImpl() {
+        return "n/a";
     }
 }
