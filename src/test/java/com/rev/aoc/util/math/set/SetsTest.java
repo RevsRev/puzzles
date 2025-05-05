@@ -28,6 +28,19 @@ public final class SetsTest {
         Assertions.assertArrayEquals(out.toArray(), SetUtils.subsetsOfSizeLeqN(in, perm).toArray());
     }
 
+    @ParameterizedTest
+    @MethodSource("getDivideIntoBinsTestCases")
+    public void testDivideIntoBins(Pair<Pair<long[], Integer>, List<long[][]>> input) {
+        long[] in = input.getLeft().getLeft();
+        int numberOfBins = input.getLeft().getRight();
+        List<long[][]> actual = SetUtils.divideIntoEqualBins(in, numberOfBins);
+        List<long[][]> expected = input.getRight();
+        Assertions.assertEquals(expected.size(), actual.size());
+        for (int i = 0; i < actual.size(); i++) {
+            Assertions.assertArrayEquals(expected.get(i), actual.get(i));
+        }
+    }
+
     public static List<Pair<Pair<Object[], Object[]>, List<Object[]>>> getSizeNTestCases() {
         return List.of(
                 Pair.of(Pair.of(new Object[]{1}, new Object[1]), List.<Object[]>of(new Object[]{1})),
@@ -83,6 +96,38 @@ public final class SetsTest {
                         new Integer[]{3, 4},
                         new Integer[]{4}
                 ))
+        );
+    }
+
+    //TODO - Make more efficient by not returning equivalent (i.e. permuted) solutions
+    public static List<Pair<Pair<long[], Integer>, List<long[][]>>> getDivideIntoBinsTestCases() {
+        return List.of(
+                Pair.of(Pair.of(new long[]{1L, 1L, 1L}, 3), List.of(
+                        new long[][]{{1L}, {1L}, {1L}},
+                        new long[][]{{1L}, {1L}, {1L}},
+                        new long[][]{{1L}, {1L}, {1L}},
+                        new long[][]{{1L}, {1L}, {1L}},
+                        new long[][]{{1L}, {1L}, {1L}},
+                        new long[][]{{1L}, {1L}, {1L}}
+                )),
+                Pair.of(Pair.of(new long[]{1L, 2L, 1L}, 2), List.of(
+                        new long[][]{{1L, 1L}, {2L}},
+                        new long[][]{{2L}, {1L, 1L}}
+                )),
+                Pair.of(Pair.of(new long[]{1L, 1L, 2L, 2L, 3L}, 3), List.of(
+                        new long[][]{{1L, 2L}, {1L, 2L}, {3L}},
+                        new long[][]{{1L, 2L}, {1L, 2L}, {3L}},
+                        new long[][]{{1L, 2L}, {3L}, {1L, 2L}},
+                        new long[][]{{1L, 2L}, {3L}, {1L, 2L}},
+                        new long[][]{{1L, 2L}, {1L, 2L}, {3L}},
+                        new long[][]{{1L, 2L}, {1L, 2L}, {3L}},
+                        new long[][]{{3L}, {1L, 2L}, {1L, 2L}},
+                        new long[][]{{3L}, {1L, 2L}, {1L, 2L}},
+                        new long[][]{{1L, 2L}, {3L}, {1L, 2L}},
+                        new long[][]{{1L, 2L}, {3L}, {1L, 2L}},
+                        new long[][]{{3L}, {1L, 2L}, {1L, 2L}},
+                        new long[][]{{3L}, {1L, 2L}, {1L, 2L}}
+                        ))
         );
     }
 
