@@ -1,5 +1,6 @@
 package com.rev.aoc.framework;
 
+import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocPart;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocResult;
@@ -7,7 +8,7 @@ import com.rev.aoc.framework.problem.AocResult;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class AocExecutor {
+public final class AocExecutor implements ProblemExecutor<AocCoordinate> {
 
     private final AocPart part;
     private final ExecutorListener executorListener;
@@ -18,6 +19,7 @@ public final class AocExecutor {
         this.executorListener = executorListener;
     }
 
+    @Override
     public List<Throwable> solve(final Iterable<AocProblem<?, ?>> problems) {
         executorListener.executorStarted();
         List<Throwable> errors = new ArrayList<>();

@@ -13,7 +13,7 @@ public final class AocEngine implements Runnable {
     private final AocCoordinate firstAocCoordinate;
     private final AocCoordinate secondAocCoordinate;
     private final AocProblemLoader problemLoader;
-    private final AocExecutor executor;
+    private final ProblemExecutor executor;
     private final AocVisualiser visualiser;
 
     @Setter
