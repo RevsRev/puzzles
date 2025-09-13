@@ -14,6 +14,8 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D12 extends AocProblem<Long, Long> {
 
     private static final Pattern NUMBER_REGEX = Pattern.compile("-?\\d+");
@@ -26,8 +28,8 @@ public final class D12 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 12, part = 1)
     @Override
-    protected Long partOneImpl() {
-        final String json = loadResources().get(0);
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        final String json = resourceLoader.resources().get(0);
         Matcher matcher = NUMBER_REGEX.matcher(json);
         long sum = 0;
         List<MatchResult> matchResults = matcher.results().toList();
@@ -40,8 +42,8 @@ public final class D12 extends AocProblem<Long, Long> {
     @AocProblemI(year = 2015, day = 12, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected Long partTwoImpl() {
-        final String json = loadResources().get(0);
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        final String json = resourceLoader.resources().get(0);
         JsonMapper jm = new JsonMapper();
         try {
             final JsonNode jsonNode = jm.readTree(json);

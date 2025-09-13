@@ -7,6 +7,8 @@ import com.rev.aoc.util.geom.Triangle;
 
 import java.util.List;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D03 extends AocProblem<Integer, Integer> {
 
     @Override
@@ -17,9 +19,9 @@ public final class D03 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2016, day = 3, part = 1)
     @Override
-    protected Integer partOneImpl() {
+    protected Integer partOneImpl(final ResourceLoader resourceLoader) {
         int count = 0;
-        List<String> maybeTriangles = loadResources();
+        List<String> maybeTriangles = resourceLoader.resources();
         for (final String maybeTriangle : maybeTriangles) {
             String[] sides = maybeTriangle.trim().split("\\s+");
             final long a = Long.parseLong(sides[0]);
@@ -34,9 +36,9 @@ public final class D03 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2016, day = 3, part = 2)
     @Override
-    protected Integer partTwoImpl() {
+    protected Integer partTwoImpl(final ResourceLoader resourceLoader) {
         int count = 0;
-        List<String> maybeTriangles = loadResources();
+        List<String> maybeTriangles = resourceLoader.resources();
         for (int i = 0; i < maybeTriangles.size(); i += 3) {
             final String first = maybeTriangles.get(i);
             final String second = maybeTriangles.get(i + 1);

@@ -1,22 +1,25 @@
 package com.rev.aoc.framework;
 
+import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
-import com.rev.aoc.vis.VisualisationException;
+import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
 
 public final class AocVisualiser {
 
-    public List<Throwable> visualise(final Iterable<AocProblem<?, ?>> problems) {
+    public List<Throwable> visualise(final SortedMap<AocCoordinate, AocProblem<?, ?>> problems) {
         List<Throwable> errors = new ArrayList<>();
-        for (AocProblem<?, ?> problem : problems) {
+        problems.forEach((coord, problem) -> {
             try {
-                problem.visualiseProblem();
-            } catch (VisualisationException e) {
+                final ResourceLoader resourceLoader = AocProblem.loadResources(coord);
+                problem.visualiseProblem(resourceLoader);
+            } catch (Exception e) {
                 errors.add(e);
             }
-        }
+        });
         return errors;
     }
 

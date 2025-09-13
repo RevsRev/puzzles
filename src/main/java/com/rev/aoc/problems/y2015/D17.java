@@ -8,6 +8,8 @@ import com.rev.aoc.util.set.Buckets;
 import java.util.List;
 import java.util.function.Consumer;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D17 extends AocProblem<Long, Long> {
 
     private static final long TARGET = 150;
@@ -20,8 +22,8 @@ public final class D17 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 17, part = 1)
     @Override
-    protected Long partOneImpl() {
-        List<String> strings = loadResources();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        List<String> strings = resourceLoader.resources();
         final long[] buckets = new long[strings.size()];
         for (int i = 0; i < strings.size(); i++) {
             buckets[i] = Long.parseLong(strings.get(i));
@@ -31,8 +33,8 @@ public final class D17 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 17, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        List<String> strings = loadResources();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        List<String> strings = resourceLoader.resources();
         final long[] buckets = new long[strings.size()];
         for (int i = 0; i < strings.size(); i++) {
             buckets[i] = Long.parseLong(strings.get(i));

@@ -13,6 +13,8 @@ import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D13 extends AocProblem<Long, Long> {
 
     private static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
@@ -28,9 +30,9 @@ public final class D13 extends AocProblem<Long, Long> {
     @AocProblemI(year = 2015, day = 13, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected Long partOneImpl() {
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
         Graph<Vertex, Edge> directedHappinessGraph = Graph.fromResources(
-                        loadResources(),
+                        resourceLoader.resources(),
                         getLineProcessor(),
                         true)
                 .build();
@@ -50,9 +52,9 @@ public final class D13 extends AocProblem<Long, Long> {
     @AocProblemI(year = 2015, day = 13, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected Long partTwoImpl() {
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
         Graph.Builder<Vertex, Edge> directedHappinessGraphBuilder = Graph.fromResources(
-                loadResources(),
+                resourceLoader.resources(),
                 getLineProcessor(),
                 true);
 

@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D18 extends AocProblem<Long, String> {
 
     private static final int CORRUPTED_FLAG = 1;
@@ -28,8 +30,8 @@ public final class D18 extends AocProblem<Long, String> {
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 18, part = 1)
     @Override
-    protected Long partOneImpl() {
-        int[] ints = LoaderUtils.linesToIntArray(loadResources(), s -> s.split(","));
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        int[] ints = LoaderUtils.linesToIntArray(resourceLoader.resources(), s -> s.split(","));
         int limit = 1024;
         final Map<Pair<Integer, Integer>, Integer> visited = getVisited(limit, ints);
         return (long) visited.get(Pair.of(PROBLEM_HEIGHT - 1, PROBLEM_WIDTH - 1));
@@ -38,8 +40,8 @@ public final class D18 extends AocProblem<Long, String> {
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 18, part = 2)
     @Override
-    protected String partTwoImpl() {
-        int[] ints = LoaderUtils.linesToIntArray(loadResources(), s -> s.split(","));
+    protected String partTwoImpl(final ResourceLoader resourceLoader) {
+        int[] ints = LoaderUtils.linesToIntArray(resourceLoader.resources(), s -> s.split(","));
         int start = 1025;
         final Map<Pair<Integer, Integer>, Integer> visited = new HashMap<>();
         int firstFailing = BinarySolutionSearch.search(1025, ints.length / 2, i -> {

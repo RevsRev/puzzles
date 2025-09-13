@@ -40,7 +40,7 @@ public final class AocEngine implements Runnable {
             return;
         }
         if (visualise) {
-            List<Throwable> errors = visualiser.visualise(problemsInRange.values());
+            List<Throwable> errors = visualiser.visualise(problemsInRange);
             printErrors(errors);
             return;
         }

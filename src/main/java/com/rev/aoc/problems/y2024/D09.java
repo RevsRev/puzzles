@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D09 extends AocProblem<Long, Long> {
 
     public static final int EMPTY_VALUE = -1;
@@ -21,8 +23,8 @@ public final class D09 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 9, part = 1)
     @Override
-    protected Long partOneImpl() {
-        char[] diskMap = LoaderUtils.loadResourcesAsCharArray(loadResources());
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        char[] diskMap = LoaderUtils.loadResourcesAsCharArray(resourceLoader.resources());
         int[] disk = loadDisk(diskMap);
         moveFileBlocksPartOne(disk);
         return checksum(disk);
@@ -30,8 +32,8 @@ public final class D09 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 9, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        char[] diskMap = LoaderUtils.loadResourcesAsCharArray(loadResources());
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        char[] diskMap = LoaderUtils.loadResourcesAsCharArray(resourceLoader.resources());
         int[] disk = loadDisk(diskMap);
         moveFileBlocksPartTwo(disk);
         return checksum(disk);

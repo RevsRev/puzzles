@@ -5,6 +5,7 @@ import com.rev.aoc.framework.io.display.format.ColumnFormatter;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.vis.VisualisationException;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -42,8 +43,8 @@ public final class D17 extends AocProblem<String, Long> {
 
     @AocProblemI(year = 2024, day = 17, part = 1)
     @Override
-    protected String partOneImpl() {
-        Computer comp = loadResourcesAsComputer();
+    protected String partOneImpl(final ResourceLoader resourceLoader) {
+        Computer comp = loadResourcesAsComputer(resourceLoader);
         final StringBuilder sb = new StringBuilder();
         comp.listener = i -> sb.append(i).append(",");
         comp.start();
@@ -53,8 +54,8 @@ public final class D17 extends AocProblem<String, Long> {
 
     @AocProblemI(year = 2024, day = 17, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        Computer comp = loadResourcesAsComputer();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        Computer comp = loadResourcesAsComputer(resourceLoader);
         InputChecker checker = new InputChecker(comp.program);
         checker.check(comp.program.length - 1, 0, 0);
         long solution = checker.getSmallestSolution();
@@ -164,8 +165,8 @@ public final class D17 extends AocProblem<String, Long> {
     }
 
     @Override
-    public void visualiseProblem() throws VisualisationException {
-        Computer comp = loadResourcesAsComputer();
+    public void visualiseProblem(final ResourceLoader resourceLoader) throws VisualisationException {
+        Computer comp = loadResourcesAsComputer(resourceLoader);
         Scanner scanner = new Scanner(System.in);
         String next = null;
         while (next == null) {
@@ -195,8 +196,8 @@ public final class D17 extends AocProblem<String, Long> {
         return target;
     }
 
-    private Computer loadResourcesAsComputer() {
-        List<String> lines = loadResources();
+    private Computer loadResourcesAsComputer(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
         int registerA = Integer.parseInt(lines.get(0)
                 .trim().replaceAll("\\s+", "").replaceAll("RegisterA:", ""));
         int registerB = Integer.parseInt(lines.get(1)

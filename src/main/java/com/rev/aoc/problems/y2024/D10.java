@@ -9,6 +9,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D10 extends AocProblem<Long, Long> {
     private static final int[][] DIRECTIONS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
@@ -19,8 +21,8 @@ public final class D10 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 10, part = 1)
     @Override
-    protected Long partOneImpl() {
-        int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(), s -> s.split(""));
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(), s -> s.split(""));
         int height = map.length;
         int width = map[0].length;
 
@@ -39,8 +41,8 @@ public final class D10 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 10, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(), s -> s.split(""));
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(), s -> s.split(""));
         int height = map.length;
         int width = map[0].length;
 

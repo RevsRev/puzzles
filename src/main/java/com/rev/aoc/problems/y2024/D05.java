@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public final class D05 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 5, part = 1)
     @Override
-    protected Long partOneImpl() {
-        loadMapsAndUpdates();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        loadMapsAndUpdates(resourceLoader);
         List<Integer[]> orderedUpdates = new ArrayList<>();
         List<Integer[]> unorderedUpdates = new ArrayList<>();
         checkUpdates(orderedUpdates, unorderedUpdates);
@@ -36,8 +37,8 @@ public final class D05 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 5, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        loadMapsAndUpdates();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        loadMapsAndUpdates(resourceLoader);
         List<Integer[]> orderedUpdates = new ArrayList<>();
         List<Integer[]> unorderedUpdates = new ArrayList<>();
         checkUpdates(orderedUpdates, unorderedUpdates);
@@ -90,8 +91,8 @@ public final class D05 extends AocProblem<Long, Long> {
         return true;
     }
 
-    private void loadMapsAndUpdates() {
-        List<String> lines = loadResources();
+    private void loadMapsAndUpdates(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
 
         ordinals.clear();
         updates.clear();

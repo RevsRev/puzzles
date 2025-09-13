@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +22,15 @@ public final class D03 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 3, part = 1)
     @Override
-    protected Long partOneImpl() {
-        List<Instruction> instructions = loadInstructions();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        List<Instruction> instructions = loadInstructions(resourceLoader);
         return processInstructions(instructions, true);
     }
 
     @AocProblemI(year = 2024, day = 3, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        List<Instruction> instructions = loadInstructions();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        List<Instruction> instructions = loadInstructions(resourceLoader);
         return processInstructions(instructions, false);
     }
 
@@ -50,8 +51,8 @@ public final class D03 extends AocProblem<Long, Long> {
         return result;
     }
 
-    private List<Instruction> loadInstructions() {
-        List<String> lines = loadResources();
+    private List<Instruction> loadInstructions(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
         List<Instruction> instructions = new ArrayList<>();
         for (String line : lines) {
             Matcher m = MULT_PATTERN.matcher(line);

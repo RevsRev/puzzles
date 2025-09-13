@@ -4,6 +4,7 @@ import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -26,8 +27,11 @@ public final class D14 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 14, part = 1)
     @Override
-    protected Long partOneImpl() {
-        Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(loadResources(), new Integer[][]{}, splitter());
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(
+                resourceLoader.resources(),
+                new Integer[][]{},
+                splitter());
 
         Map<Pair<Integer, Integer>, Integer> robotPositions =
                 calculateRobotPositions(posAndVels, PART_ONE_TIME, PART_ONE_WIDTH, PART_ONE_HEIGHT);
@@ -53,8 +57,11 @@ public final class D14 extends AocProblem<Long, Long> {
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 14, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(loadResources(), new Integer[][]{}, splitter());
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(
+                resourceLoader.resources(),
+                new Integer[][]{},
+                splitter());
         Scanner s = new Scanner(System.in);
 //        for (int i = 11; i < PART_TWO_LIMIT; i += 101) {
 //            //from inspection... 11, 112, 213, 314, ... look interesting

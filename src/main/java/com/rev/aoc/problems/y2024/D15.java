@@ -4,6 +4,7 @@ import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -35,8 +36,8 @@ public final class D15 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 15, part = 1)
     @Override
-    protected Long partOneImpl() {
-        Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves(resourceLoader);
         char[][] warehouse = warehouseAndRobotMoves.getLeft();
         char[] moves = warehouseAndRobotMoves.getRight();
 
@@ -70,8 +71,8 @@ public final class D15 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 15, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves(resourceLoader);
         char[][] warehouse = expand(warehouseAndRobotMoves.getLeft());
         char[] moves = warehouseAndRobotMoves.getRight();
 
@@ -187,8 +188,8 @@ public final class D15 extends AocProblem<Long, Long> {
         return null;
     }
 
-    private Pair<char[][], char[]> loadCoordinatesAndMoves() {
-        List<String> strings = loadResources();
+    private Pair<char[][], char[]> loadCoordinatesAndMoves(final ResourceLoader resourceLoader) {
+        List<String> strings = resourceLoader.resources();
         int blankLineIndex = 0;
         while (blankLineIndex < strings.size() && !strings.get(blankLineIndex).trim().matches("")) {
             blankLineIndex++;

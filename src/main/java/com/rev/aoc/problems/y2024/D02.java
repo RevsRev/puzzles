@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
@@ -16,8 +17,8 @@ public final class D02 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 2, part = 1)
     @Override
-    protected Long partOneImpl() {
-        Integer[][] reports = parseReports();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        Integer[][] reports = parseReports(resourceLoader);
         List<Integer[]> safeReports = new ArrayList<>();
         getSafeReportsNoDampening(reports, safeReports, new ArrayList<>());
         return (long) safeReports.size();
@@ -25,8 +26,8 @@ public final class D02 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 2, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        Integer[][] reports = parseReports();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        Integer[][] reports = parseReports(resourceLoader);
         List<Integer[]> safeReports = new ArrayList<>();
         List<Integer[]> unsafeReports = new ArrayList<>();
         List<Integer[]> dampedReports = new ArrayList<>();
@@ -91,8 +92,8 @@ public final class D02 extends AocProblem<Long, Long> {
         return true;
     }
 
-    private Integer[][] parseReports() {
-        List<String> fileLines = loadResources();
+    private Integer[][] parseReports(final ResourceLoader resourceLoader) {
+        List<String> fileLines = resourceLoader.resources();
         Integer[][] retval = new Integer[fileLines.size()][];
         for (int i = 0; i < fileLines.size(); i++) {
             String[] split = fileLines.get(i).split("\\s+");

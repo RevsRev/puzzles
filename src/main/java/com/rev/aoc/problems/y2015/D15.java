@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2015;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +24,15 @@ public final class D15 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 15, part = 1)
     @Override
-    protected Long partOneImpl() {
-        final List<Ingredient> ingredients = loadIngredients();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        final List<Ingredient> ingredients = loadIngredients(resourceLoader);
         return computeScore(ingredients, NO_CALORIE_RESTRICTION);
     }
 
     @AocProblemI(year = 2015, day = 15, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        final List<Ingredient> ingredients = loadIngredients();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        final List<Ingredient> ingredients = loadIngredients(resourceLoader);
         return computeScore(ingredients, PART_TWO_CALORIE_RESTRICTION);
     }
 
@@ -102,8 +103,8 @@ public final class D15 extends AocProblem<Long, Long> {
         return score;
     }
 
-    private List<Ingredient> loadIngredients() {
-        final List<String> lines = loadResources();
+    private List<Ingredient> loadIngredients(final ResourceLoader resourceLoader) {
+        final List<String> lines = resourceLoader.resources();
         final List<Ingredient> ingredients = new ArrayList<>(lines.size());
 
         for (final String line : lines) {

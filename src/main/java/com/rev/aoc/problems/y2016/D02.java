@@ -7,6 +7,8 @@ import com.rev.aoc.framework.problem.ProblemExecutionException;
 
 import java.util.List;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D02 extends AocProblem<Integer, String> {
 
     @Override
@@ -17,8 +19,8 @@ public final class D02 extends AocProblem<Integer, String> {
 
     @AocProblemI(year = 2016, day = 2, part = 1)
     @Override
-    protected Integer partOneImpl() {
-        List<String> instructions = loadResources();
+    protected Integer partOneImpl(final ResourceLoader resourceLoader) {
+        List<String> instructions = resourceLoader.resources();
         int[][] keypad = getKeypad();
 
         final StringBuilder result = new StringBuilder();
@@ -55,8 +57,8 @@ public final class D02 extends AocProblem<Integer, String> {
 
     @AocProblemI(year = 2016, day = 2, part = 2)
     @Override
-    protected String partTwoImpl() {
-        List<String> instructions = loadResources();
+    protected String partTwoImpl(final ResourceLoader resourceLoader) {
+        List<String> instructions = resourceLoader.resources();
         char[][] keypad = getKeypadPart2();
 
         final StringBuilder result = new StringBuilder();

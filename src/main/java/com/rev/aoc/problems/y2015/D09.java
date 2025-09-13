@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2015;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.graph.Edge;
 import com.rev.aoc.util.graph.Graph;
 import com.rev.aoc.util.graph.Vertex;
@@ -23,21 +24,23 @@ public final class D09 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 9, part = 1)
-    protected Long partOneImpl() {
-        final Graph<Vertex, Edge> graph = loadGraph(false);
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        final Graph<Vertex, Edge> graph = loadGraph(resourceLoader, false);
         return TravellingSalesman.heldKarp(graph);
     }
 
     @Override
     @AocProblemI(year = 2015, day = 1, part = 2)
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected Long partTwoImpl() {
-        final Graph<Vertex, Edge> graph = loadGraph(true);
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        final Graph<Vertex, Edge> graph = loadGraph(resourceLoader, true);
         return -1 * TravellingSalesman.heldKarp(graph);
     }
 
-    private Graph<Vertex, Edge> loadGraph(final boolean negate) {
-        final Graph.Builder<Vertex, Edge> builder = Graph.fromResources(loadResources(), getLineProcessor(negate));
+    private Graph<Vertex, Edge> loadGraph(final ResourceLoader resourceLoader, final boolean negate) {
+        final Graph.Builder<Vertex, Edge> builder = Graph.fromResources(
+                resourceLoader.resources(),
+                getLineProcessor(negate));
         builder.addVertex(START);
 
         final Collection<Vertex> vertices = builder.getVertices();

@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2023;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.vis.GraphVisualiser;
 import com.rev.aoc.vis.VisualisationException;
 import lombok.Getter;
@@ -39,8 +40,8 @@ public final class D20 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2023, day = 20, part = 1)
     @Override
-    protected Long partOneImpl() {
-        List<String> strings = loadResources();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        List<String> strings = resourceLoader.resources();
         Map<String, Module> modules = parseToModules(strings);
 
         PartOnePulseCounter pulseCounter = new PartOnePulseCounter();
@@ -56,8 +57,8 @@ public final class D20 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2023, day = 20, part = 2)
     @Override
-    protected Long partTwoImpl() {
-//        List<String> strings = loadResources();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+//        List<String> strings = resourceLoader.resource();
 //        Map<String, Module> modules = parseToModules(strings);
 //        Module rx = modules.get(RX);
 //        PartTwoLowPulseDetector receiveConsumer = new PartTwoLowPulseDetector();
@@ -74,8 +75,8 @@ public final class D20 extends AocProblem<Long, Long> {
     }
 
     @Override
-    public void visualiseProblem() throws VisualisationException {
-        List<String> strings = loadResources();
+    public void visualiseProblem(final ResourceLoader resourceLoader) throws VisualisationException {
+        List<String> strings = resourceLoader.resources();
         Map<String, Module> modules = parseToModules(strings);
         Graph<Module, DefaultEdge> graph = asGraph(modules);
         DOTExporter<Module, DefaultEdge> exporter = new DOTExporter<>(Module::getName);

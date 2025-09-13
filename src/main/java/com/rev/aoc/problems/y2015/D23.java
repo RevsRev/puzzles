@@ -8,6 +8,8 @@ import com.rev.aoc.util.emu.Cpu;
 
 import java.util.List;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D23 extends AocProblem<Long, Long> {
 
     private static final String HLF = "hlf";
@@ -25,8 +27,8 @@ public final class D23 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 23, part = 1)
     @Override
-    protected Long partOneImpl() {
-        final List<String> cpuInstructions = loadResources();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        final List<String> cpuInstructions = resourceLoader.resources();
         final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);
         cpu.run();
         return cpu.readRegister("b");
@@ -34,8 +36,8 @@ public final class D23 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 23, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        final List<String> cpuInstructions = loadResources();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        final List<String> cpuInstructions = resourceLoader.resources();
         final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);
         cpu.writeRegister("a", 1);
         cpu.run();

@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.graph.Edge;
 import com.rev.aoc.util.graph.Graph;
 import com.rev.aoc.util.graph.Vertex;
@@ -23,8 +24,8 @@ public final class D23 extends AocProblem<Long, String> {
 
     @AocProblemI(year = 2024, day = 23, part = 1)
     @Override
-    protected Long partOneImpl() {
-        Graph<Vertex, Edge> graph = loadResourcesAsGraph();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        Graph<Vertex, Edge> graph = loadResourcesAsGraph(resourceLoader);
         Collection<Graph<Vertex, Edge>> subGraphsOfSize3 = SubGraphs.getConnectedSubgraphsOfSize3(graph);
         long count = 0;
         for (Graph<Vertex, Edge> subGraph : subGraphsOfSize3) {
@@ -40,8 +41,8 @@ public final class D23 extends AocProblem<Long, String> {
 
     @AocProblemI(year = 2024, day = 23, part = 2)
     @Override
-    protected String partTwoImpl() {
-        Graph<Vertex, Edge> graph = loadResourcesAsGraph();
+    protected String partTwoImpl(final ResourceLoader resourceLoader) {
+        Graph<Vertex, Edge> graph = loadResourcesAsGraph(resourceLoader);
         Collection<Graph<Vertex, Edge>> cliques = Cliques.getCliques(graph);
         long largestCliqueSize = 0;
         Graph<Vertex, Edge> largestClique = null;
@@ -58,8 +59,8 @@ public final class D23 extends AocProblem<Long, String> {
         return String.join(",", nodeNames);
     }
 
-    private Graph<Vertex, Edge> loadResourcesAsGraph() {
-        List<String> lines = loadResources();
+    private Graph<Vertex, Edge> loadResourcesAsGraph(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
         return Graph.fromResources(lines, (s, b) -> {
             String[] split = s.split("-");
             String first = split[0];

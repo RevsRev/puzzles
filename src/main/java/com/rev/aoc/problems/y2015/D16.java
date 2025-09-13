@@ -4,6 +4,7 @@ import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
+import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,20 +28,20 @@ public final class D16 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 16, part = 1)
     @Override
-    protected Long partOneImpl() {
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
         final BiFunction<Sue, Sue, Boolean> matcher = partOneSueMatcher();
-        return findSue(matcher);
+        return findSue(resourceLoader, matcher);
     }
 
     @AocProblemI(year = 2015, day = 16, part = 2)
     @Override
-    protected Long partTwoImpl() {
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
         final BiFunction<Sue, Sue, Boolean> matcher = partTwoMatcher();
-        return findSue(matcher);
+        return findSue(resourceLoader, matcher);
     }
 
-    private long findSue(final BiFunction<Sue, Sue, Boolean> matcher) {
-        final List<Sue> sues = loadIndexedIdentifiers();
+    private long findSue(final ResourceLoader resourceLoader, final BiFunction<Sue, Sue, Boolean> matcher) {
+        final List<Sue> sues = loadIndexedIdentifiers(resourceLoader);
 
         final Sue key = new Sue();
         key.children = 3;
@@ -96,8 +97,8 @@ public final class D16 extends AocProblem<Long, Long> {
                         && (s1.perfumes == UNKNOWN || s2.perfumes == UNKNOWN || s1.perfumes == s2.perfumes);
     }
 
-    private List<Sue> loadIndexedIdentifiers() {
-        final List<String> lines = loadResources();
+    private List<Sue> loadIndexedIdentifiers(final ResourceLoader resourceLoader) {
+        final List<String> lines = resourceLoader.resources();
         final List<Sue> sues = new ArrayList<>(lines.size());
 
         for (final String line : lines) {

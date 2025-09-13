@@ -4,6 +4,7 @@ import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.set.SetUtils;
 
 import java.util.HashMap;
@@ -24,8 +25,8 @@ public final class D21 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2015, day = 21, part = 1)
     @Override
-    protected Integer partOneImpl() {
-        final Player boss = loadBoss();
+    protected Integer partOneImpl(final ResourceLoader resourceLoader) {
+        final Player boss = loadBoss(resourceLoader);
         final List<Attributes> weapons = loadWeapons();
         final List<Attributes> armors = loadArmors();
         final List<Attributes> rings = loadRings();
@@ -44,8 +45,8 @@ public final class D21 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2015, day = 21, part = 2)
     @Override
-    protected Integer partTwoImpl() {
-        final Player boss = loadBoss();
+    protected Integer partTwoImpl(final ResourceLoader resourceLoader) {
+        final Player boss = loadBoss(resourceLoader);
         final List<Attributes> weapons = loadWeapons();
         final List<Attributes> armors = loadArmors();
         final List<Attributes> rings = loadRings();
@@ -182,8 +183,8 @@ public final class D21 extends AocProblem<Integer, Integer> {
         );
     }
 
-    private Player loadBoss() {
-        final List<String> lines = loadResources();
+    private Player loadBoss(final ResourceLoader resourceLoader) {
+        final List<String> lines = resourceLoader.resources();
         final Map<String, Integer> attributes = new HashMap<>();
         for (final String line : lines) {
             String[] split = line.replaceAll("\\s+", "").split(":");

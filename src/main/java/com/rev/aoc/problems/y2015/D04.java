@@ -9,6 +9,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D04 extends AocProblem<String, String> {
 
     private final MessageDigest digest = MessageDigest.getInstance("MD5");
@@ -24,8 +26,8 @@ public final class D04 extends AocProblem<String, String> {
 
     @Override
     @AocProblemI(year = 2015, day = 4, part = 1)
-    protected String partOneImpl() {
-        final String input = loadResources().get(0);
+    protected String partOneImpl(final ResourceLoader resourceLoader) {
+        final String input = resourceLoader.resources().get(0);
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
             final String check = input + i;
             byte[] hash = digest.digest(check.getBytes(StandardCharsets.US_ASCII));
@@ -39,8 +41,8 @@ public final class D04 extends AocProblem<String, String> {
 
     @Override
     @AocProblemI(year = 2015, day = 4, part = 2)
-    protected String partTwoImpl() {
-        final String input = loadResources().get(0);
+    protected String partTwoImpl(final ResourceLoader resourceLoader) {
+        final String input = resourceLoader.resources().get(0);
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
             final String check = input + i;
             byte[] hash = digest.digest(check.getBytes(StandardCharsets.US_ASCII));

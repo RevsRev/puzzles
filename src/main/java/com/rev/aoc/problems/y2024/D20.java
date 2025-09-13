@@ -13,6 +13,8 @@ import java.util.NavigableMap;
 import java.util.Queue;
 import java.util.TreeMap;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D20 extends AocProblem<Long, Long> {
 
     public static final int SAVE_THRESHOLD = 100;
@@ -24,15 +26,15 @@ public final class D20 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 20, part = 1)
     @Override
-    protected Long partOneImpl() {
-        char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(loadResources());
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         return solvePartOne(chars, 2);
     }
 
     @AocProblemI(year = 2024, day = 20, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(loadResources());
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         return solvePartOne(chars, 20);
     }
 

@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.math.ntheory.util.Pow;
 
 import java.util.ArrayList;
@@ -21,15 +22,15 @@ public final class D11 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 11, part = 1)
     @Override
-    protected Long partOneImpl() {
-        long[] stones = loadResourcesAsLongArray();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        long[] stones = loadResourcesAsLongArray(resourceLoader);
         return countStones(stones, PART_ONE_ITERATIONS);
     }
 
     @AocProblemI(year = 2024, day = 11, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        long[] stones = loadResourcesAsLongArray();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        long[] stones = loadResourcesAsLongArray(resourceLoader);
         return countStones(stones, PART_TWO_ITERATIONS);
     }
 
@@ -88,9 +89,9 @@ public final class D11 extends AocProblem<Long, Long> {
         return countStonesAfterBlinks(nextInput, numBlinks - 1);
     }
 
-    public long[] loadResourcesAsLongArray() {
+    public long[] loadResourcesAsLongArray(final ResourceLoader resourceLoader) {
         String separatorRegex = "\\s+";
-        List<String> lines = loadResources();
+        List<String> lines = resourceLoader.resources();
         List<String[]> linesSplit = new ArrayList<>(lines.size());
 
         int size = 0;

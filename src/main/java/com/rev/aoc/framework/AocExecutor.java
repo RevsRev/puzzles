@@ -41,14 +41,14 @@ public final class AocExecutor implements ProblemExecutor<AocCoordinate> {
             builder.setCoordinate(problem.getCoordinate());
             if (AocPart.ALL.equals(part) || AocPart.ONE.equals(part)) {
                 long time = System.nanoTime();
-                P1 result = problem.partOne().solve();
+                P1 result = problem.partOne().solve(AocProblem.loadResources(problem.getCoordinate()));
                 time = System.nanoTime() - time;
                 builder.setPartOne(result);
                 builder.setPartOneTime(time);
             }
             if (AocPart.ALL.equals(part) || AocPart.TWO.equals(part)) {
                 long time = System.nanoTime();
-                P2 result = problem.partTwo().solve();
+                P2 result = problem.partTwo().solve(AocProblem.loadResources(problem.getCoordinate()));
                 time = System.nanoTime() - time;
                 builder.setPartTwo(result);
                 builder.setPartTwoTime(time);

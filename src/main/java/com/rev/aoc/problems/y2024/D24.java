@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.vis.GraphVisualiser;
 import com.rev.aoc.vis.VisualisationException;
 import org.jgrapht.Graph;
@@ -30,8 +31,8 @@ public final class D24 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 24, part = 1)
     @Override
-    protected Long partOneImpl() {
-        List<String> lines = loadResources();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
         TreeMap<String, Long> registerValues = new TreeMap<>();
         int start = 0;
         while (start < lines.size() && !lines.get(start).isEmpty()) {
@@ -90,18 +91,18 @@ public final class D24 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 24, part = 2)
     @Override
-    protected Long partTwoImpl() {
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
 
         //cqk,fph,gds,jrs,wrk,z15,z21,z34
         return null;
     }
 
     @Override
-    public void visualiseProblem() throws VisualisationException {
+    public void visualiseProblem(final ResourceLoader resourceLoader) throws VisualisationException {
 
         Graph<String, DefaultEdge> graph = new DefaultDirectedGraph<>(DefaultEdge.class);
 
-        List<String> lines = loadResources();
+        List<String> lines = resourceLoader.resources();
         TreeMap<String, Long> registerValues = new TreeMap<>();
         int start = 0;
         while (start < lines.size() && !lines.get(start).isEmpty()) {

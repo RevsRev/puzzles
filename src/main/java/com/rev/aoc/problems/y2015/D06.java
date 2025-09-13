@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2015;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.geom.PointRectangle;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -29,8 +30,8 @@ public final class D06 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 6, part = 1)
-    protected Long partOneImpl() {
-        List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(loadResources());
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(resourceLoader.resources());
 
         long count = 0;
         int[][] grid = new int[PROBLEM_HEIGHT][PROBLEM_WIDTH];
@@ -68,8 +69,8 @@ public final class D06 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 6, part = 2)
-    protected Long partTwoImpl() {
-        List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(loadResources());
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(resourceLoader.resources());
 
         long totalBrightness = 0;
         int[][] grid = new int[PROBLEM_HEIGHT][PROBLEM_WIDTH];

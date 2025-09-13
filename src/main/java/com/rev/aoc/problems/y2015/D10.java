@@ -4,6 +4,8 @@ import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D10 extends AocProblem<Long, Long> {
 
     private static final int PART_ONE_ITERATIONS = 40;
@@ -17,19 +19,19 @@ public final class D10 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 10, part = 1)
     @Override
-    protected Long partOneImpl() {
-        return solve(PART_ONE_ITERATIONS);
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        return solve(resourceLoader, PART_ONE_ITERATIONS);
     }
 
     @AocProblemI(year = 2015, day = 10, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected Long partTwoImpl() {
-        return solve(PART_TWO_ITERATIONS);
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        return solve(resourceLoader, PART_TWO_ITERATIONS);
     }
 
-    private long solve(final int totalIterations) {
-        final String seed = loadResources().get(0);
+    private long solve(final ResourceLoader resourceLoader, final int totalIterations) {
+        final String seed = resourceLoader.resources().get(0);
         final StringBuilder sb = new StringBuilder(seed);
 
         int start = 0;

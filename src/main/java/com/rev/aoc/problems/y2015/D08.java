@@ -10,6 +10,8 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D08 extends AocProblem<Long, Long> {
 
     private static final Pattern ESCAPE = Pattern.compile("\\\\");
@@ -22,8 +24,8 @@ public final class D08 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 8, part = 1)
-    protected Long partOneImpl() {
-        final List<String> lines = loadResources();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        final List<String> lines = resourceLoader.resources();
         long total = 0;
         for (String s : lines) {
             final long literalLength = s.length();
@@ -35,8 +37,8 @@ public final class D08 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 8, part = 2)
-    protected Long partTwoImpl() {
-        final List<String> lines = loadResources();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        final List<String> lines = resourceLoader.resources();
         long total = 0;
         for (String s : lines) {
             final long literalLength = s.length();

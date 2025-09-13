@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D21 extends AocProblem<Long, Long> {
 
     private static final char[][] DOOR_KEYPAD_CHARS = {
@@ -40,8 +42,8 @@ public final class D21 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 21, part = 1)
     @Override
-    protected Long partOneImpl() {
-        List<String> codes = loadResources();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        List<String> codes = resourceLoader.resources();
         long totalComplexity = 0;
         for (String code : codes) {
             long minMoves = getMinimumNumberOfMovesForCode(code, PART_ONE_DEPTH);
@@ -52,8 +54,8 @@ public final class D21 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 21, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        List<String> codes = loadResources();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        List<String> codes = resourceLoader.resources();
         long totalComplexity = 0;
         for (String code : codes) {
             long minMoves = getMinimumNumberOfMovesForCode(code, PART_TWO_DEPTH);

@@ -31,8 +31,8 @@ public final class ProblemTest {
             return;
         }
         Pair<Object, Object> results = problemAndResult.getValue();
-        Object partOneResult = solution.partOne().solve();
-        Object partTwoResult = solution.partTwo().solve();
+        Object partOneResult = solution.partOne().solve(AocProblem.loadResources(key));
+        Object partTwoResult = solution.partTwo().solve(AocProblem.loadResources(key));
         Object expectedPartOneResult = results.getLeft();
         Object expectedPartTwoResult = results.getRight();
         assertResult(key, expectedPartOneResult, partOneResult);

@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -17,10 +18,10 @@ public final class D25 extends AocProblem<Long, String> {
 
     @AocProblemI(year = 2024, day = 25, part = 1)
     @Override
-    protected Long partOneImpl() {
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
         Set<KeyOrLock> keys = new HashSet<>();
         Set<KeyOrLock> locks = new HashSet<>();
-        loadKeysAndLocks(keys, locks);
+        loadKeysAndLocks(resourceLoader, keys, locks);
 
         long count = 0;
         for (KeyOrLock key : keys) {
@@ -35,12 +36,15 @@ public final class D25 extends AocProblem<Long, String> {
 
     @AocProblemI(year = 2024, day = 25, part = 2)
     @Override
-    protected String partTwoImpl() {
+    protected String partTwoImpl(final ResourceLoader resourceLoader) {
         return "n/a";
     }
 
-    private void loadKeysAndLocks(final Set<KeyOrLock> keys, final Set<KeyOrLock> locks) {
-        List<String> lines = loadResources();
+    private void loadKeysAndLocks(
+            final ResourceLoader resourceLoader,
+            final Set<KeyOrLock> keys,
+            final Set<KeyOrLock> locks) {
+        List<String> lines = resourceLoader.resources();
         int start = 0;
         while (start < lines.size()) {
             while (start < lines.size() && lines.get(start).isBlank()) {

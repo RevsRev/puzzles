@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D22 extends AocProblem<Long, Long> {
     private static final int PRUNE_MOD = 1 << 24;
     private static final int PART_ONE_ITERATIONS = 2000;
@@ -24,8 +26,8 @@ public final class D22 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 22, part = 1)
     @Override
-    protected Long partOneImpl() {
-        List<String> lines = loadResources();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});
 
         long sum = 0;
@@ -37,8 +39,8 @@ public final class D22 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 22, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        List<String> lines = loadResources();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});
 
         Map<List<Integer>, Integer> runsAndScores = new HashMap<>();

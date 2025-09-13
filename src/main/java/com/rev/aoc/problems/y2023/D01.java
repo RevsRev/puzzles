@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2023;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,18 +20,18 @@ public final class D01 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2023, day = 1, part = 1)
     @Override
-    protected Long partOneImpl() {
-        return solve(this::formatPartOne);
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        return solve(resourceLoader, this::formatPartOne);
     }
 
     @AocProblemI(year = 2023, day = 1, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        return solve(this::formatPartTwo);
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        return solve(resourceLoader, this::formatPartTwo);
     }
 
-    private long solve(final Function<String, String> formatter) {
-        List<String> trebLines = loadResources();
+    private long solve(final ResourceLoader resourceLoader, final Function<String, String> formatter) {
+        List<String> trebLines = resourceLoader.resources();
         long calibrationSum = 0;
         for (int i = 0; i < trebLines.size(); i++) {
             String line = trebLines.get(i);

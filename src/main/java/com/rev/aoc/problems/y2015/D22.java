@@ -4,6 +4,7 @@ import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
+import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,19 +38,19 @@ public final class D22 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2015, day = 22, part = 1)
     @Override
-    protected Integer partOneImpl() {
-        return solve(false);
+    protected Integer partOneImpl(final ResourceLoader resourceLoader) {
+        return solve(resourceLoader, false);
     }
 
     @AocProblemI(year = 2015, day = 22, part = 2)
     @Override
-    protected Integer partTwoImpl() {
-        return solve(true);
+    protected Integer partTwoImpl(final ResourceLoader resourceLoader) {
+        return solve(resourceLoader, true);
     }
 
-    private int solve(boolean hardMode) {
+    private int solve(final ResourceLoader resourceLoader, boolean hardMode) {
         PriorityQueue<GameState> heap = new PriorityQueue<>(Comparator.comparingInt(GameState::getPlayerSpentMana));
-        heap.add(loadGameState());
+        heap.add(loadGameState(resourceLoader));
 
         while (!heap.isEmpty()) {
             GameState gameState = heap.remove();
@@ -92,8 +93,8 @@ public final class D22 extends AocProblem<Integer, Integer> {
         throw new ProblemExecutionException("Solution not found");
     }
 
-    private GameState loadGameState() {
-        final List<String> lines = loadResources();
+    private GameState loadGameState(final ResourceLoader resourceLoader) {
+        final List<String> lines = resourceLoader.resources();
         final Map<String, Integer> attributes = new HashMap<>();
         for (final String line : lines) {
             String[] split = line.replaceAll("\\s+", "").split(":");

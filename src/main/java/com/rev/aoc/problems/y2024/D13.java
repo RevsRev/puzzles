@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.math.linalg.matrix.Mat2;
 import com.rev.aoc.util.math.linalg.vec.Vec2;
 import com.rev.aoc.util.math.ntheory.eq.SimultaneousSolver;
@@ -24,15 +25,15 @@ public final class D13 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 13, part = 1)
     @Override
-    protected Long partOneImpl() {
-        List<SimultaneousSolver> solvers = loadSolvers(false);
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        List<SimultaneousSolver> solvers = loadSolvers(resourceLoader, false);
         return computeCost(solvers, D13::validResultPartOne);
     }
 
     @AocProblemI(year = 2024, day = 13, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        List<SimultaneousSolver> solvers = loadSolvers(true);
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        List<SimultaneousSolver> solvers = loadSolvers(resourceLoader, true);
         return computeCost(solvers, D13::validResultPartTwo);
     }
 
@@ -62,8 +63,8 @@ public final class D13 extends AocProblem<Long, Long> {
         return Math.abs(x - Math.round(x)) < EPSILON;
     }
 
-    private List<SimultaneousSolver> loadSolvers(boolean partTwo) {
-        List<String> lines = loadResources();
+    private List<SimultaneousSolver> loadSolvers(final ResourceLoader resourceLoader, boolean partTwo) {
+        List<String> lines = resourceLoader.resources();
         long amountExtra = partTwo ? PART_TWO_ERROR : 0;
         List<SimultaneousSolver> retval = new ArrayList<>(lines.size() / 3);
         for (int i = 0; i < lines.size(); i += 4) {

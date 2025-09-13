@@ -4,6 +4,8 @@ import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D25 extends AocProblem<Long, String> {
 
 
@@ -21,7 +23,7 @@ public final class D25 extends AocProblem<Long, String> {
 
     @AocProblemI(year = 2015, day = 25, part = 1)
     @Override
-    protected Long partOneImpl() {
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
         final long triangleBase = (long) PROBLEM_ROW + (long) PROBLEM_COLUMN - 1;
         final long triangleNumber = (triangleBase - 1) * (triangleBase) / 2;
         final long codeSequence = triangleNumber + (long) PROBLEM_COLUMN - 1;
@@ -35,7 +37,7 @@ public final class D25 extends AocProblem<Long, String> {
 
     @AocProblemI(year = 2015, day = 25, part = 2)
     @Override
-    protected String partTwoImpl() {
+    protected String partTwoImpl(final ResourceLoader resourceLoader) {
         return "n/a";
     }
 }

@@ -13,6 +13,8 @@ import java.util.Set;
 
 import static com.rev.aoc.util.geom.Direction.UP;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D06 extends AocProblem<Long, Long> {
 
     private static final char START_CHAR = '^';
@@ -39,9 +41,9 @@ public final class D06 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 6, part = 1)
     @Override
-    protected Long partOneImpl() {
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
         try {
-            int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(),
+            int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(),
                     s -> s.split(""),
                     s -> (int) s.charAt(0));
             int[] start = LoaderUtils.findOne(map, START_INT);
@@ -60,9 +62,9 @@ public final class D06 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 6, part = 2)
     @Override
-    protected Long partTwoImpl() {
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
         try {
-            int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(),
+            int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(),
                     s -> s.split(""),
                     s -> (int) s.charAt(0));
             int[] start = LoaderUtils.findOne(map, START_INT);

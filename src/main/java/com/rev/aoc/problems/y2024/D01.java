@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,10 +21,10 @@ public final class D01 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 1, part = 1)
     @Override
-    protected Long partOneImpl() {
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
-        loadLists(leftList, rightList);
+        loadLists(resourceLoader, leftList, rightList);
 
         long totalDistance = 0;
         for (int i = 0; i < leftList.size(); i++) {
@@ -34,10 +35,10 @@ public final class D01 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 1, part = 2)
     @Override
-    protected Long partTwoImpl() {
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
-        loadLists(leftList, rightList);
+        loadLists(resourceLoader, leftList, rightList);
 
         Set<Integer> leftNums = new HashSet<>(leftList);
         Map<Integer, Integer> rightNumsAndCounts = new HashMap<>();
@@ -58,8 +59,11 @@ public final class D01 extends AocProblem<Long, Long> {
         return score;
     }
 
-    private void loadLists(final List<Integer> leftList, final List<Integer> rightList) {
-        List<String> listsLines = loadResources();
+    private void loadLists(
+            final ResourceLoader resourceLoader,
+            final List<Integer> leftList,
+            final List<Integer> rightList) {
+        List<String> listsLines = resourceLoader.resources();
         for (String line : listsLines) {
             String[] split = line.split("\\s+");
             leftList.add(Integer.parseInt(split[0]));

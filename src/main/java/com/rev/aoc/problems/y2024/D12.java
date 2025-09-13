@@ -4,6 +4,7 @@ import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.geom.Direction;
 import com.rev.aoc.util.geom.UnitCell;
 import org.apache.commons.lang3.tuple.Pair;
@@ -21,8 +22,8 @@ public final class D12 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 12, part = 1)
     @Override
-    protected Long partOneImpl() {
-        UnitCell<Character>[][] unitCells = getUnitCells();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        UnitCell<Character>[][] unitCells = getUnitCells(resourceLoader);
         Set<UnitCell<Character>> visitedArea = new HashSet<>();
         Set<UnitCell<Character>> visitedPerimeter = new HashSet<>();
 
@@ -40,8 +41,8 @@ public final class D12 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 12, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        UnitCell<Character>[][] unitCells = getUnitCells();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        UnitCell<Character>[][] unitCells = getUnitCells(resourceLoader);
         Set<UnitCell<Character>> visitedArea = new HashSet<>();
         Set<UnitCell<Character>> visitedEdgeCells = new HashSet<>();
         Set<Pair<Integer, Character>> visitedEdges = new HashSet<>();
@@ -57,8 +58,8 @@ public final class D12 extends AocProblem<Long, Long> {
         return score;
     }
 
-    private UnitCell<Character>[][] getUnitCells() {
-        char[][] plots = LoaderUtils.loadResourcesAsCharMatrix(loadResources());
+    private UnitCell<Character>[][] getUnitCells(final ResourceLoader resourceLoader) {
+        char[][] plots = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         int height = plots.length;
         int width = plots[0].length;
         UnitCell<Character>[][] cells = new UnitCell[height][width];

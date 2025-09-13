@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2015;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.arr.ArrayUtils;
 import com.rev.aoc.util.search.BinarySolutionSearch;
 import com.rev.aoc.util.set.SetUtils;
@@ -21,8 +22,8 @@ public final class D24 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 24, part = 1)
     @Override
-    protected Long partOneImpl() {
-        final Long[] packages = loadPackages();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        final Long[] packages = loadPackages(resourceLoader);
         long target = ArrayUtils.sum(packages) / 3;
         final SetUtils.Constraint<Long> constraint = new SetUtils.Constraint<>(
                 (i, arr) -> ArrayUtils.sum(arr, i) > target,
@@ -61,8 +62,8 @@ public final class D24 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 24, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        final Long[] packages = loadPackages();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        final Long[] packages = loadPackages(resourceLoader);
         long target = ArrayUtils.sum(packages) / 4;
         final SetUtils.Constraint<Long> constraint = new SetUtils.Constraint<>(
                 (i, arr) -> ArrayUtils.sum(arr, i) > target,
@@ -106,8 +107,8 @@ public final class D24 extends AocProblem<Long, Long> {
         return minQuantumEntanglement;
     }
 
-    private Long[] loadPackages() {
-        List<String> lines = loadResources();
+    private Long[] loadPackages(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
         Long[] packages = new Long[lines.size()];
         for (int i = 0; i < lines.size(); i++) {
             packages[i] = Long.parseLong(lines.get(i));

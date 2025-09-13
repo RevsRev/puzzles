@@ -8,6 +8,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D03 extends AocProblem<Long, Long> {
 
     private static final char UP = '^';
@@ -24,8 +26,8 @@ public final class D03 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 3, part = 1)
-    protected Long partOneImpl() {
-        String input = loadResources().get(0);
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        String input = resourceLoader.resources().get(0);
         long x = 0;
         long y = 0;
         final Set<Pair<Long, Long>> visited = new HashSet<>();
@@ -47,8 +49,8 @@ public final class D03 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 3, part = 2)
-    protected Long partTwoImpl() {
-        String input = loadResources().get(0);
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        String input = resourceLoader.resources().get(0);
         long x = 0;
         long y = 0;
         final Set<Pair<Long, Long>> visited = new HashSet<>();

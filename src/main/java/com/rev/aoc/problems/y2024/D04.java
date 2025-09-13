@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.List;
 
@@ -29,15 +30,15 @@ public final class D04 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 4, part = 1)
     @Override
-    protected Long partOneImpl() {
-        char[][] wordSearch = loadWordSearch();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        char[][] wordSearch = loadWordSearch(resourceLoader);
         return countXmas(wordSearch);
     }
 
     @AocProblemI(year = 2024, day = 4, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        char[][] wordSearch = loadWordSearch();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        char[][] wordSearch = loadWordSearch(resourceLoader);
         return countXmasSquares(wordSearch);
     }
 
@@ -136,8 +137,8 @@ public final class D04 extends AocProblem<Long, Long> {
         return false;
     }
 
-    private char[][] loadWordSearch() {
-        List<String> lines = loadResources();
+    private char[][] loadWordSearch(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
         char[][] wordSearch = new char[lines.size()][];
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);

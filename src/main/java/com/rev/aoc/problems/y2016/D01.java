@@ -10,6 +10,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D01 extends AocProblem<Integer, Integer> {
 
     public static final String LEFT = "L";
@@ -22,8 +24,8 @@ public final class D01 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2016, day = 1, part = 1)
     @Override
-    protected Integer partOneImpl() {
-        String[] directions = loadResources().get(0).replaceAll("\\s+", "").split(",");
+    protected Integer partOneImpl(final ResourceLoader resourceLoader) {
+        String[] directions = resourceLoader.resources().get(0).replaceAll("\\s+", "").split(",");
 
         int x = 0;
         int y = 0;
@@ -46,8 +48,8 @@ public final class D01 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2016, day = 1, part = 2)
     @Override
-    protected Integer partTwoImpl() {
-        String[] directions = loadResources().get(0).replaceAll("\\s+", "").split(",");
+    protected Integer partTwoImpl(final ResourceLoader resourceLoader) {
+        String[] directions = resourceLoader.resources().get(0).replaceAll("\\s+", "").split(",");
 
         Set<Pair<Integer, Integer>> visited = new HashSet<>();
 

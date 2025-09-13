@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2015;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +28,8 @@ public final class D14 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 14, part = 1)
     @Override
-    protected Long partOneImpl() {
-        List<Reindeer> reindeer = loadReindeer();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        List<Reindeer> reindeer = loadReindeer(resourceLoader);
         long winningDistance = 0;
         for (Reindeer r : reindeer) {
             final long distance = r.distanceTravelled(RACE_DURATION);
@@ -41,8 +42,8 @@ public final class D14 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 14, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        List<Reindeer> reindeer = loadReindeer();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        List<Reindeer> reindeer = loadReindeer(resourceLoader);
         final Map<String, Long> scores = new HashMap<>();
         reindeer.forEach(r -> scores.putIfAbsent(r.name, 0L));
 
@@ -68,8 +69,8 @@ public final class D14 extends AocProblem<Long, Long> {
         return scores.values().stream().max(Long::compare).orElseThrow();
     }
 
-    private List<Reindeer> loadReindeer() {
-        List<String> lines = loadResources();
+    private List<Reindeer> loadReindeer(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
         final List<Reindeer> reindeer = new ArrayList<>(lines.size());
         for (final String line : lines) {
             final Matcher nameMatcher = NAME_PATTERN.matcher(line);

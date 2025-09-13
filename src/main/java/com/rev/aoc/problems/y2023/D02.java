@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.rev.aoc.framework.problem.ResourceLoader;
+
 public final class D02 extends AocProblem<Long, Long> {
 
     @Override
@@ -20,8 +22,8 @@ public final class D02 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2023, day = 2, part = 1)
     @Override
-    protected Long partOneImpl() {
-        List<String> lines = loadResources();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
 
         Map<Integer, List<Handful>> gameHandfulMap = parseToGameMap(lines);
         Iterator<Integer> itGameNumbers = gameHandfulMap.keySet().iterator();
@@ -35,7 +37,7 @@ public final class D02 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2023, day = 2, part = 2)
     @Override
-    protected Long partTwoImpl() {
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
         return 0L;
     }
 

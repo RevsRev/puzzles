@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +17,8 @@ public final class D07 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 7, part = 1)
     @Override
-    protected Long partOneImpl() {
-        long[][] targetAndInputs = loadTargetAndInputs();
+    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+        long[][] targetAndInputs = loadTargetAndInputs(resourceLoader);
         List<BiFunction<Long, Long, Long>> funcs = funcs(false);
 
         long result = 0;
@@ -31,8 +32,8 @@ public final class D07 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 7, part = 2)
     @Override
-    protected Long partTwoImpl() {
-        long[][] targetAndInputs = loadTargetAndInputs();
+    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+        long[][] targetAndInputs = loadTargetAndInputs(resourceLoader);
         List<BiFunction<Long, Long, Long>> funcs = funcs(true);
 
         long result = 0;
@@ -107,8 +108,8 @@ public final class D07 extends AocProblem<Long, Long> {
         };
     }
 
-    private long[][] loadTargetAndInputs() {
-        List<String> lines = loadResources();
+    private long[][] loadTargetAndInputs(final ResourceLoader resourceLoader) {
+        List<String> lines = resourceLoader.resources();
         long[][] retval = new long[lines.size()][];
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
