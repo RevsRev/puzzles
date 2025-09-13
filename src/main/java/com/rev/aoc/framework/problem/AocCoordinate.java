@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 @Getter
-public final class AocCoordinate implements Comparable<AocCoordinate> {
+public final class AocCoordinate implements ProblemCoordinate<AocCoordinate> {
     private final int year;
     private final int day;
 
