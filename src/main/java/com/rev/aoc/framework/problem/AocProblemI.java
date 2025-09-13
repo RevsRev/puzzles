@@ -1,5 +1,9 @@
 package com.rev.aoc.framework.problem;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
 public @interface AocProblemI {
     int year();
     int day();

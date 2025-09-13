@@ -4,7 +4,9 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.NavigableMap;
 import java.util.SortedMap;
@@ -43,11 +45,12 @@ public final class AocProblemLoader {
             ImmutableSet<ClassPath.ClassInfo> allClasses = cp.getTopLevelClassesRecursive(AOC_PROBLEMS_PACKAGE);
             for (ClassPath.ClassInfo classInfo : allClasses) {
                 Class<?> clazz = classInfo.load();
-                Class<?> superClazz = clazz.getSuperclass();
-                if (AocProblem.class.equals(superClazz)) {
-                    Class<? extends AocProblem<?, ?>> problemClazz = (Class<? extends AocProblem<?, ?>>) clazz;
-                    AocProblem<?, ?> aocProblem = problemClazz.getConstructor().newInstance();
-                    retval.put(aocProblem.getCoordinate(), aocProblem);
+                for (Method method : clazz.getDeclaredMethods()) {
+                    AocProblemI annotation = method.getAnnotation(AocProblemI.class);
+                    if (annotation != null) {
+                        AocProblem<?, ?> aocProblem = (AocProblem<?, ?>) clazz.getConstructor().newInstance();
+                        retval.put(aocProblem.getCoordinate(), aocProblem);
+                    }
                 }
             }
             return retval;
