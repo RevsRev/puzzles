@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +21,7 @@ public final class D19 extends AocProblem<Long, Long> {
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")
+    @AocProblemI(year = 2024, day = 19, part = 1)
     @Override
     protected Long partOneImpl() {
         List<String> strings = loadResources();
@@ -57,6 +59,7 @@ public final class D19 extends AocProblem<Long, Long> {
         return count;
     }
 
+    @AocProblemI(year = 2024, day = 19, part = 2)
     @Override
     protected Long partTwoImpl() {
         List<String> strings = loadResources();
@@ -93,14 +96,15 @@ public final class D19 extends AocProblem<Long, Long> {
     }
 
     private long canDesign(final String target,
-                              final Set<String>[] regexes) {
+                           final Set<String>[] regexes) {
         Long[] cachedResults = LoaderUtils.emptyArray(new Long[0], target.length(), () -> null);
         return canDesign(target, regexes, cachedResults, 0);
     }
+
     private long canDesign(final String target,
-                              final Set<String>[] regexes,
-                              final Long[] cachedResults,
-                              final int offset) {
+                           final Set<String>[] regexes,
+                           final Long[] cachedResults,
+                           final int offset) {
         if (offset == target.length()) {
             return 1;
         }

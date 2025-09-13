@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public final class D14 extends AocProblem<Long, Long> {
         return new AocCoordinate(2015, 14);
     }
 
+    @AocProblemI(year = 2015, day = 14, part = 1)
     @Override
     protected Long partOneImpl() {
         List<Reindeer> reindeer = loadReindeer();
@@ -37,6 +39,7 @@ public final class D14 extends AocProblem<Long, Long> {
         return winningDistance;
     }
 
+    @AocProblemI(year = 2015, day = 14, part = 2)
     @Override
     protected Long partTwoImpl() {
         List<Reindeer> reindeer = loadReindeer();

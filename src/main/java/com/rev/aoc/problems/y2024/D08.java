@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public final class D08 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 8);
     }
 
+    @AocProblemI(year = 2024, day = 8, part = 1)
     @Override
     protected Long partOneImpl() {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(loadResources());
@@ -36,6 +38,7 @@ public final class D08 extends AocProblem<Long, Long> {
         return (long) antinodes.size();
     }
 
+    @AocProblemI(year = 2024, day = 8, part = 2)
     @Override
     protected Long partTwoImpl() {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(loadResources());

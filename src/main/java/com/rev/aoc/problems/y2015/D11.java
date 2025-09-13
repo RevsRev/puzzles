@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public final class D11 extends AocProblem<String, String> {
         return new AocCoordinate(2015, 11);
     }
 
+    @AocProblemI(year = 2015, day = 11, part = 1)
     @Override
     protected String partOneImpl() {
         char[] password = loadResources().get(0).toCharArray();
@@ -24,6 +26,7 @@ public final class D11 extends AocProblem<String, String> {
         return new String(password);
     }
 
+    @AocProblemI(year = 2015, day = 11, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
     protected String partTwoImpl() {

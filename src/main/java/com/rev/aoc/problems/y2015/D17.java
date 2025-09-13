@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.set.Buckets;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public final class D17 extends AocProblem<Long, Long> {
         return new AocCoordinate(2015, 17);
     }
 
+    @AocProblemI(year = 2015, day = 17, part = 1)
     @Override
     protected Long partOneImpl() {
         List<String> strings = loadResources();
@@ -27,6 +29,7 @@ public final class D17 extends AocProblem<Long, Long> {
         return Buckets.fillEntireCombinations(buckets, TARGET, false);
     }
 
+    @AocProblemI(year = 2015, day = 17, part = 2)
     @Override
     protected Long partTwoImpl() {
         List<String> strings = loadResources();

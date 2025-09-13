@@ -4,6 +4,7 @@ import com.rev.aoc.framework.io.display.Printer;
 import com.rev.aoc.framework.io.display.format.ColumnFormatter;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.vis.VisualisationException;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -39,6 +40,7 @@ public final class D17 extends AocProblem<String, Long> {
         return new AocCoordinate(2024, 17);
     }
 
+    @AocProblemI(year = 2024, day = 17, part = 1)
     @Override
     protected String partOneImpl() {
         Computer comp = loadResourcesAsComputer();
@@ -49,6 +51,7 @@ public final class D17 extends AocProblem<String, Long> {
         return sb.toString();
     }
 
+    @AocProblemI(year = 2024, day = 17, part = 2)
     @Override
     protected Long partTwoImpl() {
         Computer comp = loadResourcesAsComputer();
@@ -151,7 +154,7 @@ public final class D17 extends AocProblem<String, Long> {
         private boolean check3BitsMatch(long checked, long proposedValue, long value) {
             for (int checkFlag : CHECK_FLAGS) {
                 if ((checked & checkFlag) != 0
-                  && (proposedValue & checkFlag) != (value & checkFlag)) {
+                        && (proposedValue & checkFlag) != (value & checkFlag)) {
                     return false;
                 }
             }
@@ -212,9 +215,9 @@ public final class D17 extends AocProblem<String, Long> {
 
     private static final class Computer {
 
-        private static final ColumnFormatter<Computer>[] COMPUTER_COLS = new ColumnFormatter[] {
-            new ColumnFormatter.FuncColumnFormatter<Computer>(
-                    "SP", 20, ' ', comp -> Integer.toString(comp.stackPointer)),
+        private static final ColumnFormatter<Computer>[] COMPUTER_COLS = new ColumnFormatter[]{
+                new ColumnFormatter.FuncColumnFormatter<Computer>(
+                        "SP", 20, ' ', comp -> Integer.toString(comp.stackPointer)),
                 new ColumnFormatter.FuncColumnFormatter<Computer>(
                         "INS", 20, ' ',
                         comp -> Integer.toString(comp.program[comp.stackPointer])),
@@ -238,7 +241,8 @@ public final class D17 extends AocProblem<String, Long> {
         private final int[] program;
 
         private int stackPointer = 0;
-        private Consumer<Long> listener = i -> { };
+        private Consumer<Long> listener = i -> {
+        };
         private boolean print = false;
         private Printer<Computer> printer = new Printer<>(COMPUTER_COLS);
 
@@ -272,7 +276,7 @@ public final class D17 extends AocProblem<String, Long> {
 
         private void execute(final int opCode, final int operand) {
             if (opCode == ADV) {
-                registerA = registerA /  (1 << comboOperand(operand));
+                registerA = registerA / (1 << comboOperand(operand));
                 stackPointer += 2;
                 return;
             }

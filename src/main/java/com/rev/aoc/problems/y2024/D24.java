@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.vis.GraphVisualiser;
 import com.rev.aoc.vis.VisualisationException;
 import org.jgrapht.Graph;
@@ -27,6 +28,7 @@ public final class D24 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 24);
     }
 
+    @AocProblemI(year = 2024, day = 24, part = 1)
     @Override
     protected Long partOneImpl() {
         List<String> lines = loadResources();
@@ -86,6 +88,7 @@ public final class D24 extends AocProblem<Long, Long> {
         return result;
     }
 
+    @AocProblemI(year = 2024, day = 24, part = 2)
     @Override
     protected Long partTwoImpl() {
 

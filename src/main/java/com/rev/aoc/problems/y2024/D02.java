@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public final class D02 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 2);
     }
 
+    @AocProblemI(year = 2024, day = 2, part = 1)
     @Override
     protected Long partOneImpl() {
         Integer[][] reports = parseReports();
@@ -21,6 +23,7 @@ public final class D02 extends AocProblem<Long, Long> {
         return (long) safeReports.size();
     }
 
+    @AocProblemI(year = 2024, day = 2, part = 2)
     @Override
     protected Long partTwoImpl() {
         Integer[][] reports = parseReports();

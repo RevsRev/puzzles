@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.graph.Edge;
 import com.rev.aoc.util.graph.Graph;
 import com.rev.aoc.util.graph.Vertex;
@@ -21,12 +22,14 @@ public final class D09 extends AocProblem<Long, Long> {
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 9, part = 1)
     protected Long partOneImpl() {
         final Graph<Vertex, Edge> graph = loadGraph(false);
         return TravellingSalesman.heldKarp(graph);
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 1, part = 2)
     @SuppressWarnings("checkstyle:MagicNumber")
     protected Long partTwoImpl() {
         final Graph<Vertex, Edge> graph = loadGraph(true);

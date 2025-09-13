@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 import com.rev.aoc.util.set.SetUtils;
 
@@ -21,6 +22,7 @@ public final class D21 extends AocProblem<Integer, Integer> {
         return new AocCoordinate(2015, 21);
     }
 
+    @AocProblemI(year = 2015, day = 21, part = 1)
     @Override
     protected Integer partOneImpl() {
         final Player boss = loadBoss();
@@ -40,6 +42,7 @@ public final class D21 extends AocProblem<Integer, Integer> {
         throw new ProblemExecutionException("No solution could be found");
     }
 
+    @AocProblemI(year = 2015, day = 21, part = 2)
     @Override
     protected Integer partTwoImpl() {
         final Player boss = loadBoss();
@@ -165,7 +168,7 @@ public final class D21 extends AocProblem<Integer, Integer> {
                 new Attributes("Splintmail", 53, 0, 3),
                 new Attributes("Bandedmail", 75, 0, 4),
                 new Attributes("Platemail", 102, 0, 5)
-                );
+        );
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")

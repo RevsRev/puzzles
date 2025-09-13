@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Comparator;
@@ -27,6 +28,7 @@ public final class D19 extends AocProblem<Integer, Integer> {
         return new AocCoordinate(2015, 19);
     }
 
+    @AocProblemI(year = 2015, day = 19, part = 1)
     @Override
     protected Integer partOneImpl() {
         Pair<String, Map<String, Set<String>>> inputAndReplacements = inputAndReplacements();
@@ -63,6 +65,7 @@ public final class D19 extends AocProblem<Integer, Integer> {
         return sb.toString();
     }
 
+    @AocProblemI(year = 2015, day = 19, part = 2)
     @Override
     protected Integer partTwoImpl() {
         final Pair<String, Map<String, Set<String>>> inputsAndReplacements = inputAndReplacements();

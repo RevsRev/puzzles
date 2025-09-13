@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 
 import java.nio.charset.StandardCharsets;
@@ -22,6 +23,7 @@ public final class D04 extends AocProblem<String, String> {
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 4, part = 1)
     protected String partOneImpl() {
         final String input = loadResources().get(0);
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
@@ -36,6 +38,7 @@ public final class D04 extends AocProblem<String, String> {
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 4, part = 2)
     protected String partTwoImpl() {
         final String input = loadResources().get(0);
         for (int i = 0; i < Integer.MAX_VALUE; i++) {

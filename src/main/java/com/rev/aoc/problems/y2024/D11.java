@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.math.ntheory.util.Pow;
 
 import java.util.ArrayList;
@@ -18,11 +19,14 @@ public final class D11 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 11);
     }
 
+    @AocProblemI(year = 2024, day = 11, part = 1)
     @Override
     protected Long partOneImpl() {
         long[] stones = loadResourcesAsLongArray();
         return countStones(stones, PART_ONE_ITERATIONS);
     }
+
+    @AocProblemI(year = 2024, day = 11, part = 2)
     @Override
     protected Long partTwoImpl() {
         long[] stones = loadResourcesAsLongArray();

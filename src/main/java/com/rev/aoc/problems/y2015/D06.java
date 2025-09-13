@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.geom.PointRectangle;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -27,6 +28,7 @@ public final class D06 extends AocProblem<Long, Long> {
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 6, part = 1)
     protected Long partOneImpl() {
         List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(loadResources());
 
@@ -65,6 +67,7 @@ public final class D06 extends AocProblem<Long, Long> {
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 6, part = 2)
     protected Long partTwoImpl() {
         List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(loadResources());
 

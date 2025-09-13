@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2015;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.grid.Grid;
 
 public final class D18 extends AocProblem<Long, Long> {
@@ -17,6 +18,7 @@ public final class D18 extends AocProblem<Long, Long> {
         return new AocCoordinate(2015, 18);
     }
 
+    @AocProblemI(year = 2015, day = 18, part = 1)
     @Override
     protected Long partOneImpl() {
         char[][] chars = LoaderUtils.linesToCharMatrix(loadResources());
@@ -24,6 +26,7 @@ public final class D18 extends AocProblem<Long, Long> {
         return Grid.countGrid(updated, ALIVE);
     }
 
+    @AocProblemI(year = 2015, day = 18, part = 2)
     @Override
     protected Long partTwoImpl() {
         char[][] chars = LoaderUtils.linesToCharMatrix(loadResources());

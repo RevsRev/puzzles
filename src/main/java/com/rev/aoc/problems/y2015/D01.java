@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 
 public final class D01 extends AocProblem<Long, Long> {
@@ -17,6 +18,7 @@ public final class D01 extends AocProblem<Long, Long> {
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 1, part = 1)
     protected Long partOneImpl() {
         String input = loadResources().get(0);
         long floor = 0;
@@ -31,6 +33,7 @@ public final class D01 extends AocProblem<Long, Long> {
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 1, part = 2)
     protected Long partTwoImpl() {
         String input = loadResources().get(0);
         long floor = 0;

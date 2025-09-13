@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public final class D14 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 14);
     }
 
+    @AocProblemI(year = 2024, day = 14, part = 1)
     @Override
     protected Long partOneImpl() {
         Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(loadResources(), new Integer[][]{}, splitter());
@@ -49,6 +51,7 @@ public final class D14 extends AocProblem<Long, Long> {
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")
+    @AocProblemI(year = 2024, day = 14, part = 2)
     @Override
     protected Long partTwoImpl() {
         Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(loadResources(), new Integer[][]{}, splitter());
@@ -123,6 +126,7 @@ public final class D14 extends AocProblem<Long, Long> {
     private boolean inQuadrant(final Pair<Integer, Integer> key, int width, int height) {
         return key.getLeft() == width / 2 || key.getRight() == height / 2;
     }
+
     @SuppressWarnings("checkstyle:MagicNumber")
     private Optional<Pair<Integer, Integer>> getQuadrant(final Pair<Integer, Integer> key, int width, int height) {
         int xMiddle = width / 2;

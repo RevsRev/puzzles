@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2023;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.vis.GraphVisualiser;
 import com.rev.aoc.vis.VisualisationException;
 import lombok.Getter;
@@ -36,6 +37,7 @@ public final class D20 extends AocProblem<Long, Long> {
         return new AocCoordinate(2023, 20);
     }
 
+    @AocProblemI(year = 2023, day = 20, part = 1)
     @Override
     protected Long partOneImpl() {
         List<String> strings = loadResources();
@@ -52,6 +54,7 @@ public final class D20 extends AocProblem<Long, Long> {
         return (long) (pulseCounter.numHigh * pulseCounter.numLow);
     }
 
+    @AocProblemI(year = 2023, day = 20, part = 2)
     @Override
     protected Long partTwoImpl() {
 //        List<String> strings = loadResources();
@@ -111,7 +114,7 @@ public final class D20 extends AocProblem<Long, Long> {
         }
 
         for (Module m : modules.values()) {
-            for (Module target: m.outputs) {
+            for (Module target : m.outputs) {
                 graph.addEdge(m, target);
             }
         }
@@ -191,6 +194,7 @@ public final class D20 extends AocProblem<Long, Long> {
         private Module(final String name) {
             this.name = name;
         }
+
         public abstract void receive(Module sender, Pulse p, Queue<Runnable> runQueue);
 
         public void addOutput(final Module other) {
@@ -199,7 +203,7 @@ public final class D20 extends AocProblem<Long, Long> {
         }
 
         public void send(final Pulse p, final Queue<Runnable> runQueue) {
-            for (Module m: outputs) {
+            for (Module m : outputs) {
                 pulseSendConsumer.accept(p);
                 runQueue.add(() -> m.receive(this, p, runQueue));
             }
@@ -218,6 +222,7 @@ public final class D20 extends AocProblem<Long, Long> {
             return new Output(nameAndType);
         }
     }
+
     private static final class Output extends Module {
 
         private Output(final String name) {
@@ -229,6 +234,7 @@ public final class D20 extends AocProblem<Long, Long> {
             getPulseReceiveConsumer().accept(p);
         }
     }
+
     private static final class Button extends Module {
 
         private Button(final String name) {
@@ -240,6 +246,7 @@ public final class D20 extends AocProblem<Long, Long> {
             send(Pulse.LOW, runQueue);
         }
     }
+
     private static final class Broadcast extends Module {
 
         private Broadcast(final String name) {
@@ -251,6 +258,7 @@ public final class D20 extends AocProblem<Long, Long> {
             send(p, runQueue);
         }
     }
+
     private static final class FlipFlop extends Module {
         private boolean on = false;
 
@@ -271,6 +279,7 @@ public final class D20 extends AocProblem<Long, Long> {
             }
         }
     }
+
     private static final class Conjunction extends Module {
         private final Map<Module, Pulse> memory = new HashMap<>();
 

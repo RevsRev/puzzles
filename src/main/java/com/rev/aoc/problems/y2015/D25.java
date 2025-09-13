@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 public final class D25 extends AocProblem<Long, String> {
 
@@ -18,6 +19,7 @@ public final class D25 extends AocProblem<Long, String> {
         return new AocCoordinate(2015, 25);
     }
 
+    @AocProblemI(year = 2015, day = 25, part = 1)
     @Override
     protected Long partOneImpl() {
         final long triangleBase = (long) PROBLEM_ROW + (long) PROBLEM_COLUMN - 1;
@@ -31,6 +33,7 @@ public final class D25 extends AocProblem<Long, String> {
         return code;
     }
 
+    @AocProblemI(year = 2015, day = 25, part = 2)
     @Override
     protected String partTwoImpl() {
         return "n/a";

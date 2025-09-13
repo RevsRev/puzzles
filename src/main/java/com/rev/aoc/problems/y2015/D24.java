@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.arr.ArrayUtils;
 import com.rev.aoc.util.search.BinarySolutionSearch;
 import com.rev.aoc.util.set.SetUtils;
@@ -18,6 +19,7 @@ public final class D24 extends AocProblem<Long, Long> {
         return new AocCoordinate(2015, 24);
     }
 
+    @AocProblemI(year = 2015, day = 24, part = 1)
     @Override
     protected Long partOneImpl() {
         final Long[] packages = loadPackages();
@@ -57,6 +59,7 @@ public final class D24 extends AocProblem<Long, Long> {
         return minQuantumEntanglement;
     }
 
+    @AocProblemI(year = 2015, day = 24, part = 2)
     @Override
     protected Long partTwoImpl() {
         final Long[] packages = loadPackages();

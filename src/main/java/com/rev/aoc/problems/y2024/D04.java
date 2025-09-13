@@ -2,13 +2,14 @@ package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 import java.util.List;
 
 public final class D04 extends AocProblem<Long, Long> {
 
     private static final char[] XMAS = {'X', 'M', 'A', 'S'};
-    private static final int[][] XMAS_STEPS =  new int[][]{
+    private static final int[][] XMAS_STEPS = new int[][]{
             {1, 0},
             {1, 1},
             {0, 1},
@@ -17,7 +18,7 @@ public final class D04 extends AocProblem<Long, Long> {
             {-1, -1},
             {0, -1},
             {1, -1}};
-    private static final int[][] SQUARE_CORNERS = new int[][] {
+    private static final int[][] SQUARE_CORNERS = new int[][]{
             {-1, 1}, {1, 1}, {1, -1}, {-1, -1}
     };
 
@@ -26,12 +27,14 @@ public final class D04 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 4);
     }
 
+    @AocProblemI(year = 2024, day = 4, part = 1)
     @Override
     protected Long partOneImpl() {
         char[][] wordSearch = loadWordSearch();
         return countXmas(wordSearch);
     }
 
+    @AocProblemI(year = 2024, day = 4, part = 2)
     @Override
     protected Long partTwoImpl() {
         char[][] wordSearch = loadWordSearch();
@@ -67,7 +70,7 @@ public final class D04 extends AocProblem<Long, Long> {
     }
 
     private boolean xmasSquareMatches(final char[][] wordSearch,
-                             final int height, final int width, final int i, final int j) {
+                                      final int height, final int width, final int i, final int j) {
         if (wordSearch[i][j] != 'A') {
             return false;
         }

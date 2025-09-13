@@ -2,11 +2,12 @@ package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 import java.util.Arrays;
-import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public final class D25 extends AocProblem<Long, String> {
     @Override
@@ -14,6 +15,7 @@ public final class D25 extends AocProblem<Long, String> {
         return new AocCoordinate(2024, 25);
     }
 
+    @AocProblemI(year = 2024, day = 25, part = 1)
     @Override
     protected Long partOneImpl() {
         Set<KeyOrLock> keys = new HashSet<>();
@@ -31,6 +33,7 @@ public final class D25 extends AocProblem<Long, String> {
         return count;
     }
 
+    @AocProblemI(year = 2024, day = 25, part = 2)
     @Override
     protected String partTwoImpl() {
         return "n/a";

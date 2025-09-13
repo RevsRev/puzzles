@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2023;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public final class D02 extends AocProblem<Long, Long> {
         return new AocCoordinate(2023, 2);
     }
 
+    @AocProblemI(year = 2023, day = 2, part = 1)
     @Override
     protected Long partOneImpl() {
         List<String> lines = loadResources();
@@ -31,6 +33,7 @@ public final class D02 extends AocProblem<Long, Long> {
         return result;
     }
 
+    @AocProblemI(year = 2023, day = 2, part = 2)
     @Override
     protected Long partTwoImpl() {
         return 0L;
@@ -75,6 +78,7 @@ public final class D02 extends AocProblem<Long, Long> {
         }
         return 0;
     }
+
     private boolean checkHandfuls(final List<Handful> handfuls) {
         for (int i = 0; i < handfuls.size(); i++) {
             Handful handful = handfuls.get(i);

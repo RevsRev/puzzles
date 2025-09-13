@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -27,6 +28,7 @@ public final class D05 extends AocProblem<Long, Long> {
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 5, part = 1)
     protected Long partOneImpl() {
         List<String> lines = loadResources();
         long count = 0;
@@ -41,6 +43,7 @@ public final class D05 extends AocProblem<Long, Long> {
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 5, part = 2)
     protected Long partTwoImpl() {
         List<String> lines = loadResources();
         long count = 0;

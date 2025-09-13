@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
@@ -21,10 +22,11 @@ public final class D22 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 22);
     }
 
+    @AocProblemI(year = 2024, day = 22, part = 1)
     @Override
     protected Long partOneImpl() {
         List<String> lines = loadResources();
-        int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[] {s});
+        int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});
 
         long sum = 0;
         for (int i : inputs) {
@@ -33,10 +35,11 @@ public final class D22 extends AocProblem<Long, Long> {
         return sum;
     }
 
+    @AocProblemI(year = 2024, day = 22, part = 2)
     @Override
     protected Long partTwoImpl() {
         List<String> lines = loadResources();
-        int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[] {s});
+        int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});
 
         Map<List<Integer>, Integer> runsAndScores = new HashMap<>();
         long bestScore = Long.MIN_VALUE;

@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -18,6 +19,7 @@ public final class D09 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 9);
     }
 
+    @AocProblemI(year = 2024, day = 9, part = 1)
     @Override
     protected Long partOneImpl() {
         char[] diskMap = LoaderUtils.loadResourcesAsCharArray(loadResources());
@@ -26,6 +28,7 @@ public final class D09 extends AocProblem<Long, Long> {
         return checksum(disk);
     }
 
+    @AocProblemI(year = 2024, day = 9, part = 2)
     @Override
     protected Long partTwoImpl() {
         char[] diskMap = LoaderUtils.loadResourcesAsCharArray(loadResources());
@@ -43,14 +46,14 @@ public final class D09 extends AocProblem<Long, Long> {
         int index = 0;
         int numFiles = 0;
         for (int i = 0; i < diskMap.length; i++) {
-           int id = i % 2 == 0 ? numFiles : EMPTY_VALUE;
-           for (int j = 0; j < Character.getNumericValue(diskMap[i]); j++) {
-               disk[index] = id;
-               index++;
-           }
-           if (i % 2 == 0) {
-               numFiles++;
-           }
+            int id = i % 2 == 0 ? numFiles : EMPTY_VALUE;
+            for (int j = 0; j < Character.getNumericValue(diskMap[i]); j++) {
+                disk[index] = id;
+                index++;
+            }
+            if (i % 2 == 0) {
+                numFiles++;
+            }
         }
         return disk;
     }
@@ -69,6 +72,7 @@ public final class D09 extends AocProblem<Long, Long> {
             disk[end] = EMPTY_VALUE;
         }
     }
+
     private void moveFileBlocksPartTwo(final int[] disk) {
         TreeMap<Integer, Integer> spacesByIndex = new TreeMap<>();
         int index = 0;
@@ -129,6 +133,7 @@ public final class D09 extends AocProblem<Long, Long> {
             index -= blockSize;
         }
     }
+
     private long checksum(final int[] disk) {
         long checksum = 0;
         for (int i = 0; i < disk.length; i++) {

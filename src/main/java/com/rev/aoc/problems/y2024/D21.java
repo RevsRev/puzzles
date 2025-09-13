@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.geom.Direction;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public final class D21 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 21);
     }
 
+    @AocProblemI(year = 2024, day = 21, part = 1)
     @Override
     protected Long partOneImpl() {
         List<String> codes = loadResources();
@@ -48,6 +50,7 @@ public final class D21 extends AocProblem<Long, Long> {
         return totalComplexity;
     }
 
+    @AocProblemI(year = 2024, day = 21, part = 2)
     @Override
     protected Long partTwoImpl() {
         List<String> codes = loadResources();

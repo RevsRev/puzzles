@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public final class D15 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 15);
     }
 
+    @AocProblemI(year = 2024, day = 15, part = 1)
     @Override
     protected Long partOneImpl() {
         Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves();
@@ -66,6 +68,7 @@ public final class D15 extends AocProblem<Long, Long> {
         return computeGpsSum(warehouse);
     }
 
+    @AocProblemI(year = 2024, day = 15, part = 2)
     @Override
     protected Long partTwoImpl() {
         Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves();
@@ -129,6 +132,7 @@ public final class D15 extends AocProblem<Long, Long> {
         return (nextChar == '.' || canMove(warehouse, i + dir[0], j, dir, false))
                 && canMove(warehouse, i, j + neighbourDir, dir, true);
     }
+
     @SuppressWarnings("checkstyle:MagicNumber")
     private static void move(final char[][] warehouse, int i, int j, final int[] dir, boolean movingNeighbour) {
         char cellChar = warehouse[i][j];

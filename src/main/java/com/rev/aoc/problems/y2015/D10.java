@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 public final class D10 extends AocProblem<Long, Long> {
 
@@ -14,11 +15,13 @@ public final class D10 extends AocProblem<Long, Long> {
         return new AocCoordinate(2015, 10);
     }
 
+    @AocProblemI(year = 2015, day = 10, part = 1)
     @Override
     protected Long partOneImpl() {
         return solve(PART_ONE_ITERATIONS);
     }
 
+    @AocProblemI(year = 2015, day = 10, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
     protected Long partTwoImpl() {

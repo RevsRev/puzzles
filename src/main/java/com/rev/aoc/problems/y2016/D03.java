@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2016;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.geom.Triangle;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public final class D03 extends AocProblem<Integer, Integer> {
         return new AocCoordinate(2016, 3);
     }
 
+    @AocProblemI(year = 2016, day = 3, part = 1)
     @Override
     protected Integer partOneImpl() {
         int count = 0;
@@ -30,6 +32,7 @@ public final class D03 extends AocProblem<Integer, Integer> {
         return count;
     }
 
+    @AocProblemI(year = 2016, day = 3, part = 2)
     @Override
     protected Integer partTwoImpl() {
         int count = 0;

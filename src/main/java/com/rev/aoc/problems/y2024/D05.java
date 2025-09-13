@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public final class D05 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 5);
     }
 
+    @AocProblemI(year = 2024, day = 5, part = 1)
     @Override
     protected Long partOneImpl() {
         loadMapsAndUpdates();
@@ -32,6 +34,7 @@ public final class D05 extends AocProblem<Long, Long> {
         return result;
     }
 
+    @AocProblemI(year = 2024, day = 5, part = 2)
     @Override
     protected Long partTwoImpl() {
         loadMapsAndUpdates();
@@ -75,6 +78,7 @@ public final class D05 extends AocProblem<Long, Long> {
             }
         }
     }
+
     private boolean checkUpdateIsOrdered(final Integer[] update) {
         for (int i = 0; i < update.length; i++) {
             for (int j = i + 1; j < update.length; j++) {

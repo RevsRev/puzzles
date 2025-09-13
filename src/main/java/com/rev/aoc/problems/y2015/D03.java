@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
@@ -22,6 +23,7 @@ public final class D03 extends AocProblem<Long, Long> {
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 3, part = 1)
     protected Long partOneImpl() {
         String input = loadResources().get(0);
         long x = 0;
@@ -44,6 +46,7 @@ public final class D03 extends AocProblem<Long, Long> {
     }
 
     @Override
+    @AocProblemI(year = 2015, day = 3, part = 2)
     protected Long partTwoImpl() {
         String input = loadResources().get(0);
         long x = 0;

@@ -2,11 +2,12 @@ package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.graph.Edge;
-import com.rev.aoc.util.graph.algo.Cliques;
-import com.rev.aoc.util.graph.algo.SubGraphs;
 import com.rev.aoc.util.graph.Graph;
 import com.rev.aoc.util.graph.Vertex;
+import com.rev.aoc.util.graph.algo.Cliques;
+import com.rev.aoc.util.graph.algo.SubGraphs;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,6 +21,7 @@ public final class D23 extends AocProblem<Long, String> {
         return new AocCoordinate(2024, 23);
     }
 
+    @AocProblemI(year = 2024, day = 23, part = 1)
     @Override
     protected Long partOneImpl() {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph();
@@ -36,6 +38,7 @@ public final class D23 extends AocProblem<Long, String> {
         return count;
     }
 
+    @AocProblemI(year = 2024, day = 23, part = 2)
     @Override
     protected String partTwoImpl() {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph();

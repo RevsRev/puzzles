@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 import com.rev.aoc.util.math.ntheory.primes.Factors;
 import com.rev.aoc.util.math.ntheory.primes.SieveOfEratosthenes;
@@ -21,6 +22,7 @@ public final class D20 extends AocProblem<Long, Long> {
         return new AocCoordinate(2015, 20);
     }
 
+    @AocProblemI(year = 2015, day = 20, part = 1)
     @Override
     //TODO - Parallelisation?
     protected Long partOneImpl() {
@@ -28,6 +30,7 @@ public final class D20 extends AocProblem<Long, Long> {
         return partOneFast();
     }
 
+    @AocProblemI(year = 2015, day = 20, part = 2)
     @Override
     protected Long partTwoImpl() {
 //        return partTwoSlow();

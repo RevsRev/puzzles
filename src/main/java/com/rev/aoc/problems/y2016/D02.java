@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2016;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public final class D02 extends AocProblem<Integer, String> {
         return new AocCoordinate(2016, 2);
     }
 
+    @AocProblemI(year = 2016, day = 2, part = 1)
     @Override
     protected Integer partOneImpl() {
         List<String> instructions = loadResources();
@@ -24,7 +26,7 @@ public final class D02 extends AocProblem<Integer, String> {
         int i = 1;
         int j = 1;
 
-        for (final String instruction: instructions) {
+        for (final String instruction : instructions) {
             for (int k = 0; k < instruction.length(); k++) {
                 switch (instruction.charAt(k)) {
                     case 'U':
@@ -51,6 +53,7 @@ public final class D02 extends AocProblem<Integer, String> {
         return Integer.parseInt(result.toString());
     }
 
+    @AocProblemI(year = 2016, day = 2, part = 2)
     @Override
     protected String partTwoImpl() {
         List<String> instructions = loadResources();
@@ -61,7 +64,7 @@ public final class D02 extends AocProblem<Integer, String> {
         int i = 0;
         int j = 2;
 
-        for (final String instruction: instructions) {
+        for (final String instruction : instructions) {
             for (int k = 0; k < instruction.length(); k++) {
                 int iStep = Math.abs(j - 2);
                 int jStep = Math.abs(i - 2);

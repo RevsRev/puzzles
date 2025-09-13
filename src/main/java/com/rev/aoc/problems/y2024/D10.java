@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
@@ -16,6 +17,7 @@ public final class D10 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 10);
     }
 
+    @AocProblemI(year = 2024, day = 10, part = 1)
     @Override
     protected Long partOneImpl() {
         int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(), s -> s.split(""));
@@ -35,6 +37,7 @@ public final class D10 extends AocProblem<Long, Long> {
         return score;
     }
 
+    @AocProblemI(year = 2024, day = 10, part = 2)
     @Override
     protected Long partTwoImpl() {
         int[][] map = LoaderUtils.loadResourcesAsIntMatrix(loadResources(), s -> s.split(""));

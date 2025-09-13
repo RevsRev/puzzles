@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 
 import java.util.Iterator;
@@ -23,6 +24,7 @@ public final class D12 extends AocProblem<Long, Long> {
         return new AocCoordinate(2015, 12);
     }
 
+    @AocProblemI(year = 2015, day = 12, part = 1)
     @Override
     protected Long partOneImpl() {
         final String json = loadResources().get(0);
@@ -35,6 +37,7 @@ public final class D12 extends AocProblem<Long, Long> {
         return sum;
     }
 
+    @AocProblemI(year = 2015, day = 12, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
     protected Long partTwoImpl() {

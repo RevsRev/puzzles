@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 import com.rev.aoc.util.geom.Direction;
 import org.apache.commons.lang3.tuple.Pair;
@@ -18,7 +19,7 @@ public final class D06 extends AocProblem<Long, Long> {
     public static final char EMPTY_CHAR = '.';
     private static final char OBSTACLE_CHAR = '#';
     private static final char NEW_OBSTACLE_CHAR = 'O';
-    private static final int[][] DIRECTIONS = new int[][] {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    private static final int[][] DIRECTIONS = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
     @SuppressWarnings("checkstyle:MagicNumber")
     private static final int VISIT_UP_FLAG = 1 << 27;
@@ -36,6 +37,7 @@ public final class D06 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 6);
     }
 
+    @AocProblemI(year = 2024, day = 6, part = 1)
     @Override
     protected Long partOneImpl() {
         try {
@@ -56,6 +58,7 @@ public final class D06 extends AocProblem<Long, Long> {
         return 0L;
     }
 
+    @AocProblemI(year = 2024, day = 6, part = 2)
     @Override
     protected Long partTwoImpl() {
         try {

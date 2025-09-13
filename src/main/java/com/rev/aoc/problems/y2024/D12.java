@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.geom.Direction;
 import com.rev.aoc.util.geom.UnitCell;
 import org.apache.commons.lang3.tuple.Pair;
@@ -18,6 +19,7 @@ public final class D12 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 12);
     }
 
+    @AocProblemI(year = 2024, day = 12, part = 1)
     @Override
     protected Long partOneImpl() {
         UnitCell<Character>[][] unitCells = getUnitCells();
@@ -36,6 +38,7 @@ public final class D12 extends AocProblem<Long, Long> {
     }
 
 
+    @AocProblemI(year = 2024, day = 12, part = 2)
     @Override
     protected Long partTwoImpl() {
         UnitCell<Character>[][] unitCells = getUnitCells();

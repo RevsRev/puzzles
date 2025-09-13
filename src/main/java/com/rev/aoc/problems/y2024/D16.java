@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.geom.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -24,6 +25,7 @@ public final class D16 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 16);
     }
 
+    @AocProblemI(year = 2024, day = 16, part = 1)
     @Override
     protected Long partOneImpl() {
         List<String> lines = loadResources();
@@ -37,6 +39,7 @@ public final class D16 extends AocProblem<Long, Long> {
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")
+    @AocProblemI(year = 2024, day = 16, part = 2)
     @Override
     protected Long partTwoImpl() {
         List<String> lines = loadResources();

@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.math.linalg.matrix.Mat2;
 import com.rev.aoc.util.math.linalg.vec.Vec2;
 import com.rev.aoc.util.math.ntheory.eq.SimultaneousSolver;
@@ -21,11 +22,14 @@ public final class D13 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 13);
     }
 
+    @AocProblemI(year = 2024, day = 13, part = 1)
     @Override
     protected Long partOneImpl() {
         List<SimultaneousSolver> solvers = loadSolvers(false);
         return computeCost(solvers, D13::validResultPartOne);
     }
+
+    @AocProblemI(year = 2024, day = 13, part = 2)
     @Override
     protected Long partTwoImpl() {
         List<SimultaneousSolver> solvers = loadSolvers(true);
@@ -49,9 +53,11 @@ public final class D13 extends AocProblem<Long, Long> {
     private static boolean validResultPartOne(double x) {
         return x >= 0 && x <= PART_ONE_LIMIT && isInteger(x);
     }
+
     private static boolean validResultPartTwo(double x) {
         return x >= 0 && isInteger(x);
     }
+
     private static boolean isInteger(double x) {
         return Math.abs(x - Math.round(x)) < EPSILON;
     }

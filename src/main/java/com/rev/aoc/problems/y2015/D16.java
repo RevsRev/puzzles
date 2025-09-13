@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 
 import java.util.ArrayList;
@@ -24,12 +25,14 @@ public final class D16 extends AocProblem<Long, Long> {
         return new AocCoordinate(2015, 16);
     }
 
+    @AocProblemI(year = 2015, day = 16, part = 1)
     @Override
     protected Long partOneImpl() {
         final BiFunction<Sue, Sue, Boolean> matcher = partOneSueMatcher();
         return findSue(matcher);
     }
 
+    @AocProblemI(year = 2015, day = 16, part = 2)
     @Override
     protected Long partTwoImpl() {
         final BiFunction<Sue, Sue, Boolean> matcher = partTwoMatcher();
@@ -115,7 +118,7 @@ public final class D16 extends AocProblem<Long, Long> {
             sues.add(sue);
         }
 
-        return  sues;
+        return sues;
     }
 
     private static final class Sue {

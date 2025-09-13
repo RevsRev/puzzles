@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 
 import java.util.Arrays;
@@ -34,11 +35,13 @@ public final class D22 extends AocProblem<Integer, Integer> {
         return new AocCoordinate(2015, 22);
     }
 
+    @AocProblemI(year = 2015, day = 22, part = 1)
     @Override
     protected Integer partOneImpl() {
         return solve(false);
     }
 
+    @AocProblemI(year = 2015, day = 22, part = 2)
     @Override
     protected Integer partTwoImpl() {
         return solve(true);

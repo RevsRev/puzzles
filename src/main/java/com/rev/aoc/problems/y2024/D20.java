@@ -3,6 +3,7 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.io.load.LoaderUtils;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.geom.Direction;
 
 import java.util.ArrayDeque;
@@ -21,12 +22,14 @@ public final class D20 extends AocProblem<Long, Long> {
         return new AocCoordinate(2024, 20);
     }
 
+    @AocProblemI(year = 2024, day = 20, part = 1)
     @Override
     protected Long partOneImpl() {
         char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(loadResources());
         return solvePartOne(chars, 2);
     }
 
+    @AocProblemI(year = 2024, day = 20, part = 2)
     @Override
     protected Long partTwoImpl() {
         char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(loadResources());
@@ -76,9 +79,9 @@ public final class D20 extends AocProblem<Long, Long> {
             for (int y = -yLimit; y <= yLimit; y++) {
                 int taxiDistance = Math.abs(x) + Math.abs(y);
                 if (taxiDistance >= 1 && taxiDistance <= maxCheatHop
-                    && 0 <= i + x && i + x < traversedState.length
-                    && 0 <= j + y && j + y < traversedState[0].length
-                    && traversedState[i + x][j + y] != null) {
+                        && 0 <= i + x && i + x < traversedState.length
+                        && 0 <= j + y && j + y < traversedState[0].length
+                        && traversedState[i + x][j + y] != null) {
                     int saved = traversedState[i + x][j + y] - traversedState[i][j] - taxiDistance;
                     if (saved > 0) {
                         int count = savedAmounts.getOrDefault(saved, 0);

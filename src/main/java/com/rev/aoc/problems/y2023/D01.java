@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2023;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.AocProblemI;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,11 +17,13 @@ public final class D01 extends AocProblem<Long, Long> {
         return new AocCoordinate(2023, 1);
     }
 
+    @AocProblemI(year = 2023, day = 1, part = 1)
     @Override
     protected Long partOneImpl() {
         return solve(this::formatPartOne);
     }
 
+    @AocProblemI(year = 2023, day = 1, part = 2)
     @Override
     protected Long partTwoImpl() {
         return solve(this::formatPartTwo);
