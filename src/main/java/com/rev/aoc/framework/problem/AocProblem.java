@@ -12,22 +12,26 @@ public abstract class AocProblem<P1, P2> {
     protected abstract P1 partOneImpl();
     protected abstract P2 partTwoImpl();
 
-    public final P1 partOne() {
-        try {
-            return partOneImpl();
-        } catch (Exception e) {
-            String message = String.format("Execution of problem %s part one failed", getCoordinate());
-            throw new ProblemExecutionException(message, e);
-        }
+    public final Problem<P1> partOne() {
+        return solveExceptionally(this::partOneImpl, getCoordinate(), "one");
     }
 
-    public final P2 partTwo() {
-        try {
-            return partTwoImpl();
-        } catch (Exception e) {
-            String message = String.format("Execution of problem %s part two failed", getCoordinate());
-            throw new ProblemExecutionException(message, e);
-        }
+    public final Problem<P2> partTwo() {
+        return solveExceptionally(this::partTwoImpl, getCoordinate(), "two");
+    }
+
+    public static <T, C> Problem<T> solveExceptionally(
+            final Problem<T> problem,
+            final ProblemCoordinate<C> coordinate,
+            final String part) {
+        return () -> {
+            try {
+                return problem.solve();
+            } catch (Exception e) {
+                String message = String.format("Execution of problem %s part %s failed", coordinate, part);
+                throw new ProblemExecutionException(message, e);
+            }
+        };
     }
 
     /**
