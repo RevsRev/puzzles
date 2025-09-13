@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import org.apache.commons.lang3.tuple.Pair;
@@ -13,11 +12,6 @@ import com.rev.aoc.framework.problem.ResourceLoader;
 
 public final class D10 extends AocProblem<Long, Long> {
     private static final int[][] DIRECTIONS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-
-    @Override
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2024, 10);
-    }
 
     @AocProblemI(year = 2024, day = 10, part = 1)
     @Override

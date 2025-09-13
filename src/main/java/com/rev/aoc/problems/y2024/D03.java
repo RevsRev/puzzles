@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -14,11 +13,6 @@ public final class D03 extends AocProblem<Long, Long> {
 
     private static final String MULT_REGEX = "mul\\(\\d+,\\d+\\)|(do\\(\\))|(don't\\(\\))";
     private static final Pattern MULT_PATTERN = Pattern.compile(MULT_REGEX);
-
-    @Override
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2024, 3);
-    }
 
     @AocProblemI(year = 2024, day = 3, part = 1)
     @Override

@@ -3,7 +3,6 @@ package com.rev.aoc.problems.y2015;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
@@ -19,12 +18,6 @@ import com.rev.aoc.framework.problem.ResourceLoader;
 public final class D12 extends AocProblem<Long, Long> {
 
     private static final Pattern NUMBER_REGEX = Pattern.compile("-?\\d+");
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 12);
-    }
 
     @AocProblemI(year = 2015, day = 12, part = 1)
     @Override

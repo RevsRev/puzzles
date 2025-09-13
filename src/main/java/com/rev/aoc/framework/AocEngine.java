@@ -45,7 +45,7 @@ public final class AocEngine implements Runnable {
             return;
         }
 
-        List<Throwable> errors = executor.solve(problemsInRange.values());
+        List<Throwable> errors = executor.solve(problemsInRange.entrySet());
         printErrors(errors);
     }
 

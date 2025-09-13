@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 
@@ -15,12 +14,6 @@ import com.rev.aoc.framework.problem.ResourceLoader;
 public final class D08 extends AocProblem<Long, Long> {
 
     private static final Pattern ESCAPE = Pattern.compile("\\\\");
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 8);
-    }
 
     @Override
     @AocProblemI(year = 2015, day = 8, part = 1)

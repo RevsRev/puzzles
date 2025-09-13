@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -14,11 +13,6 @@ import java.util.Map;
 public final class D11 extends AocProblem<Long, Long> {
     public static final int PART_ONE_ITERATIONS = 25;
     public static final int PART_TWO_ITERATIONS = 75;
-
-    @Override
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2024, 11);
-    }
 
     @AocProblemI(year = 2024, day = 11, part = 1)
     @Override

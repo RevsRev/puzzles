@@ -38,7 +38,7 @@ public final class CliOptions {
         return Option.builder()
                 .option("p")
                 .longOpt("problem")
-                .desc("The problem to be executed in yy:dd or yyyy:dd format. "
+                .desc("The problem to be executed in yy:dd:pp or yyyy:dd:pp format. "
                        +  "If omitted, all problems will be solved")
                 .hasArg()
                 .type(String.class)
@@ -49,7 +49,7 @@ public final class CliOptions {
         return Option.builder()
                 .option("pb")
                 .longOpt("problem-bound")
-                .desc("A second problem to be executed in yy:dd or yyyy:dd format. "
+                .desc("A second problem to be executed in yy:dd:pp or yyyy:dd:pp format. "
                         + "All problems between -p and -pb will be executed (inclusive)")
                 .hasArg()
                 .type(String.class)

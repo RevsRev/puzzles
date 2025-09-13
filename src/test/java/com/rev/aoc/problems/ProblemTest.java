@@ -56,29 +56,29 @@ public final class ProblemTest {
 
     private static Map<AocCoordinate, Pair<Object, Object>> getHappyPathsMap() {
         Map<AocCoordinate, Pair<Object, Object>> expectedResults = new HashMap<>();
-        expectedResults.put(new AocCoordinate(2024, 1), Pair.of(11L, 31L));
-        expectedResults.put(new AocCoordinate(2024, 2), Pair.of(2L, 4L));
-        expectedResults.put(new AocCoordinate(2024, 3), Pair.of(161L, 48L));
-        expectedResults.put(new AocCoordinate(2024, 4), Pair.of(18L, 9L));
-        expectedResults.put(new AocCoordinate(2024, 5), Pair.of(143L, 123L));
-        expectedResults.put(new AocCoordinate(2024, 6), Pair.of(41L, 6L));
-        expectedResults.put(new AocCoordinate(2024, 7), Pair.of(3749L, 11387L));
-        expectedResults.put(new AocCoordinate(2024, 8), Pair.of(14L, 34L));
-        expectedResults.put(new AocCoordinate(2024, 9), Pair.of(1928L, 2858L));
-        expectedResults.put(new AocCoordinate(2024, 10), Pair.of(36L, 81L));
-        expectedResults.put(new AocCoordinate(2024, 11), Pair.of(55312L, 65601038650482L));
-        expectedResults.put(new AocCoordinate(2024, 12), Pair.of(1930L, 1206L));
-        expectedResults.put(new AocCoordinate(2024, 14), Pair.of(21L, 7687L)); //TODO - Make better?
-        expectedResults.put(new AocCoordinate(2024, 15), Pair.of(10092L, 9021L));
-        expectedResults.put(new AocCoordinate(2024, 16), Pair.of(11048L, 64L));
-        expectedResults.put(new AocCoordinate(2024, 17), Pair.of("5,7,3,0", 105576L));
-        expectedResults.put(new AocCoordinate(2024, 19), Pair.of(6L, 16L));
-        expectedResults.put(new AocCoordinate(2024, 20), Pair.of(0L, 0L));
-        expectedResults.put(new AocCoordinate(2024, 21), Pair.of(126384L, 154115708116294L));
-        expectedResults.put(new AocCoordinate(2024, 22), Pair.of(37990510L, 23L));
-        expectedResults.put(new AocCoordinate(2024, 23), Pair.of(7L, "co,de,ka,ta"));
-        expectedResults.put(new AocCoordinate(2024, 24), Pair.of(2024L, 0L));
-        expectedResults.put(new AocCoordinate(2024, 25), Pair.of(3L, "n/a"));
+        expectedResults.put(new AocCoordinate(2024, 1, 1), Pair.of(11L, 31L));
+        expectedResults.put(new AocCoordinate(2024, 2, 1), Pair.of(2L, 4L));
+        expectedResults.put(new AocCoordinate(2024, 3, 1), Pair.of(161L, 48L));
+        expectedResults.put(new AocCoordinate(2024, 4, 1), Pair.of(18L, 9L));
+        expectedResults.put(new AocCoordinate(2024, 5, 1), Pair.of(143L, 123L));
+        expectedResults.put(new AocCoordinate(2024, 6, 1), Pair.of(41L, 6L));
+        expectedResults.put(new AocCoordinate(2024, 7, 1), Pair.of(3749L, 11387L));
+        expectedResults.put(new AocCoordinate(2024, 8, 1), Pair.of(14L, 34L));
+        expectedResults.put(new AocCoordinate(2024, 9, 1), Pair.of(1928L, 2858L));
+        expectedResults.put(new AocCoordinate(2024, 10, 1), Pair.of(36L, 81L));
+        expectedResults.put(new AocCoordinate(2024, 11, 1), Pair.of(55312L, 65601038650482L));
+        expectedResults.put(new AocCoordinate(2024, 12, 1), Pair.of(1930L, 1206L));
+        expectedResults.put(new AocCoordinate(2024, 14, 1), Pair.of(21L, 7687L)); //TODO - Make better?
+        expectedResults.put(new AocCoordinate(2024, 15, 1), Pair.of(10092L, 9021L));
+        expectedResults.put(new AocCoordinate(2024, 16, 1), Pair.of(11048L, 64L));
+        expectedResults.put(new AocCoordinate(2024, 17, 1), Pair.of("5,7,3,0", 105576L));
+        expectedResults.put(new AocCoordinate(2024, 19, 1), Pair.of(6L, 16L));
+        expectedResults.put(new AocCoordinate(2024, 20, 1), Pair.of(0L, 0L));
+        expectedResults.put(new AocCoordinate(2024, 21, 1), Pair.of(126384L, 154115708116294L));
+        expectedResults.put(new AocCoordinate(2024, 22, 1), Pair.of(37990510L, 23L));
+        expectedResults.put(new AocCoordinate(2024, 23, 1), Pair.of(7L, "co,de,ka,ta"));
+        expectedResults.put(new AocCoordinate(2024, 24, 1), Pair.of(2024L, 0L));
+        expectedResults.put(new AocCoordinate(2024, 25, 1), Pair.of(3L, "n/a"));
         return expectedResults;
     }
 

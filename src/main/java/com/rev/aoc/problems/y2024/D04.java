@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -22,11 +21,6 @@ public final class D04 extends AocProblem<Long, Long> {
     private static final int[][] SQUARE_CORNERS = new int[][]{
             {-1, 1}, {1, 1}, {1, -1}, {-1, -1}
     };
-
-    @Override
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2024, 4);
-    }
 
     @AocProblemI(year = 2024, day = 4, part = 1)
     @Override

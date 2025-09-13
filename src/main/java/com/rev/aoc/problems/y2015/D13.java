@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
@@ -20,12 +19,6 @@ public final class D13 extends AocProblem<Long, Long> {
     private static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
     private static final Pattern FIRST_WORD = Pattern.compile("^\\w*");
     private static final Pattern LAST_WORD_WITH_PERIOD = Pattern.compile("\\w*\\.$");
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 13);
-    }
 
     @AocProblemI(year = 2015, day = 13, part = 1)
     @Override

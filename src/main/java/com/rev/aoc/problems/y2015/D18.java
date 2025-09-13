@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.grid.Grid;
@@ -13,12 +12,6 @@ public final class D18 extends AocProblem<Long, Long> {
     private static final int ITERATIONS = 100;
     private static final char ALIVE = '#';
     private static final char DEAD = '.';
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 18);
-    }
 
     @AocProblemI(year = 2015, day = 18, part = 1)
     @Override

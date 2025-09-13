@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.geom.Direction;
@@ -21,11 +20,6 @@ public final class D18 extends AocProblem<Long, String> {
     private static final int VISITED_FLAG = CORRUPTED_FLAG << 1;
     private static final int PROBLEM_WIDTH = 71;
     private static final int PROBLEM_HEIGHT = 71;
-
-    @Override
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2024, 18);
-    }
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 18, part = 1)

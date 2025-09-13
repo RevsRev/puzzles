@@ -49,7 +49,11 @@ public final class AocProblemLoader {
                     AocProblemI annotation = method.getAnnotation(AocProblemI.class);
                     if (annotation != null) {
                         AocProblem<?, ?> aocProblem = (AocProblem<?, ?>) clazz.getConstructor().newInstance();
-                        retval.put(aocProblem.getCoordinate(), aocProblem);
+                        AocCoordinate coordinate = new AocCoordinate(
+                                annotation.year(),
+                                annotation.day(),
+                                annotation.part());
+                        retval.put(coordinate, aocProblem);
                     }
                 }
             }

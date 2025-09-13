@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -22,12 +21,6 @@ public final class D19 extends AocProblem<Integer, Integer> {
     private static final Map<String, Pattern> PATTERN_CACHE = new HashMap<>();
     public static final String START_ELECTRON = "e";
     public static final int NOT_FOUND = -1;
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 19);
-    }
 
     @AocProblemI(year = 2015, day = 19, part = 1)
     @Override

@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
@@ -19,12 +18,6 @@ public final class D16 extends AocProblem<Long, Long> {
 
     private static final long UNKNOWN = -1;
     private static final Pattern SUE_REGEX = Pattern.compile("^Sue \\d+:");
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 16);
-    }
 
     @AocProblemI(year = 2015, day = 16, part = 1)
     @Override

@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
@@ -16,12 +15,6 @@ public final class D20 extends AocProblem<Long, Long> {
     public static final int SIEVE_INITIAL_SEARCH = 1000;
     public static final int PART_TWO_PRESENTS_LIMIT = 50;
     private final SieveOfEratosthenes sieve = SieveOfEratosthenes.create(SIEVE_INITIAL_SEARCH);
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 20);
-    }
 
     @AocProblemI(year = 2015, day = 20, part = 1)
     @Override

@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 
@@ -15,11 +14,6 @@ public final class D09 extends AocProblem<Long, Long> {
 
     public static final int EMPTY_VALUE = -1;
     public static final int NOT_FOUND_INDEX = -1;
-
-    @Override
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2024, 9);
-    }
 
     @AocProblemI(year = 2024, day = 9, part = 1)
     @Override

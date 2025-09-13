@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -15,12 +14,6 @@ public final class D15 extends AocProblem<Long, Long> {
     public static final int NO_CALORIE_RESTRICTION = -1;
     public static final int PART_TWO_CALORIE_RESTRICTION = 500;
     public static final int TOTAL_SPOONFULLS = 100;
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 15);
-    }
 
     @AocProblemI(year = 2015, day = 15, part = 1)
     @Override

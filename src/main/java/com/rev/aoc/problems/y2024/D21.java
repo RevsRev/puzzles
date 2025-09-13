@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.util.geom.Direction;
@@ -34,11 +33,6 @@ public final class D21 extends AocProblem<Long, Long> {
             (i, j) -> !(i == 0 && j == 0));
     private static final int PART_ONE_DEPTH = 3;
     private static final int PART_TWO_DEPTH = 26;
-
-    @Override
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2024, 21);
-    }
 
     @AocProblemI(year = 2024, day = 21, part = 1)
     @Override

@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2023;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -32,11 +31,6 @@ public final class D20 extends AocProblem<Long, Long> {
 
     private static final int NUM_BUTTON_PRESSES = 1000;
     public static final String RX = "rx";
-
-    @Override
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2023, 20);
-    }
 
     @AocProblemI(year = 2023, day = 20, part = 1)
     @Override

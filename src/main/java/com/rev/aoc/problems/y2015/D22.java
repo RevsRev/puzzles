@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
@@ -29,12 +28,6 @@ public final class D22 extends AocProblem<Integer, Integer> {
     public static final int MANA_RECHARGE = 101;
     public static final int STARTING_HP = 50;
     public static final int STARTING_MANA = 500;
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 22);
-    }
 
     @AocProblemI(year = 2015, day = 22, part = 1)
     @Override

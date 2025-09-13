@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
@@ -11,12 +10,6 @@ public final class D01 extends AocProblem<Long, Long> {
     private static final char UP = '(';
     private static final char DOWN = ')';
     public static final int BASEMENT = -1;
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 1);
-    }
 
     @Override
     @AocProblemI(year = 2015, day = 1, part = 1)

@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 
@@ -18,11 +17,6 @@ import com.rev.aoc.framework.problem.ResourceLoader;
 public final class D22 extends AocProblem<Long, Long> {
     private static final int PRUNE_MOD = 1 << 24;
     private static final int PART_ONE_ITERATIONS = 2000;
-
-    @Override
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2024, 22);
-    }
 
     @AocProblemI(year = 2024, day = 22, part = 1)
     @Override

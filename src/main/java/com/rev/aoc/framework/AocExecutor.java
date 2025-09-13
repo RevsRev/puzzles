@@ -7,6 +7,7 @@ import com.rev.aoc.framework.problem.AocResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public final class AocExecutor implements ProblemExecutor<AocCoordinate> {
 
@@ -20,12 +21,12 @@ public final class AocExecutor implements ProblemExecutor<AocCoordinate> {
     }
 
     @Override
-    public List<Throwable> solve(final Iterable<AocProblem<?, ?>> problems) {
+    public List<Throwable> solve(final Iterable<Map.Entry<AocCoordinate, AocProblem<?, ?>>> problems) {
         executorListener.executorStarted();
         List<Throwable> errors = new ArrayList<>();
-        for (AocProblem<?, ?> problem : problems) {
+        for (Map.Entry<AocCoordinate, AocProblem<?, ?>> problem : problems) {
             AocResult<?, ?> result;
-            result = solve(problem);
+            result = solve(problem.getKey(), problem.getValue());
             if (result.getError().isPresent()) {
                 errors.add(result.getError().get());
             }
@@ -35,27 +36,27 @@ public final class AocExecutor implements ProblemExecutor<AocCoordinate> {
         return errors;
     }
 
-    private <P1, P2> AocResult<P1, P2> solve(final AocProblem<P1, P2> problem) {
+    private <P1, P2> AocResult<P1, P2> solve(final AocCoordinate coordinate, final AocProblem<P1, P2> problem) {
         try {
             AocResult.Builder<P1, P2> builder = new AocResult.Builder<>();
-            builder.setCoordinate(problem.getCoordinate());
+            builder.setCoordinate(coordinate);
             if (AocPart.ALL.equals(part) || AocPart.ONE.equals(part)) {
                 long time = System.nanoTime();
-                P1 result = problem.partOne().solve(AocProblem.loadResources(problem.getCoordinate()));
+                P1 result = problem.partOne().solve(AocProblem.loadResources(coordinate));
                 time = System.nanoTime() - time;
                 builder.setPartOne(result);
                 builder.setPartOneTime(time);
             }
             if (AocPart.ALL.equals(part) || AocPart.TWO.equals(part)) {
                 long time = System.nanoTime();
-                P2 result = problem.partTwo().solve(AocProblem.loadResources(problem.getCoordinate()));
+                P2 result = problem.partTwo().solve(AocProblem.loadResources(coordinate));
                 time = System.nanoTime() - time;
                 builder.setPartTwo(result);
                 builder.setPartTwoTime(time);
             }
             return builder.build();
         } catch (Throwable t) {
-            return AocResult.error(problem.getCoordinate(), t);
+            return AocResult.error(coordinate, t);
         }
     }
 }

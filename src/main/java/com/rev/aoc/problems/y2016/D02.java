@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2016;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
@@ -10,12 +9,6 @@ import java.util.List;
 import com.rev.aoc.framework.problem.ResourceLoader;
 
 public final class D02 extends AocProblem<Integer, String> {
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2016, 2);
-    }
 
     @AocProblemI(year = 2016, day = 2, part = 1)
     @Override

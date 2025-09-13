@@ -2,7 +2,6 @@ package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.display.Printer;
 import com.rev.aoc.framework.io.display.format.ColumnFormatter;
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -35,11 +34,6 @@ public final class D17 extends AocProblem<String, Long> {
     private static final int BDV = 6;
     private static final int CDV = 7;
     public static final int UNSOLVED_RETURN_VAL = -1;
-
-    @Override
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2024, 17);
-    }
 
     @AocProblemI(year = 2024, day = 17, part = 1)
     @Override

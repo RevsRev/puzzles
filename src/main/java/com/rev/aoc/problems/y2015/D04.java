@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
@@ -16,12 +15,6 @@ public final class D04 extends AocProblem<String, String> {
     private final MessageDigest digest = MessageDigest.getInstance("MD5");
 
     public D04() throws NoSuchAlgorithmException {
-    }
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 4);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -19,12 +18,6 @@ public final class D14 extends AocProblem<Long, Long> {
     private static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
     private static final Pattern NAME_PATTERN = Pattern.compile("^\\w+");
     public static final int RACE_DURATION = 2503;
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 14);
-    }
 
     @AocProblemI(year = 2015, day = 14, part = 1)
     @Override

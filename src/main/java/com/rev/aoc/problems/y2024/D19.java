@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 
@@ -16,11 +15,6 @@ import com.rev.aoc.framework.problem.ResourceLoader;
 public final class D19 extends AocProblem<Long, Long> {
 
     public static final int REGEX_MAX_LENGTH = 100;
-
-    @Override
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2024, 19);
-    }
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 19, part = 1)

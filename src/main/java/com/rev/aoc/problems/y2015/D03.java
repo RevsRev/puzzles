@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
 import org.apache.commons.lang3.tuple.Pair;
@@ -17,12 +16,6 @@ public final class D03 extends AocProblem<Long, Long> {
     private static final char LEFT = '<';
     private static final char RIGHT = '>';
     public static final int BASEMENT = -1;
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public AocCoordinate getCoordinate() {
-        return new AocCoordinate(2015, 3);
-    }
 
     @Override
     @AocProblemI(year = 2015, day = 3, part = 1)

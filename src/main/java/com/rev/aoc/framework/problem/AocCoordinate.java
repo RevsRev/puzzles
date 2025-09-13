@@ -4,12 +4,15 @@ import lombok.Getter;
 
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Getter
 public final class AocCoordinate implements ProblemCoordinate<AocCoordinate> {
+    public static final String Y2K_PREFIX = "20";
     private final int year;
     private final int day;
+    private final int part;
 
     private static final int Y2K = 2000;
     private static final int PARSER_BEGIN_INDEX = 0;
@@ -19,13 +22,14 @@ public final class AocCoordinate implements ProblemCoordinate<AocCoordinate> {
 
     private static final Comparator<AocCoordinate> COMPARATOR = comparator();
     private static final Pattern YY_MM_REGEX =
-            Pattern.compile("[0-9]{2}:[0-9]{1,2}");
+            Pattern.compile("([0-9]{2}):([0-9]{1,2}):([0-9])");
     private static final Pattern YYYY_MM_REGEX =
-            Pattern.compile("[0-9]{4}:[0-9]{1,2}");
+            Pattern.compile("([0-9]{4}):([0-9]{1,2}):([0-9])");
 
-    public AocCoordinate(final int year, final int day) {
+    public AocCoordinate(final int year, final int day, int part) {
         this.year = year;
         this.day = day;
+        this.part = part;
     }
 
     private static Comparator<AocCoordinate> comparator() {
@@ -39,24 +43,24 @@ public final class AocCoordinate implements ProblemCoordinate<AocCoordinate> {
     }
 
     public static AocCoordinate parse(final String from) {
-        if (YY_MM_REGEX.matcher(from).matches()) {
-            String yyString = from.substring(PARSER_BEGIN_INDEX, YY_END_INDEX);
-            int yy = Integer.parseInt(yyString);
-            int dd = Integer.parseInt(from.substring(YY_END_INDEX + 1));
-            return new AocCoordinate(Y2K + yy, dd);
+        final Matcher matcher;
+        if (YY_MM_REGEX.matcher(from).find()) {
+            matcher = YYYY_MM_REGEX.matcher(Y2K_PREFIX + from);
+        } else if (YYYY_MM_REGEX.matcher(from).find()) {
+            matcher = YYYY_MM_REGEX.matcher(from);
+        } else {
+            return null;
         }
-        if (YYYY_MM_REGEX.matcher(from).matches()) {
-            String yyyyStr = from.substring(PARSER_BEGIN_INDEX, YYYY_END_INDEX);
-            int yyyy = Integer.parseInt(yyyyStr);
-            int dd = Integer.parseInt(from.substring(YYYY_END_INDEX + 1));
-            return new AocCoordinate(yyyy, dd);
-        }
-        return null;
+        matcher.find();
+        return new AocCoordinate(
+                Integer.parseInt(matcher.group(1)),
+                Integer.parseInt(matcher.group(2)),
+                Integer.parseInt(matcher.group(3)));
     }
 
     @Override
     public String toString() {
-        return String.format("%s:%s", year, day);
+        return String.format("%s:%s:%s", year, day, part);
     }
 
     @Override
@@ -65,11 +69,11 @@ public final class AocCoordinate implements ProblemCoordinate<AocCoordinate> {
             return false;
         }
         AocCoordinate that = (AocCoordinate) o;
-        return year == that.year && day == that.day;
+        return year == that.year && day == that.day && part == that.part;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(year, day);
+        return Objects.hash(year, day, part);
     }
 }
