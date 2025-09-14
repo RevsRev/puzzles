@@ -157,7 +157,6 @@ public final class D17 extends AocProblem {
 
     }
 
-    @Override
     @AocVisualisation(year = 2024, day = 17, part = 1)
     public void visualiseProblem(final ResourceLoader resourceLoader) throws VisualisationException {
         Computer comp = loadResourcesAsComputer(resourceLoader);

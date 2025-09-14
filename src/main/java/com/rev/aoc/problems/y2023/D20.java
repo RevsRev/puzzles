@@ -67,7 +67,6 @@ public final class D20 extends AocProblem {
         return 0L;
     }
 
-    @Override
     @AocVisualisation(year = 2023, day = 20, part = 1)
     public void visualiseProblem(final ResourceLoader resourceLoader) throws VisualisationException {
         List<String> strings = resourceLoader.resources();

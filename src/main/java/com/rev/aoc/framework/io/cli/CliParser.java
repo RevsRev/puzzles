@@ -1,6 +1,8 @@
 package com.rev.aoc.framework.io.cli;
 
+import com.rev.aoc.framework.ExecutorListener;
 import com.rev.aoc.framework.ExecutorListenerPrinter;
+import com.rev.aoc.framework.NoOpExecutorListener;
 import com.rev.aoc.framework.ProblemEngine;
 import com.rev.aoc.framework.ProblemExecutor;
 import com.rev.aoc.framework.ProblemLoader;
@@ -8,6 +10,7 @@ import com.rev.aoc.framework.aoc.AocCoordinate;
 import com.rev.aoc.framework.aoc.AocExecutor;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.aoc.AnnotationProblemLoader;
+import com.rev.aoc.framework.aoc.AocVisualisation;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -17,6 +20,11 @@ import org.apache.commons.cli.ParseException;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
+
+import static com.rev.aoc.framework.io.cli.CliOptions.DEBUG;
+import static com.rev.aoc.framework.io.cli.CliOptions.PROBLEM_NUMBER;
+import static com.rev.aoc.framework.io.cli.CliOptions.PROBLEM_OTHER_NUMBER;
+import static com.rev.aoc.framework.io.cli.CliOptions.PROBLEM_VISUALISE;
 
 public final class CliParser {
     private static final CommandLineParser PARSER = new DefaultParser();
@@ -55,24 +63,38 @@ public final class CliParser {
     private static ProblemEngine parse(final CommandLine cl) throws ParseException {
         validateOptions(cl);
         AocCoordinate firstAocCoordinate = parseAocCoordinate(
-                cl.getOptionValue(CliOptions.PROBLEM_NUMBER));
+                cl.getOptionValue(PROBLEM_NUMBER));
         AocCoordinate secondAocCoordinate = parseAocCoordinate(
-                cl.getOptionValue(CliOptions.PROBLEM_OTHER_NUMBER));
+                cl.getOptionValue(PROBLEM_OTHER_NUMBER));
+
+        final boolean visualise = cl.hasOption(PROBLEM_VISUALISE);
+        final AnnotationProblemLoader<?, AocCoordinate> problemLoader = getProblemLoader(visualise);
+        final ExecutorListener<AocCoordinate> executorListener = visualise
+                ? new NoOpExecutorListener<>()
+                : new ExecutorListenerPrinter();
 
         final ProblemEngine<AocCoordinate> engine = getAocCoordinateProblemEngine(
                 firstAocCoordinate,
-                secondAocCoordinate);
+                secondAocCoordinate,
+                problemLoader,
+                executorListener);
 
-        engine.setDebug(cl.hasOption(CliOptions.DEBUG));
-        engine.setVisualise(cl.hasOption(CliOptions.PROBLEM_VISUALISE));
+        engine.setDebug(cl.hasOption(DEBUG));
         return engine;
     }
 
-    private static ProblemEngine<AocCoordinate> getAocCoordinateProblemEngine(
-            final AocCoordinate firstAocCoordinate,
-            final AocCoordinate secondAocCoordinate) {
-
-        final ProblemLoader<AocCoordinate> problemLoader = new AnnotationProblemLoader<>(
+    private static AnnotationProblemLoader<?, AocCoordinate> getProblemLoader(boolean visualise) {
+        if (visualise) {
+            return new AnnotationProblemLoader<>(
+                    AocVisualisation.class,
+                    visualisation -> new AocCoordinate(
+                            visualisation.year(),
+                            visualisation.day(),
+                            visualisation.part()
+                    )
+            );
+        }
+        return new AnnotationProblemLoader<>(
                 AocProblemI.class,
                 problemI -> new AocCoordinate(
                         problemI.year(),
@@ -80,19 +102,25 @@ public final class CliParser {
                         problemI.part()
                 )
         );
-        final ProblemExecutor<AocCoordinate> problemExecutor = new AocExecutor(new ExecutorListenerPrinter());
-        final ProblemEngine<AocCoordinate> engine;
+    }
+
+    private static ProblemEngine<AocCoordinate> getAocCoordinateProblemEngine(
+            final AocCoordinate firstAocCoordinate,
+            final AocCoordinate secondAocCoordinate,
+            final ProblemLoader<AocCoordinate> problemLoader,
+            final ExecutorListener<AocCoordinate> executorListener) {
+
+        final ProblemExecutor<AocCoordinate> problemExecutor = new AocExecutor(executorListener);
 
         if (firstAocCoordinate != null && secondAocCoordinate != null) {
             if (firstAocCoordinate.compareTo(secondAocCoordinate) < 0) {
-                engine = new ProblemEngine<>(problemLoader, problemExecutor, firstAocCoordinate, secondAocCoordinate);
+                return new ProblemEngine<>(problemLoader, problemExecutor, firstAocCoordinate, secondAocCoordinate);
             } else {
-                engine = new ProblemEngine<>(problemLoader, problemExecutor, secondAocCoordinate, firstAocCoordinate);
+                return new ProblemEngine<>(problemLoader, problemExecutor, secondAocCoordinate, firstAocCoordinate);
             }
-        } else {
-            engine = new ProblemEngine<>(problemLoader, problemExecutor, firstAocCoordinate, secondAocCoordinate);
         }
-        return engine;
+
+        return new ProblemEngine<>(problemLoader, problemExecutor, firstAocCoordinate, secondAocCoordinate);
     }
 
     private static AocCoordinate parseAocCoordinate(final String optionValue)
@@ -110,12 +138,12 @@ public final class CliParser {
     }
 
     private static void validateOptions(final CommandLine cl) throws ParseException {
-        if (!cl.hasOption(CliOptions.PROBLEM_NUMBER)) {
-            if (cl.hasOption(CliOptions.PROBLEM_OTHER_NUMBER)) {
+        if (!cl.hasOption(PROBLEM_NUMBER)) {
+            if (cl.hasOption(PROBLEM_OTHER_NUMBER)) {
                 throw new ParseException(String.format(
                         "The '%s' option cannot be set without the '%s' option",
-                        CliOptions.PROBLEM_OTHER_NUMBER,
-                        CliOptions.PROBLEM_NUMBER));
+                        PROBLEM_OTHER_NUMBER,
+                        PROBLEM_NUMBER));
             }
         }
     }

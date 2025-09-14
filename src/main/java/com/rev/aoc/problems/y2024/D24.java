@@ -89,7 +89,6 @@ public final class D24 extends AocProblem {
         return "cqk,fph,gds,jrs,wrk,z15,z21,z34";
     }
 
-    @Override
     @AocVisualisation(year = 2024, day = 24, part = 1)
     public void visualiseProblem(final ResourceLoader resourceLoader) throws VisualisationException {
 
