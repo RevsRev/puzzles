@@ -35,6 +35,7 @@ public final class PermutationsTest {
 //                        new Object[]{2, 1, 3}, new Object[]{2, 3, 1}, new Object[]{3, 1, 2}, new Object[]{3, 2, 1}))
         );
     }
+
     //TODO - Improve testing to make sure arrays are equal even if out of order...
     public static List<Pair<Object[], List<Object[]>>> getUniquePermutationsTestCases() {
         return List.of(

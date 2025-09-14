@@ -29,6 +29,7 @@ public final class Permutations {
         permute(input, 0, consumer);
         return results;
     }
+
     private static <T> void permute(final T[] input, final int index, final Consumer<T[]> consumer) {
 
         if (index == input.length) {
@@ -61,6 +62,7 @@ public final class Permutations {
         permute(input, 0, consumer);
         return results;
     }
+
     private static void permute(final char[] input, final int index, final Consumer<char[]> consumer) {
 
         if (index == input.length - 1) {
@@ -84,9 +86,9 @@ public final class Permutations {
     }
 
     private static <T> void getCombinations(final List<List<T>> input,
-                                                     final List<T> perm,
-                                                     final Consumer<List<T>> permConsumer,
-                                                     int index) {
+                                            final List<T> perm,
+                                            final Consumer<List<T>> permConsumer,
+                                            int index) {
         if (index == input.size()) {
             permConsumer.accept(List.copyOf(perm));
             return;

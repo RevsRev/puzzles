@@ -22,10 +22,11 @@ public final class TravellingSalesman {
     /**
      * Implementation of HeldKarp algorithm
      * <a href="https://en.wikipedia.org/wiki/Held%E2%80%93Karp_algorithm">...</a>
+     *
      * @param graph
-     * @return
      * @param <V>
      * @param <E>
+     * @return
      */
     public static <V extends Vertex, E extends Edge> long heldKarp(final Graph<V, E> graph) {
         final ArrayList<V> vertices = new ArrayList<>(graph.getVertices());
@@ -58,7 +59,7 @@ public final class TravellingSalesman {
                         if (graph.containsEdge(v1, v2)) {
                             final long value =
                                     cache.get(Pair.of(mutablePermSet, m))
-                                    + graph.getEdge(v1, v2).get().getWeight();
+                                            + graph.getEdge(v1, v2).get().getWeight();
                             if (value < smallest) {
                                 smallest = value;
                             }

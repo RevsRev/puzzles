@@ -13,7 +13,7 @@ public class FactorsTest {
 
     @ParameterizedTest
     @MethodSource("primeFactorsTestParameters")
-    public void testPrimeFactors(final Pair<Long, Map<Long,Long>> inputAndPrimeFactors) {
+    public void testPrimeFactors(final Pair<Long, Map<Long, Long>> inputAndPrimeFactors) {
         Assertions.assertEquals(inputAndPrimeFactors.getRight(), Factors.create().primeFactors(inputAndPrimeFactors.getLeft()));
     }
 

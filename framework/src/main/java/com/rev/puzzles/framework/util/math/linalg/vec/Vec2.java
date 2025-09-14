@@ -17,6 +17,7 @@ public final class Vec2 {
         x = v.x;
         y = v.y;
     }
+
     public double dot(final Vec2 v) {
         return x * v.x + y * v.y;
     }
@@ -24,6 +25,7 @@ public final class Vec2 {
     public double abs() {
         return Math.sqrt(this.dot(this));
     }
+
     public void plus(final Vec2 v) {
         x += v.x;
         y += v.y;

@@ -37,6 +37,7 @@ public abstract class ColumnFormatter<T> {
     public final String separator(final char separatorChar) {
         return pad("", separatorChar);
     }
+
     public final String header() {
         return pad(header, padChar);
     }

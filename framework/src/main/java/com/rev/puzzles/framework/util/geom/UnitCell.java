@@ -12,17 +12,17 @@ public final class UnitCell<T> {
 
     /**
      * Border vectors go clockwise around the unit cell
-     *   # -> #
-     *   ^    |
-     *   |    V
-     *   # <- #
+     * # -> #
+     * ^    |
+     * |    V
+     * # <- #
      */
     private Map<Direction, BorderVector> borders = linkedSquare();
     private final Map<Direction, UnitCell<T>> neighbours = new HashMap<>() {{
-       put(Direction.UP, null);
-       put(Direction.RIGHT, null);
-       put(Direction.DOWN, null);
-       put(Direction.LEFT, null);
+        put(Direction.UP, null);
+        put(Direction.RIGHT, null);
+        put(Direction.DOWN, null);
+        put(Direction.LEFT, null);
     }};
 
     private final int i;
@@ -82,6 +82,7 @@ public final class UnitCell<T> {
     public long edges(final Set<Pair<Integer, T>> visitedSides, final Set<UnitCell<T>> visitedCells) {
         return edges(this, visitedSides, visitedCells);
     }
+
     private static <T> long edges(final UnitCell<T> cell,
                                   final Set<Pair<Integer, T>> visitedSides,
                                   final Set<UnitCell<T>> visitedCells) {
@@ -168,9 +169,11 @@ public final class UnitCell<T> {
         @Getter
         private int uid = UID++;
 
-        @Getter @Setter
+        @Getter
+        @Setter
         private BorderVector previous = null;
-        @Getter @Setter
+        @Getter
+        @Setter
         private BorderVector next = null; //link vectors to get a border in the processing phase
 
         public BorderVector(final Direction direction) {

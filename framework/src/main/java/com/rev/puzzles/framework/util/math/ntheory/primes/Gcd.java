@@ -31,7 +31,7 @@ public final class Gcd {
         do {
             long r = a % b;
             long q = a / b;
-            retval.add(new long[] {a, b, q, r});
+            retval.add(new long[]{a, b, q, r});
             a = b;
             b = r;
         } while (b != 0);
@@ -62,7 +62,7 @@ public final class Gcd {
         do {
             BigInteger r = a.mod(b);
             BigInteger q = a.divide(b);
-            retval.add(new BigInteger[] {a, b, q, r});
+            retval.add(new BigInteger[]{a, b, q, r});
             a = b;
             b = r;
         } while (b.compareTo(BigInteger.ZERO) != 0);

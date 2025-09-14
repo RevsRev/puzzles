@@ -26,6 +26,7 @@ public final class LoaderUtils {
                                                    final Function<String, String[]> lineSplitter) {
         return loadResourcesAsIntMatrix(lines, lineSplitter, Integer::parseInt);
     }
+
     public static int[][] loadResourcesAsIntMatrix(final List<String> lines,
                                                    final Function<String, String[]> lineSplitter,
                                                    final Function<String, Integer> stringParser) {
@@ -98,6 +99,7 @@ public final class LoaderUtils {
         }
         return null;
     }
+
     public static int[] findOne(final int[][] arr, int c) {
         int height = arr.length;
         int width = arr[0].length;
@@ -135,8 +137,8 @@ public final class LoaderUtils {
     }
 
     public static <T> T[] emptyArray(final T[] unitEmptyArray,
-                                        int length,
-                                        final Supplier<T> initializer) {
+                                     int length,
+                                     final Supplier<T> initializer) {
         T[] retval = Arrays.copyOf(unitEmptyArray, length);
         for (int i = 0; i < length; i++) {
             retval[i] = initializer.get();

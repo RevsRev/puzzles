@@ -17,6 +17,7 @@ import java.util.function.Function;
 
 /**
  * (Currently undirrected).
+ *
  * @param <V>
  * @param <E>
  */
@@ -53,7 +54,7 @@ public final class Graph<V extends Vertex, E extends Edge> {
             final Function<Long, E> edgeCreator,
             final boolean directed) {
         final Graph.Builder<V, E> builder = new Graph.Builder<>(vertexCreator, edgeCreator, true, directed);
-        for (final String line: lines) {
+        for (final String line : lines) {
             lineProcessor.accept(line, builder);
         }
         return builder;
@@ -67,7 +68,7 @@ public final class Graph<V extends Vertex, E extends Edge> {
 
     private Graph(final Graph<V, E> copy) {
         this(new HashSet<>(
-                copy.vertices),
+                        copy.vertices),
                 new HashSet<>(copy.edges),
                 new HashMap<>(copy.vertexEdgeMap),
                 copy.vertexCreator,

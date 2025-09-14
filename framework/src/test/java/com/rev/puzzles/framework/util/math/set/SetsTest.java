@@ -127,7 +127,7 @@ public final class SetsTest {
                         new long[][]{{1L, 2L}, {3L}, {1L, 2L}},
                         new long[][]{{3L}, {1L, 2L}, {1L, 2L}},
                         new long[][]{{3L}, {1L, 2L}, {1L, 2L}}
-                        ))
+                ))
         );
     }
 

@@ -22,6 +22,7 @@ public final class AocInputLoaderResource implements AocInputLoader {
         String fullyQualifiedName = String.format("%s/%s", "problems", path);
         return load(fullyQualifiedName, AocInputLoaderResource.class.getClassLoader());
     }
+
     private List<String> load(final String resourcePath, final ClassLoader classLoader) throws IOException {
 
         List<String> lines = new ArrayList<>();

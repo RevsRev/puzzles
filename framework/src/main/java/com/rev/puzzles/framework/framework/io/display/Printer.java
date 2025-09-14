@@ -30,12 +30,14 @@ public class Printer<T> {
         printWriter.println(separator());
         printWriter.flush();
     }
+
     private void printHeader() {
         printSeparator();
         printWriter.println(header());
         printWriter.flush();
         printSeparator();
     }
+
     private String format(final T result) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cols.length; i++) {
@@ -45,6 +47,7 @@ public class Printer<T> {
         sb.append(DELIMETER);
         return sb.toString();
     }
+
     private String header() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cols.length; i++) {
@@ -54,6 +57,7 @@ public class Printer<T> {
         sb.append(DELIMETER);
         return sb.toString();
     }
+
     private String separator() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cols.length; i++) {

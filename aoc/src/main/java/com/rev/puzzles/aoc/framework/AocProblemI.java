@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AocProblemI {
     int year();
+
     int day();
+
     int part();
 }

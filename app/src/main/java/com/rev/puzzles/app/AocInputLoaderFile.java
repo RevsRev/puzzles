@@ -33,6 +33,7 @@ public final class AocInputLoaderFile implements AocInputLoader {
                 AocInputLoader.pad(coordinate.getDay()));
         return load(fullyQualifiedName);
     }
+
     private List<String> load(final String filePath) throws IOException {
 
         List<String> lines = new ArrayList<>();

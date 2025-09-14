@@ -30,6 +30,7 @@ public final class DiophantineSolver {
         }
         return !solution.isEmpty();
     }
+
     public Optional<BigInteger[]> solve() {
         if (solution == null) {
             solution = solveDiophantine(a, b, c);
@@ -73,7 +74,9 @@ public final class DiophantineSolver {
         return Optional.of(solution);
     }
 
-    /** Solves diophantine equation with a,b both positive */
+    /**
+     * Solves diophantine equation with a,b both positive
+     */
     private static Optional<BigInteger[]> solveDiophantinePositive(
             final BigInteger a,
             final BigInteger b,
@@ -106,7 +109,7 @@ public final class DiophantineSolver {
             BigInteger y = (a.divide(b)).multiply(factor);
             BigInteger xInc = factor;
             BigInteger yInc = (a.divide(b)).multiply(factor);
-            return Optional.of(new BigInteger[] {a, b, xInc, yInc});
+            return Optional.of(new BigInteger[]{a, b, xInc, yInc});
         }
 
         BigInteger[] steps = euclidSteps.get(euclidSteps.size() - 2);
@@ -131,7 +134,7 @@ public final class DiophantineSolver {
         BigInteger xInc = b.divide(gcdab);
         BigInteger yInc = (a.multiply(BigInteger.valueOf(-1))).divide(gcdab);
 
-        return Optional.of(new BigInteger[] {x, y, xInc, yInc});
+        return Optional.of(new BigInteger[]{x, y, xInc, yInc});
     }
 
     /**
@@ -163,7 +166,7 @@ public final class DiophantineSolver {
             BigInteger nextValue = congruences.get(nextMod);
 
             BigInteger[] diophantineParams =
-                    new BigInteger[] {
+                    new BigInteger[]{
                             thisMod, nextMod.multiply(BigInteger.valueOf(-1)), nextValue.subtract(thisValue)
                     };
             Optional<BigInteger[]> result =

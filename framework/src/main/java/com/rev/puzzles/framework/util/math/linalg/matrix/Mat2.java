@@ -5,8 +5,8 @@ import com.rev.puzzles.framework.util.math.linalg.vec.Vec2;
 
 public final class Mat2 {
     /**
-        a b
-        c d
+     * a b
+     * c d
      **/
     private double a;
     private double b;
@@ -32,6 +32,7 @@ public final class Mat2 {
         double det = det();
         return new Mat2(d / det, -b / det, -c / det, a / det);
     }
+
     public double det() {
         return a * d - c * b;
     }
