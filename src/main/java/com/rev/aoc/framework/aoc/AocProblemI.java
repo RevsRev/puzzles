@@ -1,4 +1,4 @@
-package com.rev.aoc.framework.problem;
+package com.rev.aoc.framework.aoc;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

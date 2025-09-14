@@ -1,7 +1,7 @@
 package com.rev.aoc.util;
 
 import com.rev.aoc.framework.io.load.AocInputLoaderFile;
-import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.aoc.AocCoordinate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

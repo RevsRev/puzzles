@@ -1,5 +1,6 @@
-package com.rev.aoc.framework.problem;
+package com.rev.aoc.framework.aoc;
 
+import com.rev.aoc.framework.problem.ProblemCoordinate;
 import lombok.Getter;
 
 import java.util.Comparator;

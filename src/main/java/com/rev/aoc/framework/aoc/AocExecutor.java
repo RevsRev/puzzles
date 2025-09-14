@@ -1,7 +1,7 @@
-package com.rev.aoc.framework;
+package com.rev.aoc.framework.aoc;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
-import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.ExecutorListener;
+import com.rev.aoc.framework.ProblemExecutor;
 import com.rev.aoc.framework.problem.Problem;
 import com.rev.aoc.framework.problem.ProblemResult;
 

@@ -1,6 +1,8 @@
-package com.rev.aoc.framework.problem;
+package com.rev.aoc.framework.aoc;
 
 import com.rev.aoc.Main;
+import com.rev.aoc.framework.problem.ProblemExecutionException;
+import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.vis.VisualisationException;
 
 import java.io.IOException;

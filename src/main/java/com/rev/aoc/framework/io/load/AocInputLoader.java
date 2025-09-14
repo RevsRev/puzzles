@@ -1,6 +1,6 @@
 package com.rev.aoc.framework.io.load;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.aoc.AocCoordinate;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,9 +1,9 @@
-package com.rev.aoc.framework;
+package com.rev.aoc.framework.aoc;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
-import com.rev.aoc.framework.problem.AocCoordinate;
-import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.ProblemEngine;
+import com.rev.aoc.framework.ProblemLoader;
 import com.rev.aoc.framework.problem.Problem;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 

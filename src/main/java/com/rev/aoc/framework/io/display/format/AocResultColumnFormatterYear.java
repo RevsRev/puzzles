@@ -1,6 +1,6 @@
 package com.rev.aoc.framework.io.display.format;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.aoc.AocCoordinate;
 import com.rev.aoc.framework.problem.ProblemResult;
 
 public final class AocResultColumnFormatterYear extends ResultColumnFormatter<AocCoordinate> {

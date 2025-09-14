@@ -1,12 +1,12 @@
 package com.rev.aoc.framework.io.cli;
 
-import com.rev.aoc.framework.AocExecutor;
-import com.rev.aoc.framework.AocProblemLoader;
+import com.rev.aoc.framework.aoc.AocExecutor;
+import com.rev.aoc.framework.aoc.AocProblemLoader;
 import com.rev.aoc.framework.ExecutorListenerPrinter;
 import com.rev.aoc.framework.ProblemEngine;
 import com.rev.aoc.framework.ProblemExecutor;
 import com.rev.aoc.framework.ProblemLoader;
-import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.aoc.AocCoordinate;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;

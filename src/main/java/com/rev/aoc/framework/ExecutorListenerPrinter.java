@@ -1,7 +1,7 @@
 package com.rev.aoc.framework;
 
 import com.rev.aoc.framework.io.display.Printer;
-import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.aoc.AocCoordinate;
 import com.rev.aoc.framework.problem.ProblemResult;
 
 public final class ExecutorListenerPrinter implements ExecutorListener<AocCoordinate> {

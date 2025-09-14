@@ -1,9 +1,9 @@
 package com.rev.aoc.problems;
 
-import com.rev.aoc.framework.AocProblemLoader;
+import com.rev.aoc.framework.aoc.AocProblemLoader;
 import com.rev.aoc.framework.ProblemLoader;
-import com.rev.aoc.framework.problem.AocCoordinate;
-import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.aoc.AocCoordinate;
+import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.problem.Problem;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Assertions;
