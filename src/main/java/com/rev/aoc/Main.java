@@ -1,6 +1,6 @@
 package com.rev.aoc;
 
-import com.rev.aoc.framework.AocEngine;
+import com.rev.aoc.framework.ProblemEngine;
 import com.rev.aoc.framework.io.cli.CliParser;
 import com.rev.aoc.framework.io.load.AocInputLoader;
 
@@ -24,7 +24,7 @@ public final class Main {
     public static void main(final String[] args) {
         loadProperties(Arrays.asList(args).contains("-d"));
         loadAocProblemLoader();
-        AocEngine engine = CliParser.parse(args);
+        ProblemEngine engine = CliParser.parse(args);
         if (engine == null) {
             return;
         }

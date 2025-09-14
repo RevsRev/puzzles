@@ -1,8 +1,12 @@
 package com.rev.aoc.framework.io.cli;
 
+import com.rev.aoc.framework.AocExecutor;
+import com.rev.aoc.framework.AocProblemLoader;
+import com.rev.aoc.framework.ExecutorListenerPrinter;
+import com.rev.aoc.framework.ProblemEngine;
+import com.rev.aoc.framework.ProblemExecutor;
+import com.rev.aoc.framework.ProblemLoader;
 import com.rev.aoc.framework.problem.AocCoordinate;
-import com.rev.aoc.framework.AocEngine;
-import com.rev.aoc.framework.problem.AocPart;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -19,7 +23,7 @@ public final class CliParser {
     private CliParser() {
     }
 
-    public static AocEngine parse(final String[] args) {
+    public static ProblemEngine parse(final String[] args) {
         Options options = CliOptions.getOptions();
         try {
             CommandLine cl = PARSER.parse(options, args);
@@ -47,30 +51,39 @@ public final class CliParser {
         helpFormatter.printHelp("aoc", options);
     }
 
-    private static AocEngine parse(final CommandLine cl) throws ParseException {
+    private static ProblemEngine parse(final CommandLine cl) throws ParseException {
         validateOptions(cl);
         AocCoordinate firstAocCoordinate = parseAocCoordinate(
                 cl.getOptionValue(CliOptions.PROBLEM_NUMBER));
         AocCoordinate secondAocCoordinate = parseAocCoordinate(
                 cl.getOptionValue(CliOptions.PROBLEM_OTHER_NUMBER));
 
-        AocPart part = AocPart.ALL;
-        if (cl.hasOption(CliOptions.PROBLEM_PART)) {
-            part = AocPart.valueOf(cl.getParsedOptionValue(CliOptions.PROBLEM_PART));
-        }
+        final ProblemEngine<AocCoordinate> engine = getAocCoordinateProblemEngine(
+                firstAocCoordinate,
+                secondAocCoordinate);
 
-        AocEngine engine;
-        if (firstAocCoordinate != null && secondAocCoordinate != null) {
-            if (firstAocCoordinate.compareTo(secondAocCoordinate) < 0) {
-                engine = new AocEngine(firstAocCoordinate, secondAocCoordinate, part);
-            } else {
-                engine = new AocEngine(secondAocCoordinate, firstAocCoordinate, part);
-            }
-        } else {
-            engine = new AocEngine(firstAocCoordinate, secondAocCoordinate, part);
-        }
         engine.setDebug(cl.hasOption(CliOptions.DEBUG));
         engine.setVisualise(cl.hasOption(CliOptions.PROBLEM_VISUALISE));
+        return engine;
+    }
+
+    private static ProblemEngine<AocCoordinate> getAocCoordinateProblemEngine(
+            final AocCoordinate firstAocCoordinate,
+            final AocCoordinate secondAocCoordinate) {
+
+        final ProblemLoader<AocCoordinate> problemLoader = new AocProblemLoader();
+        final ProblemExecutor<AocCoordinate> problemExecutor = new AocExecutor(new ExecutorListenerPrinter());
+        final ProblemEngine<AocCoordinate> engine;
+
+        if (firstAocCoordinate != null && secondAocCoordinate != null) {
+            if (firstAocCoordinate.compareTo(secondAocCoordinate) < 0) {
+                engine = new ProblemEngine<>(problemLoader, problemExecutor, firstAocCoordinate, secondAocCoordinate);
+            } else {
+                engine = new ProblemEngine<>(problemLoader, problemExecutor, secondAocCoordinate, firstAocCoordinate);
+            }
+        } else {
+            engine = new ProblemEngine<>(problemLoader, problemExecutor, firstAocCoordinate, secondAocCoordinate);
+        }
         return engine;
     }
 

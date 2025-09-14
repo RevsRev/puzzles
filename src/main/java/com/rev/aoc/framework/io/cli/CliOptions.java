@@ -1,6 +1,5 @@
 package com.rev.aoc.framework.io.cli;
 
-import com.rev.aoc.framework.problem.AocPart;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
@@ -8,7 +7,6 @@ public final class CliOptions {
     public static final Option HELP = helpOption();
     public static final Option PROBLEM_NUMBER = problemNumberOption();
     public static final Option PROBLEM_OTHER_NUMBER = problemOtherNumberOption();
-    public static final Option PROBLEM_PART = partOption();
     public static final Option PROBLEM_VISUALISE = writeOption();
     public static final Option DEBUG = debugOption();
 
@@ -20,7 +18,6 @@ public final class CliOptions {
         options.addOption(HELP);
         options.addOption(PROBLEM_NUMBER);
         options.addOption(PROBLEM_OTHER_NUMBER);
-        options.addOption(PROBLEM_PART);
         options.addOption(PROBLEM_VISUALISE);
         options.addOption(DEBUG);
         return options;
@@ -53,16 +50,6 @@ public final class CliOptions {
                         + "All problems between -p and -pb will be executed (inclusive)")
                 .hasArg()
                 .type(String.class)
-                .build();
-    }
-
-    private static Option partOption() {
-        return Option.builder()
-                .option("pt")
-                .longOpt("part")
-                .desc("The part of the advent of code problem to solve: ALL, ONE or TWO")
-                .hasArg()
-                .type(AocPart.class)
                 .build();
     }
 

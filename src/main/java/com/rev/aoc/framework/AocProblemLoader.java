@@ -44,7 +44,7 @@ public final class AocProblemLoader implements ProblemLoader<AocCoordinate> {
     private NavigableMap<AocCoordinate, Problem<?>> loadProblems() {
         try {
             NavigableMap<AocCoordinate, Problem<?>> retval = new TreeMap<>(AocCoordinate::compareTo);
-            ClassPath cp = ClassPath.from(AocEngine.class.getClassLoader());
+            ClassPath cp = ClassPath.from(ProblemEngine.class.getClassLoader());
             ImmutableSet<ClassPath.ClassInfo> allClasses = cp.getTopLevelClassesRecursive(AOC_PROBLEMS_PACKAGE);
             for (ClassPath.ClassInfo classInfo : allClasses) {
                 Class<?> clazz = classInfo.load();

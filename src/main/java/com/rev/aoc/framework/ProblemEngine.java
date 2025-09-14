@@ -1,20 +1,19 @@
 package com.rev.aoc.framework;
 
-import com.rev.aoc.framework.problem.AocCoordinate;
-import com.rev.aoc.framework.problem.AocPart;
 import com.rev.aoc.framework.problem.Problem;
+import com.rev.aoc.framework.problem.ProblemCoordinate;
 import lombok.Setter;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.List;
 import java.util.SortedMap;
 
-public final class AocEngine implements Runnable {
+public final class ProblemEngine<C extends ProblemCoordinate<C>> implements Runnable {
 
-    private final AocCoordinate firstAocCoordinate;
-    private final AocCoordinate secondAocCoordinate;
-    private final ProblemLoader<AocCoordinate> problemLoader;
-    private final ProblemExecutor<AocCoordinate> executor;
+    private final C firstAocCoordinate;
+    private final C secondAocCoordinate;
+    private final ProblemLoader<C> problemLoader;
+    private final ProblemExecutor<C> executor;
 //    private final AocVisualiser visualiser;
 
     @Setter
@@ -22,20 +21,22 @@ public final class AocEngine implements Runnable {
     @Setter
     private boolean visualise = false;
 
-    public AocEngine(final AocCoordinate firstAocCoordinate,
-                     final AocCoordinate secondAocCoordinate,
-                     final AocPart part) {
+    public ProblemEngine(final ProblemLoader<C> problemLoader,
+                         final ProblemExecutor<C> problemExecutor,
+                         final C firstAocCoordinate,
+                         final C secondAocCoordinate
+    ) {
         this.firstAocCoordinate = firstAocCoordinate;
         this.secondAocCoordinate = secondAocCoordinate;
-        this.problemLoader = new AocProblemLoader();
+        this.problemLoader = problemLoader;
 //        this.visualiser = new AocVisualiser();
-        this.executor = new AocExecutor(part, new ExecutorListenerPrinter());
+        this.executor = problemExecutor;
     }
 
 
     @Override
     public void run() {
-        SortedMap<AocCoordinate, Problem<?>> problemsInRange =
+        SortedMap<C, Problem<?>> problemsInRange =
                 problemLoader.loadProblemsInRange(firstAocCoordinate, secondAocCoordinate);
         if (problemsInRange == null) {
             return;

@@ -1,7 +1,6 @@
 package com.rev.aoc.framework;
 
 import com.rev.aoc.framework.problem.AocCoordinate;
-import com.rev.aoc.framework.problem.AocPart;
 import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.Problem;
 import com.rev.aoc.framework.problem.ProblemResult;
@@ -15,8 +14,7 @@ public final class AocExecutor implements ProblemExecutor<AocCoordinate> {
 
     private final ExecutorListener<AocCoordinate> executorListener;
 
-    public AocExecutor(final AocPart part,
-                       final ExecutorListener<AocCoordinate> executorListener) {
+    public AocExecutor(final ExecutorListener<AocCoordinate> executorListener) {
         this.executorListener = executorListener;
     }
 
