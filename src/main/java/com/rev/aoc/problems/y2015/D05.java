@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D05 extends AocProblem<Long, Long> {
+public final class D05 extends AocProblem {
 
     private static final String VOWEL_REGEX = ".*[a|e|i|o|u]{1}.*[a|e|i|o|u]{1}.*[a|e|i|o|u]{1}.*";
     private static final String DOUBLE_REGEX = ".*(.)\\1.*";
@@ -22,7 +22,6 @@ public final class D05 extends AocProblem<Long, Long> {
     private static final Pattern DOUBLE_DOUBLE_PATTERN = Pattern.compile(DOUBLE_DOUBLE_REGEX);
     private static final Pattern SANDWICH_PATTERN = Pattern.compile(SANDWICH_REGEX);
 
-    @Override
     @AocProblemI(year = 2015, day = 5, part = 1)
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
@@ -37,7 +36,6 @@ public final class D05 extends AocProblem<Long, Long> {
         return count;
     }
 
-    @Override
     @AocProblemI(year = 2015, day = 5, part = 2)
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();

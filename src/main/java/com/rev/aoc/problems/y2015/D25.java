@@ -5,7 +5,7 @@ import com.rev.aoc.framework.aoc.AocProblemI;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D25 extends AocProblem<Long, String> {
+public final class D25 extends AocProblem {
 
 
     public static final int STARTING_CODE = 20151125;
@@ -15,7 +15,6 @@ public final class D25 extends AocProblem<Long, String> {
     public static final int PROBLEM_COLUMN = 3019;
 
     @AocProblemI(year = 2015, day = 25, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         final long triangleBase = (long) PROBLEM_ROW + (long) PROBLEM_COLUMN - 1;
         final long triangleNumber = (triangleBase - 1) * (triangleBase) / 2;
@@ -29,7 +28,6 @@ public final class D25 extends AocProblem<Long, String> {
     }
 
     @AocProblemI(year = 2015, day = 25, part = 2)
-    @Override
     public String partTwoImpl(final ResourceLoader resourceLoader) {
         return "n/a";
     }

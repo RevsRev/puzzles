@@ -13,12 +13,11 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D08 extends AocProblem<Long, Long> {
+public final class D08 extends AocProblem {
 
     public static final char EMPTY_CHAR = '.';
 
     @AocProblemI(year = 2024, day = 8, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         int height = grid.length;
@@ -35,7 +34,6 @@ public final class D08 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 8, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         int height = grid.length;

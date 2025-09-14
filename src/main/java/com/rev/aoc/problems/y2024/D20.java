@@ -14,19 +14,17 @@ import java.util.TreeMap;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D20 extends AocProblem<Long, Long> {
+public final class D20 extends AocProblem {
 
     public static final int SAVE_THRESHOLD = 100;
 
     @AocProblemI(year = 2024, day = 20, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         return solvePartOne(chars, 2);
     }
 
     @AocProblemI(year = 2024, day = 20, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         return solvePartOne(chars, 20);

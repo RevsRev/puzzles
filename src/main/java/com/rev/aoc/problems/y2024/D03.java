@@ -9,20 +9,18 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class D03 extends AocProblem<Long, Long> {
+public final class D03 extends AocProblem {
 
     private static final String MULT_REGEX = "mul\\(\\d+,\\d+\\)|(do\\(\\))|(don't\\(\\))";
     private static final Pattern MULT_PATTERN = Pattern.compile(MULT_REGEX);
 
     @AocProblemI(year = 2024, day = 3, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<Instruction> instructions = loadInstructions(resourceLoader);
         return processInstructions(instructions, true);
     }
 
     @AocProblemI(year = 2024, day = 3, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<Instruction> instructions = loadInstructions(resourceLoader);
         return processInstructions(instructions, false);

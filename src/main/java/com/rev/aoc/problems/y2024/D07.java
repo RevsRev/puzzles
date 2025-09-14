@@ -8,10 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public final class D07 extends AocProblem<Long, Long> {
+public final class D07 extends AocProblem {
 
     @AocProblemI(year = 2024, day = 7, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         long[][] targetAndInputs = loadTargetAndInputs(resourceLoader);
         List<BiFunction<Long, Long, Long>> funcs = funcs(false);
@@ -26,7 +25,6 @@ public final class D07 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 7, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         long[][] targetAndInputs = loadTargetAndInputs(resourceLoader);
         List<BiFunction<Long, Long, Long>> funcs = funcs(true);

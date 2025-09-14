@@ -14,7 +14,7 @@ import static com.rev.aoc.util.geom.Direction.UP;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D06 extends AocProblem<Long, Long> {
+public final class D06 extends AocProblem {
 
     private static final char START_CHAR = '^';
     public static final char EMPTY_CHAR = '.';
@@ -34,7 +34,6 @@ public final class D06 extends AocProblem<Long, Long> {
     private static final int NEW_OBSTACLE_INT = NEW_OBSTACLE_CHAR;
 
     @AocProblemI(year = 2024, day = 6, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         try {
             int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(),
@@ -55,7 +54,6 @@ public final class D06 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 6, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         try {
             int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(),

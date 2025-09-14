@@ -11,11 +11,10 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashSet;
 import java.util.Set;
 
-public final class D12 extends AocProblem<Long, Long> {
+public final class D12 extends AocProblem {
     private static final int[][] DIRS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
     @AocProblemI(year = 2024, day = 12, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         UnitCell<Character>[][] unitCells = getUnitCells(resourceLoader);
         Set<UnitCell<Character>> visitedArea = new HashSet<>();
@@ -34,7 +33,6 @@ public final class D12 extends AocProblem<Long, Long> {
 
 
     @AocProblemI(year = 2024, day = 12, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         UnitCell<Character>[][] unitCells = getUnitCells(resourceLoader);
         Set<UnitCell<Character>> visitedArea = new HashSet<>();

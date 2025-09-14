@@ -10,14 +10,13 @@ import java.security.NoSuchAlgorithmException;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D04 extends AocProblem<String, String> {
+public final class D04 extends AocProblem {
 
     private final MessageDigest digest = MessageDigest.getInstance("MD5");
 
     public D04() throws NoSuchAlgorithmException {
     }
 
-    @Override
     @AocProblemI(year = 2015, day = 4, part = 1)
     public String partOneImpl(final ResourceLoader resourceLoader) {
         final String input = resourceLoader.resources().get(0);
@@ -32,7 +31,6 @@ public final class D04 extends AocProblem<String, String> {
         throw new ProblemExecutionException();
     }
 
-    @Override
     @AocProblemI(year = 2015, day = 4, part = 2)
     public String partTwoImpl(final ResourceLoader resourceLoader) {
         final String input = resourceLoader.resources().get(0);

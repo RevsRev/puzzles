@@ -14,20 +14,18 @@ import java.util.function.BiFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class D16 extends AocProblem<Long, Long> {
+public final class D16 extends AocProblem {
 
     private static final long UNKNOWN = -1;
     private static final Pattern SUE_REGEX = Pattern.compile("^Sue \\d+:");
 
     @AocProblemI(year = 2015, day = 16, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         final BiFunction<Sue, Sue, Boolean> matcher = partOneSueMatcher();
         return findSue(resourceLoader, matcher);
     }
 
     @AocProblemI(year = 2015, day = 16, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final BiFunction<Sue, Sue, Boolean> matcher = partTwoMatcher();
         return findSue(resourceLoader, matcher);

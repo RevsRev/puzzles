@@ -11,12 +11,11 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D01 extends AocProblem<Integer, Integer> {
+public final class D01 extends AocProblem {
 
     public static final String LEFT = "L";
 
     @AocProblemI(year = 2016, day = 1, part = 1)
-    @Override
     public Integer partOneImpl(final ResourceLoader resourceLoader) {
         String[] directions = resourceLoader.resources().get(0).replaceAll("\\s+", "").split(",");
 
@@ -40,7 +39,6 @@ public final class D01 extends AocProblem<Integer, Integer> {
     }
 
     @AocProblemI(year = 2016, day = 1, part = 2)
-    @Override
     public Integer partTwoImpl(final ResourceLoader resourceLoader) {
         String[] directions = resourceLoader.resources().get(0).replaceAll("\\s+", "").split(",");
 

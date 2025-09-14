@@ -14,14 +14,13 @@ import java.util.regex.Pattern;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D13 extends AocProblem<Long, Long> {
+public final class D13 extends AocProblem {
 
     private static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
     private static final Pattern FIRST_WORD = Pattern.compile("^\\w*");
     private static final Pattern LAST_WORD_WITH_PERIOD = Pattern.compile("\\w*\\.$");
 
     @AocProblemI(year = 2015, day = 13, part = 1)
-    @Override
     @SuppressWarnings("checkstyle:MagicNumber")
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         Graph<Vertex, Edge> directedHappinessGraph = Graph.fromResources(
@@ -43,7 +42,6 @@ public final class D13 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2015, day = 13, part = 1)
-    @Override
     @SuppressWarnings("checkstyle:MagicNumber")
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         Graph.Builder<Vertex, Edge> directedHappinessGraphBuilder = Graph.fromResources(

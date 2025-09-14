@@ -7,14 +7,13 @@ import com.rev.aoc.util.grid.Grid;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D18 extends AocProblem<Long, Long> {
+public final class D18 extends AocProblem {
 
     private static final int ITERATIONS = 100;
     private static final char ALIVE = '#';
     private static final char DEAD = '.';
 
     @AocProblemI(year = 2015, day = 18, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         char[][] chars = LoaderUtils.linesToCharMatrix(resourceLoader.resources());
         char[][] updated = Grid.stateComputer(chars, gridConwaysLifeUpdater(false), ITERATIONS);
@@ -22,7 +21,6 @@ public final class D18 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2015, day = 18, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         char[][] chars = LoaderUtils.linesToCharMatrix(resourceLoader.resources());
 

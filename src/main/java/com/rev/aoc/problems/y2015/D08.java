@@ -11,11 +11,10 @@ import java.util.regex.Pattern;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D08 extends AocProblem<Long, Long> {
+public final class D08 extends AocProblem {
 
     private static final Pattern ESCAPE = Pattern.compile("\\\\");
 
-    @Override
     @AocProblemI(year = 2015, day = 8, part = 1)
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         final List<String> lines = resourceLoader.resources();
@@ -28,7 +27,6 @@ public final class D08 extends AocProblem<Long, Long> {
         return total;
     }
 
-    @Override
     @AocProblemI(year = 2015, day = 8, part = 2)
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final List<String> lines = resourceLoader.resources();

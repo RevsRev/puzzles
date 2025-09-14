@@ -14,7 +14,7 @@ import java.util.function.BiFunction;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D21 extends AocProblem<Long, Long> {
+public final class D21 extends AocProblem {
 
     private static final char[][] DOOR_KEYPAD_CHARS = {
             {'7', '8', '9'},
@@ -35,7 +35,6 @@ public final class D21 extends AocProblem<Long, Long> {
     private static final int PART_TWO_DEPTH = 26;
 
     @AocProblemI(year = 2024, day = 21, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<String> codes = resourceLoader.resources();
         long totalComplexity = 0;
@@ -47,7 +46,6 @@ public final class D21 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 21, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<String> codes = resourceLoader.resources();
         long totalComplexity = 0;

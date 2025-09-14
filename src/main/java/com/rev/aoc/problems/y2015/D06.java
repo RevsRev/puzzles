@@ -9,7 +9,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class D06 extends AocProblem<Long, Long> {
+public final class D06 extends AocProblem {
 
     private static final int PROBLEM_WIDTH = 1000;
     private static final int PROBLEM_HEIGHT = 1000;
@@ -21,7 +21,6 @@ public final class D06 extends AocProblem<Long, Long> {
     private static final int TURN_ON = 1;
     private static final int TOGGLE = 2;
 
-    @Override
     @AocProblemI(year = 2015, day = 6, part = 1)
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(resourceLoader.resources());
@@ -60,7 +59,6 @@ public final class D06 extends AocProblem<Long, Long> {
         return count;
     }
 
-    @Override
     @AocProblemI(year = 2015, day = 6, part = 2)
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(resourceLoader.resources());

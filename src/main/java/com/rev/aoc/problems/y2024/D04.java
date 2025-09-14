@@ -6,7 +6,7 @@ import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.List;
 
-public final class D04 extends AocProblem<Long, Long> {
+public final class D04 extends AocProblem {
 
     private static final char[] XMAS = {'X', 'M', 'A', 'S'};
     private static final int[][] XMAS_STEPS = new int[][]{
@@ -23,14 +23,12 @@ public final class D04 extends AocProblem<Long, Long> {
     };
 
     @AocProblemI(year = 2024, day = 4, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         char[][] wordSearch = loadWordSearch(resourceLoader);
         return countXmas(wordSearch);
     }
 
     @AocProblemI(year = 2024, day = 4, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         char[][] wordSearch = loadWordSearch(resourceLoader);
         return countXmasSquares(wordSearch);

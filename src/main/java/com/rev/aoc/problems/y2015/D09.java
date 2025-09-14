@@ -11,18 +11,16 @@ import com.rev.aoc.util.graph.algo.TravellingSalesman;
 import java.util.Collection;
 import java.util.function.BiConsumer;
 
-public final class D09 extends AocProblem<Long, Long> {
+public final class D09 extends AocProblem {
 
     private static final String START = "START";
 
-    @Override
     @AocProblemI(year = 2015, day = 9, part = 1)
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         final Graph<Vertex, Edge> graph = loadGraph(resourceLoader, false);
         return TravellingSalesman.heldKarp(graph);
     }
 
-    @Override
     @AocProblemI(year = 2015, day = 9, part = 2)
     @SuppressWarnings("checkstyle:MagicNumber")
     public Long partTwoImpl(final ResourceLoader resourceLoader) {

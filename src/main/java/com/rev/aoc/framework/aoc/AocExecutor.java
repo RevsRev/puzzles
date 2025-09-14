@@ -34,7 +34,7 @@ public final class AocExecutor implements ProblemExecutor<AocCoordinate> {
     private <P1> ProblemResult<AocCoordinate, P1> solve(final AocCoordinate coordinate, final Problem<P1> problem) {
         try {
             long time = System.nanoTime();
-            P1 result = problem.solve(AocProblem.loadResources(coordinate));
+            P1 result = problem.solve(AocResourceLoader.loadResources(coordinate));
             time = System.nanoTime() - time;
             return new ProblemResult<>(coordinate, Optional.of(result), Optional.of(time), Optional.empty());
         } catch (Throwable t) {

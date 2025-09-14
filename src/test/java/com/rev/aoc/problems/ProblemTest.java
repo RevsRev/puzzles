@@ -3,7 +3,7 @@ package com.rev.aoc.problems;
 import com.rev.aoc.framework.aoc.AocProblemLoader;
 import com.rev.aoc.framework.ProblemLoader;
 import com.rev.aoc.framework.aoc.AocCoordinate;
-import com.rev.aoc.framework.aoc.AocProblem;
+import com.rev.aoc.framework.aoc.AocResourceLoader;
 import com.rev.aoc.framework.problem.Problem;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Assertions;
@@ -44,8 +44,8 @@ public final class ProblemTest {
             return;
         }
         Pair<Object, Object> results = problemAndResult.getValue();
-        Object partOneResult = partOne.solve(AocProblem.loadResources(partOneKey));
-        Object partTwoResult = partTwo.solve(AocProblem.loadResources(partTwoKey));
+        Object partOneResult = partOne.solve(AocResourceLoader.loadResources(partOneKey));
+        Object partTwoResult = partTwo.solve(AocResourceLoader.loadResources(partTwoKey));
         Object expectedPartOneResult = results.getLeft();
         Object expectedPartTwoResult = results.getRight();
         assertResult(partOneKey, expectedPartOneResult, partOneResult);

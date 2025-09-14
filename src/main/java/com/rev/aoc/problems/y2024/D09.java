@@ -10,13 +10,12 @@ import java.util.TreeMap;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D09 extends AocProblem<Long, Long> {
+public final class D09 extends AocProblem {
 
     public static final int EMPTY_VALUE = -1;
     public static final int NOT_FOUND_INDEX = -1;
 
     @AocProblemI(year = 2024, day = 9, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         char[] diskMap = LoaderUtils.loadResourcesAsCharArray(resourceLoader.resources());
         int[] disk = loadDisk(diskMap);
@@ -25,7 +24,6 @@ public final class D09 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 9, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         char[] diskMap = LoaderUtils.loadResourcesAsCharArray(resourceLoader.resources());
         int[] disk = loadDisk(diskMap);

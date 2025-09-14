@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Function;
 
-public final class D14 extends AocProblem<Long, Long> {
+public final class D14 extends AocProblem {
 
     public static final int PART_ONE_TIME = 100;
     public static final int PART_ONE_WIDTH = 101;
@@ -20,7 +20,6 @@ public final class D14 extends AocProblem<Long, Long> {
     private static final int PART_TWO_LIMIT = 10000;
 
     @AocProblemI(year = 2024, day = 14, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(
                 resourceLoader.resources(),
@@ -50,7 +49,6 @@ public final class D14 extends AocProblem<Long, Long> {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 14, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(
                 resourceLoader.resources(),

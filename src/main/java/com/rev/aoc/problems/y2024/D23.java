@@ -14,10 +14,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public final class D23 extends AocProblem<Long, String> {
+public final class D23 extends AocProblem {
 
     @AocProblemI(year = 2024, day = 23, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph(resourceLoader);
         Collection<Graph<Vertex, Edge>> subGraphsOfSize3 = SubGraphs.getConnectedSubgraphsOfSize3(graph);
@@ -34,7 +33,6 @@ public final class D23 extends AocProblem<Long, String> {
     }
 
     @AocProblemI(year = 2024, day = 23, part = 2)
-    @Override
     public String partTwoImpl(final ResourceLoader resourceLoader) {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph(resourceLoader);
         Collection<Graph<Vertex, Edge>> cliques = Cliques.getCliques(graph);

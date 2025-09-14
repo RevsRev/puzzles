@@ -5,13 +5,12 @@ import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D01 extends AocProblem<Long, Long> {
+public final class D01 extends AocProblem {
 
     private static final char UP = '(';
     private static final char DOWN = ')';
     public static final int BASEMENT = -1;
 
-    @Override
     @AocProblemI(year = 2015, day = 1, part = 1)
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         String input = resourceLoader.resources().get(0);
@@ -26,7 +25,6 @@ public final class D01 extends AocProblem<Long, Long> {
         return floor;
     }
 
-    @Override
     @AocProblemI(year = 2015, day = 1, part = 2)
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         String input = resourceLoader.resources().get(0);

@@ -13,14 +13,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class D14 extends AocProblem<Long, Long> {
+public final class D14 extends AocProblem {
 
     private static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
     private static final Pattern NAME_PATTERN = Pattern.compile("^\\w+");
     public static final int RACE_DURATION = 2503;
 
     @AocProblemI(year = 2015, day = 14, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<Reindeer> reindeer = loadReindeer(resourceLoader);
         long winningDistance = 0;
@@ -34,7 +33,6 @@ public final class D14 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2015, day = 14, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<Reindeer> reindeer = loadReindeer(resourceLoader);
         final Map<String, Long> scores = new HashMap<>();

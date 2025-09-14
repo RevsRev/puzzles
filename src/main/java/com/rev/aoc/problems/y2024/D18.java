@@ -14,7 +14,7 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D18 extends AocProblem<Long, String> {
+public final class D18 extends AocProblem {
 
     private static final int CORRUPTED_FLAG = 1;
     private static final int VISITED_FLAG = CORRUPTED_FLAG << 1;
@@ -23,7 +23,6 @@ public final class D18 extends AocProblem<Long, String> {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 18, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         int[] ints = LoaderUtils.linesToIntArray(resourceLoader.resources(), s -> s.split(","));
         int limit = 1024;
@@ -33,7 +32,6 @@ public final class D18 extends AocProblem<Long, String> {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 18, part = 2)
-    @Override
     public String partTwoImpl(final ResourceLoader resourceLoader) {
         int[] ints = LoaderUtils.linesToIntArray(resourceLoader.resources(), s -> s.split(","));
         int start = 1025;

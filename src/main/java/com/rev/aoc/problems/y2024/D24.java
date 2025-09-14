@@ -19,12 +19,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public final class D24 extends AocProblem<Long, String> {
+public final class D24 extends AocProblem {
 
     private static final long BIT_FLAG = 1;
 
     @AocProblemI(year = 2024, day = 24, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         TreeMap<String, Long> registerValues = new TreeMap<>();
@@ -84,7 +83,6 @@ public final class D24 extends AocProblem<Long, String> {
     }
 
     @AocProblemI(year = 2024, day = 24, part = 2)
-    @Override
     public String partTwoImpl(final ResourceLoader resourceLoader) {
 
         return "cqk,fph,gds,jrs,wrk,z15,z21,z34";

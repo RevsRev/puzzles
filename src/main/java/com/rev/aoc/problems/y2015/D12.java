@@ -15,12 +15,11 @@ import java.util.regex.Pattern;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D12 extends AocProblem<Long, Long> {
+public final class D12 extends AocProblem {
 
     private static final Pattern NUMBER_REGEX = Pattern.compile("-?\\d+");
 
     @AocProblemI(year = 2015, day = 12, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         final String json = resourceLoader.resources().get(0);
         Matcher matcher = NUMBER_REGEX.matcher(json);
@@ -33,7 +32,6 @@ public final class D12 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2015, day = 12, part = 1)
-    @Override
     @SuppressWarnings("checkstyle:MagicNumber")
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final String json = resourceLoader.resources().get(0);

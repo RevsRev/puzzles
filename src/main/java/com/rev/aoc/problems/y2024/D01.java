@@ -12,10 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public final class D01 extends AocProblem<Long, Long> {
+public final class D01 extends AocProblem {
 
     @AocProblemI(year = 2024, day = 1, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
@@ -29,7 +28,6 @@ public final class D01 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 1, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();

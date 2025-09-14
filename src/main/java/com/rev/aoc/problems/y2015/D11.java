@@ -7,12 +7,11 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D11 extends AocProblem<String, String> {
+public final class D11 extends AocProblem {
 
     public static final int PART_TWO_ITERATIONS = 2;
 
     @AocProblemI(year = 2015, day = 11, part = 1)
-    @Override
     public String partOneImpl(final ResourceLoader resourceLoader) {
         char[] password = resourceLoader.resources().get(0).toCharArray();
         do {
@@ -22,7 +21,6 @@ public final class D11 extends AocProblem<String, String> {
     }
 
     @AocProblemI(year = 2015, day = 11, part = 1)
-    @Override
     @SuppressWarnings("checkstyle:MagicNumber")
     public String partTwoImpl(final ResourceLoader resourceLoader) {
         char[] password = resourceLoader.resources().get(0).toCharArray();

@@ -14,10 +14,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 
-public final class D21 extends AocProblem<Integer, Integer> {
+public final class D21 extends AocProblem {
 
     @AocProblemI(year = 2015, day = 21, part = 1)
-    @Override
     public Integer partOneImpl(final ResourceLoader resourceLoader) {
         final Player boss = loadBoss(resourceLoader);
         final List<Attributes> weapons = loadWeapons();
@@ -37,7 +36,6 @@ public final class D21 extends AocProblem<Integer, Integer> {
     }
 
     @AocProblemI(year = 2015, day = 21, part = 2)
-    @Override
     public Integer partTwoImpl(final ResourceLoader resourceLoader) {
         final Player boss = loadBoss(resourceLoader);
         final List<Attributes> weapons = loadWeapons();

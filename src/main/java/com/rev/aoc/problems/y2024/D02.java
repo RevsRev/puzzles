@@ -8,10 +8,9 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class D02 extends AocProblem<Long, Long> {
+public final class D02 extends AocProblem {
 
     @AocProblemI(year = 2024, day = 2, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         Integer[][] reports = parseReports(resourceLoader);
         List<Integer[]> safeReports = new ArrayList<>();
@@ -20,7 +19,6 @@ public final class D02 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 2, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         Integer[][] reports = parseReports(resourceLoader);
         List<Integer[]> safeReports = new ArrayList<>();

@@ -9,10 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class D25 extends AocProblem<Long, String> {
+public final class D25 extends AocProblem {
 
     @AocProblemI(year = 2024, day = 25, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         Set<KeyOrLock> keys = new HashSet<>();
         Set<KeyOrLock> locks = new HashSet<>();
@@ -30,7 +29,6 @@ public final class D25 extends AocProblem<Long, String> {
     }
 
     @AocProblemI(year = 2024, day = 25, part = 2)
-    @Override
     public String partTwoImpl(final ResourceLoader resourceLoader) {
         return "n/a";
     }

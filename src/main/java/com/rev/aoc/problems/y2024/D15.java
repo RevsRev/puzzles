@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class D15 extends AocProblem<Long, Long> {
+public final class D15 extends AocProblem {
 
     public static final char ROBOT_CHAR = '@';
 
@@ -29,7 +29,6 @@ public final class D15 extends AocProblem<Long, Long> {
     }};
 
     @AocProblemI(year = 2024, day = 15, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves(resourceLoader);
         char[][] warehouse = warehouseAndRobotMoves.getLeft();
@@ -64,7 +63,6 @@ public final class D15 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 15, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves(resourceLoader);
         char[][] warehouse = expand(warehouseAndRobotMoves.getLeft());

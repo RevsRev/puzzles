@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D23 extends AocProblem<Long, Long> {
+public final class D23 extends AocProblem {
 
     private static final String HLF = "hlf";
     private static final String TPL = "tpl";
@@ -19,7 +19,6 @@ public final class D23 extends AocProblem<Long, Long> {
     private static final String JIO = "jio";
 
     @AocProblemI(year = 2015, day = 23, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         final List<String> cpuInstructions = resourceLoader.resources();
         final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);
@@ -28,7 +27,6 @@ public final class D23 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2015, day = 23, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final List<String> cpuInstructions = resourceLoader.resources();
         final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);

@@ -7,10 +7,9 @@ import com.rev.aoc.framework.problem.ResourceLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class D02 extends AocProblem<Long, Long> {
+public final class D02 extends AocProblem {
 
 
-    @Override
     @AocProblemI(year = 2015, day = 2, part = 1)
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<Box> boxes = parseBoxes(resourceLoader.resources());
@@ -23,7 +22,6 @@ public final class D02 extends AocProblem<Long, Long> {
         return areaNeeded;
     }
 
-    @Override
     @AocProblemI(year = 2015, day = 2, part = 2)
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<Box> boxes = parseBoxes(resourceLoader.resources());

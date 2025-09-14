@@ -11,10 +11,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public final class D24 extends AocProblem<Long, Long> {
+public final class D24 extends AocProblem {
 
     @AocProblemI(year = 2015, day = 24, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         final Long[] packages = loadPackages(resourceLoader);
         long target = ArrayUtils.sum(packages) / 3;
@@ -54,7 +53,6 @@ public final class D24 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2015, day = 24, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final Long[] packages = loadPackages(resourceLoader);
         long target = ArrayUtils.sum(packages) / 4;

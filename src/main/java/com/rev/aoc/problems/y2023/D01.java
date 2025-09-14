@@ -10,16 +10,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public final class D01 extends AocProblem<Long, Long> {
+public final class D01 extends AocProblem {
 
     @AocProblemI(year = 2023, day = 1, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         return solve(resourceLoader, this::formatPartOne);
     }
 
     @AocProblemI(year = 2023, day = 1, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         return solve(resourceLoader, this::formatPartTwo);
     }

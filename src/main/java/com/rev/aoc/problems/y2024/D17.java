@@ -16,7 +16,7 @@ import java.util.Scanner;
 import java.util.TreeSet;
 import java.util.function.Consumer;
 
-public final class D17 extends AocProblem<String, Long> {
+public final class D17 extends AocProblem {
 
     private static final int DEBUG_LIMIT = 17;
 
@@ -36,7 +36,6 @@ public final class D17 extends AocProblem<String, Long> {
     public static final int UNSOLVED_RETURN_VAL = -1;
 
     @AocProblemI(year = 2024, day = 17, part = 1)
-    @Override
     public String partOneImpl(final ResourceLoader resourceLoader) {
         Computer comp = loadResourcesAsComputer(resourceLoader);
         final StringBuilder sb = new StringBuilder();
@@ -47,7 +46,6 @@ public final class D17 extends AocProblem<String, Long> {
     }
 
     @AocProblemI(year = 2024, day = 17, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         Computer comp = loadResourcesAsComputer(resourceLoader);
         InputChecker checker = new InputChecker(comp.program);

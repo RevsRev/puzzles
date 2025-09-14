@@ -12,10 +12,9 @@ import java.util.Map;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D02 extends AocProblem<Long, Long> {
+public final class D02 extends AocProblem {
 
     @AocProblemI(year = 2023, day = 2, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
 
@@ -30,7 +29,6 @@ public final class D02 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2023, day = 2, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         return 0L;
     }

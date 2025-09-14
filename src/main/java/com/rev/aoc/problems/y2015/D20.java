@@ -9,7 +9,7 @@ import com.rev.aoc.util.math.ntheory.primes.SieveOfEratosthenes;
 
 import java.util.List;
 
-public final class D20 extends AocProblem<Long, Long> {
+public final class D20 extends AocProblem {
 
     //Costly initialization, so use the same sieve for both parts
     public static final int SIEVE_INITIAL_SEARCH = 1000;
@@ -17,7 +17,6 @@ public final class D20 extends AocProblem<Long, Long> {
     private final SieveOfEratosthenes sieve = SieveOfEratosthenes.create(SIEVE_INITIAL_SEARCH);
 
     @AocProblemI(year = 2015, day = 20, part = 1)
-    @Override
     //TODO - Parallelisation?
     public Long partOneImpl(final ResourceLoader resourceLoader) {
 //        return partOneSlow();
@@ -25,7 +24,6 @@ public final class D20 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2015, day = 20, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
 //        return partTwoSlow();
         return partTwoFast(resourceLoader);

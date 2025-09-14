@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public final class D15 extends AocProblem<Long, Long> {
+public final class D15 extends AocProblem {
 
     private static final Pattern NUMBERS_PATTERN = Pattern.compile("-?\\d+");
     public static final int NO_CALORIE_RESTRICTION = -1;
@@ -16,14 +16,12 @@ public final class D15 extends AocProblem<Long, Long> {
     public static final int TOTAL_SPOONFULLS = 100;
 
     @AocProblemI(year = 2015, day = 15, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         final List<Ingredient> ingredients = loadIngredients(resourceLoader);
         return computeScore(ingredients, NO_CALORIE_RESTRICTION);
     }
 
     @AocProblemI(year = 2015, day = 15, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final List<Ingredient> ingredients = loadIngredients(resourceLoader);
         return computeScore(ingredients, PART_TWO_CALORIE_RESTRICTION);

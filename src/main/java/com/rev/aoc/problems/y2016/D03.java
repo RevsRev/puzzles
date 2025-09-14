@@ -8,10 +8,9 @@ import java.util.List;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D03 extends AocProblem<Integer, Integer> {
+public final class D03 extends AocProblem {
 
     @AocProblemI(year = 2016, day = 3, part = 1)
-    @Override
     public Integer partOneImpl(final ResourceLoader resourceLoader) {
         int count = 0;
         List<String> maybeTriangles = resourceLoader.resources();
@@ -28,7 +27,6 @@ public final class D03 extends AocProblem<Integer, Integer> {
     }
 
     @AocProblemI(year = 2016, day = 3, part = 2)
-    @Override
     public Integer partTwoImpl(final ResourceLoader resourceLoader) {
         int count = 0;
         List<String> maybeTriangles = resourceLoader.resources();

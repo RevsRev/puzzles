@@ -10,19 +10,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class D11 extends AocProblem<Long, Long> {
+public final class D11 extends AocProblem {
     public static final int PART_ONE_ITERATIONS = 25;
     public static final int PART_TWO_ITERATIONS = 75;
 
     @AocProblemI(year = 2024, day = 11, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         long[] stones = loadResourcesAsLongArray(resourceLoader);
         return countStones(stones, PART_ONE_ITERATIONS);
     }
 
     @AocProblemI(year = 2024, day = 11, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         long[] stones = loadResourcesAsLongArray(resourceLoader);
         return countStones(stones, PART_TWO_ITERATIONS);

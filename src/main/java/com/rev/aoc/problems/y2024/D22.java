@@ -14,12 +14,11 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D22 extends AocProblem<Long, Long> {
+public final class D22 extends AocProblem {
     private static final int PRUNE_MOD = 1 << 24;
     private static final int PART_ONE_ITERATIONS = 2000;
 
     @AocProblemI(year = 2024, day = 22, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});
@@ -32,7 +31,6 @@ public final class D22 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 22, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});

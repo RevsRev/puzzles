@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public final class D22 extends AocProblem<Integer, Integer> {
+public final class D22 extends AocProblem {
 
     private static final int[] SPELL_DURATIONS = new int[]{1, 1, 6, 6, 5};
     private static final int[] SPELL_COSTS = new int[]{53, 73, 113, 173, 229};
@@ -30,13 +30,11 @@ public final class D22 extends AocProblem<Integer, Integer> {
     public static final int STARTING_MANA = 500;
 
     @AocProblemI(year = 2015, day = 22, part = 1)
-    @Override
     public Integer partOneImpl(final ResourceLoader resourceLoader) {
         return solve(resourceLoader, false);
     }
 
     @AocProblemI(year = 2015, day = 22, part = 2)
-    @Override
     public Integer partTwoImpl(final ResourceLoader resourceLoader) {
         return solve(resourceLoader, true);
     }

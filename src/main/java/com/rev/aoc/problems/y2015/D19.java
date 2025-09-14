@@ -16,14 +16,13 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class D19 extends AocProblem<Integer, Integer> {
+public final class D19 extends AocProblem {
 
     private static final Map<String, Pattern> PATTERN_CACHE = new HashMap<>();
     public static final String START_ELECTRON = "e";
     public static final int NOT_FOUND = -1;
 
     @AocProblemI(year = 2015, day = 19, part = 1)
-    @Override
     public Integer partOneImpl(final ResourceLoader resourceLoader) {
         Pair<String, Map<String, Set<String>>> inputAndReplacements = inputAndReplacements(resourceLoader);
         final String molecule = inputAndReplacements.getLeft();
@@ -60,7 +59,6 @@ public final class D19 extends AocProblem<Integer, Integer> {
     }
 
     @AocProblemI(year = 2015, day = 19, part = 2)
-    @Override
     public Integer partTwoImpl(final ResourceLoader resourceLoader) {
         final Pair<String, Map<String, Set<String>>> inputsAndReplacements = inputAndReplacements(resourceLoader);
         final String molecule = inputsAndReplacements.getLeft();

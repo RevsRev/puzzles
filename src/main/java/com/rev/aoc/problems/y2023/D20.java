@@ -22,7 +22,7 @@ import java.util.Queue;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class D20 extends AocProblem<Long, Long> {
+public final class D20 extends AocProblem {
 
     public static final String FLIP_FLOP = "%";
     public static final String CONJUNCTION = "&";
@@ -33,7 +33,6 @@ public final class D20 extends AocProblem<Long, Long> {
     public static final String RX = "rx";
 
     @AocProblemI(year = 2023, day = 20, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<String> strings = resourceLoader.resources();
         Map<String, Module> modules = parseToModules(strings);
@@ -50,7 +49,6 @@ public final class D20 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2023, day = 20, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
 //        List<String> strings = resourceLoader.resource();
 //        Map<String, Module> modules = parseToModules(strings);

@@ -5,19 +5,17 @@ import com.rev.aoc.framework.aoc.AocProblemI;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D10 extends AocProblem<Long, Long> {
+public final class D10 extends AocProblem {
 
     private static final int PART_ONE_ITERATIONS = 40;
     private static final int PART_TWO_ITERATIONS = 50;
 
     @AocProblemI(year = 2015, day = 10, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         return solve(resourceLoader, PART_ONE_ITERATIONS);
     }
 
     @AocProblemI(year = 2015, day = 10, part = 1)
-    @Override
     @SuppressWarnings("checkstyle:MagicNumber")
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         return solve(resourceLoader, PART_TWO_ITERATIONS);

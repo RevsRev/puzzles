@@ -12,13 +12,12 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D19 extends AocProblem<Long, Long> {
+public final class D19 extends AocProblem {
 
     public static final int REGEX_MAX_LENGTH = 100;
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 19, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<String> strings = resourceLoader.resources();
         Set<String>[] regexes = LoaderUtils.emptyArray(new HashSet[0], 100, () -> new HashSet());
@@ -56,7 +55,6 @@ public final class D19 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 19, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<String> strings = resourceLoader.resources();
         Set<String>[] regexes = LoaderUtils.emptyArray(new HashSet[0], REGEX_MAX_LENGTH, () -> new HashSet());

@@ -10,11 +10,10 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D10 extends AocProblem<Long, Long> {
+public final class D10 extends AocProblem {
     private static final int[][] DIRECTIONS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
     @AocProblemI(year = 2024, day = 10, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(), s -> s.split(""));
         int height = map.length;
@@ -34,7 +33,6 @@ public final class D10 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 10, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(), s -> s.split(""));
         int height = map.length;

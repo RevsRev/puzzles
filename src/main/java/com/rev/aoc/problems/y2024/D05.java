@@ -10,13 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class D05 extends AocProblem<Long, Long> {
+public final class D05 extends AocProblem {
 
     private final Map<Pair<Integer, Integer>, Boolean> ordinals = new HashMap<>();
     private final List<Integer[]> updates = new ArrayList<>();
 
     @AocProblemI(year = 2024, day = 5, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         loadMapsAndUpdates(resourceLoader);
         List<Integer[]> orderedUpdates = new ArrayList<>();
@@ -30,7 +29,6 @@ public final class D05 extends AocProblem<Long, Long> {
     }
 
     @AocProblemI(year = 2024, day = 5, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         loadMapsAndUpdates(resourceLoader);
         List<Integer[]> orderedUpdates = new ArrayList<>();

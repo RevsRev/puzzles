@@ -9,7 +9,7 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D03 extends AocProblem<Long, Long> {
+public final class D03 extends AocProblem {
 
     private static final char UP = '^';
     private static final char DOWN = 'v';
@@ -17,7 +17,6 @@ public final class D03 extends AocProblem<Long, Long> {
     private static final char RIGHT = '>';
     public static final int BASEMENT = -1;
 
-    @Override
     @AocProblemI(year = 2015, day = 3, part = 1)
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         String input = resourceLoader.resources().get(0);
@@ -40,7 +39,6 @@ public final class D03 extends AocProblem<Long, Long> {
         return (long) visited.size();
     }
 
-    @Override
     @AocProblemI(year = 2015, day = 3, part = 2)
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         String input = resourceLoader.resources().get(0);

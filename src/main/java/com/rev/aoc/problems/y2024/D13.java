@@ -11,21 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public final class D13 extends AocProblem<Long, Long> {
+public final class D13 extends AocProblem {
 
     public static final int PART_ONE_LIMIT = 100;
     public static final double EPSILON = 0.0001;
     public static final long PART_TWO_ERROR = 10000000000000L;
 
     @AocProblemI(year = 2024, day = 13, part = 1)
-    @Override
     public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<SimultaneousSolver> solvers = loadSolvers(resourceLoader, false);
         return computeCost(solvers, D13::validResultPartOne);
     }
 
     @AocProblemI(year = 2024, day = 13, part = 2)
-    @Override
     public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<SimultaneousSolver> solvers = loadSolvers(resourceLoader, true);
         return computeCost(solvers, D13::validResultPartTwo);
