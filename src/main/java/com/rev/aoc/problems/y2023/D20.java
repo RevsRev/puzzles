@@ -2,6 +2,7 @@ package com.rev.aoc.problems.y2023;
 
 import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
+import com.rev.aoc.framework.aoc.AocVisualisation;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.vis.GraphVisualiser;
 import com.rev.aoc.vis.VisualisationException;
@@ -67,6 +68,7 @@ public final class D20 extends AocProblem {
     }
 
     @Override
+    @AocVisualisation(year = 2023, day = 20, part = 1)
     public void visualiseProblem(final ResourceLoader resourceLoader) throws VisualisationException {
         List<String> strings = resourceLoader.resources();
         Map<String, Module> modules = parseToModules(strings);

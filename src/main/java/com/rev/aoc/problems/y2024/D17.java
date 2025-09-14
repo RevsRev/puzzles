@@ -1,5 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
+import com.rev.aoc.framework.aoc.AocVisualisation;
 import com.rev.aoc.framework.io.display.Printer;
 import com.rev.aoc.framework.io.display.format.ColumnFormatter;
 import com.rev.aoc.framework.aoc.AocProblem;
@@ -157,6 +158,7 @@ public final class D17 extends AocProblem {
     }
 
     @Override
+    @AocVisualisation(year = 2024, day = 17, part = 1)
     public void visualiseProblem(final ResourceLoader resourceLoader) throws VisualisationException {
         Computer comp = loadResourcesAsComputer(resourceLoader);
         Scanner scanner = new Scanner(System.in);
