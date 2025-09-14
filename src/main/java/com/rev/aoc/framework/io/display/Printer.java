@@ -1,13 +1,13 @@
 package com.rev.aoc.framework.io.display;
 
-import com.rev.aoc.framework.io.display.format.AocResultColumnFormatter;
 import com.rev.aoc.framework.io.display.format.AocResultColumnFormatterDay;
 import com.rev.aoc.framework.io.display.format.AocResultColumnFormatterError;
+import com.rev.aoc.framework.io.display.format.AocResultColumnFormatterPart;
 import com.rev.aoc.framework.io.display.format.AocResultColumnFormatterSolution;
 import com.rev.aoc.framework.io.display.format.AocResultColumnFormatterTime;
 import com.rev.aoc.framework.io.display.format.AocResultColumnFormatterYear;
 import com.rev.aoc.framework.io.display.format.ColumnFormatter;
-import com.rev.aoc.framework.problem.AocPart;
+import com.rev.aoc.framework.io.display.format.ResultColumnFormatter;
 
 import java.io.PrintWriter;
 
@@ -16,13 +16,12 @@ public class Printer<T> {
     private static final char SEPARATOR = '-';
     private static final char DELIMETER = '|';
 
-    public static final AocResultColumnFormatter[] AOC_RESULT_COLS = new AocResultColumnFormatter[]{
+    public static final ResultColumnFormatter[] AOC_RESULT_COLS = new ResultColumnFormatter[]{
             new AocResultColumnFormatterYear("Year", 6, WHITE_SPACE),
             new AocResultColumnFormatterDay("Day", 6, WHITE_SPACE),
-            new AocResultColumnFormatterSolution("PartOne", 45, WHITE_SPACE, AocPart.ONE),
-            new AocResultColumnFormatterTime("PartOneTime (ms)", 20, WHITE_SPACE, AocPart.ONE),
-            new AocResultColumnFormatterSolution("PartTwo", 45, WHITE_SPACE, AocPart.TWO),
-            new AocResultColumnFormatterTime("PartTwoTime (ms)", 20, WHITE_SPACE, AocPart.TWO),
+            new AocResultColumnFormatterPart("Part", 6, WHITE_SPACE),
+            new AocResultColumnFormatterSolution("Result", 45, WHITE_SPACE),
+            new AocResultColumnFormatterTime("Time (ms)", 20, WHITE_SPACE),
             new AocResultColumnFormatterError("Error", 50, WHITE_SPACE),
     };
     private final ColumnFormatter<T>[] cols;

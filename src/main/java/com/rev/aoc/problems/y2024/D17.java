@@ -37,7 +37,7 @@ public final class D17 extends AocProblem<String, Long> {
 
     @AocProblemI(year = 2024, day = 17, part = 1)
     @Override
-    protected String partOneImpl(final ResourceLoader resourceLoader) {
+    public String partOneImpl(final ResourceLoader resourceLoader) {
         Computer comp = loadResourcesAsComputer(resourceLoader);
         final StringBuilder sb = new StringBuilder();
         comp.listener = i -> sb.append(i).append(",");
@@ -48,7 +48,7 @@ public final class D17 extends AocProblem<String, Long> {
 
     @AocProblemI(year = 2024, day = 17, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         Computer comp = loadResourcesAsComputer(resourceLoader);
         InputChecker checker = new InputChecker(comp.program);
         checker.check(comp.program.length - 1, 0, 0);

@@ -3,21 +3,24 @@ package com.rev.aoc.framework;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.rev.aoc.framework.problem.AocCoordinate;
-import com.rev.aoc.framework.problem.AocProblem;
 import com.rev.aoc.framework.problem.AocProblemI;
+import com.rev.aoc.framework.problem.Problem;
+import com.rev.aoc.framework.problem.ProblemExecutionException;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.NavigableMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-public final class AocProblemLoader {
+public final class AocProblemLoader implements ProblemLoader<AocCoordinate> {
     private static final String AOC_PROBLEMS_PACKAGE = "com.rev.aoc.problems";
-    private final NavigableMap<AocCoordinate, AocProblem<?, ?>> problems = loadProblems();
+    private final NavigableMap<AocCoordinate, Problem<?>> problems = loadProblems();
 
-    public SortedMap<AocCoordinate, AocProblem<?, ?>> loadProblemsInRange(final AocCoordinate firstAocCoordinate,
-                                                                    final AocCoordinate secondAocCoordinate) {
+    @Override
+    public SortedMap<AocCoordinate, Problem<?>> loadProblemsInRange(final AocCoordinate firstAocCoordinate,
+                                                                 final AocCoordinate secondAocCoordinate) {
         if (problems.isEmpty()) {
             //TODO - Probably want some logging here!
             return null;
@@ -38,9 +41,9 @@ public final class AocProblemLoader {
         return problems.subMap(fromKey, true, toKey, true);
     }
 
-    private NavigableMap<AocCoordinate, AocProblem<?, ?>> loadProblems() {
+    private NavigableMap<AocCoordinate, Problem<?>> loadProblems() {
         try {
-            NavigableMap<AocCoordinate, AocProblem<?, ?>> retval = new TreeMap<>(AocCoordinate::compareTo);
+            NavigableMap<AocCoordinate, Problem<?>> retval = new TreeMap<>(AocCoordinate::compareTo);
             ClassPath cp = ClassPath.from(AocEngine.class.getClassLoader());
             ImmutableSet<ClassPath.ClassInfo> allClasses = cp.getTopLevelClassesRecursive(AOC_PROBLEMS_PACKAGE);
             for (ClassPath.ClassInfo classInfo : allClasses) {
@@ -48,12 +51,25 @@ public final class AocProblemLoader {
                 for (Method method : clazz.getDeclaredMethods()) {
                     AocProblemI annotation = method.getAnnotation(AocProblemI.class);
                     if (annotation != null) {
-                        AocProblem<?, ?> aocProblem = (AocProblem<?, ?>) clazz.getConstructor().newInstance();
                         AocCoordinate coordinate = new AocCoordinate(
                                 annotation.year(),
                                 annotation.day(),
                                 annotation.part());
-                        retval.put(coordinate, aocProblem);
+
+                        Object instance = clazz.getConstructor().newInstance();
+                        Problem<?> problem = (loader) -> {
+                            try {
+                                return method.invoke(instance, loader);
+                            } catch (IllegalAccessException e) {
+                                throw new RuntimeException(String.format("Could not load problem %s", coordinate), e);
+                            } catch (InvocationTargetException e) {
+                                throw new ProblemExecutionException(
+                                        "Execution of problem failed",
+                                        e.getTargetException()
+                                );
+                            }
+                        };
+                        retval.put(coordinate, problem);
                     }
                 }
             }

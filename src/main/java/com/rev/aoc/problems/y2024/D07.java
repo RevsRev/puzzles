@@ -12,7 +12,7 @@ public final class D07 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 7, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         long[][] targetAndInputs = loadTargetAndInputs(resourceLoader);
         List<BiFunction<Long, Long, Long>> funcs = funcs(false);
 
@@ -27,7 +27,7 @@ public final class D07 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 7, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         long[][] targetAndInputs = loadTargetAndInputs(resourceLoader);
         List<BiFunction<Long, Long, Long>> funcs = funcs(true);
 

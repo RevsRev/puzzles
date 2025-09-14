@@ -24,7 +24,7 @@ public final class D19 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2015, day = 19, part = 1)
     @Override
-    protected Integer partOneImpl(final ResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ResourceLoader resourceLoader) {
         Pair<String, Map<String, Set<String>>> inputAndReplacements = inputAndReplacements(resourceLoader);
         final String molecule = inputAndReplacements.getLeft();
         final Map<String, Set<String>> replacements = inputAndReplacements.getRight();
@@ -61,7 +61,7 @@ public final class D19 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2015, day = 19, part = 2)
     @Override
-    protected Integer partTwoImpl(final ResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ResourceLoader resourceLoader) {
         final Pair<String, Map<String, Set<String>>> inputsAndReplacements = inputAndReplacements(resourceLoader);
         final String molecule = inputsAndReplacements.getLeft();
         final Map<String, Set<String>> formulae = inputsAndReplacements.getRight();

@@ -34,7 +34,7 @@ public final class D20 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2023, day = 20, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<String> strings = resourceLoader.resources();
         Map<String, Module> modules = parseToModules(strings);
 
@@ -51,7 +51,7 @@ public final class D20 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2023, day = 20, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
 //        List<String> strings = resourceLoader.resource();
 //        Map<String, Module> modules = parseToModules(strings);
 //        Module rx = modules.get(RX);

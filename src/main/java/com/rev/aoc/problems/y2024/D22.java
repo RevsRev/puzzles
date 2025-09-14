@@ -20,7 +20,7 @@ public final class D22 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 22, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});
 
@@ -33,7 +33,7 @@ public final class D22 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 22, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});
 

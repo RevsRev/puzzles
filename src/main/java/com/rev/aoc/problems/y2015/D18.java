@@ -15,7 +15,7 @@ public final class D18 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 18, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         char[][] chars = LoaderUtils.linesToCharMatrix(resourceLoader.resources());
         char[][] updated = Grid.stateComputer(chars, gridConwaysLifeUpdater(false), ITERATIONS);
         return Grid.countGrid(updated, ALIVE);
@@ -23,7 +23,7 @@ public final class D18 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 18, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         char[][] chars = LoaderUtils.linesToCharMatrix(resourceLoader.resources());
 
         final int height = chars.length;

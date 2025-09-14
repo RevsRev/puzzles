@@ -7,30 +7,8 @@ import java.io.IOException;
 
 public abstract class AocProblem<P1, P2> {
 
-
-
-    protected abstract P1 partOneImpl(ResourceLoader resourceLoader);
-
-    protected abstract P2 partTwoImpl(ResourceLoader resourceLoader);
-
-    public final Problem<P1> partOne() {
-        return solveExceptionally(this::partOneImpl);
-    }
-
-    public final Problem<P2> partTwo() {
-        return solveExceptionally(this::partTwoImpl);
-    }
-
-    public static <T, C> Problem<T> solveExceptionally(
-            final Problem<T> problem) {
-        return (resourceLoader) -> {
-            try {
-                return problem.solve(resourceLoader);
-            } catch (Exception e) {
-                throw new ProblemExecutionException("Execution of problem failed", e);
-            }
-        };
-    }
+    public abstract P1 partOneImpl(ResourceLoader resourceLoader);
+    public abstract P2 partTwoImpl(ResourceLoader resourceLoader);
 
     /**
      * Override to visualise a particular problem.

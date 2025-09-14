@@ -23,7 +23,7 @@ public final class D16 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 16, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         char[][] maze = LoaderUtils.linesToCharMatrix(lines);
         int[] start = LoaderUtils.findOne(maze, START_CHAR);
@@ -37,7 +37,7 @@ public final class D16 extends AocProblem<Long, Long> {
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 16, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         char[][] maze = LoaderUtils.linesToCharMatrix(lines);
         int[] start = LoaderUtils.findOne(maze, START_CHAR);

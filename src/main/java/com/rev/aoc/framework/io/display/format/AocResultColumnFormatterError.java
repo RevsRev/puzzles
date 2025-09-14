@@ -1,17 +1,22 @@
 package com.rev.aoc.framework.io.display.format;
 
-import com.rev.aoc.framework.problem.AocResult;
+import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.problem.ProblemResult;
 
-public final class AocResultColumnFormatterError extends AocResultColumnFormatter {
+public final class AocResultColumnFormatterError extends ResultColumnFormatter<AocCoordinate> {
     public AocResultColumnFormatterError(final String header, int width, char padChar) {
         super(header, width, padChar);
     }
 
     @Override
-    protected String formatImpl(final AocResult<?, ?> result) {
+    protected String formatImpl(final ProblemResult<AocCoordinate, ?> result) {
         if (result.getError().isPresent()) {
             if (result.getError().get().getCause() != null) {
-                return result.getError().get().getCause().getMessage();
+                String message = result.getError().get().getCause().getMessage();
+                if (message == null) {
+                    return result.getError().get().getCause().toString();
+                }
+                return message;
             }
             return result.getError().get().toString();
         }

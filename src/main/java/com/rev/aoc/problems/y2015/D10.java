@@ -12,14 +12,14 @@ public final class D10 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 10, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         return solve(resourceLoader, PART_ONE_ITERATIONS);
     }
 
     @AocProblemI(year = 2015, day = 10, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         return solve(resourceLoader, PART_TWO_ITERATIONS);
     }
 

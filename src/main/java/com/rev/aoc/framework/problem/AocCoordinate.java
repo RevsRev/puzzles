@@ -34,7 +34,8 @@ public final class AocCoordinate implements ProblemCoordinate<AocCoordinate> {
 
     private static Comparator<AocCoordinate> comparator() {
         return Comparator.<AocCoordinate>comparingInt(aoc -> aoc.year)
-                .thenComparing(aoc -> aoc.day);
+                .thenComparing(aoc -> aoc.day)
+                .thenComparing(aoc -> aoc.part);
     }
 
     @Override

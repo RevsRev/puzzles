@@ -17,14 +17,14 @@ public final class D15 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 15, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         final List<Ingredient> ingredients = loadIngredients(resourceLoader);
         return computeScore(ingredients, NO_CALORIE_RESTRICTION);
     }
 
     @AocProblemI(year = 2015, day = 15, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final List<Ingredient> ingredients = loadIngredients(resourceLoader);
         return computeScore(ingredients, PART_TWO_CALORIE_RESTRICTION);
     }

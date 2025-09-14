@@ -10,14 +10,14 @@ public final class D07 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 7, part = 1)
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         final WiredEmulator<Long> wiredEmulator = WiredEmulator.create(resourceLoader.resources());
         return wiredEmulator.getSignal("a");
     }
 
     @Override
     @AocProblemI(year = 2015, day = 7, part = 2)
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final WiredEmulator<Long> wiredEmulator = WiredEmulator.create(resourceLoader.resources());
         final long aSignal = wiredEmulator.getSignal("a");
         wiredEmulator.clearSignals();

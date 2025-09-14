@@ -19,14 +19,14 @@ public final class D13 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 13, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<SimultaneousSolver> solvers = loadSolvers(resourceLoader, false);
         return computeCost(solvers, D13::validResultPartOne);
     }
 
     @AocProblemI(year = 2024, day = 13, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<SimultaneousSolver> solvers = loadSolvers(resourceLoader, true);
         return computeCost(solvers, D13::validResultPartTwo);
     }

@@ -21,14 +21,14 @@ public final class D16 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 16, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         final BiFunction<Sue, Sue, Boolean> matcher = partOneSueMatcher();
         return findSue(resourceLoader, matcher);
     }
 
     @AocProblemI(year = 2015, day = 16, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final BiFunction<Sue, Sue, Boolean> matcher = partTwoMatcher();
         return findSue(resourceLoader, matcher);
     }

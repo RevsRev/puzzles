@@ -31,13 +31,13 @@ public final class D22 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2015, day = 22, part = 1)
     @Override
-    protected Integer partOneImpl(final ResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ResourceLoader resourceLoader) {
         return solve(resourceLoader, false);
     }
 
     @AocProblemI(year = 2015, day = 22, part = 2)
     @Override
-    protected Integer partTwoImpl(final ResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ResourceLoader resourceLoader) {
         return solve(resourceLoader, true);
     }
 

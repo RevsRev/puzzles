@@ -16,7 +16,7 @@ public final class D02 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2023, day = 2, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
 
         Map<Integer, List<Handful>> gameHandfulMap = parseToGameMap(lines);
@@ -31,7 +31,7 @@ public final class D02 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2023, day = 2, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         return 0L;
     }
 

@@ -24,14 +24,14 @@ public final class D04 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 4, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         char[][] wordSearch = loadWordSearch(resourceLoader);
         return countXmas(wordSearch);
     }
 
     @AocProblemI(year = 2024, day = 4, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         char[][] wordSearch = loadWordSearch(resourceLoader);
         return countXmasSquares(wordSearch);
     }

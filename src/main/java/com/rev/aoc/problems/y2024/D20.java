@@ -20,14 +20,14 @@ public final class D20 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 20, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         return solvePartOne(chars, 2);
     }
 
     @AocProblemI(year = 2024, day = 20, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         return solvePartOne(chars, 20);
     }

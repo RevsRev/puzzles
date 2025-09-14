@@ -15,7 +15,7 @@ public final class D10 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 10, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(), s -> s.split(""));
         int height = map.length;
         int width = map[0].length;
@@ -35,7 +35,7 @@ public final class D10 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 10, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(), s -> s.split(""));
         int height = map.length;
         int width = map[0].length;

@@ -13,7 +13,7 @@ public final class D01 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 1, part = 1)
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         String input = resourceLoader.resources().get(0);
         long floor = 0;
         for (int i = 0; i < input.length(); i++) {
@@ -28,7 +28,7 @@ public final class D01 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 1, part = 2)
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         String input = resourceLoader.resources().get(0);
         long floor = 0;
         for (int i = 0; i < input.length(); i++) {

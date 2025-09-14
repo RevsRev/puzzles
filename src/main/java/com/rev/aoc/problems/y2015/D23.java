@@ -20,7 +20,7 @@ public final class D23 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 23, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         final List<String> cpuInstructions = resourceLoader.resources();
         final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);
         cpu.run();
@@ -29,7 +29,7 @@ public final class D23 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 23, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final List<String> cpuInstructions = resourceLoader.resources();
         final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);
         cpu.writeRegister("a", 1);

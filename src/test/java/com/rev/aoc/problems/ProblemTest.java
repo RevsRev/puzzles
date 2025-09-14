@@ -1,8 +1,10 @@
 package com.rev.aoc.problems;
 
 import com.rev.aoc.framework.AocProblemLoader;
+import com.rev.aoc.framework.ProblemLoader;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocProblem;
+import com.rev.aoc.framework.problem.Problem;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,27 +18,38 @@ import java.util.SortedMap;
 
 public final class ProblemTest {
 
-    private static final AocProblemLoader LOADER = new AocProblemLoader();
-    private static final SortedMap<AocCoordinate, AocProblem<?, ?>> ALL_PROBLEMS =
+    private static final ProblemLoader<AocCoordinate> LOADER = new AocProblemLoader();
+    private static final SortedMap<AocCoordinate, Problem<?>> ALL_PROBLEMS =
             LOADER.loadProblemsInRange(null, null);
 
     @ParameterizedTest
     @MethodSource("getHappyPaths")
     public void testAocSolutions(final Map.Entry<AocCoordinate, Pair<Object, Object>> problemAndResult) {
-        AocCoordinate key = problemAndResult.getKey();
-        AocProblem solution = ALL_PROBLEMS.get(key);
-        if (solution == null) {
+        AocCoordinate partOneKey = problemAndResult.getKey();
+        AocCoordinate partTwoKey = new AocCoordinate(
+                partOneKey.getYear(),
+                partOneKey.getDay(),
+                2
+        );
+        Problem<?> partOne = ALL_PROBLEMS.get(partOneKey);
+        Problem<?> partTwo = ALL_PROBLEMS.get(partTwoKey);
+        if (partOne == null) {
             System.out.printf(
-                    "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", key);
+                    "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", partOneKey);
+            return;
+        }
+        if (partTwo == null) {
+            System.out.printf(
+                    "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", partTwoKey);
             return;
         }
         Pair<Object, Object> results = problemAndResult.getValue();
-        Object partOneResult = solution.partOne().solve(AocProblem.loadResources(key));
-        Object partTwoResult = solution.partTwo().solve(AocProblem.loadResources(key));
+        Object partOneResult = partOne.solve(AocProblem.loadResources(partOneKey));
+        Object partTwoResult = partTwo.solve(AocProblem.loadResources(partTwoKey));
         Object expectedPartOneResult = results.getLeft();
         Object expectedPartTwoResult = results.getRight();
-        assertResult(key, expectedPartOneResult, partOneResult);
-        assertResult(key, expectedPartTwoResult, partTwoResult);
+        assertResult(partOneKey, expectedPartOneResult, partOneResult);
+        assertResult(partTwoKey, expectedPartTwoResult, partTwoResult);
     }
 
     @Test
@@ -77,7 +90,7 @@ public final class ProblemTest {
         expectedResults.put(new AocCoordinate(2024, 21, 1), Pair.of(126384L, 154115708116294L));
         expectedResults.put(new AocCoordinate(2024, 22, 1), Pair.of(37990510L, 23L));
         expectedResults.put(new AocCoordinate(2024, 23, 1), Pair.of(7L, "co,de,ka,ta"));
-        expectedResults.put(new AocCoordinate(2024, 24, 1), Pair.of(2024L, 0L));
+        expectedResults.put(new AocCoordinate(2024, 24, 1), Pair.of(2024L, "cqk,fph,gds,jrs,wrk,z15,z21,z34"));
         expectedResults.put(new AocCoordinate(2024, 25, 1), Pair.of(3L, "n/a"));
         return expectedResults;
     }

@@ -12,7 +12,7 @@ public final class D02 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 2, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         Integer[][] reports = parseReports(resourceLoader);
         List<Integer[]> safeReports = new ArrayList<>();
         getSafeReportsNoDampening(reports, safeReports, new ArrayList<>());
@@ -21,7 +21,7 @@ public final class D02 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 2, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         Integer[][] reports = parseReports(resourceLoader);
         List<Integer[]> safeReports = new ArrayList<>();
         List<Integer[]> unsafeReports = new ArrayList<>();

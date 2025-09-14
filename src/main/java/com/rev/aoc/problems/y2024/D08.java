@@ -19,7 +19,7 @@ public final class D08 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 8, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         int height = grid.length;
         int width = grid[0].length;
@@ -36,7 +36,7 @@ public final class D08 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 8, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         int height = grid.length;
         int width = grid[0].length;

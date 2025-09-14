@@ -3,60 +3,47 @@ package com.rev.aoc.framework;
 import com.rev.aoc.framework.problem.AocCoordinate;
 import com.rev.aoc.framework.problem.AocPart;
 import com.rev.aoc.framework.problem.AocProblem;
-import com.rev.aoc.framework.problem.AocResult;
+import com.rev.aoc.framework.problem.Problem;
+import com.rev.aoc.framework.problem.ProblemResult;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public final class AocExecutor implements ProblemExecutor<AocCoordinate> {
 
-    private final AocPart part;
-    private final ExecutorListener executorListener;
+    private final ExecutorListener<AocCoordinate> executorListener;
 
     public AocExecutor(final AocPart part,
-                       final ExecutorListener executorListener) {
-        this.part = part;
+                       final ExecutorListener<AocCoordinate> executorListener) {
         this.executorListener = executorListener;
     }
 
     @Override
-    public List<Throwable> solve(final Iterable<Map.Entry<AocCoordinate, AocProblem<?, ?>>> problems) {
+    public List<Throwable> solve(final Iterable<Map.Entry<AocCoordinate, Problem<?>>> problems) {
         executorListener.executorStarted();
         List<Throwable> errors = new ArrayList<>();
-        for (Map.Entry<AocCoordinate, AocProblem<?, ?>> problem : problems) {
-            AocResult<?, ?> result;
-            result = solve(problem.getKey(), problem.getValue());
-            if (result.getError().isPresent()) {
-                errors.add(result.getError().get());
-            }
+        for (Map.Entry<AocCoordinate, Problem<?>> problem : problems) {
+            ProblemResult<AocCoordinate, ?> result = solve(problem.getKey(), problem.getValue());
+            result.getError().ifPresent(errors::add);
             executorListener.executorSolved(result);
         }
         executorListener.executorStopped();
         return errors;
     }
 
-    private <P1, P2> AocResult<P1, P2> solve(final AocCoordinate coordinate, final AocProblem<P1, P2> problem) {
+    private <P1> ProblemResult<AocCoordinate, P1> solve(final AocCoordinate coordinate, final Problem<P1> problem) {
         try {
-            AocResult.Builder<P1, P2> builder = new AocResult.Builder<>();
-            builder.setCoordinate(coordinate);
-            if (AocPart.ALL.equals(part) || AocPart.ONE.equals(part)) {
-                long time = System.nanoTime();
-                P1 result = problem.partOne().solve(AocProblem.loadResources(coordinate));
-                time = System.nanoTime() - time;
-                builder.setPartOne(result);
-                builder.setPartOneTime(time);
-            }
-            if (AocPart.ALL.equals(part) || AocPart.TWO.equals(part)) {
-                long time = System.nanoTime();
-                P2 result = problem.partTwo().solve(AocProblem.loadResources(coordinate));
-                time = System.nanoTime() - time;
-                builder.setPartTwo(result);
-                builder.setPartTwoTime(time);
-            }
-            return builder.build();
+            long time = System.nanoTime();
+            P1 result = problem.solve(AocProblem.loadResources(coordinate));
+            time = System.nanoTime() - time;
+            return new ProblemResult<>(coordinate, Optional.of(result), Optional.of(time), Optional.empty());
         } catch (Throwable t) {
-            return AocResult.error(coordinate, t);
+            return new ProblemResult<>(coordinate,
+                    Optional.empty(),
+                    Optional.empty(),
+                    Optional.of(t));
         }
     }
 }

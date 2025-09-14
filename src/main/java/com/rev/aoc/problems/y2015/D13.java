@@ -23,7 +23,7 @@ public final class D13 extends AocProblem<Long, Long> {
     @AocProblemI(year = 2015, day = 13, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         Graph<Vertex, Edge> directedHappinessGraph = Graph.fromResources(
                         resourceLoader.resources(),
                         getLineProcessor(),
@@ -45,7 +45,7 @@ public final class D13 extends AocProblem<Long, Long> {
     @AocProblemI(year = 2015, day = 13, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         Graph.Builder<Vertex, Edge> directedHappinessGraphBuilder = Graph.fromResources(
                 resourceLoader.resources(),
                 getLineProcessor(),

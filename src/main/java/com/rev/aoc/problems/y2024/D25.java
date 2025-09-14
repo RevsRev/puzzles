@@ -13,7 +13,7 @@ public final class D25 extends AocProblem<Long, String> {
 
     @AocProblemI(year = 2024, day = 25, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         Set<KeyOrLock> keys = new HashSet<>();
         Set<KeyOrLock> locks = new HashSet<>();
         loadKeysAndLocks(resourceLoader, keys, locks);
@@ -31,7 +31,7 @@ public final class D25 extends AocProblem<Long, String> {
 
     @AocProblemI(year = 2024, day = 25, part = 2)
     @Override
-    protected String partTwoImpl(final ResourceLoader resourceLoader) {
+    public String partTwoImpl(final ResourceLoader resourceLoader) {
         return "n/a";
     }
 

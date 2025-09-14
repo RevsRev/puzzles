@@ -1,31 +1,23 @@
 package com.rev.aoc.framework.io.display.format;
 
-import com.rev.aoc.framework.problem.AocPart;
-import com.rev.aoc.framework.problem.AocResult;
+import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.problem.ProblemResult;
 
-public final class AocResultColumnFormatterSolution extends AocResultColumnFormatter {
+public final class AocResultColumnFormatterSolution extends ResultColumnFormatter<AocCoordinate> {
 
-    private final AocPart part;
-
-    public AocResultColumnFormatterSolution(final String header, int width, char padChar, final AocPart part) {
+    public AocResultColumnFormatterSolution(final String header, int width, char padChar) {
         super(header, width, padChar);
-        this.part = part;
     }
 
     @Override
-    protected String formatImpl(final AocResult<?, ?> result) {
+    protected String formatImpl(final ProblemResult<AocCoordinate, ?> result) {
         if (result.getError().isPresent()) {
             return "";
         }
-        if (AocPart.ONE.equals(part)) {
-            if (result.getPartOne().isEmpty()) {
-                return "";
-            }
-            return result.getPartOne().get().toString();
-        }
-        if (result.getPartTwo().isEmpty()) {
+        if (result.getProblemResult().isEmpty()) {
             return "";
         }
-        return result.getPartTwo().get().toString();
+
+        return result.getProblemResult().get().toString();
     }
 }

@@ -30,7 +30,7 @@ public final class D15 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 15, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves(resourceLoader);
         char[][] warehouse = warehouseAndRobotMoves.getLeft();
         char[] moves = warehouseAndRobotMoves.getRight();
@@ -65,7 +65,7 @@ public final class D15 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 15, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves(resourceLoader);
         char[][] warehouse = expand(warehouseAndRobotMoves.getLeft());
         char[] moves = warehouseAndRobotMoves.getRight();

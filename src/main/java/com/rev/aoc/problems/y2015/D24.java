@@ -15,7 +15,7 @@ public final class D24 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 24, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         final Long[] packages = loadPackages(resourceLoader);
         long target = ArrayUtils.sum(packages) / 3;
         final SetUtils.Constraint<Long> constraint = new SetUtils.Constraint<>(
@@ -55,7 +55,7 @@ public final class D24 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 24, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final Long[] packages = loadPackages(resourceLoader);
         long target = ArrayUtils.sum(packages) / 4;
         final SetUtils.Constraint<Long> constraint = new SetUtils.Constraint<>(

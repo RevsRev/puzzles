@@ -12,7 +12,7 @@ public final class D03 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2016, day = 3, part = 1)
     @Override
-    protected Integer partOneImpl(final ResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ResourceLoader resourceLoader) {
         int count = 0;
         List<String> maybeTriangles = resourceLoader.resources();
         for (final String maybeTriangle : maybeTriangles) {
@@ -29,7 +29,7 @@ public final class D03 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2016, day = 3, part = 2)
     @Override
-    protected Integer partTwoImpl(final ResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ResourceLoader resourceLoader) {
         int count = 0;
         List<String> maybeTriangles = resourceLoader.resources();
         for (int i = 0; i < maybeTriangles.size(); i += 3) {

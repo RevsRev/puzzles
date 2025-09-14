@@ -21,7 +21,7 @@ public final class D14 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 14, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(
                 resourceLoader.resources(),
                 new Integer[][]{},
@@ -51,7 +51,7 @@ public final class D14 extends AocProblem<Long, Long> {
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 14, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(
                 resourceLoader.resources(),
                 new Integer[][]{},

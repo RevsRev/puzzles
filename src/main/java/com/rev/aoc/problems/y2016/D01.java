@@ -17,7 +17,7 @@ public final class D01 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2016, day = 1, part = 1)
     @Override
-    protected Integer partOneImpl(final ResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ResourceLoader resourceLoader) {
         String[] directions = resourceLoader.resources().get(0).replaceAll("\\s+", "").split(",");
 
         int x = 0;
@@ -41,7 +41,7 @@ public final class D01 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2016, day = 1, part = 2)
     @Override
-    protected Integer partTwoImpl(final ResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ResourceLoader resourceLoader) {
         String[] directions = resourceLoader.resources().get(0).replaceAll("\\s+", "").split(",");
 
         Set<Pair<Integer, Integer>> visited = new HashSet<>();

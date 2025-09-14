@@ -16,7 +16,7 @@ public final class D12 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 12, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         UnitCell<Character>[][] unitCells = getUnitCells(resourceLoader);
         Set<UnitCell<Character>> visitedArea = new HashSet<>();
         Set<UnitCell<Character>> visitedPerimeter = new HashSet<>();
@@ -35,7 +35,7 @@ public final class D12 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 12, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         UnitCell<Character>[][] unitCells = getUnitCells(resourceLoader);
         Set<UnitCell<Character>> visitedArea = new HashSet<>();
         Set<UnitCell<Character>> visitedEdgeCells = new HashSet<>();

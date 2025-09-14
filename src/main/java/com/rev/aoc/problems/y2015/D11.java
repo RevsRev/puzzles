@@ -13,7 +13,7 @@ public final class D11 extends AocProblem<String, String> {
 
     @AocProblemI(year = 2015, day = 11, part = 1)
     @Override
-    protected String partOneImpl(final ResourceLoader resourceLoader) {
+    public String partOneImpl(final ResourceLoader resourceLoader) {
         char[] password = resourceLoader.resources().get(0).toCharArray();
         do {
             countUp(password, 'a', 'z');
@@ -24,7 +24,7 @@ public final class D11 extends AocProblem<String, String> {
     @AocProblemI(year = 2015, day = 11, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected String partTwoImpl(final ResourceLoader resourceLoader) {
+    public String partTwoImpl(final ResourceLoader resourceLoader) {
         char[] password = resourceLoader.resources().get(0).toCharArray();
         for (int i = 0; i < PART_TWO_ITERATIONS; i++) {
             do {

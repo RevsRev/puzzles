@@ -17,15 +17,15 @@ public final class D09 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 9, part = 1)
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         final Graph<Vertex, Edge> graph = loadGraph(resourceLoader, false);
         return TravellingSalesman.heldKarp(graph);
     }
 
     @Override
-    @AocProblemI(year = 2015, day = 1, part = 2)
+    @AocProblemI(year = 2015, day = 9, part = 2)
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final Graph<Vertex, Edge> graph = loadGraph(resourceLoader, true);
         return -1 * TravellingSalesman.heldKarp(graph);
     }

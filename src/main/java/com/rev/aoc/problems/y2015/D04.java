@@ -19,7 +19,7 @@ public final class D04 extends AocProblem<String, String> {
 
     @Override
     @AocProblemI(year = 2015, day = 4, part = 1)
-    protected String partOneImpl(final ResourceLoader resourceLoader) {
+    public String partOneImpl(final ResourceLoader resourceLoader) {
         final String input = resourceLoader.resources().get(0);
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
             final String check = input + i;
@@ -34,7 +34,7 @@ public final class D04 extends AocProblem<String, String> {
 
     @Override
     @AocProblemI(year = 2015, day = 4, part = 2)
-    protected String partTwoImpl(final ResourceLoader resourceLoader) {
+    public String partTwoImpl(final ResourceLoader resourceLoader) {
         final String input = resourceLoader.resources().get(0);
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
             final String check = input + i;

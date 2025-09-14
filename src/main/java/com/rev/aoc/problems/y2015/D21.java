@@ -18,7 +18,7 @@ public final class D21 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2015, day = 21, part = 1)
     @Override
-    protected Integer partOneImpl(final ResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ResourceLoader resourceLoader) {
         final Player boss = loadBoss(resourceLoader);
         final List<Attributes> weapons = loadWeapons();
         final List<Attributes> armors = loadArmors();
@@ -38,7 +38,7 @@ public final class D21 extends AocProblem<Integer, Integer> {
 
     @AocProblemI(year = 2015, day = 21, part = 2)
     @Override
-    protected Integer partTwoImpl(final ResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ResourceLoader resourceLoader) {
         final Player boss = loadBoss(resourceLoader);
         final List<Attributes> weapons = loadWeapons();
         final List<Attributes> armors = loadArmors();

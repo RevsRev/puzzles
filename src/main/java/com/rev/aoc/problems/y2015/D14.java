@@ -21,7 +21,7 @@ public final class D14 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 14, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         List<Reindeer> reindeer = loadReindeer(resourceLoader);
         long winningDistance = 0;
         for (Reindeer r : reindeer) {
@@ -35,7 +35,7 @@ public final class D14 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 14, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         List<Reindeer> reindeer = loadReindeer(resourceLoader);
         final Map<String, Long> scores = new HashMap<>();
         reindeer.forEach(r -> scores.putIfAbsent(r.name, 0L));

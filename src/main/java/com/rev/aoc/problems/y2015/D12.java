@@ -21,7 +21,7 @@ public final class D12 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2015, day = 12, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         final String json = resourceLoader.resources().get(0);
         Matcher matcher = NUMBER_REGEX.matcher(json);
         long sum = 0;
@@ -35,7 +35,7 @@ public final class D12 extends AocProblem<Long, Long> {
     @AocProblemI(year = 2015, day = 12, part = 1)
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final String json = resourceLoader.resources().get(0);
         JsonMapper jm = new JsonMapper();
         try {

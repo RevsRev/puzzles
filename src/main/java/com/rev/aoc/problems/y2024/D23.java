@@ -18,7 +18,7 @@ public final class D23 extends AocProblem<Long, String> {
 
     @AocProblemI(year = 2024, day = 23, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph(resourceLoader);
         Collection<Graph<Vertex, Edge>> subGraphsOfSize3 = SubGraphs.getConnectedSubgraphsOfSize3(graph);
         long count = 0;
@@ -35,7 +35,7 @@ public final class D23 extends AocProblem<Long, String> {
 
     @AocProblemI(year = 2024, day = 23, part = 2)
     @Override
-    protected String partTwoImpl(final ResourceLoader resourceLoader) {
+    public String partTwoImpl(final ResourceLoader resourceLoader) {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph(resourceLoader);
         Collection<Graph<Vertex, Edge>> cliques = Cliques.getCliques(graph);
         long largestCliqueSize = 0;

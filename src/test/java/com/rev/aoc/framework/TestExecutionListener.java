@@ -1,15 +1,16 @@
 package com.rev.aoc.framework;
 
-import com.rev.aoc.framework.problem.AocResult;
+import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.problem.ProblemResult;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public final class TestExecutionListener implements ExecutorListener {
+public final class TestExecutionListener implements ExecutorListener<AocCoordinate> {
 
-    private final List<AocResult<?, ?>> results = new ArrayList<>();
+    private final List<ProblemResult<AocCoordinate, ?>> results = new ArrayList<>();
 
     @Override
     public void executorStarted() {
@@ -17,7 +18,7 @@ public final class TestExecutionListener implements ExecutorListener {
     }
 
     @Override
-    public void executorSolved(final AocResult<?, ?> result) {
+    public void executorSolved(final ProblemResult<AocCoordinate, ?> result) {
         results.add(result);
     }
 

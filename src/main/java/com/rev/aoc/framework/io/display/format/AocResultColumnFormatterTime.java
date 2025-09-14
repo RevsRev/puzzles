@@ -1,20 +1,17 @@
 package com.rev.aoc.framework.io.display.format;
 
-import com.rev.aoc.framework.problem.AocPart;
-import com.rev.aoc.framework.problem.AocResult;
+import com.rev.aoc.framework.problem.AocCoordinate;
+import com.rev.aoc.framework.problem.ProblemResult;
 
-public final class AocResultColumnFormatterTime extends AocResultColumnFormatter {
+public final class AocResultColumnFormatterTime extends ResultColumnFormatter<AocCoordinate> {
     public static final int NANOS_IN_MILLI = 1000 * 1000;
-    private final AocPart part;
 
-    public AocResultColumnFormatterTime(final String header, int width, char padChar, final AocPart part) {
+    public AocResultColumnFormatterTime(final String header, int width, char padChar) {
         super(header, width, padChar);
-        this.part = part;
     }
 
     @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    protected String formatImpl(final AocResult result) {
+    protected String formatImpl(final ProblemResult<AocCoordinate, ?> result) {
         long time = getTime(result);
         if (time == -1) {
             return "";
@@ -24,7 +21,7 @@ public final class AocResultColumnFormatterTime extends AocResultColumnFormatter
 
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
-    protected String getColor(final AocResult result) {
+    protected String getColor(final ProblemResult<AocCoordinate, ?> result) {
         long time = getTime(result);
         if (time == -1) {
             return BLACK;
@@ -36,19 +33,10 @@ public final class AocResultColumnFormatterTime extends AocResultColumnFormatter
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")
-    private long getTime(final AocResult<?, ?> result) {
+    private long getTime(final ProblemResult<AocCoordinate, ?> result) {
         if (result.getError().isPresent()) {
             return -1;
         }
-        if (AocPart.ONE.equals(part)) {
-            if (result.getPartOneTime().isEmpty()) {
-                return -1;
-            }
-            return result.getPartOneTime().get();
-        }
-        if (result.getPartTwoTime().isEmpty()) {
-            return -1;
-        }
-        return result.getPartTwoTime().get();
+        return result.getExecutionTime().orElse(-1L);
     }
 }

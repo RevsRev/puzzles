@@ -19,14 +19,14 @@ public final class D20 extends AocProblem<Long, Long> {
     @AocProblemI(year = 2015, day = 20, part = 1)
     @Override
     //TODO - Parallelisation?
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
 //        return partOneSlow();
         return partOneFast(resourceLoader);
     }
 
     @AocProblemI(year = 2015, day = 20, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
 //        return partTwoSlow();
         return partTwoFast(resourceLoader);
     }

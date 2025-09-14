@@ -16,14 +16,14 @@ public final class D11 extends AocProblem<Long, Long> {
 
     @AocProblemI(year = 2024, day = 11, part = 1)
     @Override
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         long[] stones = loadResourcesAsLongArray(resourceLoader);
         return countStones(stones, PART_ONE_ITERATIONS);
     }
 
     @AocProblemI(year = 2024, day = 11, part = 2)
     @Override
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         long[] stones = loadResourcesAsLongArray(resourceLoader);
         return countStones(stones, PART_TWO_ITERATIONS);
     }

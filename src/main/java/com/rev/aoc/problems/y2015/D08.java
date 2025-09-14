@@ -17,7 +17,7 @@ public final class D08 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 8, part = 1)
-    protected Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ResourceLoader resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         long total = 0;
         for (String s : lines) {
@@ -30,7 +30,7 @@ public final class D08 extends AocProblem<Long, Long> {
 
     @Override
     @AocProblemI(year = 2015, day = 8, part = 2)
-    protected Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ResourceLoader resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         long total = 0;
         for (String s : lines) {
