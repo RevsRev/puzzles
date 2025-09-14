@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.rev.aoc</groupId>
-    <artifactId>advent-of-code</artifactId>
+    <groupId>com.rev.puzzles</groupId>
+    <artifactId>puzzles</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
@@ -148,7 +148,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.rev.aoc.Main</mainClass>
+                            <mainClass>com.rev.puzzles.app.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
