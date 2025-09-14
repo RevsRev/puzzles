@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 
@@ -9,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class D25 extends AocProblem {
+public final class D25 {
 
     @AocProblemI(year = 2024, day = 25, part = 1)
     public Long partOneImpl(final ResourceLoader resourceLoader) {

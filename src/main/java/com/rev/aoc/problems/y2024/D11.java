@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.math.ntheory.util.Pow;
@@ -10,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class D11 extends AocProblem {
+public final class D11 {
     public static final int PART_ONE_ITERATIONS = 25;
     public static final int PART_TWO_ITERATIONS = 75;
 

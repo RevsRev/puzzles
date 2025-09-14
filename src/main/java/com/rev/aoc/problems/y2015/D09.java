@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.graph.Edge;
@@ -11,7 +10,7 @@ import com.rev.aoc.util.graph.algo.TravellingSalesman;
 import java.util.Collection;
 import java.util.function.BiConsumer;
 
-public final class D09 extends AocProblem {
+public final class D09 {
 
     private static final String START = "START";
 

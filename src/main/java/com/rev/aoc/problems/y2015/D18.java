@@ -1,13 +1,12 @@
 package com.rev.aoc.problems.y2015;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.util.grid.Grid;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D18 extends AocProblem {
+public final class D18 {
 
     private static final int ITERATIONS = 100;
     private static final char ALIVE = '#';

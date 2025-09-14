@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.geom.PointRectangle;
@@ -9,7 +8,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class D06 extends AocProblem {
+public final class D06 {
 
     private static final int PROBLEM_WIDTH = 1000;
     private static final int PROBLEM_HEIGHT = 1000;

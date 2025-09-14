@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.regex.Pattern;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D05 extends AocProblem {
+public final class D05 {
 
     private static final String VOWEL_REGEX = ".*[a|e|i|o|u]{1}.*[a|e|i|o|u]{1}.*[a|e|i|o|u]{1}.*";
     private static final String DOUBLE_REGEX = ".*(.)\\1.*";

@@ -1,13 +1,12 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class D02 extends AocProblem {
+public final class D02 {
 
 
     @AocProblemI(year = 2015, day = 2, part = 1)

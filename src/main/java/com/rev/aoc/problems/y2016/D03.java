@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2016;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.util.geom.Triangle;
 
@@ -8,7 +7,7 @@ import java.util.List;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D03 extends AocProblem {
+public final class D03 {
 
     @AocProblemI(year = 2016, day = 3, part = 1)
     public Integer partOneImpl(final ResourceLoader resourceLoader) {

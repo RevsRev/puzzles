@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
@@ -10,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class D05 extends AocProblem {
+public final class D05 {
 
     private final Map<Pair<Integer, Integer>, Boolean> ordinals = new HashMap<>();
     private final List<Integer[]> updates = new ArrayList<>();

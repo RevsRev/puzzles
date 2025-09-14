@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
@@ -16,7 +15,7 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class D19 extends AocProblem {
+public final class D19 {
 
     private static final Map<String, Pattern> PATTERN_CACHE = new HashMap<>();
     public static final String START_ELECTRON = "e";

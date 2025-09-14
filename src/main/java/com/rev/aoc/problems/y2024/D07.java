@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public final class D07 extends AocProblem {
+public final class D07 {
 
     @AocProblemI(year = 2024, day = 7, part = 1)
     public Long partOneImpl(final ResourceLoader resourceLoader) {

@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 import com.rev.aoc.util.graph.Edge;
@@ -14,7 +13,7 @@ import java.util.regex.Pattern;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D13 extends AocProblem {
+public final class D13 {
 
     private static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
     private static final Pattern FIRST_WORD = Pattern.compile("^\\w*");

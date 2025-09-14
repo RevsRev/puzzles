@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 import com.rev.aoc.util.geom.Direction;
@@ -14,7 +13,7 @@ import static com.rev.aoc.util.geom.Direction.UP;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D06 extends AocProblem {
+public final class D06 {
 
     private static final char START_CHAR = '^';
     public static final char EMPTY_CHAR = '.';

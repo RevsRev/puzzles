@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.regex.Pattern;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D08 extends AocProblem {
+public final class D08 {
 
     private static final Pattern ESCAPE = Pattern.compile("\\\\");
 

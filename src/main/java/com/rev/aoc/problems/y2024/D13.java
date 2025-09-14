@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.math.linalg.matrix.Mat2;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public final class D13 extends AocProblem {
+public final class D13 {
 
     public static final int PART_ONE_LIMIT = 100;
     public static final double EPSILON = 0.0001;

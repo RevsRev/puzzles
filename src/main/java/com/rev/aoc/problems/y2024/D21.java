@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.util.geom.Direction;
 
@@ -14,7 +13,7 @@ import java.util.function.BiFunction;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D21 extends AocProblem {
+public final class D21 {
 
     private static final char[][] DOOR_KEYPAD_CHARS = {
             {'7', '8', '9'},

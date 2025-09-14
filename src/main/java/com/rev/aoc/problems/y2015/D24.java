@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.arr.ArrayUtils;
@@ -11,7 +10,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public final class D24 extends AocProblem {
+public final class D24 {
 
     @AocProblemI(year = 2015, day = 24, part = 1)
     public Long partOneImpl(final ResourceLoader resourceLoader) {

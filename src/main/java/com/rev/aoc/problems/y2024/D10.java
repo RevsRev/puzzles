@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -10,7 +9,7 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D10 extends AocProblem {
+public final class D10 {
     private static final int[][] DIRECTIONS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
     @AocProblemI(year = 2024, day = 10, part = 1)

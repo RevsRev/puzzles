@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 
@@ -13,7 +12,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class D14 extends AocProblem {
+public final class D14 {
 
     private static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
     private static final Pattern NAME_PATTERN = Pattern.compile("^\\w+");

@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2016;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 
@@ -8,7 +7,7 @@ import java.util.List;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D02 extends AocProblem {
+public final class D02 {
 
     @AocProblemI(year = 2016, day = 2, part = 1)
     public Integer partOneImpl(final ResourceLoader resourceLoader) {

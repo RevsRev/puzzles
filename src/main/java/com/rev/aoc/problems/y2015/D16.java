@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -14,7 +13,7 @@ import java.util.function.BiFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class D16 extends AocProblem {
+public final class D16 {
 
     private static final long UNKNOWN = -1;
     private static final Pattern SUE_REGEX = Pattern.compile("^Sue \\d+:");

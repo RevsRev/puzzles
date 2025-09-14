@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -14,7 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 
-public final class D21 extends AocProblem {
+public final class D21 {
 
     @AocProblemI(year = 2015, day = 21, part = 1)
     public Integer partOneImpl(final ResourceLoader resourceLoader) {

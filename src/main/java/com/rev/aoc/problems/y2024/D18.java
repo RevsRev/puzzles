@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.util.geom.Direction;
 import com.rev.aoc.util.search.BinarySolutionSearch;
@@ -14,7 +13,7 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D18 extends AocProblem {
+public final class D18 {
 
     private static final int CORRUPTED_FLAG = 1;
     private static final int VISITED_FLAG = CORRUPTED_FLAG << 1;

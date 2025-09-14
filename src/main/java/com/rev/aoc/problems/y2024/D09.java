@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 
 import java.util.Iterator;
@@ -10,7 +9,7 @@ import java.util.TreeMap;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D09 extends AocProblem {
+public final class D09 {
 
     public static final int EMPTY_VALUE = -1;
     public static final int NOT_FOUND_INDEX = -1;

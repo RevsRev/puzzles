@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
@@ -12,7 +11,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Function;
 
-public final class D14 extends AocProblem {
+public final class D14 {
 
     public static final int PART_ONE_TIME = 100;
     public static final int PART_ONE_WIDTH = 101;

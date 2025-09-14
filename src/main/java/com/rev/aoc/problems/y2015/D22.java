@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public final class D22 extends AocProblem {
+public final class D22 {
 
     private static final int[] SPELL_DURATIONS = new int[]{1, 1, 6, 6, 5};
     private static final int[] SPELL_COSTS = new int[]{53, 73, 113, 173, 229};

@@ -3,7 +3,6 @@ package com.rev.aoc.problems.y2024;
 import com.rev.aoc.framework.aoc.AocVisualisation;
 import com.rev.aoc.framework.io.display.Printer;
 import com.rev.aoc.framework.io.display.format.ColumnFormatter;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.vis.VisualisationException;
@@ -17,7 +16,7 @@ import java.util.Scanner;
 import java.util.TreeSet;
 import java.util.function.Consumer;
 
-public final class D17 extends AocProblem {
+public final class D17 {
 
     private static final int DEBUG_LIMIT = 17;
 

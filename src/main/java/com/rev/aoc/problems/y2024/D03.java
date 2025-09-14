@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 
@@ -9,7 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class D03 extends AocProblem {
+public final class D03 {
 
     private static final String MULT_REGEX = "mul\\(\\d+,\\d+\\)|(do\\(\\))|(don't\\(\\))";
     private static final Pattern MULT_PATTERN = Pattern.compile(MULT_REGEX);

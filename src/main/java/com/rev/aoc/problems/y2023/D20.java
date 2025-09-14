@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2023;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.aoc.AocVisualisation;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -23,7 +22,7 @@ import java.util.Queue;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class D20 extends AocProblem {
+public final class D20 {
 
     public static final String FLIP_FLOP = "%";
     public static final String CONJUNCTION = "&";

@@ -1,13 +1,12 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 
 import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D11 extends AocProblem {
+public final class D11 {
 
     public static final int PART_TWO_ITERATIONS = 2;
 

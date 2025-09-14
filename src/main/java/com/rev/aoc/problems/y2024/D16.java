@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.util.geom.Direction;
 import org.apache.commons.lang3.tuple.Pair;
@@ -15,7 +14,7 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D16 extends AocProblem {
+public final class D16 {
 
     public static final char START_CHAR = 'S';
     public static final char END_CHAR = 'E';

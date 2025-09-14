@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.graph.Edge;
@@ -14,7 +13,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public final class D23 extends AocProblem {
+public final class D23 {
 
     @AocProblemI(year = 2024, day = 23, part = 1)
     public Long partOneImpl(final ResourceLoader resourceLoader) {

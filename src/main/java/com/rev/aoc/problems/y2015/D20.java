@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 import com.rev.aoc.framework.problem.ResourceLoader;
@@ -9,7 +8,7 @@ import com.rev.aoc.util.math.ntheory.primes.SieveOfEratosthenes;
 
 import java.util.List;
 
-public final class D20 extends AocProblem {
+public final class D20 {
 
     //Costly initialization, so use the same sieve for both parts
     public static final int SIEVE_INITIAL_SEARCH = 1000;

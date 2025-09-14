@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 
@@ -10,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D04 extends AocProblem {
+public final class D04 {
 
     private final MessageDigest digest = MessageDigest.getInstance("MD5");
 

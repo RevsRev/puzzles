@@ -3,7 +3,6 @@ package com.rev.aoc.problems.y2015;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 
@@ -15,7 +14,7 @@ import java.util.regex.Pattern;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D12 extends AocProblem {
+public final class D12 {
 
     private static final Pattern NUMBER_REGEX = Pattern.compile("-?\\d+");
 

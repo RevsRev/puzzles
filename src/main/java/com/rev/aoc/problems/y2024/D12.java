@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 import com.rev.aoc.util.geom.Direction;
@@ -11,7 +10,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashSet;
 import java.util.Set;
 
-public final class D12 extends AocProblem {
+public final class D12 {
     private static final int[][] DIRS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
     @AocProblemI(year = 2024, day = 12, part = 1)

@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -13,7 +12,7 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D08 extends AocProblem {
+public final class D08 {
 
     public static final char EMPTY_CHAR = '.';
 

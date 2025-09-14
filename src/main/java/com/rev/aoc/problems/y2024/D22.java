@@ -1,7 +1,6 @@
 package com.rev.aoc.problems.y2024;
 
 import com.rev.aoc.framework.io.load.LoaderUtils;
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 
 import java.util.ArrayDeque;
@@ -14,7 +13,7 @@ import java.util.Set;
 
 import com.rev.aoc.framework.problem.ResourceLoader;
 
-public final class D22 extends AocProblem {
+public final class D22 {
     private static final int PRUNE_MOD = 1 << 24;
     private static final int PART_ONE_ITERATIONS = 2000;
 

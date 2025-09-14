@@ -1,12 +1,11 @@
 package com.rev.aoc.problems.y2024;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 
 import java.util.List;
 
-public final class D04 extends AocProblem {
+public final class D04 {
 
     private static final char[] XMAS = {'X', 'M', 'A', 'S'};
     private static final int[][] XMAS_STEPS = new int[][]{

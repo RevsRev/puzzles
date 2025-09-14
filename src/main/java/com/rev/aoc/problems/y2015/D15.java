@@ -1,6 +1,5 @@
 package com.rev.aoc.problems.y2015;
 
-import com.rev.aoc.framework.aoc.AocProblem;
 import com.rev.aoc.framework.aoc.AocProblemI;
 import com.rev.aoc.framework.problem.ResourceLoader;
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public final class D15 extends AocProblem {
+public final class D15 {
 
     private static final Pattern NUMBERS_PATTERN = Pattern.compile("-?\\d+");
     public static final int NO_CALORIE_RESTRICTION = -1;
