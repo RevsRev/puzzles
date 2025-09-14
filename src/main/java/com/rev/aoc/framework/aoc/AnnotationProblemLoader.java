@@ -5,29 +5,45 @@ import com.google.common.reflect.ClassPath;
 import com.rev.aoc.framework.ProblemEngine;
 import com.rev.aoc.framework.ProblemLoader;
 import com.rev.aoc.framework.problem.Problem;
+import com.rev.aoc.framework.problem.ProblemCoordinate;
 import com.rev.aoc.framework.problem.ProblemExecutionException;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.NavigableMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.function.Function;
 
-public final class AocProblemLoader implements ProblemLoader<AocCoordinate> {
+public final class AnnotationProblemLoader<A extends Annotation, C extends ProblemCoordinate<C>>
+        implements ProblemLoader<C> {
     private static final String AOC_PROBLEMS_PACKAGE = "com.rev.aoc.problems";
-    private final NavigableMap<AocCoordinate, Problem<?>> problems = loadProblems();
+
+    private final Class<A> annotationClazz;
+    private final Function<A, C> coordinateMapper;
+
+    public AnnotationProblemLoader(
+            final Class<A> annotationClazz,
+            final Function<A, C> coordinateMapper) {
+        this.annotationClazz = annotationClazz;
+        this.coordinateMapper = coordinateMapper;
+    }
+
 
     @Override
-    public SortedMap<AocCoordinate, Problem<?>> loadProblemsInRange(final AocCoordinate firstAocCoordinate,
-                                                                 final AocCoordinate secondAocCoordinate) {
+    public SortedMap<C, Problem<?>> loadProblemsInRange(final C firstAocCoordinate,
+                                                        final C secondAocCoordinate) {
+        final NavigableMap<C, Problem<?>> problems = loadProblems();
+
         if (problems.isEmpty()) {
             //TODO - Probably want some logging here!
             return null;
         }
 
-        AocCoordinate fromKey = firstAocCoordinate;
-        AocCoordinate toKey = secondAocCoordinate;
+        C fromKey = firstAocCoordinate;
+        C toKey = secondAocCoordinate;
         if (fromKey == null) {
             fromKey = problems.firstKey();
             if (toKey == null) {
@@ -41,27 +57,24 @@ public final class AocProblemLoader implements ProblemLoader<AocCoordinate> {
         return problems.subMap(fromKey, true, toKey, true);
     }
 
-    private NavigableMap<AocCoordinate, Problem<?>> loadProblems() {
+    private NavigableMap<C, Problem<?>> loadProblems() {
         try {
-            NavigableMap<AocCoordinate, Problem<?>> retval = new TreeMap<>(AocCoordinate::compareTo);
+            NavigableMap<C, Problem<?>> retval = new TreeMap<>(C::compareTo);
             ClassPath cp = ClassPath.from(ProblemEngine.class.getClassLoader());
             ImmutableSet<ClassPath.ClassInfo> allClasses = cp.getTopLevelClassesRecursive(AOC_PROBLEMS_PACKAGE);
             for (ClassPath.ClassInfo classInfo : allClasses) {
                 Class<?> clazz = classInfo.load();
                 for (Method method : clazz.getDeclaredMethods()) {
-                    AocProblemI annotation = method.getAnnotation(AocProblemI.class);
+                    final A annotation = method.getAnnotation(annotationClazz);
                     if (annotation != null) {
-                        AocCoordinate coordinate = new AocCoordinate(
-                                annotation.year(),
-                                annotation.day(),
-                                annotation.part());
+                        final C apply = coordinateMapper.apply(annotation);
 
                         Object instance = clazz.getConstructor().newInstance();
                         Problem<?> problem = (loader) -> {
                             try {
                                 return method.invoke(instance, loader);
                             } catch (IllegalAccessException e) {
-                                throw new RuntimeException(String.format("Could not load problem %s", coordinate), e);
+                                throw new RuntimeException(String.format("Could not load problem %s", apply), e);
                             } catch (InvocationTargetException e) {
                                 throw new ProblemExecutionException(
                                         "Execution of problem failed",
@@ -69,7 +82,7 @@ public final class AocProblemLoader implements ProblemLoader<AocCoordinate> {
                                 );
                             }
                         };
-                        retval.put(coordinate, problem);
+                        retval.put(apply, problem);
                     }
                 }
             }
@@ -78,6 +91,4 @@ public final class AocProblemLoader implements ProblemLoader<AocCoordinate> {
             return Collections.emptyNavigableMap();
         }
     }
-
-
 }

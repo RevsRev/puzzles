@@ -1,6 +1,7 @@
 package com.rev.aoc.problems;
 
-import com.rev.aoc.framework.aoc.AocProblemLoader;
+import com.rev.aoc.framework.aoc.AocProblemI;
+import com.rev.aoc.framework.aoc.AnnotationProblemLoader;
 import com.rev.aoc.framework.ProblemLoader;
 import com.rev.aoc.framework.aoc.AocCoordinate;
 import com.rev.aoc.framework.aoc.AocResourceLoader;
@@ -18,7 +19,15 @@ import java.util.SortedMap;
 
 public final class ProblemTest {
 
-    private static final ProblemLoader<AocCoordinate> LOADER = new AocProblemLoader();
+    private static final ProblemLoader<AocCoordinate> LOADER = new AnnotationProblemLoader<>(
+            AocProblemI.class,
+            problemI -> new AocCoordinate(
+                    problemI.year(),
+                    problemI.day(),
+                    problemI.part()
+            )
+    );
+
     private static final SortedMap<AocCoordinate, Problem<?>> ALL_PROBLEMS =
             LOADER.loadProblemsInRange(null, null);
 

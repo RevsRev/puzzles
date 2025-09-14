@@ -1,12 +1,13 @@
 package com.rev.aoc.framework.io.cli;
 
-import com.rev.aoc.framework.aoc.AocExecutor;
-import com.rev.aoc.framework.aoc.AocProblemLoader;
 import com.rev.aoc.framework.ExecutorListenerPrinter;
 import com.rev.aoc.framework.ProblemEngine;
 import com.rev.aoc.framework.ProblemExecutor;
 import com.rev.aoc.framework.ProblemLoader;
 import com.rev.aoc.framework.aoc.AocCoordinate;
+import com.rev.aoc.framework.aoc.AocExecutor;
+import com.rev.aoc.framework.aoc.AocProblemI;
+import com.rev.aoc.framework.aoc.AnnotationProblemLoader;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -71,7 +72,14 @@ public final class CliParser {
             final AocCoordinate firstAocCoordinate,
             final AocCoordinate secondAocCoordinate) {
 
-        final ProblemLoader<AocCoordinate> problemLoader = new AocProblemLoader();
+        final ProblemLoader<AocCoordinate> problemLoader = new AnnotationProblemLoader<>(
+                AocProblemI.class,
+                problemI -> new AocCoordinate(
+                        problemI.year(),
+                        problemI.day(),
+                        problemI.part()
+                )
+        );
         final ProblemExecutor<AocCoordinate> problemExecutor = new AocExecutor(new ExecutorListenerPrinter());
         final ProblemEngine<AocCoordinate> engine;
 
