@@ -7,6 +7,12 @@
     <groupId>com.rev.aoc</groupId>
     <artifactId>advent-of-code</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>aoc</module>
+        <module>framework</module>
+        <module>app</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -21,6 +27,8 @@
         <guava.version>33.2.1-jre</guava.version>
         <jgrapht.version>1.5.2</jgrapht.version>
         <jackson.version>2.19.0</jackson.version>
+        <maven-checkstyle-plugin.config-location>${project.basedir}/checkstyle.xml
+        </maven-checkstyle-plugin.config-location>
     </properties>
 
     <dependencies>
@@ -93,7 +101,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${maven-checkstyle-plugin.version}</version>
                 <configuration>
-                    <configLocation>${project.basedir}/checkstyle.xml</configLocation>
+                    <configLocation>${maven-checkstyle-plugin.config-location}</configLocation>
                 </configuration>
                 <executions>
                     <execution>
