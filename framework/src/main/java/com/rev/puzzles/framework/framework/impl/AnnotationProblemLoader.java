@@ -1,8 +1,7 @@
-package com.rev.puzzles.aoc.framework;
+package com.rev.puzzles.framework.framework.impl;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
-import com.rev.puzzles.framework.framework.impl.DefaultProblemEngine;
 import com.rev.puzzles.framework.framework.ProblemLoader;
 import com.rev.puzzles.framework.framework.problem.Problem;
 import com.rev.puzzles.framework.framework.problem.ProblemCoordinate;

@@ -1,6 +1,6 @@
 package com.rev.puzzles.aoc.framework.parse;
 
-import com.rev.puzzles.aoc.framework.AnnotationProblemLoader;
+import com.rev.puzzles.framework.framework.impl.AnnotationProblemLoader;
 import com.rev.puzzles.aoc.framework.AocCoordinate;
 import com.rev.puzzles.aoc.framework.AocExecutionListenerPrinter;
 import com.rev.puzzles.aoc.framework.AocExecutor;
