@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D01 {
 
@@ -11,7 +11,7 @@ public final class D01 {
     public static final int BASEMENT = -1;
 
     @AocProblemI(year = 2015, day = 1, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         String input = resourceLoader.resources().get(0);
         long floor = 0;
         for (int i = 0; i < input.length(); i++) {
@@ -25,7 +25,7 @@ public final class D01 {
     }
 
     @AocProblemI(year = 2015, day = 1, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         String input = resourceLoader.resources().get(0);
         long floor = 0;
         for (int i = 0; i < input.length(); i++) {

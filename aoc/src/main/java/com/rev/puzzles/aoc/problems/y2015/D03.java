@@ -6,7 +6,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D03 {
 
@@ -17,7 +17,7 @@ public final class D03 {
     public static final int BASEMENT = -1;
 
     @AocProblemI(year = 2015, day = 3, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         String input = resourceLoader.resources().get(0);
         long x = 0;
         long y = 0;
@@ -39,7 +39,7 @@ public final class D03 {
     }
 
     @AocProblemI(year = 2015, day = 3, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         String input = resourceLoader.resources().get(0);
         long x = 0;
         long y = 0;

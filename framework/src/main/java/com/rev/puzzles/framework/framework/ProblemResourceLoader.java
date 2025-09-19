@@ -2,6 +2,6 @@ package com.rev.puzzles.framework.framework;
 
 import java.util.List;
 
-public interface ResourceLoader {
+public interface ProblemResourceLoader {
     List<String> resources();
 }

@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.List;
 
@@ -22,13 +22,13 @@ public final class D04 {
     };
 
     @AocProblemI(year = 2024, day = 4, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         char[][] wordSearch = loadWordSearch(resourceLoader);
         return countXmas(wordSearch);
     }
 
     @AocProblemI(year = 2024, day = 4, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         char[][] wordSearch = loadWordSearch(resourceLoader);
         return countXmasSquares(wordSearch);
     }
@@ -128,7 +128,7 @@ public final class D04 {
         return false;
     }
 
-    private char[][] loadWordSearch(final ResourceLoader resourceLoader) {
+    private char[][] loadWordSearch(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         char[][] wordSearch = new char[lines.size()][];
         for (int i = 0; i < lines.size(); i++) {

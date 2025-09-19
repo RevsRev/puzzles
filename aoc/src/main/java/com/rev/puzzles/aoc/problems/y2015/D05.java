@@ -5,7 +5,7 @@ import com.rev.puzzles.aoc.framework.AocProblemI;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D05 {
 
@@ -22,7 +22,7 @@ public final class D05 {
     private static final Pattern SANDWICH_PATTERN = Pattern.compile(SANDWICH_REGEX);
 
     @AocProblemI(year = 2015, day = 5, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         long count = 0;
         for (String line : lines) {
@@ -36,7 +36,7 @@ public final class D05 {
     }
 
     @AocProblemI(year = 2015, day = 5, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         long count = 0;
         for (String line : lines) {

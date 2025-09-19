@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.arr.ArrayUtils;
 import com.rev.puzzles.framework.util.search.BinarySolutionSearch;
 import com.rev.puzzles.framework.util.set.SetUtils;
@@ -13,7 +13,7 @@ import java.util.List;
 public final class D24 {
 
     @AocProblemI(year = 2015, day = 24, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         final Long[] packages = loadPackages(resourceLoader);
         long target = ArrayUtils.sum(packages) / 3;
         final SetUtils.Constraint<Long> constraint = new SetUtils.Constraint<>(
@@ -52,7 +52,7 @@ public final class D24 {
     }
 
     @AocProblemI(year = 2015, day = 24, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         final Long[] packages = loadPackages(resourceLoader);
         long target = ArrayUtils.sum(packages) / 4;
         final SetUtils.Constraint<Long> constraint = new SetUtils.Constraint<>(
@@ -97,7 +97,7 @@ public final class D24 {
         return minQuantumEntanglement;
     }
 
-    private Long[] loadPackages(final ResourceLoader resourceLoader) {
+    private Long[] loadPackages(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         Long[] packages = new Long[lines.size()];
         for (int i = 0; i < lines.size(); i++) {

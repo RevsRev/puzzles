@@ -9,12 +9,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D02 {
 
     @AocProblemI(year = 2023, day = 2, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
 
         Map<Integer, List<Handful>> gameHandfulMap = parseToGameMap(lines);
@@ -28,7 +28,7 @@ public final class D02 {
     }
 
     @AocProblemI(year = 2023, day = 2, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         return 0L;
     }
 

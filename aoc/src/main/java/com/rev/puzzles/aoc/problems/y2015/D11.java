@@ -4,14 +4,14 @@ import com.rev.puzzles.aoc.framework.AocProblemI;
 
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D11 {
 
     public static final int PART_TWO_ITERATIONS = 2;
 
     @AocProblemI(year = 2015, day = 11, part = 1)
-    public String partOneImpl(final ResourceLoader resourceLoader) {
+    public String partOneImpl(final ProblemResourceLoader resourceLoader) {
         char[] password = resourceLoader.resources().get(0).toCharArray();
         do {
             countUp(password, 'a', 'z');
@@ -21,7 +21,7 @@ public final class D11 {
 
     @AocProblemI(year = 2015, day = 11, part = 1)
     @SuppressWarnings("checkstyle:MagicNumber")
-    public String partTwoImpl(final ResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
         char[] password = resourceLoader.resources().get(0).toCharArray();
         for (int i = 0; i < PART_TWO_ITERATIONS; i++) {
             do {

@@ -5,12 +5,12 @@ import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 
 import java.util.List;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D02 {
 
     @AocProblemI(year = 2016, day = 2, part = 1)
-    public Integer partOneImpl(final ResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<String> instructions = resourceLoader.resources();
         int[][] keypad = getKeypad();
 
@@ -47,7 +47,7 @@ public final class D02 {
     }
 
     @AocProblemI(year = 2016, day = 2, part = 2)
-    public String partTwoImpl(final ResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<String> instructions = resourceLoader.resources();
         char[][] keypad = getKeypadPart2();
 

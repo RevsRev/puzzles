@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,16 +29,16 @@ public final class D22 {
     public static final int STARTING_MANA = 500;
 
     @AocProblemI(year = 2015, day = 22, part = 1)
-    public Integer partOneImpl(final ResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ProblemResourceLoader resourceLoader) {
         return solve(resourceLoader, false);
     }
 
     @AocProblemI(year = 2015, day = 22, part = 2)
-    public Integer partTwoImpl(final ResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ProblemResourceLoader resourceLoader) {
         return solve(resourceLoader, true);
     }
 
-    private int solve(final ResourceLoader resourceLoader, boolean hardMode) {
+    private int solve(final ProblemResourceLoader resourceLoader, boolean hardMode) {
         PriorityQueue<GameState> heap = new PriorityQueue<>(Comparator.comparingInt(GameState::getPlayerSpentMana));
         heap.add(loadGameState(resourceLoader));
 
@@ -83,7 +83,7 @@ public final class D22 {
         throw new ProblemExecutionException("Solution not found");
     }
 
-    private GameState loadGameState(final ResourceLoader resourceLoader) {
+    private GameState loadGameState(final ProblemResourceLoader resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         final Map<String, Integer> attributes = new HashMap<>();
         for (final String line : lines) {

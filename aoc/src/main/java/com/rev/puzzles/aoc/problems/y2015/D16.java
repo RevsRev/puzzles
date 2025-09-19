@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,18 +19,18 @@ public final class D16 {
     private static final Pattern SUE_REGEX = Pattern.compile("^Sue \\d+:");
 
     @AocProblemI(year = 2015, day = 16, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         final BiFunction<Sue, Sue, Boolean> matcher = partOneSueMatcher();
         return findSue(resourceLoader, matcher);
     }
 
     @AocProblemI(year = 2015, day = 16, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         final BiFunction<Sue, Sue, Boolean> matcher = partTwoMatcher();
         return findSue(resourceLoader, matcher);
     }
 
-    private long findSue(final ResourceLoader resourceLoader, final BiFunction<Sue, Sue, Boolean> matcher) {
+    private long findSue(final ProblemResourceLoader resourceLoader, final BiFunction<Sue, Sue, Boolean> matcher) {
         final List<Sue> sues = loadIndexedIdentifiers(resourceLoader);
 
         final Sue key = new Sue();
@@ -87,7 +87,7 @@ public final class D16 {
                         && (s1.perfumes == UNKNOWN || s2.perfumes == UNKNOWN || s1.perfumes == s2.perfumes);
     }
 
-    private List<Sue> loadIndexedIdentifiers(final ResourceLoader resourceLoader) {
+    private List<Sue> loadIndexedIdentifiers(final ProblemResourceLoader resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         final List<Sue> sues = new ArrayList<>(lines.size());
 

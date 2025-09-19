@@ -11,14 +11,14 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D22 {
     private static final int PRUNE_MOD = 1 << 24;
     private static final int PART_ONE_ITERATIONS = 2000;
 
     @AocProblemI(year = 2024, day = 22, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});
 
@@ -30,7 +30,7 @@ public final class D22 {
     }
 
     @AocProblemI(year = 2024, day = 22, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});
 

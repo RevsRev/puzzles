@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D10 {
 
@@ -10,17 +10,17 @@ public final class D10 {
     private static final int PART_TWO_ITERATIONS = 50;
 
     @AocProblemI(year = 2015, day = 10, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         return solve(resourceLoader, PART_ONE_ITERATIONS);
     }
 
     @AocProblemI(year = 2015, day = 10, part = 1)
     @SuppressWarnings("checkstyle:MagicNumber")
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         return solve(resourceLoader, PART_TWO_ITERATIONS);
     }
 
-    private long solve(final ResourceLoader resourceLoader, final int totalIterations) {
+    private long solve(final ProblemResourceLoader resourceLoader, final int totalIterations) {
         final String seed = resourceLoader.resources().get(0);
         final StringBuilder sb = new StringBuilder(seed);
 

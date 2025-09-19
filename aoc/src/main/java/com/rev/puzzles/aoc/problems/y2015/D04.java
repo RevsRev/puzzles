@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D04 {
 
@@ -17,7 +17,7 @@ public final class D04 {
     }
 
     @AocProblemI(year = 2015, day = 4, part = 1)
-    public String partOneImpl(final ResourceLoader resourceLoader) {
+    public String partOneImpl(final ProblemResourceLoader resourceLoader) {
         final String input = resourceLoader.resources().get(0);
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
             final String check = input + i;
@@ -31,7 +31,7 @@ public final class D04 {
     }
 
     @AocProblemI(year = 2015, day = 4, part = 2)
-    public String partTwoImpl(final ResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
         final String input = resourceLoader.resources().get(0);
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
             final String check = input + i;

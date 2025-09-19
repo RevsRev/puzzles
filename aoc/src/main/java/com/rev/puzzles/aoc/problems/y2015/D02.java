@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public final class D02 {
 
 
     @AocProblemI(year = 2015, day = 2, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<Box> boxes = parseBoxes(resourceLoader.resources());
         long areaNeeded = 0;
         for (Box b : boxes) {
@@ -22,7 +22,7 @@ public final class D02 {
     }
 
     @AocProblemI(year = 2015, day = 2, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<Box> boxes = parseBoxes(resourceLoader.resources());
         long ribbonNeeded = 0;
         for (Box b : boxes) {

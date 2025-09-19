@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Comparator;
@@ -22,7 +22,7 @@ public final class D19 {
     public static final int NOT_FOUND = -1;
 
     @AocProblemI(year = 2015, day = 19, part = 1)
-    public Integer partOneImpl(final ResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ProblemResourceLoader resourceLoader) {
         Pair<String, Map<String, Set<String>>> inputAndReplacements = inputAndReplacements(resourceLoader);
         final String molecule = inputAndReplacements.getLeft();
         final Map<String, Set<String>> replacements = inputAndReplacements.getRight();
@@ -58,7 +58,7 @@ public final class D19 {
     }
 
     @AocProblemI(year = 2015, day = 19, part = 2)
-    public Integer partTwoImpl(final ResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ProblemResourceLoader resourceLoader) {
         final Pair<String, Map<String, Set<String>>> inputsAndReplacements = inputAndReplacements(resourceLoader);
         final String molecule = inputsAndReplacements.getLeft();
         final Map<String, Set<String>> formulae = inputsAndReplacements.getRight();
@@ -110,7 +110,7 @@ public final class D19 {
         return NOT_FOUND;
     }
 
-    private Pair<String, Map<String, Set<String>>> inputAndReplacements(final ResourceLoader resourceLoader) {
+    private Pair<String, Map<String, Set<String>>> inputAndReplacements(final ProblemResourceLoader resourceLoader) {
         final List<String> lines = resourceLoader.resources();
 
         final Map<String, Set<String>> replacements = new HashMap<>();

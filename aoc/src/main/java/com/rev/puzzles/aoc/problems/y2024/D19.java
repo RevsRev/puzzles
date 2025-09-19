@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D19 {
 
@@ -17,7 +17,7 @@ public final class D19 {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 19, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<String> strings = resourceLoader.resources();
         Set<String>[] regexes = LoaderUtils.emptyArray(new HashSet[0], 100, () -> new HashSet());
 
@@ -54,7 +54,7 @@ public final class D19 {
     }
 
     @AocProblemI(year = 2024, day = 19, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<String> strings = resourceLoader.resources();
         Set<String>[] regexes = LoaderUtils.emptyArray(new HashSet[0], REGEX_MAX_LENGTH, () -> new HashSet());
 

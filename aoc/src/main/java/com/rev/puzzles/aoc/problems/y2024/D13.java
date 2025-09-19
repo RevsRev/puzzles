@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.math.linalg.matrix.Mat2;
 import com.rev.puzzles.framework.util.math.linalg.vec.Vec2;
 import com.rev.puzzles.framework.util.math.ntheory.eq.SimultaneousSolver;
@@ -17,13 +17,13 @@ public final class D13 {
     public static final long PART_TWO_ERROR = 10000000000000L;
 
     @AocProblemI(year = 2024, day = 13, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<SimultaneousSolver> solvers = loadSolvers(resourceLoader, false);
         return computeCost(solvers, D13::validResultPartOne);
     }
 
     @AocProblemI(year = 2024, day = 13, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<SimultaneousSolver> solvers = loadSolvers(resourceLoader, true);
         return computeCost(solvers, D13::validResultPartTwo);
     }
@@ -54,7 +54,7 @@ public final class D13 {
         return Math.abs(x - Math.round(x)) < EPSILON;
     }
 
-    private List<SimultaneousSolver> loadSolvers(final ResourceLoader resourceLoader, boolean partTwo) {
+    private List<SimultaneousSolver> loadSolvers(final ProblemResourceLoader resourceLoader, boolean partTwo) {
         List<String> lines = resourceLoader.resources();
         long amountExtra = partTwo ? PART_TWO_ERROR : 0;
         List<SimultaneousSolver> retval = new ArrayList<>(lines.size() / 3);

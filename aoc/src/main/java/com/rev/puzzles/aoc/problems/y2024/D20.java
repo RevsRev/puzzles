@@ -11,20 +11,20 @@ import java.util.NavigableMap;
 import java.util.Queue;
 import java.util.TreeMap;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D20 {
 
     public static final int SAVE_THRESHOLD = 100;
 
     @AocProblemI(year = 2024, day = 20, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         return solvePartOne(chars, 2);
     }
 
     @AocProblemI(year = 2024, day = 20, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         return solvePartOne(chars, 20);
     }

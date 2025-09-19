@@ -6,7 +6,7 @@ import com.rev.puzzles.framework.util.emu.Cpu;
 
 import java.util.List;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D23 {
 
@@ -18,7 +18,7 @@ public final class D23 {
     private static final String JIO = "jio";
 
     @AocProblemI(year = 2015, day = 23, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         final List<String> cpuInstructions = resourceLoader.resources();
         final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);
         cpu.run();
@@ -26,7 +26,7 @@ public final class D23 {
     }
 
     @AocProblemI(year = 2015, day = 23, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         final List<String> cpuInstructions = resourceLoader.resources();
         final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);
         cpu.writeRegister("a", 1);

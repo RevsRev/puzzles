@@ -6,14 +6,14 @@ import com.rev.puzzles.framework.util.set.Buckets;
 import java.util.List;
 import java.util.function.Consumer;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D17 {
 
     private static final long TARGET = 150;
 
     @AocProblemI(year = 2015, day = 17, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<String> strings = resourceLoader.resources();
         final long[] buckets = new long[strings.size()];
         for (int i = 0; i < strings.size(); i++) {
@@ -23,7 +23,7 @@ public final class D17 {
     }
 
     @AocProblemI(year = 2015, day = 17, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<String> strings = resourceLoader.resources();
         final long[] buckets = new long[strings.size()];
         for (int i = 0; i < strings.size(); i++) {

@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D18 {
 
@@ -22,7 +22,7 @@ public final class D18 {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 18, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         int[] ints = LoaderUtils.linesToIntArray(resourceLoader.resources(), s -> s.split(","));
         int limit = 1024;
         final Map<Pair<Integer, Integer>, Integer> visited = getVisited(limit, ints);
@@ -31,7 +31,7 @@ public final class D18 {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 18, part = 2)
-    public String partTwoImpl(final ResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
         int[] ints = LoaderUtils.linesToIntArray(resourceLoader.resources(), s -> s.split(","));
         int start = 1025;
         final Map<Pair<Integer, Integer>, Integer> visited = new HashMap<>();

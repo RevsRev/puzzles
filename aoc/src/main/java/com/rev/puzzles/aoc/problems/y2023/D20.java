@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2023;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.aoc.framework.AocVisualisation;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.vis.GraphVisualiser;
 import com.rev.puzzles.framework.vis.VisualisationException;
 import lombok.Getter;
@@ -33,7 +33,7 @@ public final class D20 {
     public static final String RX = "rx";
 
     @AocProblemI(year = 2023, day = 20, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<String> strings = resourceLoader.resources();
         Map<String, Module> modules = parseToModules(strings);
 
@@ -49,7 +49,7 @@ public final class D20 {
     }
 
     @AocProblemI(year = 2023, day = 20, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
 //        List<String> strings = resourceLoader.resource();
 //        Map<String, Module> modules = parseToModules(strings);
 //        Module rx = modules.get(RX);
@@ -67,7 +67,7 @@ public final class D20 {
     }
 
     @AocVisualisation(year = 2023, day = 20, part = 1)
-    public void visualiseProblem(final ResourceLoader resourceLoader) throws VisualisationException {
+    public void visualiseProblem(final ProblemResourceLoader resourceLoader) throws VisualisationException {
         List<String> strings = resourceLoader.resources();
         Map<String, Module> modules = parseToModules(strings);
         Graph<Module, DefaultEdge> graph = asGraph(modules);

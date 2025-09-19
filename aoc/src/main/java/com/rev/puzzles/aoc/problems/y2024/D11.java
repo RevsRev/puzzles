@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.math.ntheory.util.Pow;
 
 import java.util.ArrayList;
@@ -14,13 +14,13 @@ public final class D11 {
     public static final int PART_TWO_ITERATIONS = 75;
 
     @AocProblemI(year = 2024, day = 11, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         long[] stones = loadResourcesAsLongArray(resourceLoader);
         return countStones(stones, PART_ONE_ITERATIONS);
     }
 
     @AocProblemI(year = 2024, day = 11, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         long[] stones = loadResourcesAsLongArray(resourceLoader);
         return countStones(stones, PART_TWO_ITERATIONS);
     }
@@ -80,7 +80,7 @@ public final class D11 {
         return countStonesAfterBlinks(nextInput, numBlinks - 1);
     }
 
-    public long[] loadResourcesAsLongArray(final ResourceLoader resourceLoader) {
+    public long[] loadResourcesAsLongArray(final ProblemResourceLoader resourceLoader) {
         String separatorRegex = "\\s+";
         List<String> lines = resourceLoader.resources();
         List<String[]> linesSplit = new ArrayList<>(lines.size());

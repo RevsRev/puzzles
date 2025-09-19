@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ public final class D14 {
     public static final int RACE_DURATION = 2503;
 
     @AocProblemI(year = 2015, day = 14, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<Reindeer> reindeer = loadReindeer(resourceLoader);
         long winningDistance = 0;
         for (Reindeer r : reindeer) {
@@ -32,7 +32,7 @@ public final class D14 {
     }
 
     @AocProblemI(year = 2015, day = 14, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<Reindeer> reindeer = loadReindeer(resourceLoader);
         final Map<String, Long> scores = new HashMap<>();
         reindeer.forEach(r -> scores.putIfAbsent(r.name, 0L));
@@ -59,7 +59,7 @@ public final class D14 {
         return scores.values().stream().max(Long::compare).orElseThrow();
     }
 
-    private List<Reindeer> loadReindeer(final ResourceLoader resourceLoader) {
+    private List<Reindeer> loadReindeer(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         final List<Reindeer> reindeer = new ArrayList<>(lines.size());
         for (final String line : lines) {

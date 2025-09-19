@@ -11,7 +11,7 @@ import java.util.Set;
 
 import static com.rev.puzzles.framework.util.geom.Direction.UP;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D06 {
 
@@ -33,7 +33,7 @@ public final class D06 {
     private static final int NEW_OBSTACLE_INT = NEW_OBSTACLE_CHAR;
 
     @AocProblemI(year = 2024, day = 6, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         try {
             int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(),
                     s -> s.split(""),
@@ -53,7 +53,7 @@ public final class D06 {
     }
 
     @AocProblemI(year = 2024, day = 6, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         try {
             int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(),
                     s -> s.split(""),

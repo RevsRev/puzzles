@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
 public final class D02 {
 
     @AocProblemI(year = 2024, day = 2, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         Integer[][] reports = parseReports(resourceLoader);
         List<Integer[]> safeReports = new ArrayList<>();
         getSafeReportsNoDampening(reports, safeReports, new ArrayList<>());
@@ -18,7 +18,7 @@ public final class D02 {
     }
 
     @AocProblemI(year = 2024, day = 2, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         Integer[][] reports = parseReports(resourceLoader);
         List<Integer[]> safeReports = new ArrayList<>();
         List<Integer[]> unsafeReports = new ArrayList<>();
@@ -84,7 +84,7 @@ public final class D02 {
         return true;
     }
 
-    private Integer[][] parseReports(final ResourceLoader resourceLoader) {
+    private Integer[][] parseReports(final ProblemResourceLoader resourceLoader) {
         List<String> fileLines = resourceLoader.resources();
         Integer[][] retval = new Integer[fileLines.size()][];
         for (int i = 0; i < fileLines.size(); i++) {

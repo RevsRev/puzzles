@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.graph.Edge;
 import com.rev.puzzles.framework.util.graph.Graph;
 import com.rev.puzzles.framework.util.graph.Vertex;
@@ -16,7 +16,7 @@ import java.util.List;
 public final class D23 {
 
     @AocProblemI(year = 2024, day = 23, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph(resourceLoader);
         Collection<Graph<Vertex, Edge>> subGraphsOfSize3 = SubGraphs.getConnectedSubgraphsOfSize3(graph);
         long count = 0;
@@ -32,7 +32,7 @@ public final class D23 {
     }
 
     @AocProblemI(year = 2024, day = 23, part = 2)
-    public String partTwoImpl(final ResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph(resourceLoader);
         Collection<Graph<Vertex, Edge>> cliques = Cliques.getCliques(graph);
         long largestCliqueSize = 0;
@@ -50,7 +50,7 @@ public final class D23 {
         return String.join(",", nodeNames);
     }
 
-    private Graph<Vertex, Edge> loadResourcesAsGraph(final ResourceLoader resourceLoader) {
+    private Graph<Vertex, Edge> loadResourcesAsGraph(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         return Graph.fromResources(lines, (s, b) -> {
             String[] split = s.split("-");

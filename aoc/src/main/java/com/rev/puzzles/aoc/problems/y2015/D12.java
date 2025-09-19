@@ -12,14 +12,14 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D12 {
 
     private static final Pattern NUMBER_REGEX = Pattern.compile("-?\\d+");
 
     @AocProblemI(year = 2015, day = 12, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         final String json = resourceLoader.resources().get(0);
         Matcher matcher = NUMBER_REGEX.matcher(json);
         long sum = 0;
@@ -32,7 +32,7 @@ public final class D12 {
 
     @AocProblemI(year = 2015, day = 12, part = 1)
     @SuppressWarnings("checkstyle:MagicNumber")
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         final String json = resourceLoader.resources().get(0);
         JsonMapper jm = new JsonMapper();
         try {

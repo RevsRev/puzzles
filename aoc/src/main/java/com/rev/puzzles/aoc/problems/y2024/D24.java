@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.aoc.framework.AocVisualisation;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.vis.GraphVisualiser;
 import com.rev.puzzles.framework.vis.VisualisationException;
 import org.jgrapht.Graph;
@@ -24,7 +24,7 @@ public final class D24 {
     private static final long BIT_FLAG = 1;
 
     @AocProblemI(year = 2024, day = 24, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         TreeMap<String, Long> registerValues = new TreeMap<>();
         int start = 0;
@@ -83,13 +83,13 @@ public final class D24 {
     }
 
     @AocProblemI(year = 2024, day = 24, part = 2)
-    public String partTwoImpl(final ResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
 
         return "cqk,fph,gds,jrs,wrk,z15,z21,z34";
     }
 
     @AocVisualisation(year = 2024, day = 24, part = 1)
-    public void visualiseProblem(final ResourceLoader resourceLoader) throws VisualisationException {
+    public void visualiseProblem(final ProblemResourceLoader resourceLoader) throws VisualisationException {
 
         Graph<String, DefaultEdge> graph = new DefaultDirectedGraph<>(DefaultEdge.class);
 

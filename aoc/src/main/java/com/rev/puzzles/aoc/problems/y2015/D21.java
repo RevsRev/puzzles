@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.set.SetUtils;
 
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import java.util.TreeMap;
 public final class D21 {
 
     @AocProblemI(year = 2015, day = 21, part = 1)
-    public Integer partOneImpl(final ResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ProblemResourceLoader resourceLoader) {
         final Player boss = loadBoss(resourceLoader);
         final List<Attributes> weapons = loadWeapons();
         final List<Attributes> armors = loadArmors();
@@ -35,7 +35,7 @@ public final class D21 {
     }
 
     @AocProblemI(year = 2015, day = 21, part = 2)
-    public Integer partTwoImpl(final ResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ProblemResourceLoader resourceLoader) {
         final Player boss = loadBoss(resourceLoader);
         final List<Attributes> weapons = loadWeapons();
         final List<Attributes> armors = loadArmors();
@@ -173,7 +173,7 @@ public final class D21 {
         );
     }
 
-    private Player loadBoss(final ResourceLoader resourceLoader) {
+    private Player loadBoss(final ProblemResourceLoader resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         final Map<String, Integer> attributes = new HashMap<>();
         for (final String line : lines) {

@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.geom.PointRectangle;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -21,7 +21,7 @@ public final class D06 {
     private static final int TOGGLE = 2;
 
     @AocProblemI(year = 2015, day = 6, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(resourceLoader.resources());
 
         long count = 0;
@@ -59,7 +59,7 @@ public final class D06 {
     }
 
     @AocProblemI(year = 2015, day = 6, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(resourceLoader.resources());
 
         long totalBrightness = 0;

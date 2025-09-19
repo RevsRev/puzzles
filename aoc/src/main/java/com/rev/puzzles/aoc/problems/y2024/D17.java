@@ -4,7 +4,7 @@ import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.aoc.framework.AocVisualisation;
 import com.rev.puzzles.framework.framework.io.display.Printer;
 import com.rev.puzzles.framework.framework.io.display.format.ColumnFormatter;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.vis.VisualisationException;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -36,7 +36,7 @@ public final class D17 {
     public static final int UNSOLVED_RETURN_VAL = -1;
 
     @AocProblemI(year = 2024, day = 17, part = 1)
-    public String partOneImpl(final ResourceLoader resourceLoader) {
+    public String partOneImpl(final ProblemResourceLoader resourceLoader) {
         Computer comp = loadResourcesAsComputer(resourceLoader);
         final StringBuilder sb = new StringBuilder();
         comp.listener = i -> sb.append(i).append(",");
@@ -46,7 +46,7 @@ public final class D17 {
     }
 
     @AocProblemI(year = 2024, day = 17, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         Computer comp = loadResourcesAsComputer(resourceLoader);
         InputChecker checker = new InputChecker(comp.program);
         checker.check(comp.program.length - 1, 0, 0);
@@ -157,7 +157,7 @@ public final class D17 {
     }
 
     @AocVisualisation(year = 2024, day = 17, part = 1)
-    public void visualiseProblem(final ResourceLoader resourceLoader) throws VisualisationException {
+    public void visualiseProblem(final ProblemResourceLoader resourceLoader) throws VisualisationException {
         Computer comp = loadResourcesAsComputer(resourceLoader);
         Scanner scanner = new Scanner(System.in);
         String next = null;
@@ -188,7 +188,7 @@ public final class D17 {
         return target;
     }
 
-    private Computer loadResourcesAsComputer(final ResourceLoader resourceLoader) {
+    private Computer loadResourcesAsComputer(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         int registerA = Integer.parseInt(lines.get(0)
                 .trim().replaceAll("\\s+", "").replaceAll("RegisterA:", ""));

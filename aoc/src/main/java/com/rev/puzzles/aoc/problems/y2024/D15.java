@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public final class D15 {
     }};
 
     @AocProblemI(year = 2024, day = 15, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves(resourceLoader);
         char[][] warehouse = warehouseAndRobotMoves.getLeft();
         char[] moves = warehouseAndRobotMoves.getRight();
@@ -62,7 +62,7 @@ public final class D15 {
     }
 
     @AocProblemI(year = 2024, day = 15, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         Pair<char[][], char[]> warehouseAndRobotMoves = loadCoordinatesAndMoves(resourceLoader);
         char[][] warehouse = expand(warehouseAndRobotMoves.getLeft());
         char[] moves = warehouseAndRobotMoves.getRight();
@@ -179,7 +179,7 @@ public final class D15 {
         return null;
     }
 
-    private Pair<char[][], char[]> loadCoordinatesAndMoves(final ResourceLoader resourceLoader) {
+    private Pair<char[][], char[]> loadCoordinatesAndMoves(final ProblemResourceLoader resourceLoader) {
         List<String> strings = resourceLoader.resources();
         int blankLineIndex = 0;
         while (blankLineIndex < strings.size() && !strings.get(blankLineIndex).trim().matches("")) {

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D21 {
 
@@ -34,7 +34,7 @@ public final class D21 {
     private static final int PART_TWO_DEPTH = 26;
 
     @AocProblemI(year = 2024, day = 21, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<String> codes = resourceLoader.resources();
         long totalComplexity = 0;
         for (String code : codes) {
@@ -45,7 +45,7 @@ public final class D21 {
     }
 
     @AocProblemI(year = 2024, day = 21, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<String> codes = resourceLoader.resources();
         long totalComplexity = 0;
         for (String code : codes) {

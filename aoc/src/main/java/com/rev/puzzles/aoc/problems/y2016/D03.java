@@ -5,12 +5,12 @@ import com.rev.puzzles.framework.util.geom.Triangle;
 
 import java.util.List;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D03 {
 
     @AocProblemI(year = 2016, day = 3, part = 1)
-    public Integer partOneImpl(final ResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ProblemResourceLoader resourceLoader) {
         int count = 0;
         List<String> maybeTriangles = resourceLoader.resources();
         for (final String maybeTriangle : maybeTriangles) {
@@ -26,7 +26,7 @@ public final class D03 {
     }
 
     @AocProblemI(year = 2016, day = 3, part = 2)
-    public Integer partTwoImpl(final ResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ProblemResourceLoader resourceLoader) {
         int count = 0;
         List<String> maybeTriangles = resourceLoader.resources();
         for (int i = 0; i < maybeTriangles.size(); i += 3) {

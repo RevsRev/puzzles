@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.graph.Edge;
 import com.rev.puzzles.framework.util.graph.Graph;
 import com.rev.puzzles.framework.util.graph.Vertex;
@@ -15,19 +15,19 @@ public final class D09 {
     private static final String START = "START";
 
     @AocProblemI(year = 2015, day = 9, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         final Graph<Vertex, Edge> graph = loadGraph(resourceLoader, false);
         return TravellingSalesman.heldKarp(graph);
     }
 
     @AocProblemI(year = 2015, day = 9, part = 2)
     @SuppressWarnings("checkstyle:MagicNumber")
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         final Graph<Vertex, Edge> graph = loadGraph(resourceLoader, true);
         return -1 * TravellingSalesman.heldKarp(graph);
     }
 
-    private Graph<Vertex, Edge> loadGraph(final ResourceLoader resourceLoader, final boolean negate) {
+    private Graph<Vertex, Edge> loadGraph(final ProblemResourceLoader resourceLoader, final boolean negate) {
         final Graph.Builder<Vertex, Edge> builder = Graph.fromResources(
                 resourceLoader.resources(),
                 getLineProcessor(negate));

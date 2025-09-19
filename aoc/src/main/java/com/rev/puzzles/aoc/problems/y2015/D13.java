@@ -11,7 +11,7 @@ import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D13 {
 
@@ -21,7 +21,7 @@ public final class D13 {
 
     @AocProblemI(year = 2015, day = 13, part = 1)
     @SuppressWarnings("checkstyle:MagicNumber")
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         Graph<Vertex, Edge> directedHappinessGraph = Graph.fromResources(
                         resourceLoader.resources(),
                         getLineProcessor(),
@@ -42,7 +42,7 @@ public final class D13 {
 
     @AocProblemI(year = 2015, day = 13, part = 1)
     @SuppressWarnings("checkstyle:MagicNumber")
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         Graph.Builder<Vertex, Edge> directedHappinessGraphBuilder = Graph.fromResources(
                 resourceLoader.resources(),
                 getLineProcessor(),

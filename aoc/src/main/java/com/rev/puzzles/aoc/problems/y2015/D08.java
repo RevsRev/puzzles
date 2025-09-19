@@ -8,14 +8,14 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D08 {
 
     private static final Pattern ESCAPE = Pattern.compile("\\\\");
 
     @AocProblemI(year = 2015, day = 8, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         long total = 0;
         for (String s : lines) {
@@ -27,7 +27,7 @@ public final class D08 {
     }
 
     @AocProblemI(year = 2015, day = 8, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         long total = 0;
         for (String s : lines) {

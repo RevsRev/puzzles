@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D08 {
 
     public static final char EMPTY_CHAR = '.';
 
     @AocProblemI(year = 2024, day = 8, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         int height = grid.length;
         int width = grid[0].length;
@@ -33,7 +33,7 @@ public final class D08 {
     }
 
     @AocProblemI(year = 2024, day = 8, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         int height = grid.length;
         int width = grid[0].length;

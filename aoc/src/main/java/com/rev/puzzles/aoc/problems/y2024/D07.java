@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.function.BiFunction;
 public final class D07 {
 
     @AocProblemI(year = 2024, day = 7, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         long[][] targetAndInputs = loadTargetAndInputs(resourceLoader);
         List<BiFunction<Long, Long, Long>> funcs = funcs(false);
 
@@ -24,7 +24,7 @@ public final class D07 {
     }
 
     @AocProblemI(year = 2024, day = 7, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         long[][] targetAndInputs = loadTargetAndInputs(resourceLoader);
         List<BiFunction<Long, Long, Long>> funcs = funcs(true);
 
@@ -100,7 +100,7 @@ public final class D07 {
         };
     }
 
-    private long[][] loadTargetAndInputs(final ResourceLoader resourceLoader) {
+    private long[][] loadTargetAndInputs(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         long[][] retval = new long[lines.size()][];
         for (int i = 0; i < lines.size(); i++) {

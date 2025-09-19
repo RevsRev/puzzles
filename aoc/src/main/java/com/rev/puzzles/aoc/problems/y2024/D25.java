@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
 public final class D25 {
 
     @AocProblemI(year = 2024, day = 25, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         Set<KeyOrLock> keys = new HashSet<>();
         Set<KeyOrLock> locks = new HashSet<>();
         loadKeysAndLocks(resourceLoader, keys, locks);
@@ -28,12 +28,12 @@ public final class D25 {
     }
 
     @AocProblemI(year = 2024, day = 25, part = 2)
-    public String partTwoImpl(final ResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
         return "n/a";
     }
 
     private void loadKeysAndLocks(
-            final ResourceLoader resourceLoader,
+            final ProblemResourceLoader resourceLoader,
             final Set<KeyOrLock> keys,
             final Set<KeyOrLock> locks) {
         List<String> lines = resourceLoader.resources();

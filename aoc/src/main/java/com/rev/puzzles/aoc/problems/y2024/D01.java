@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +14,7 @@ import java.util.Set;
 public final class D01 {
 
     @AocProblemI(year = 2024, day = 1, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
         loadLists(resourceLoader, leftList, rightList);
@@ -27,7 +27,7 @@ public final class D01 {
     }
 
     @AocProblemI(year = 2024, day = 1, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
         loadLists(resourceLoader, leftList, rightList);
@@ -52,7 +52,7 @@ public final class D01 {
     }
 
     private void loadLists(
-            final ResourceLoader resourceLoader,
+            final ProblemResourceLoader resourceLoader,
             final List<Integer> leftList,
             final List<Integer> rightList) {
         List<String> listsLines = resourceLoader.resources();

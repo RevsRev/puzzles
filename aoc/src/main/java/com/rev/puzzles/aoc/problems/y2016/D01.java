@@ -8,14 +8,14 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D01 {
 
     public static final String LEFT = "L";
 
     @AocProblemI(year = 2016, day = 1, part = 1)
-    public Integer partOneImpl(final ResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ProblemResourceLoader resourceLoader) {
         String[] directions = resourceLoader.resources().get(0).replaceAll("\\s+", "").split(",");
 
         int x = 0;
@@ -38,7 +38,7 @@ public final class D01 {
     }
 
     @AocProblemI(year = 2016, day = 1, part = 2)
-    public Integer partTwoImpl(final ResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ProblemResourceLoader resourceLoader) {
         String[] directions = resourceLoader.resources().get(0).replaceAll("\\s+", "").split(",");
 
         Set<Pair<Integer, Integer>> visited = new HashSet<>();

@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D09 {
 
@@ -15,7 +15,7 @@ public final class D09 {
     public static final int NOT_FOUND_INDEX = -1;
 
     @AocProblemI(year = 2024, day = 9, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         char[] diskMap = LoaderUtils.loadResourcesAsCharArray(resourceLoader.resources());
         int[] disk = loadDisk(diskMap);
         moveFileBlocksPartOne(disk);
@@ -23,7 +23,7 @@ public final class D09 {
     }
 
     @AocProblemI(year = 2024, day = 9, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         char[] diskMap = LoaderUtils.loadResourcesAsCharArray(resourceLoader.resources());
         int[] disk = loadDisk(diskMap);
         moveFileBlocksPartTwo(disk);

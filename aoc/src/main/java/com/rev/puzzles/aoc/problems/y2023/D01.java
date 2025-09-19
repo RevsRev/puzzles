@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2023;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,16 +12,16 @@ import java.util.function.Function;
 public final class D01 {
 
     @AocProblemI(year = 2023, day = 1, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         return solve(resourceLoader, this::formatPartOne);
     }
 
     @AocProblemI(year = 2023, day = 1, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         return solve(resourceLoader, this::formatPartTwo);
     }
 
-    private long solve(final ResourceLoader resourceLoader, final Function<String, String> formatter) {
+    private long solve(final ProblemResourceLoader resourceLoader, final Function<String, String> formatter) {
         List<String> trebLines = resourceLoader.resources();
         long calibrationSum = 0;
         for (int i = 0; i < trebLines.size(); i++) {

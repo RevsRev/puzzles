@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -19,7 +19,7 @@ public final class D14 {
     private static final int PART_TWO_LIMIT = 10000;
 
     @AocProblemI(year = 2024, day = 14, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(
                 resourceLoader.resources(),
                 new Integer[][]{},
@@ -48,7 +48,7 @@ public final class D14 {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 14, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(
                 resourceLoader.resources(),
                 new Integer[][]{},

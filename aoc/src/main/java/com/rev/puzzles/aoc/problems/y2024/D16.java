@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D16 {
 
@@ -21,7 +21,7 @@ public final class D16 {
     public static final long ROT_COST = 1000L;
 
     @AocProblemI(year = 2024, day = 16, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         char[][] maze = LoaderUtils.linesToCharMatrix(lines);
         int[] start = LoaderUtils.findOne(maze, START_CHAR);
@@ -34,7 +34,7 @@ public final class D16 {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 16, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         char[][] maze = LoaderUtils.linesToCharMatrix(lines);
         int[] start = LoaderUtils.findOne(maze, START_CHAR);

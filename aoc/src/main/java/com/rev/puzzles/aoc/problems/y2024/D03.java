@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,13 @@ public final class D03 {
     private static final Pattern MULT_PATTERN = Pattern.compile(MULT_REGEX);
 
     @AocProblemI(year = 2024, day = 3, part = 1)
-    public Long partOneImpl(final ResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
         List<Instruction> instructions = loadInstructions(resourceLoader);
         return processInstructions(instructions, true);
     }
 
     @AocProblemI(year = 2024, day = 3, part = 2)
-    public Long partTwoImpl(final ResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
         List<Instruction> instructions = loadInstructions(resourceLoader);
         return processInstructions(instructions, false);
     }
@@ -42,7 +42,7 @@ public final class D03 {
         return result;
     }
 
-    private List<Instruction> loadInstructions(final ResourceLoader resourceLoader) {
+    private List<Instruction> loadInstructions(final ProblemResourceLoader resourceLoader) {
         List<String> lines = resourceLoader.resources();
         List<Instruction> instructions = new ArrayList<>();
         for (String line : lines) {
