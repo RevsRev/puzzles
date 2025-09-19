@@ -1,7 +1,6 @@
-package com.rev.puzzles.app;
+package com.rev.puzzles.aoc.framework;
 
 
-import com.rev.puzzles.aoc.framework.AocCoordinate;
 import com.rev.puzzles.aoc.framework.load.AocInputLoader;
 
 import java.io.BufferedReader;

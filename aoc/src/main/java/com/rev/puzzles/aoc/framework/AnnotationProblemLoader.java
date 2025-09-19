@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.framework;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
-import com.rev.puzzles.framework.framework.ProblemEngine;
+import com.rev.puzzles.framework.framework.DefaultProblemEngine;
 import com.rev.puzzles.framework.framework.ProblemLoader;
 import com.rev.puzzles.framework.framework.problem.Problem;
 import com.rev.puzzles.framework.framework.problem.ProblemCoordinate;
@@ -60,7 +60,7 @@ public final class AnnotationProblemLoader<A extends Annotation, C extends Probl
     private NavigableMap<C, Problem<?>> loadProblems() {
         try {
             NavigableMap<C, Problem<?>> retval = new TreeMap<>(C::compareTo);
-            ClassPath cp = ClassPath.from(ProblemEngine.class.getClassLoader());
+            ClassPath cp = ClassPath.from(DefaultProblemEngine.class.getClassLoader());
             ImmutableSet<ClassPath.ClassInfo> allClasses = cp.getTopLevelClassesRecursive(AOC_PROBLEMS_PACKAGE);
             for (ClassPath.ClassInfo classInfo : allClasses) {
                 Class<?> clazz = classInfo.load();

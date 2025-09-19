@@ -1,6 +1,7 @@
-package com.rev.puzzles.app;
+package com.rev.puzzles.framework.util;
 
 import com.rev.puzzles.aoc.framework.AocCoordinate;
+import com.rev.puzzles.aoc.framework.AocInputLoaderFile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

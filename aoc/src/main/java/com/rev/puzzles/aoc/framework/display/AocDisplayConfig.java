@@ -1,4 +1,4 @@
-package com.rev.puzzles.app.io.display;
+package com.rev.puzzles.aoc.framework.display;
 
 import com.rev.puzzles.framework.framework.io.display.format.ResultColumnFormatter;
 
