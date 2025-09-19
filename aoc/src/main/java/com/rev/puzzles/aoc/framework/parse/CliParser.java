@@ -1,9 +1,11 @@
 package com.rev.puzzles.aoc.framework.parse;
 
+import com.rev.puzzles.aoc.framework.AocResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 import com.rev.puzzles.framework.framework.impl.AnnotationProblemLoader;
 import com.rev.puzzles.aoc.framework.AocCoordinate;
 import com.rev.puzzles.aoc.framework.AocExecutionListenerPrinter;
-import com.rev.puzzles.aoc.framework.AocExecutor;
+import com.rev.puzzles.framework.framework.impl.DefaultExecutor;
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.aoc.framework.AocVisualisation;
 import com.rev.puzzles.framework.framework.impl.DefaultProblemEngine;
@@ -75,11 +77,14 @@ public final class CliParser {
                 ? new NoOpExecutorListener<>()
                 : new AocExecutionListenerPrinter();
 
+        final AocResourceLoader resourceLoader = new AocResourceLoader();
+
         final DefaultProblemEngine<AocCoordinate> engine = getAocCoordinateProblemEngine(
                 firstAocCoordinate,
                 secondAocCoordinate,
                 problemLoader,
-                executorListener);
+                executorListener,
+                resourceLoader);
 
         engine.setDebug(cl.hasOption(DEBUG));
         return engine;
@@ -110,9 +115,10 @@ public final class CliParser {
             final AocCoordinate firstAocCoordinate,
             final AocCoordinate secondAocCoordinate,
             final ProblemLoader<AocCoordinate> problemLoader,
-            final ExecutorListener<AocCoordinate> executorListener) {
+            final ExecutorListener<AocCoordinate> executorListener,
+            final ResourceLoader<AocCoordinate> resourceLoader) {
 
-        final ProblemExecutor<AocCoordinate> problemExecutor = new AocExecutor(executorListener);
+        final ProblemExecutor<AocCoordinate> problemExecutor = new DefaultExecutor<>(executorListener, resourceLoader);
 
         if (firstAocCoordinate != null && secondAocCoordinate != null) {
             if (firstAocCoordinate.compareTo(secondAocCoordinate) < 0) {

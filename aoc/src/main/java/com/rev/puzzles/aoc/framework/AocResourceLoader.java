@@ -1,16 +1,17 @@
 package com.rev.puzzles.aoc.framework;
 
 import com.rev.puzzles.aoc.framework.load.AocInputLoader;
-import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
+import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 
 import java.io.IOException;
 import java.util.Optional;
 import java.util.ServiceLoader;
 
-public final class AocResourceLoader {
+public final class AocResourceLoader implements ResourceLoader<AocCoordinate> {
 
-    private AocResourceLoader() {
+    public AocResourceLoader() {
     }
 
 
@@ -41,5 +42,10 @@ public final class AocResourceLoader {
                 throw new ProblemExecutionException(msg, e);
             }
         };
+    }
+
+    @Override
+    public ProblemResourceLoader getProblemResourceLoader(final AocCoordinate coordinate) {
+        return loadResources(coordinate);
     }
 }
