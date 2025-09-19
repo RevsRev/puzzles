@@ -6,7 +6,7 @@ import com.rev.puzzles.framework.util.emu.Cpu;
 
 import java.util.List;
 
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 
 public final class D23 {
 

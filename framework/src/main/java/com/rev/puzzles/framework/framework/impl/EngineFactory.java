@@ -1,4 +1,7 @@
-package com.rev.puzzles.framework.framework;
+package com.rev.puzzles.framework.framework.impl;
+
+import com.rev.puzzles.framework.framework.EngineLoader;
+import com.rev.puzzles.framework.framework.ProblemEngine;
 
 import java.util.List;
 import java.util.ServiceLoader;

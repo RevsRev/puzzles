@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 
 public final class D04 {
 

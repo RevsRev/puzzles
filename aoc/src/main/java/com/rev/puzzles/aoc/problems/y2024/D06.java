@@ -11,7 +11,7 @@ import java.util.Set;
 
 import static com.rev.puzzles.framework.util.geom.Direction.UP;
 
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 
 public final class D06 {
 

@@ -4,7 +4,7 @@ import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.util.grid.Grid;
 
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 
 public final class D18 {
 

@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.framework.problem;
+package com.rev.puzzles.framework.framework;
 
 import java.util.List;
 

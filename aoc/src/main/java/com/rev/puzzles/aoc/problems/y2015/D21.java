@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 import com.rev.puzzles.framework.util.set.SetUtils;
 
 import java.util.HashMap;

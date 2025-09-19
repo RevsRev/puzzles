@@ -1,5 +1,6 @@
-package com.rev.puzzles.framework.framework;
+package com.rev.puzzles.framework.framework.impl;
 
+import com.rev.puzzles.framework.framework.ExecutorListener;
 import com.rev.puzzles.framework.framework.problem.ProblemCoordinate;
 import com.rev.puzzles.framework.framework.problem.ProblemResult;
 

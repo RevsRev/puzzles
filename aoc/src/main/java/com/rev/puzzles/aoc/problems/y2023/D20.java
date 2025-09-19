@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2023;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.aoc.framework.AocVisualisation;
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 import com.rev.puzzles.framework.vis.GraphVisualiser;
 import com.rev.puzzles.framework.vis.VisualisationException;
 import lombok.Getter;

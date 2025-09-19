@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.framework;
 
 import com.rev.puzzles.aoc.framework.load.AocInputLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 
 import java.io.IOException;
 import java.util.Optional;

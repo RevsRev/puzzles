@@ -1,6 +1,6 @@
 package com.rev.puzzles.app.io;
 
-import com.rev.puzzles.framework.framework.EngineFactory;
+import com.rev.puzzles.framework.framework.impl.EngineFactory;
 import com.rev.puzzles.framework.framework.ProblemEngine;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;

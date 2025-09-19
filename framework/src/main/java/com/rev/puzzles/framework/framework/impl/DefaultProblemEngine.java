@@ -1,5 +1,8 @@
-package com.rev.puzzles.framework.framework;
+package com.rev.puzzles.framework.framework.impl;
 
+import com.rev.puzzles.framework.framework.ProblemEngine;
+import com.rev.puzzles.framework.framework.ProblemExecutor;
+import com.rev.puzzles.framework.framework.ProblemLoader;
 import com.rev.puzzles.framework.framework.problem.Problem;
 import com.rev.puzzles.framework.framework.problem.ProblemCoordinate;
 import lombok.Setter;

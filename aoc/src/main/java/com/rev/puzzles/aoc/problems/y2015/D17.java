@@ -6,7 +6,7 @@ import com.rev.puzzles.framework.util.set.Buckets;
 import java.util.List;
 import java.util.function.Consumer;
 
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 
 public final class D17 {
 

@@ -4,7 +4,7 @@ import com.rev.puzzles.aoc.framework.AocProblemI;
 
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 
 public final class D11 {
 

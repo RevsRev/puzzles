@@ -5,7 +5,7 @@ import com.rev.puzzles.aoc.framework.AocProblemI;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 
 public final class D05 {
 

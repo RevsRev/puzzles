@@ -5,7 +5,7 @@ import com.rev.puzzles.framework.util.geom.Triangle;
 
 import java.util.List;
 
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 
 public final class D03 {
 

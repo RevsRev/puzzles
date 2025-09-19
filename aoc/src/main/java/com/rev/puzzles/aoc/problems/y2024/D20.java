@@ -11,7 +11,7 @@ import java.util.NavigableMap;
 import java.util.Queue;
 import java.util.TreeMap;
 
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 
 public final class D20 {
 

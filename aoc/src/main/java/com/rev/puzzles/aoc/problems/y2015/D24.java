@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 import com.rev.puzzles.framework.util.arr.ArrayUtils;
 import com.rev.puzzles.framework.util.search.BinarySolutionSearch;
 import com.rev.puzzles.framework.util.set.SetUtils;

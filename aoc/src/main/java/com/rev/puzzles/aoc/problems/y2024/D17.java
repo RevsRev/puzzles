@@ -4,7 +4,7 @@ import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.aoc.framework.AocVisualisation;
 import com.rev.puzzles.framework.framework.io.display.Printer;
 import com.rev.puzzles.framework.framework.io.display.format.ColumnFormatter;
-import com.rev.puzzles.framework.framework.problem.ResourceLoader;
+import com.rev.puzzles.framework.framework.ResourceLoader;
 import com.rev.puzzles.framework.vis.VisualisationException;
 import org.apache.commons.lang3.tuple.Pair;
 
