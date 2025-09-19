@@ -1,10 +1,10 @@
 package com.rev.puzzles.aoc.problems;
 
-import com.rev.puzzles.framework.framework.impl.AnnotationProblemLoader;
 import com.rev.puzzles.aoc.framework.AocCoordinate;
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.aoc.framework.AocResourceLoader;
 import com.rev.puzzles.framework.framework.ProblemLoader;
+import com.rev.puzzles.framework.framework.impl.AnnotationProblemLoader;
 import com.rev.puzzles.framework.framework.problem.Problem;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Assertions;
@@ -19,58 +19,13 @@ import java.util.SortedMap;
 
 public final class ProblemTest {
 
-    private static final ProblemLoader<AocCoordinate> LOADER = new AnnotationProblemLoader<>(
-            AocProblemI.class,
-            problemI -> new AocCoordinate(
-                    problemI.year(),
-                    problemI.day(),
-                    problemI.part()
-            )
-    );
+    private static final String AOC_PROBLEMS_PACKAGE = "com.rev.puzzles.aoc.problems";
 
-    private static final SortedMap<AocCoordinate, Problem<?>> ALL_PROBLEMS =
-            LOADER.loadProblemsInRange(null, null);
+    private static final ProblemLoader<AocCoordinate> LOADER =
+            new AnnotationProblemLoader<>(AOC_PROBLEMS_PACKAGE, AocProblemI.class,
+                    problemI -> new AocCoordinate(problemI.year(), problemI.day(), problemI.part()));
 
-    @ParameterizedTest
-    @MethodSource("getHappyPaths")
-    public void testAocSolutions(final Map.Entry<AocCoordinate, Pair<Object, Object>> problemAndResult) {
-        AocCoordinate partOneKey = problemAndResult.getKey();
-        AocCoordinate partTwoKey = new AocCoordinate(
-                partOneKey.getYear(),
-                partOneKey.getDay(),
-                2
-        );
-        Problem<?> partOne = ALL_PROBLEMS.get(partOneKey);
-        Problem<?> partTwo = ALL_PROBLEMS.get(partTwoKey);
-        if (partOne == null) {
-            System.out.printf(
-                    "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", partOneKey);
-            return;
-        }
-        if (partTwo == null) {
-            System.out.printf(
-                    "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", partTwoKey);
-            return;
-        }
-        Pair<Object, Object> results = problemAndResult.getValue();
-        Object partOneResult = partOne.solve(AocResourceLoader.loadResources(partOneKey));
-        Object partTwoResult = partTwo.solve(AocResourceLoader.loadResources(partTwoKey));
-        Object expectedPartOneResult = results.getLeft();
-        Object expectedPartTwoResult = results.getRight();
-        assertResult(partOneKey, expectedPartOneResult, partOneResult);
-        assertResult(partTwoKey, expectedPartTwoResult, partTwoResult);
-    }
-
-    @Test
-    public void testAllSolutionsHaveTests() {
-        Map<AocCoordinate, Pair<Object, Object>> happyPaths = getHappyPathsMap();
-        for (AocCoordinate coord : ALL_PROBLEMS.keySet()) {
-            if (!happyPaths.containsKey(coord)) {
-                System.out.printf(
-                        "[\u001B[31mWARNING\u001B[0m] %s has a solution but no tests have been implemented%n", coord);
-            }
-        }
-    }
+    private static final SortedMap<AocCoordinate, Problem<?>> ALL_PROBLEMS = LOADER.loadProblemsInRange(null, null);
 
     public static Set<Map.Entry<AocCoordinate, Pair<Object, Object>>> getHappyPaths() {
         return getHappyPathsMap().entrySet();
@@ -104,14 +59,53 @@ public final class ProblemTest {
         return expectedResults;
     }
 
-    private static void assertResult(final AocCoordinate coord,
-                                     final Object expected,
-                                     final Object actual) {
+    private static void assertResult(final AocCoordinate coord, final Object expected, final Object actual) {
         if (actual == null) {
             System.out.printf(
-                    "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been implemented%n", coord);
+                    "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been " + "implemented%n",
+                    coord);
             return;
         }
         Assertions.assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest
+    @MethodSource("getHappyPaths")
+    public void testAocSolutions(final Map.Entry<AocCoordinate, Pair<Object, Object>> problemAndResult) {
+        AocCoordinate partOneKey = problemAndResult.getKey();
+        AocCoordinate partTwoKey = new AocCoordinate(partOneKey.getYear(), partOneKey.getDay(), 2);
+        Problem<?> partOne = ALL_PROBLEMS.get(partOneKey);
+        Problem<?> partTwo = ALL_PROBLEMS.get(partTwoKey);
+        if (partOne == null) {
+            System.out.printf(
+                    "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been " + "implemented%n",
+                    partOneKey);
+            return;
+        }
+        if (partTwo == null) {
+            System.out.printf(
+                    "[\u001B[31mWARNING\u001B[0m] %s has a test but the solution has not been " + "implemented%n",
+                    partTwoKey);
+            return;
+        }
+        Pair<Object, Object> results = problemAndResult.getValue();
+        Object partOneResult = partOne.solve(AocResourceLoader.loadResources(partOneKey));
+        Object partTwoResult = partTwo.solve(AocResourceLoader.loadResources(partTwoKey));
+        Object expectedPartOneResult = results.getLeft();
+        Object expectedPartTwoResult = results.getRight();
+        assertResult(partOneKey, expectedPartOneResult, partOneResult);
+        assertResult(partTwoKey, expectedPartTwoResult, partTwoResult);
+    }
+
+    @Test
+    public void testAllSolutionsHaveTests() {
+        Map<AocCoordinate, Pair<Object, Object>> happyPaths = getHappyPathsMap();
+        for (AocCoordinate coord : ALL_PROBLEMS.keySet()) {
+            if (!happyPaths.containsKey(coord)) {
+                System.out.printf(
+                        "[\u001B[31mWARNING\u001B[0m] %s has a solution but no tests have been " + "implemented%n",
+                        coord);
+            }
+        }
     }
 }

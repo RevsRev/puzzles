@@ -6,6 +6,7 @@ import com.rev.puzzles.framework.framework.ResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.ServiceLoader;
 
@@ -33,7 +34,7 @@ public final class AocResourceLoader implements ResourceLoader<AocCoordinate> {
         return inputLoader;
     }
 
-    public static ProblemResourceLoader loadResources(final AocCoordinate coordinate) {
+    public static ProblemResourceLoader<List<String>> loadResources(final AocCoordinate coordinate) {
         return () -> {
             try {
                 return loadAocProblemLoader().load(coordinate);
@@ -45,7 +46,7 @@ public final class AocResourceLoader implements ResourceLoader<AocCoordinate> {
     }
 
     @Override
-    public ProblemResourceLoader getProblemResourceLoader(final AocCoordinate coordinate) {
+    public ProblemResourceLoader<List<String>> getProblemResourceLoader(final AocCoordinate coordinate) {
         return loadResources(coordinate);
     }
 }

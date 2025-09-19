@@ -21,7 +21,7 @@ public final class D06 {
     private static final int TOGGLE = 2;
 
     @AocProblemI(year = 2015, day = 6, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(resourceLoader.resources());
 
         long count = 0;
@@ -59,7 +59,7 @@ public final class D06 {
     }
 
     @AocProblemI(year = 2015, day = 6, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<Pair<PointRectangle, Integer>> pairs = computeRectangleAndInstructions(resourceLoader.resources());
 
         long totalBrightness = 0;

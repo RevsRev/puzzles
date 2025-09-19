@@ -1,7 +1,8 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.aoc.framework.load.LoaderUtils;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
@@ -11,14 +12,19 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-
 public final class D22 {
     private static final int PRUNE_MOD = 1 << 24;
     private static final int PART_ONE_ITERATIONS = 2000;
 
+    private static int hashOnce(int secretNumber) {
+        secretNumber = (secretNumber ^ (secretNumber << 6)) & (PRUNE_MOD - 1);
+        secretNumber = (secretNumber ^ (secretNumber >> 5)) & (PRUNE_MOD - 1);
+        secretNumber = (secretNumber ^ (secretNumber << 11)) & (PRUNE_MOD - 1);
+        return secretNumber;
+    }
+
     @AocProblemI(year = 2024, day = 22, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});
 
@@ -30,7 +36,7 @@ public final class D22 {
     }
 
     @AocProblemI(year = 2024, day = 22, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
         int[] inputs = LoaderUtils.linesToIntArray(lines, s -> new String[]{s});
 
@@ -42,8 +48,7 @@ public final class D22 {
         return bestScore;
     }
 
-    private long computePriceChangeScores(final int seed,
-                                          final Map<List<Integer>, Integer> runsAndScores,
+    private long computePriceChangeScores(final int seed, final Map<List<Integer>, Integer> runsAndScores,
                                           long bestScoreSoFar) {
         int price = seed;
         Queue<Integer> priceChanges = new ArrayDeque<>();
@@ -75,13 +80,6 @@ public final class D22 {
         for (int i = 0; i < iterations; i++) {
             secretNumber = hashOnce(secretNumber);
         }
-        return secretNumber;
-    }
-
-    private static int hashOnce(int secretNumber) {
-        secretNumber = (secretNumber ^ (secretNumber << 6)) & (PRUNE_MOD - 1);
-        secretNumber = (secretNumber ^ (secretNumber >> 5)) & (PRUNE_MOD - 1);
-        secretNumber = (secretNumber ^ (secretNumber << 11)) & (PRUNE_MOD - 1);
         return secretNumber;
     }
 }

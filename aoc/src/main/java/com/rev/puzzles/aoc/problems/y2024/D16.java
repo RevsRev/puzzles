@@ -1,7 +1,8 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.aoc.framework.load.LoaderUtils;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.geom.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -12,16 +13,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-
 public final class D16 {
 
     public static final char START_CHAR = 'S';
     public static final char END_CHAR = 'E';
     public static final long ROT_COST = 1000L;
 
+    private static long getRotationCost(int numRotations) {
+        long rotationCost = 0;
+        if (numRotations != 0) {
+            rotationCost += ROT_COST;
+        }
+        if (numRotations == 2) {
+            rotationCost += ROT_COST;
+        }
+        return rotationCost;
+    }
+
+    private static void updateScores(final Direction direction, final Map<Direction, Long>[][] scores, final int i,
+                                     final int j, final long startCellScore,
+                                     final Set<Pair<Integer, Integer>> frontiere) {
+        Map<Direction, Long> startCellScores = scores[i][j];
+        int numRotations = 0;
+        for (Direction dir : direction) {
+            long bestCellScore = startCellScores.getOrDefault(dir, Long.MAX_VALUE);
+            long cellScore = startCellScore + getRotationCost(numRotations);
+            if (cellScore < bestCellScore) {
+                startCellScores.put(dir, cellScore);
+                frontiere.add(Pair.of(i, j));
+            }
+            numRotations++;
+        }
+    }
+
     @AocProblemI(year = 2024, day = 16, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
         char[][] maze = LoaderUtils.linesToCharMatrix(lines);
         int[] start = LoaderUtils.findOne(maze, START_CHAR);
@@ -34,7 +60,7 @@ public final class D16 {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 16, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
         char[][] maze = LoaderUtils.linesToCharMatrix(lines);
         int[] start = LoaderUtils.findOne(maze, START_CHAR);
@@ -53,9 +79,7 @@ public final class D16 {
         return (long) optimalTiles.size();
     }
 
-    private void backTrack(final Map<Direction, Long>[][] scores,
-                           final int[] position,
-                           final Direction direction,
+    private void backTrack(final Map<Direction, Long>[][] scores, final int[] position, final Direction direction,
                            final Set<Pair<Integer, Integer>> optimalTiles) {
         optimalTiles.add(Pair.of(position[0], position[1]));
         if (scores[position[0]][position[1]].get(direction) == 0) {
@@ -87,17 +111,6 @@ public final class D16 {
         }
     }
 
-    private static long getRotationCost(int numRotations) {
-        long rotationCost = 0;
-        if (numRotations != 0) {
-            rotationCost += ROT_COST;
-        }
-        if (numRotations == 2) {
-            rotationCost += ROT_COST;
-        }
-        return rotationCost;
-    }
-
     private Map<Direction, Long>[][] computeScore(final char[][] maze, final int[] start, final Direction direction) {
         int height = maze.length;
         int width = maze[0].length;
@@ -127,24 +140,5 @@ public final class D16 {
             frontiere = nextFrontiere;
         }
         return scores;
-    }
-
-    private static void updateScores(final Direction direction,
-                                     final Map<Direction, Long>[][] scores,
-                                     final int i,
-                                     final int j,
-                                     final long startCellScore,
-                                     final Set<Pair<Integer, Integer>> frontiere) {
-        Map<Direction, Long> startCellScores = scores[i][j];
-        int numRotations = 0;
-        for (Direction dir : direction) {
-            long bestCellScore = startCellScores.getOrDefault(dir, Long.MAX_VALUE);
-            long cellScore = startCellScore + getRotationCost(numRotations);
-            if (cellScore < bestCellScore) {
-                startCellScores.put(dir, cellScore);
-                frontiere.add(Pair.of(i, j));
-            }
-            numRotations++;
-        }
     }
 }

@@ -1,12 +1,11 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 import com.rev.puzzles.framework.util.emu.Cpu;
 
 import java.util.List;
-
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D23 {
 
@@ -16,23 +15,6 @@ public final class D23 {
     private static final String JMP = "jmp";
     private static final String JIE = "jie";
     private static final String JIO = "jio";
-
-    @AocProblemI(year = 2015, day = 23, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
-        final List<String> cpuInstructions = resourceLoader.resources();
-        final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);
-        cpu.run();
-        return cpu.readRegister("b");
-    }
-
-    @AocProblemI(year = 2015, day = 23, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
-        final List<String> cpuInstructions = resourceLoader.resources();
-        final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);
-        cpu.writeRegister("a", 1);
-        cpu.run();
-        return cpu.readRegister("b");
-    }
 
     private static Cpu.Instruction parseLine(final String line) {
         final String instructionCode = line.substring(0, 3);
@@ -102,5 +84,22 @@ public final class D23 {
             cpu.writeRegister(registerName, val / 2);
             return cpu.getIndex() + 1;
         });
+    }
+
+    @AocProblemI(year = 2015, day = 23, part = 1)
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        final List<String> cpuInstructions = resourceLoader.resources();
+        final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);
+        cpu.run();
+        return cpu.readRegister("b");
+    }
+
+    @AocProblemI(year = 2015, day = 23, part = 2)
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        final List<String> cpuInstructions = resourceLoader.resources();
+        final Cpu cpu = Cpu.create(List.of("a", "b"), cpuInstructions, D23::parseLine);
+        cpu.writeRegister("a", 1);
+        cpu.run();
+        return cpu.readRegister("b");
     }
 }

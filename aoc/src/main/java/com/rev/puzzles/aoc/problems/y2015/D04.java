@@ -1,13 +1,13 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
+import java.util.List;
 
 public final class D04 {
 
@@ -17,7 +17,7 @@ public final class D04 {
     }
 
     @AocProblemI(year = 2015, day = 4, part = 1)
-    public String partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public String partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final String input = resourceLoader.resources().get(0);
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
             final String check = input + i;
@@ -31,7 +31,7 @@ public final class D04 {
     }
 
     @AocProblemI(year = 2015, day = 4, part = 2)
-    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final String input = resourceLoader.resources().get(0);
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
             final String check = input + i;

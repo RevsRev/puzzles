@@ -17,12 +17,24 @@ import java.util.regex.Pattern;
 
 public final class D19 {
 
-    private static final Map<String, Pattern> PATTERN_CACHE = new HashMap<>();
     public static final String START_ELECTRON = "e";
     public static final int NOT_FOUND = -1;
+    private static final Map<String, Pattern> PATTERN_CACHE = new HashMap<>();
+
+    private static String substitue(final String molecule, final String r, final int start, final int end) {
+        final StringBuilder sb = new StringBuilder();
+        if (start > 0) {
+            sb.append(molecule, 0, start);
+        }
+        sb.append(r);
+        if (end < molecule.length()) {
+            sb.append(molecule.substring(end));
+        }
+        return sb.toString();
+    }
 
     @AocProblemI(year = 2015, day = 19, part = 1)
-    public Integer partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         Pair<String, Map<String, Set<String>>> inputAndReplacements = inputAndReplacements(resourceLoader);
         final String molecule = inputAndReplacements.getLeft();
         final Map<String, Set<String>> replacements = inputAndReplacements.getRight();
@@ -45,20 +57,8 @@ public final class D19 {
         return products.size();
     }
 
-    private static String substitue(final String molecule, final String r, final int start, final int end) {
-        final StringBuilder sb = new StringBuilder();
-        if (start > 0) {
-            sb.append(molecule.substring(0, start));
-        }
-        sb.append(r);
-        if (end < molecule.length()) {
-            sb.append(molecule.substring(end));
-        }
-        return sb.toString();
-    }
-
     @AocProblemI(year = 2015, day = 19, part = 2)
-    public Integer partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final Pair<String, Map<String, Set<String>>> inputsAndReplacements = inputAndReplacements(resourceLoader);
         final String molecule = inputsAndReplacements.getLeft();
         final Map<String, Set<String>> formulae = inputsAndReplacements.getRight();
@@ -66,20 +66,17 @@ public final class D19 {
         final TreeMap<Integer, Map<String, Set<String>>> invertedFormulae = new TreeMap<>(Comparator.reverseOrder());
         formulae.forEach((input, outputs) -> {
             outputs.forEach(output -> {
-                invertedFormulae
-                        .computeIfAbsent(output.length(), k -> new HashMap<>())
-                        .computeIfAbsent(output, k -> new HashSet<>())
-                        .add(input);
+                invertedFormulae.computeIfAbsent(output.length(), k -> new HashMap<>())
+                        .computeIfAbsent(output, k -> new HashSet<>()).add(input);
             });
         });
 
         return solveWithBacktracking(molecule, invertedFormulae, 0);
     }
 
-    private Integer solveWithBacktracking(
-            final String molecule,
-            final TreeMap<Integer, Map<String, Set<String>>> invertedFormulaeBySize,
-            final int depth) {
+    private Integer solveWithBacktracking(final String molecule,
+                                          final TreeMap<Integer, Map<String, Set<String>>> invertedFormulaeBySize,
+                                          final int depth) {
         if (START_ELECTRON.equals(molecule)) {
             return depth;
         }
@@ -94,11 +91,9 @@ public final class D19 {
                     final Set<String> substitutions = invertedFormula.getValue();
                     for (final MatchResult m : matchResults) {
                         for (final String substitution : substitutions) {
-                            final int result = solveWithBacktracking(
-                                    substitue(molecule, substitution, m.start(), m.end()),
-                                    invertedFormulaeBySize,
-                                    depth + 1
-                            );
+                            final int result =
+                                    solveWithBacktracking(substitue(molecule, substitution, m.start(), m.end()),
+                                            invertedFormulaeBySize, depth + 1);
                             if (result != NOT_FOUND) {
                                 return result;
                             }
@@ -110,7 +105,8 @@ public final class D19 {
         return NOT_FOUND;
     }
 
-    private Pair<String, Map<String, Set<String>>> inputAndReplacements(final ProblemResourceLoader resourceLoader) {
+    private Pair<String, Map<String, Set<String>>> inputAndReplacements(
+            final ProblemResourceLoader<List<String>> resourceLoader) {
         final List<String> lines = resourceLoader.resources();
 
         final Map<String, Set<String>> replacements = new HashMap<>();

@@ -9,28 +9,7 @@ import java.util.List;
 
 public final class D02 {
 
-    @AocProblemI(year = 2024, day = 2, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
-        Integer[][] reports = parseReports(resourceLoader);
-        List<Integer[]> safeReports = new ArrayList<>();
-        getSafeReportsNoDampening(reports, safeReports, new ArrayList<>());
-        return (long) safeReports.size();
-    }
-
-    @AocProblemI(year = 2024, day = 2, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
-        Integer[][] reports = parseReports(resourceLoader);
-        List<Integer[]> safeReports = new ArrayList<>();
-        List<Integer[]> unsafeReports = new ArrayList<>();
-        List<Integer[]> dampedReports = new ArrayList<>();
-        getSafeReportsNoDampening(reports, safeReports, unsafeReports);
-        getSafeReportsDampening(unsafeReports, dampedReports);
-
-        return (long) (safeReports.size() + dampedReports.size());
-    }
-
-    private static void getSafeReportsNoDampening(final Integer[][] reports,
-                                                  final List<Integer[]> safeReports,
+    private static void getSafeReportsNoDampening(final Integer[][] reports, final List<Integer[]> safeReports,
                                                   final List<Integer[]> unsafeReports) {
         for (int i = 0; i < reports.length; i++) {
             if (checkReportNoDampening(reports[i])) {
@@ -84,7 +63,27 @@ public final class D02 {
         return true;
     }
 
-    private Integer[][] parseReports(final ProblemResourceLoader resourceLoader) {
+    @AocProblemI(year = 2024, day = 2, part = 1)
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        Integer[][] reports = parseReports(resourceLoader);
+        List<Integer[]> safeReports = new ArrayList<>();
+        getSafeReportsNoDampening(reports, safeReports, new ArrayList<>());
+        return (long) safeReports.size();
+    }
+
+    @AocProblemI(year = 2024, day = 2, part = 2)
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        Integer[][] reports = parseReports(resourceLoader);
+        List<Integer[]> safeReports = new ArrayList<>();
+        List<Integer[]> unsafeReports = new ArrayList<>();
+        List<Integer[]> dampedReports = new ArrayList<>();
+        getSafeReportsNoDampening(reports, safeReports, unsafeReports);
+        getSafeReportsDampening(unsafeReports, dampedReports);
+
+        return (long) (safeReports.size() + dampedReports.size());
+    }
+
+    private Integer[][] parseReports(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> fileLines = resourceLoader.resources();
         Integer[][] retval = new Integer[fileLines.size()][];
         for (int i = 0; i < fileLines.size(); i++) {

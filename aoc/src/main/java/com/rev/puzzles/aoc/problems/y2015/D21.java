@@ -1,22 +1,21 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
+import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 import com.rev.puzzles.framework.util.set.SetUtils;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 
 public final class D21 {
 
     @AocProblemI(year = 2015, day = 21, part = 1)
-    public Integer partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final Player boss = loadBoss(resourceLoader);
         final List<Attributes> weapons = loadWeapons();
         final List<Attributes> armors = loadArmors();
@@ -35,7 +34,7 @@ public final class D21 {
     }
 
     @AocProblemI(year = 2015, day = 21, part = 2)
-    public Integer partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final Player boss = loadBoss(resourceLoader);
         final List<Attributes> weapons = loadWeapons();
         final List<Attributes> armors = loadArmors();
@@ -68,10 +67,8 @@ public final class D21 {
         return bossHp <= 0;
     }
 
-    private TreeMap<Integer, Set<Attributes>> getLoadouts(
-            final List<Attributes> weapons,
-            final List<Attributes> armors,
-            final List<Attributes> rings) {
+    private TreeMap<Integer, Set<Attributes>> getLoadouts(final List<Attributes> weapons, final List<Attributes> armors,
+                                                          final List<Attributes> rings) {
 
         final TreeMap<Integer, Set<Attributes>> costAndLoadout = new TreeMap<>();
 
@@ -127,11 +124,8 @@ public final class D21 {
                         ringDamage += ringChoices.get(k)[a].damage;
                         ringArmor += ringChoices.get(k)[a].armor;
                     }
-                    Attributes aggregate = new Attributes(
-                            "aggregate",
-                            weaponCost + armorCost + ringCost,
-                            weaponDamage + armorDamage + ringDamage,
-                            weaponArmor + armorArmor + ringArmor);
+                    Attributes aggregate = new Attributes("aggregate", weaponCost + armorCost + ringCost,
+                            weaponDamage + armorDamage + ringDamage, weaponArmor + armorArmor + ringArmor);
                     costAndLoadout.computeIfAbsent(aggregate.cost, key -> new HashSet<>()).add(aggregate);
                 }
             }
@@ -141,39 +135,26 @@ public final class D21 {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     private List<Attributes> loadRings() {
-        return List.of(
-                new Attributes("Damage +1", 25, 1, 0),
-                new Attributes("Damage +2", 50, 2, 0),
-                new Attributes("Damage +3", 100, 3, 0),
-                new Attributes("Defense +1", 20, 0, 1),
-                new Attributes("Defense +2", 40, 0, 2),
-                new Attributes("Defense +3", 80, 0, 3)
-        );
+        return List.of(new Attributes("Damage +1", 25, 1, 0), new Attributes("Damage +2", 50, 2, 0),
+                new Attributes("Damage +3", 100, 3, 0), new Attributes("Defense +1", 20, 0, 1),
+                new Attributes("Defense +2", 40, 0, 2), new Attributes("Defense +3", 80, 0, 3));
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")
     private List<Attributes> loadArmors() {
-        return List.of(
-                new Attributes("Leather", 13, 0, 1),
-                new Attributes("Chainmail", 31, 0, 2),
-                new Attributes("Splintmail", 53, 0, 3),
-                new Attributes("Bandedmail", 75, 0, 4),
-                new Attributes("Platemail", 102, 0, 5)
-        );
+        return List.of(new Attributes("Leather", 13, 0, 1), new Attributes("Chainmail", 31, 0, 2),
+                new Attributes("Splintmail", 53, 0, 3), new Attributes("Bandedmail", 75, 0, 4),
+                new Attributes("Platemail", 102, 0, 5));
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")
     private List<Attributes> loadWeapons() {
-        return List.of(
-                new Attributes("Dagger", 8, 4, 0),
-                new Attributes("Shortsword", 10, 5, 0),
-                new Attributes("Warhammer", 25, 6, 0),
-                new Attributes("Longsword", 40, 7, 0),
-                new Attributes("Greataxe", 74, 8, 0)
-        );
+        return List.of(new Attributes("Dagger", 8, 4, 0), new Attributes("Shortsword", 10, 5, 0),
+                new Attributes("Warhammer", 25, 6, 0), new Attributes("Longsword", 40, 7, 0),
+                new Attributes("Greataxe", 74, 8, 0));
     }
 
-    private Player loadBoss(final ProblemResourceLoader resourceLoader) {
+    private Player loadBoss(final ProblemResourceLoader<List<String>> resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         final Map<String, Integer> attributes = new HashMap<>();
         for (final String line : lines) {
@@ -183,43 +164,10 @@ public final class D21 {
         return new Player(attributes.get("HitPoints"), attributes.get("Damage"), attributes.get("Armor"));
     }
 
-    private static final class Player {
-        private final int hp;
-        private final int damage;
-        private final int armor;
-
-        private Player(int hp, int damage, int armor) {
-            this.hp = hp;
-            this.damage = damage;
-            this.armor = armor;
-        }
+    private record Player(int hp, int damage, int armor) {
     }
 
-    private static final class Attributes {
-        private final String name;
-        private final int cost;
-        private final int damage;
-        private final int armor;
+    private record Attributes(String name, int cost, int damage, int armor) {
 
-        private Attributes(final String name, final int cost, final int damage, final int armor) {
-            this.name = name;
-            this.cost = cost;
-            this.damage = damage;
-            this.armor = armor;
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            Attributes that = (Attributes) o;
-            return cost == that.cost && damage == that.damage && armor == that.armor && Objects.equals(name, that.name);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(name, cost, damage, armor);
-        }
     }
 }

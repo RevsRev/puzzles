@@ -14,7 +14,7 @@ import java.util.Set;
 public final class D01 {
 
     @AocProblemI(year = 2024, day = 1, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
         loadLists(resourceLoader, leftList, rightList);
@@ -27,7 +27,7 @@ public final class D01 {
     }
 
     @AocProblemI(year = 2024, day = 1, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
         loadLists(resourceLoader, leftList, rightList);
@@ -45,16 +45,14 @@ public final class D01 {
         for (int i = 0; i < leftList.size(); i++) {
             Integer num = leftList.get(i);
             if (rightNumsAndCounts.containsKey(num)) {
-                score += rightNumsAndCounts.get(num) * num;
+                score += (long) rightNumsAndCounts.get(num) * num;
             }
         }
         return score;
     }
 
-    private void loadLists(
-            final ProblemResourceLoader resourceLoader,
-            final List<Integer> leftList,
-            final List<Integer> rightList) {
+    private void loadLists(final ProblemResourceLoader<List<String>> resourceLoader, final List<Integer> leftList,
+                           final List<Integer> rightList) {
         List<String> listsLines = resourceLoader.resources();
         for (String line : listsLines) {
             String[] split = line.split("\\s+");

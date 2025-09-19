@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 
 import java.util.Iterator;
@@ -12,14 +13,12 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-
 public final class D12 {
 
     private static final Pattern NUMBER_REGEX = Pattern.compile("-?\\d+");
 
     @AocProblemI(year = 2015, day = 12, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final String json = resourceLoader.resources().get(0);
         Matcher matcher = NUMBER_REGEX.matcher(json);
         long sum = 0;
@@ -32,7 +31,7 @@ public final class D12 {
 
     @AocProblemI(year = 2015, day = 12, part = 1)
     @SuppressWarnings("checkstyle:MagicNumber")
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final String json = resourceLoader.resources().get(0);
         JsonMapper jm = new JsonMapper();
         try {

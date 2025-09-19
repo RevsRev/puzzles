@@ -24,7 +24,7 @@ public final class D24 {
     private static final long BIT_FLAG = 1;
 
     @AocProblemI(year = 2024, day = 24, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
         TreeMap<String, Long> registerValues = new TreeMap<>();
         int start = 0;
@@ -83,13 +83,14 @@ public final class D24 {
     }
 
     @AocProblemI(year = 2024, day = 24, part = 2)
-    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
 
         return "cqk,fph,gds,jrs,wrk,z15,z21,z34";
     }
 
     @AocVisualisation(year = 2024, day = 24, part = 1)
-    public void visualiseProblem(final ProblemResourceLoader resourceLoader) throws VisualisationException {
+    public void visualiseProblem(final ProblemResourceLoader<List<String>> resourceLoader)
+            throws VisualisationException {
 
         Graph<String, DefaultEdge> graph = new DefaultDirectedGraph<>(DefaultEdge.class);
 
@@ -153,10 +154,8 @@ public final class D24 {
         return colorMap;
     }
 
-    private long processInstruction(final TreeMap<String, Long> registerValues,
-                                    final String left,
-                                    final String operation,
-                                    final String right) {
+    private long processInstruction(final TreeMap<String, Long> registerValues, final String left,
+                                    final String operation, final String right) {
         registerValues.computeIfAbsent(left, k -> 0L);
         registerValues.computeIfAbsent(right, k -> 0L);
 

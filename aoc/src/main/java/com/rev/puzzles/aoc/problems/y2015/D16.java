@@ -1,8 +1,8 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
+import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,18 +19,19 @@ public final class D16 {
     private static final Pattern SUE_REGEX = Pattern.compile("^Sue \\d+:");
 
     @AocProblemI(year = 2015, day = 16, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final BiFunction<Sue, Sue, Boolean> matcher = partOneSueMatcher();
         return findSue(resourceLoader, matcher);
     }
 
     @AocProblemI(year = 2015, day = 16, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final BiFunction<Sue, Sue, Boolean> matcher = partTwoMatcher();
         return findSue(resourceLoader, matcher);
     }
 
-    private long findSue(final ProblemResourceLoader resourceLoader, final BiFunction<Sue, Sue, Boolean> matcher) {
+    private long findSue(final ProblemResourceLoader<List<String>> resourceLoader,
+                         final BiFunction<Sue, Sue, Boolean> matcher) {
         final List<Sue> sues = loadIndexedIdentifiers(resourceLoader);
 
         final Sue key = new Sue();
@@ -60,34 +61,30 @@ public final class D16 {
     }
 
     private BiFunction<Sue, Sue, Boolean> partOneSueMatcher() {
-        return (s1, s2) ->
-                (s1.children == UNKNOWN || s2.children == UNKNOWN || s1.children == s2.children)
-                        && (s1.cats == UNKNOWN || s2.cats == UNKNOWN || s1.cats == s2.cats)
-                        && (s1.samoyeds == UNKNOWN || s2.samoyeds == UNKNOWN || s1.samoyeds == s2.samoyeds)
-                        && (s1.pomeranians == UNKNOWN || s2.pomeranians == UNKNOWN || s1.pomeranians == s2.pomeranians)
-                        && (s1.akitas == UNKNOWN || s2.akitas == UNKNOWN || s1.akitas == s2.akitas)
-                        && (s1.vizslas == UNKNOWN || s2.vizslas == UNKNOWN || s1.vizslas == s2.vizslas)
-                        && (s1.goldfish == UNKNOWN || s2.goldfish == UNKNOWN || s1.goldfish == s2.goldfish)
-                        && (s1.trees == UNKNOWN || s2.trees == UNKNOWN || s1.trees == s2.trees)
-                        && (s1.cars == UNKNOWN || s2.cars == UNKNOWN || s1.cars == s2.cars)
-                        && (s1.perfumes == UNKNOWN || s2.perfumes == UNKNOWN || s1.perfumes == s2.perfumes);
+        return (s1, s2) -> (s1.children == UNKNOWN || s2.children == UNKNOWN || s1.children == s2.children) && (
+                s1.cats == UNKNOWN || s2.cats == UNKNOWN || s1.cats == s2.cats) && (s1.samoyeds == UNKNOWN
+                || s2.samoyeds == UNKNOWN || s1.samoyeds == s2.samoyeds) && (s1.pomeranians == UNKNOWN
+                || s2.pomeranians == UNKNOWN || s1.pomeranians == s2.pomeranians) && (s1.akitas == UNKNOWN
+                || s2.akitas == UNKNOWN || s1.akitas == s2.akitas) && (s1.vizslas == UNKNOWN || s2.vizslas == UNKNOWN
+                || s1.vizslas == s2.vizslas) && (s1.goldfish == UNKNOWN || s2.goldfish == UNKNOWN
+                || s1.goldfish == s2.goldfish) && (s1.trees == UNKNOWN || s2.trees == UNKNOWN || s1.trees == s2.trees)
+                && (s1.cars == UNKNOWN || s2.cars == UNKNOWN || s1.cars == s2.cars) && (s1.perfumes == UNKNOWN
+                || s2.perfumes == UNKNOWN || s1.perfumes == s2.perfumes);
     }
 
     private BiFunction<Sue, Sue, Boolean> partTwoMatcher() {
-        return (s1, s2) ->
-                (s1.children == UNKNOWN || s2.children == UNKNOWN || s1.children == s2.children)
-                        && (s1.cats == UNKNOWN || s2.cats == UNKNOWN || s1.cats < s2.cats)
-                        && (s1.samoyeds == UNKNOWN || s2.samoyeds == UNKNOWN || s1.samoyeds == s2.samoyeds)
-                        && (s1.pomeranians == UNKNOWN || s2.pomeranians == UNKNOWN || s1.pomeranians > s2.pomeranians)
-                        && (s1.akitas == UNKNOWN || s2.akitas == UNKNOWN || s1.akitas == s2.akitas)
-                        && (s1.vizslas == UNKNOWN || s2.vizslas == UNKNOWN || s1.vizslas == s2.vizslas)
-                        && (s1.goldfish == UNKNOWN || s2.goldfish == UNKNOWN || s1.goldfish > s2.goldfish)
-                        && (s1.trees == UNKNOWN || s2.trees == UNKNOWN || s1.trees < s2.trees)
-                        && (s1.cars == UNKNOWN || s2.cars == UNKNOWN || s1.cars == s2.cars)
-                        && (s1.perfumes == UNKNOWN || s2.perfumes == UNKNOWN || s1.perfumes == s2.perfumes);
+        return (s1, s2) -> (s1.children == UNKNOWN || s2.children == UNKNOWN || s1.children == s2.children) && (
+                s1.cats == UNKNOWN || s2.cats == UNKNOWN || s1.cats < s2.cats) && (s1.samoyeds == UNKNOWN
+                || s2.samoyeds == UNKNOWN || s1.samoyeds == s2.samoyeds) && (s1.pomeranians == UNKNOWN
+                || s2.pomeranians == UNKNOWN || s1.pomeranians > s2.pomeranians) && (s1.akitas == UNKNOWN
+                || s2.akitas == UNKNOWN || s1.akitas == s2.akitas) && (s1.vizslas == UNKNOWN || s2.vizslas == UNKNOWN
+                || s1.vizslas == s2.vizslas) && (s1.goldfish == UNKNOWN || s2.goldfish == UNKNOWN
+                || s1.goldfish > s2.goldfish) && (s1.trees == UNKNOWN || s2.trees == UNKNOWN || s1.trees < s2.trees)
+                && (s1.cars == UNKNOWN || s2.cars == UNKNOWN || s1.cars == s2.cars) && (s1.perfumes == UNKNOWN
+                || s2.perfumes == UNKNOWN || s1.perfumes == s2.perfumes);
     }
 
-    private List<Sue> loadIndexedIdentifiers(final ProblemResourceLoader resourceLoader) {
+    private List<Sue> loadIndexedIdentifiers(final ProblemResourceLoader<List<String>> resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         final List<Sue> sues = new ArrayList<>(lines.size());
 
@@ -171,49 +168,23 @@ public final class D16 {
                 return false;
             }
             Sue that = (Sue) o;
-            return children == that.children
-                    && cats == that.cats
-                    && samoyeds == that.samoyeds
-                    && pomeranians == that.pomeranians
-                    && akitas == that.akitas
-                    && vizslas == that.vizslas
-                    && goldfish == that.goldfish
-                    && trees == that.trees
-                    && cars == that.cars
+            return children == that.children && cats == that.cats && samoyeds == that.samoyeds
+                    && pomeranians == that.pomeranians && akitas == that.akitas && vizslas == that.vizslas
+                    && goldfish == that.goldfish && trees == that.trees && cars == that.cars
                     && perfumes == that.perfumes;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    children,
-                    cats,
-                    samoyeds,
-                    pomeranians,
-                    akitas,
-                    vizslas,
-                    goldfish,
-                    trees,
-                    cars,
-                    perfumes
-            );
+            return Objects.hash(children, cats, samoyeds, pomeranians, akitas, vizslas, goldfish, trees, cars,
+                    perfumes);
         }
 
         @Override
         public String toString() {
-            return "Sue{"
-                    + "sue=" + sue
-                    + ", children=" + children
-                    + ", cats=" + cats
-                    + ", samoyeds=" + samoyeds
-                    + ", pomeranians=" + pomeranians
-                    + ", akitas=" + akitas
-                    + ", vizslas=" + vizslas
-                    + ", goldfish=" + goldfish
-                    + ", trees=" + trees
-                    + ", cars=" + cars
-                    + ", perfumes=" + perfumes
-                    + '}';
+            return "Sue{" + "sue=" + sue + ", children=" + children + ", cats=" + cats + ", samoyeds=" + samoyeds
+                    + ", pomeranians=" + pomeranians + ", akitas=" + akitas + ", vizslas=" + vizslas + ", goldfish="
+                    + goldfish + ", trees=" + trees + ", cars=" + cars + ", perfumes=" + perfumes + '}';
         }
     }
 

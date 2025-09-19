@@ -1,6 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2023;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -9,12 +10,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-
 public final class D02 {
 
+    /**
+     * PART ONE
+     */
+    private static final int NUM_REDS = 12;
+    private static final int NUM_GREENS = 13;
+    private static final int NUM_BLUES = 14;
+
     @AocProblemI(year = 2023, day = 2, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
 
         Map<Integer, List<Handful>> gameHandfulMap = parseToGameMap(lines);
@@ -28,7 +34,7 @@ public final class D02 {
     }
 
     @AocProblemI(year = 2023, day = 2, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         return 0L;
     }
 
@@ -56,13 +62,6 @@ public final class D02 {
         }
         retval.put(gameNumber, handfuls);
     }
-
-    /**
-     * PART ONE
-     */
-    private static final int NUM_REDS = 12;
-    private static final int NUM_GREENS = 13;
-    private static final int NUM_BLUES = 14;
 
     private long getIncrementingAmountPartOne(final Map<Integer, List<Handful>> gameHandfulMap, final int gameNumber) {
         List<Handful> handfuls = gameHandfulMap.get(gameNumber);
@@ -93,13 +92,12 @@ public final class D02 {
      */
 
     private static final class Handful {
-        private long red = 0;
-        private long green = 0;
-        private long blue = 0;
-
         private static final String RED = " red";
         private static final String GREEN = " green";
         private static final String BLUE = " blue";
+        private long red = 0;
+        private long green = 0;
+        private long blue = 0;
 
         public static Handful from(final String[] colors) {
             Handful handful = new Handful();

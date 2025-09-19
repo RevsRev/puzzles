@@ -1,35 +1,14 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-
-import java.util.Set;
-
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
+
+import java.util.List;
+import java.util.Set;
 
 public final class D11 {
 
     public static final int PART_TWO_ITERATIONS = 2;
-
-    @AocProblemI(year = 2015, day = 11, part = 1)
-    public String partOneImpl(final ProblemResourceLoader resourceLoader) {
-        char[] password = resourceLoader.resources().get(0).toCharArray();
-        do {
-            countUp(password, 'a', 'z');
-        } while (!validPassword(password));
-        return new String(password);
-    }
-
-    @AocProblemI(year = 2015, day = 11, part = 1)
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
-        char[] password = resourceLoader.resources().get(0).toCharArray();
-        for (int i = 0; i < PART_TWO_ITERATIONS; i++) {
-            do {
-                countUp(password, 'a', 'z');
-            } while (!validPassword(password));
-        }
-        return new String(password);
-    }
 
     private static boolean validPassword(final char[] password) {
         return hasTwoSetsOfRepeatedChar(password) && hasRunOfThree(password) && !containsForbiddenCharacters(password);
@@ -99,5 +78,26 @@ public final class D11 {
         }
 
         count[i]++;
+    }
+
+    @AocProblemI(year = 2015, day = 11, part = 1)
+    public String partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        char[] password = resourceLoader.resources().get(0).toCharArray();
+        do {
+            countUp(password, 'a', 'z');
+        } while (!validPassword(password));
+        return new String(password);
+    }
+
+    @AocProblemI(year = 2015, day = 11, part = 1)
+    @SuppressWarnings("checkstyle:MagicNumber")
+    public String partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        char[] password = resourceLoader.resources().get(0).toCharArray();
+        for (int i = 0; i < PART_TWO_ITERATIONS; i++) {
+            do {
+                countUp(password, 'a', 'z');
+            } while (!validPassword(password));
+        }
+        return new String(password);
     }
 }

@@ -18,22 +18,21 @@ import java.util.function.Function;
 
 public final class AnnotationProblemLoader<A extends Annotation, C extends ProblemCoordinate<C>>
         implements ProblemLoader<C> {
-    private static final String AOC_PROBLEMS_PACKAGE = "com.rev.puzzles.aoc.problems";
 
+    private final String packageToSearch;
     private final Class<A> annotationClazz;
     private final Function<A, C> coordinateMapper;
 
-    public AnnotationProblemLoader(
-            final Class<A> annotationClazz,
-            final Function<A, C> coordinateMapper) {
+    public AnnotationProblemLoader(final String packageToSearch, final Class<A> annotationClazz,
+                                   final Function<A, C> coordinateMapper) {
+        this.packageToSearch = packageToSearch;
         this.annotationClazz = annotationClazz;
         this.coordinateMapper = coordinateMapper;
     }
 
 
     @Override
-    public SortedMap<C, Problem<?>> loadProblemsInRange(final C firstAocCoordinate,
-                                                        final C secondAocCoordinate) {
+    public SortedMap<C, Problem<?>> loadProblemsInRange(final C firstAocCoordinate, final C secondAocCoordinate) {
         final NavigableMap<C, Problem<?>> problems = loadProblems();
 
         if (problems.isEmpty()) {
@@ -60,7 +59,7 @@ public final class AnnotationProblemLoader<A extends Annotation, C extends Probl
         try {
             NavigableMap<C, Problem<?>> retval = new TreeMap<>(C::compareTo);
             ClassPath cp = ClassPath.from(DefaultProblemEngine.class.getClassLoader());
-            ImmutableSet<ClassPath.ClassInfo> allClasses = cp.getTopLevelClassesRecursive(AOC_PROBLEMS_PACKAGE);
+            ImmutableSet<ClassPath.ClassInfo> allClasses = cp.getTopLevelClassesRecursive(packageToSearch);
             for (ClassPath.ClassInfo classInfo : allClasses) {
                 Class<?> clazz = classInfo.load();
                 for (Method method : clazz.getDeclaredMethods()) {
@@ -75,10 +74,8 @@ public final class AnnotationProblemLoader<A extends Annotation, C extends Probl
                             } catch (IllegalAccessException e) {
                                 throw new RuntimeException(String.format("Could not load problem %s", apply), e);
                             } catch (InvocationTargetException e) {
-                                throw new ProblemExecutionException(
-                                        "Execution of problem failed",
-                                        e.getTargetException()
-                                );
+                                throw new ProblemExecutionException("Execution of problem failed",
+                                        e.getTargetException());
                             }
                         };
                         retval.put(apply, problem);

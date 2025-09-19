@@ -20,11 +20,8 @@ public final class DefaultProblemEngine<C extends ProblemCoordinate<C>> implemen
     @Setter
     private boolean debug = false;
 
-    public DefaultProblemEngine(final ProblemLoader<C> problemLoader,
-                            final ProblemExecutor<C> problemExecutor,
-                            final C firstCoordinate,
-                            final C secondCoordinate
-    ) {
+    public DefaultProblemEngine(final ProblemLoader<C> problemLoader, final ProblemExecutor<C> problemExecutor,
+                                final C firstCoordinate, final C secondCoordinate) {
         this.firstCoordinate = firstCoordinate;
         this.secondCoordinate = secondCoordinate;
         this.problemLoader = problemLoader;
@@ -34,9 +31,10 @@ public final class DefaultProblemEngine<C extends ProblemCoordinate<C>> implemen
 
     @Override
     public void run() {
-        SortedMap<C, Problem<?>> problemsInRange =
-                problemLoader.loadProblemsInRange(firstCoordinate, secondCoordinate);
+        SortedMap<C, Problem<?>> problemsInRange = problemLoader.loadProblemsInRange(firstCoordinate, secondCoordinate);
         if (problemsInRange == null) {
+            //TODO - Replace std out with a print writer?
+            System.out.println("No problems found");
             return;
         }
 

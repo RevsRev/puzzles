@@ -1,11 +1,12 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
@@ -18,12 +19,31 @@ public final class D14 {
     public static final int PART_ONE_HEIGHT = 103;
     private static final int PART_TWO_LIMIT = 10000;
 
+    private static Map<Pair<Integer, Integer>, Integer> calculateRobotPositions(final Integer[][] posAndVels, long time,
+                                                                                long width, long height) {
+        Map<Pair<Integer, Integer>, Integer> robotPositions = new HashMap<>();
+        for (Integer[] posAndVel : posAndVels) {
+            long robotX = (posAndVel[0] + time * posAndVel[2]) % width;
+            long robotY = (posAndVel[1] + time * posAndVel[3]) % height;
+
+            if (robotX < 0) {
+                robotX += width;
+            }
+            if (robotY < 0) {
+                robotY += height;
+            }
+
+            Pair<Integer, Integer> key = Pair.of((int) robotX, (int) robotY);
+            Integer val = robotPositions.getOrDefault(key, 0);
+            robotPositions.put(key, val + 1);
+        }
+        return robotPositions;
+    }
+
     @AocProblemI(year = 2024, day = 14, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
-        Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(
-                resourceLoader.resources(),
-                new Integer[][]{},
-                splitter());
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        Integer[][] posAndVels =
+                LoaderUtils.loadResourcesAsMatrix(resourceLoader.resources(), new Integer[][]{}, splitter());
 
         Map<Pair<Integer, Integer>, Integer> robotPositions =
                 calculateRobotPositions(posAndVels, PART_ONE_TIME, PART_ONE_WIDTH, PART_ONE_HEIGHT);
@@ -48,11 +68,9 @@ public final class D14 {
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 14, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
-        Integer[][] posAndVels = LoaderUtils.loadResourcesAsMatrix(
-                resourceLoader.resources(),
-                new Integer[][]{},
-                splitter());
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        Integer[][] posAndVels =
+                LoaderUtils.loadResourcesAsMatrix(resourceLoader.resources(), new Integer[][]{}, splitter());
         Scanner s = new Scanner(System.in);
 //        for (int i = 11; i < PART_TWO_LIMIT; i += 101) {
 //            //from inspection... 11, 112, 213, 314, ... look interesting
@@ -82,29 +100,6 @@ public final class D14 {
         }
         System.out.println();
         System.out.println();
-    }
-
-    private static Map<Pair<Integer, Integer>, Integer> calculateRobotPositions(final Integer[][] posAndVels,
-                                                                                long time,
-                                                                                long width,
-                                                                                long height) {
-        Map<Pair<Integer, Integer>, Integer> robotPositions = new HashMap<>();
-        for (Integer[] posAndVel : posAndVels) {
-            long robotX = (posAndVel[0] + time * posAndVel[2]) % width;
-            long robotY = (posAndVel[1] + time * posAndVel[3]) % height;
-
-            if (robotX < 0) {
-                robotX += width;
-            }
-            if (robotY < 0) {
-                robotY += height;
-            }
-
-            Pair<Integer, Integer> key = Pair.of((int) robotX, (int) robotY);
-            Integer val = robotPositions.getOrDefault(key, 0);
-            robotPositions.put(key, val + 1);
-        }
-        return robotPositions;
     }
 
     private Function<String, Integer[]> splitter() {

@@ -1,16 +1,25 @@
 package com.rev.puzzles.aoc.problems.y2016;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 
 import java.util.List;
 
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-
 public final class D02 {
 
+    private static int[][] getKeypad() {
+        return new int[][]{new int[]{1, 2, 3}, new int[]{4, 5, 6}, new int[]{7, 8, 9}};
+    }
+
+    private static char[][] getKeypadPart2() {
+        return new char[][]{new char[]{'0', '0', '1', '0', '0'}, new char[]{'0', '2', '3', '4', '0'},
+                new char[]{'5', '6', '7', '8', '9'}, new char[]{'0', 'A', 'B', 'C', '0'},
+                new char[]{'0', '0', 'D', '0', '0'}};
+    }
+
     @AocProblemI(year = 2016, day = 2, part = 1)
-    public Integer partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> instructions = resourceLoader.resources();
         int[][] keypad = getKeypad();
 
@@ -36,8 +45,7 @@ public final class D02 {
                         break;
                     default:
                         throw new ProblemExecutionException(
-                                String.format("Unrecognised instruction %s", instruction.charAt(k))
-                        );
+                                String.format("Unrecognised instruction %s", instruction.charAt(k)));
                 }
             }
             result.append(keypad[j][i]);
@@ -47,7 +55,7 @@ public final class D02 {
     }
 
     @AocProblemI(year = 2016, day = 2, part = 2)
-    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> instructions = resourceLoader.resources();
         char[][] keypad = getKeypadPart2();
 
@@ -75,31 +83,12 @@ public final class D02 {
                         break;
                     default:
                         throw new ProblemExecutionException(
-                                String.format("Unrecognised instruction %s", instruction.charAt(k))
-                        );
+                                String.format("Unrecognised instruction %s", instruction.charAt(k)));
                 }
             }
             result.append(keypad[j][i]);
         }
 
         return result.toString();
-    }
-
-    private static int[][] getKeypad() {
-        return new int[][]{
-                new int[]{1, 2, 3},
-                new int[]{4, 5, 6},
-                new int[]{7, 8, 9}
-        };
-    }
-
-    private static char[][] getKeypadPart2() {
-        return new char[][]{
-                new char[]{'0', '0', '1', '0', '0'},
-                new char[]{'0', '2', '3', '4', '0'},
-                new char[]{'5', '6', '7', '8', '9'},
-                new char[]{'0', 'A', 'B', 'C', '0'},
-                new char[]{'0', '0', 'D', '0', '0'}
-        };
     }
 }

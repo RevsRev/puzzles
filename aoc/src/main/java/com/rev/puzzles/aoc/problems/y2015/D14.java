@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
 
 public final class D14 {
 
+    public static final int RACE_DURATION = 2503;
     private static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
     private static final Pattern NAME_PATTERN = Pattern.compile("^\\w+");
-    public static final int RACE_DURATION = 2503;
 
     @AocProblemI(year = 2015, day = 14, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<Reindeer> reindeer = loadReindeer(resourceLoader);
         long winningDistance = 0;
         for (Reindeer r : reindeer) {
@@ -32,7 +32,7 @@ public final class D14 {
     }
 
     @AocProblemI(year = 2015, day = 14, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<Reindeer> reindeer = loadReindeer(resourceLoader);
         final Map<String, Long> scores = new HashMap<>();
         reindeer.forEach(r -> scores.putIfAbsent(r.name, 0L));
@@ -59,7 +59,7 @@ public final class D14 {
         return scores.values().stream().max(Long::compare).orElseThrow();
     }
 
-    private List<Reindeer> loadReindeer(final ProblemResourceLoader resourceLoader) {
+    private List<Reindeer> loadReindeer(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
         final List<Reindeer> reindeer = new ArrayList<>(lines.size());
         for (final String line : lines) {
@@ -80,18 +80,7 @@ public final class D14 {
         return reindeer;
     }
 
-    private static final class Reindeer {
-        private final String name;
-        private final long speed;
-        private final long flightDuration;
-        private final long restDuration;
-
-        private Reindeer(final String name, long speed, long flightDuration, long restDuration) {
-            this.name = name;
-            this.speed = speed;
-            this.flightDuration = flightDuration;
-            this.restDuration = restDuration;
-        }
+    private record Reindeer(String name, long speed, long flightDuration, long restDuration) {
 
         private long distanceTravelled(long time) {
             final long blocks = time / (flightDuration + restDuration);

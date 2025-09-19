@@ -1,30 +1,30 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.aoc.framework.load.LoaderUtils;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.geom.Direction;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.Queue;
 import java.util.TreeMap;
-
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D20 {
 
     public static final int SAVE_THRESHOLD = 100;
 
     @AocProblemI(year = 2024, day = 20, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         return solvePartOne(chars, 2);
     }
 
     @AocProblemI(year = 2024, day = 20, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         char[][] chars = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         return solvePartOne(chars, 20);
     }
@@ -63,18 +63,15 @@ public final class D20 {
         return count;
     }
 
-    private Map<Integer, Integer> countCheatSaveAmounts(final Integer[][] traversedState,
-                                                        final int i,
-                                                        final int j, int maxCheatHop) {
+    private Map<Integer, Integer> countCheatSaveAmounts(final Integer[][] traversedState, final int i, final int j,
+                                                        int maxCheatHop) {
         Map<Integer, Integer> savedAmounts = new HashMap<>();
         for (int x = -maxCheatHop; x <= maxCheatHop; x++) {
             int yLimit = maxCheatHop - Math.abs(x);
             for (int y = -yLimit; y <= yLimit; y++) {
                 int taxiDistance = Math.abs(x) + Math.abs(y);
-                if (taxiDistance >= 1 && taxiDistance <= maxCheatHop
-                        && 0 <= i + x && i + x < traversedState.length
-                        && 0 <= j + y && j + y < traversedState[0].length
-                        && traversedState[i + x][j + y] != null) {
+                if (taxiDistance >= 1 && taxiDistance <= maxCheatHop && 0 <= i + x && i + x < traversedState.length
+                        && 0 <= j + y && j + y < traversedState[0].length && traversedState[i + x][j + y] != null) {
                     int saved = traversedState[i + x][j + y] - traversedState[i][j] - taxiDistance;
                     if (saved > 0) {
                         int count = savedAmounts.getOrDefault(saved, 0);
@@ -86,9 +83,7 @@ public final class D20 {
         return savedAmounts;
     }
 
-    private void traverseMaze(final char[][] chars,
-                              final Integer[][] traversalState,
-                              final int startI,
+    private void traverseMaze(final char[][] chars, final Integer[][] traversalState, final int startI,
                               final int startJ) {
 
         Queue<Integer> visitQueue = new ArrayDeque<>();

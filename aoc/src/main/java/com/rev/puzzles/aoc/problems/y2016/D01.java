@@ -1,21 +1,21 @@
 package com.rev.puzzles.aoc.problems.y2016;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 import com.rev.puzzles.framework.util.geom.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D01 {
 
     public static final String LEFT = "L";
 
     @AocProblemI(year = 2016, day = 1, part = 1)
-    public Integer partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Integer partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         String[] directions = resourceLoader.resources().get(0).replaceAll("\\s+", "").split(",");
 
         int x = 0;
@@ -38,7 +38,7 @@ public final class D01 {
     }
 
     @AocProblemI(year = 2016, day = 1, part = 2)
-    public Integer partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Integer partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         String[] directions = resourceLoader.resources().get(0).replaceAll("\\s+", "").split(",");
 
         Set<Pair<Integer, Integer>> visited = new HashSet<>();

@@ -1,11 +1,10 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.List;
 import java.util.regex.Pattern;
-
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D05 {
 
@@ -21,14 +20,17 @@ public final class D05 {
     private static final Pattern DOUBLE_DOUBLE_PATTERN = Pattern.compile(DOUBLE_DOUBLE_REGEX);
     private static final Pattern SANDWICH_PATTERN = Pattern.compile(SANDWICH_REGEX);
 
+    private static boolean matches(final String s, final Pattern p) {
+        return p.matcher(s).matches();
+    }
+
     @AocProblemI(year = 2015, day = 5, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
         long count = 0;
         for (String line : lines) {
-            if (matches(line, VOWEL_PATTERN)
-                    && matches(line, DOUBLE_PATTERN)
-                    && !matches(line, IGNORE_STRINGS_PATTERN)) {
+            if (matches(line, VOWEL_PATTERN) && matches(line, DOUBLE_PATTERN) && !matches(line,
+                    IGNORE_STRINGS_PATTERN)) {
                 count++;
             }
         }
@@ -36,7 +38,7 @@ public final class D05 {
     }
 
     @AocProblemI(year = 2015, day = 5, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
         long count = 0;
         for (String line : lines) {
@@ -45,9 +47,5 @@ public final class D05 {
             }
         }
         return count;
-    }
-
-    private static boolean matches(final String s, final Pattern p) {
-        return p.matcher(s).matches();
     }
 }

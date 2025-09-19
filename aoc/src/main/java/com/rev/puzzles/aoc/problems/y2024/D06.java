@@ -1,22 +1,22 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.aoc.framework.load.LoaderUtils;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 import com.rev.puzzles.framework.util.geom.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static com.rev.puzzles.framework.util.geom.Direction.UP;
 
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-
 public final class D06 {
 
-    private static final char START_CHAR = '^';
     public static final char EMPTY_CHAR = '.';
+    private static final char START_CHAR = '^';
     private static final char OBSTACLE_CHAR = '#';
     private static final char NEW_OBSTACLE_CHAR = 'O';
     private static final int[][] DIRECTIONS = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
@@ -32,57 +32,9 @@ public final class D06 {
     private static final int OBSTACLE_INT = OBSTACLE_CHAR;
     private static final int NEW_OBSTACLE_INT = NEW_OBSTACLE_CHAR;
 
-    @AocProblemI(year = 2024, day = 6, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
-        try {
-            int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(),
-                    s -> s.split(""),
-                    s -> (int) s.charAt(0));
-            int[] start = LoaderUtils.findOne(map, START_INT);
-
-            int height = map.length;
-            int width = map[0].length;
-
-            Set<Pair<Integer, Integer>> visited = new HashSet<>();
-            traverseWithoutLoops(map, height, width, start[0], start[1], UP, visited);
-            return (long) visited.size();
-        } catch (StackOverflowError e) {
-            throwProblemExecutionException(e);
-        }
-        return 0L;
-    }
-
-    @AocProblemI(year = 2024, day = 6, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
-        try {
-            int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(),
-                    s -> s.split(""),
-                    s -> (int) s.charAt(0));
-            int[] start = LoaderUtils.findOne(map, START_INT);
-
-            int width = map[0].length;
-
-            int i = start[0];
-            int j = start[1];
-
-            int height = map.length;
-
-            Set<Pair<Integer, Integer>> blockingPositions = new HashSet<>();
-            traverseWithLoops(map, height, width, i, j, UP, false, blockingPositions);
-            return (long) blockingPositions.size();
-        } catch (StackOverflowError e) {
-            throwProblemExecutionException(e);
-        }
-        return 0L;
-    }
-
     @SuppressWarnings("checkstyle:ParameterNumber")
-    private static void traverseWithoutLoops(final int[][] map,
-                                             final int height,
-                                             final int width,
-                                             final int i,
-                                             final int j,
-                                             final Direction startDir,
+    private static void traverseWithoutLoops(final int[][] map, final int height, final int width, final int i,
+                                             final int j, final Direction startDir,
                                              final Set<Pair<Integer, Integer>> visited) {
         visited.add(Pair.of(i, j));
         int nextI = i + startDir.getI();
@@ -100,13 +52,8 @@ public final class D06 {
     }
 
     @SuppressWarnings("checkstyle:ParameterNumber")
-    private static boolean traverseWithLoops(final int[][] map,
-                                             final int height,
-                                             final int width,
-                                             final int i,
-                                             final int j,
-                                             final Direction startDir,
-                                             final boolean placedObstacle,
+    private static boolean traverseWithLoops(final int[][] map, final int height, final int width, final int i,
+                                             final int j, final Direction startDir, final boolean placedObstacle,
                                              final Set<Pair<Integer, Integer>> loopObsaclePositions) {
         int visitedFlag = getFlag(startDir);
         if ((map[i][j] & visitedFlag) == visitedFlag) {
@@ -123,8 +70,8 @@ public final class D06 {
         }
 
         if (map[nextI][nextJ] == NEW_OBSTACLE_INT || map[nextI][nextJ] == OBSTACLE_INT) {
-            boolean found = traverseWithLoops(map, height, width, i, j, startDir.next(), placedObstacle,
-                    loopObsaclePositions);
+            boolean found =
+                    traverseWithLoops(map, height, width, i, j, startDir.next(), placedObstacle, loopObsaclePositions);
             map[i][j] = map[i][j] & (Integer.MAX_VALUE ^ visitedFlag);
             return found;
         }
@@ -134,7 +81,7 @@ public final class D06 {
                 && (map[nextI][nextJ] & (VISIT_UP_FLAG | VISIT_RIGHT_FLAG | VISIT_LEFT_FLAG | VISIT_DOWN_FLAG)) == 0) {
             map[nextI][nextJ] = NEW_OBSTACLE_INT;
             if (traverseWithLoops(map, height, width, i, j, startDir.next(), true, loopObsaclePositions)) {
-                found |= true;
+                found = true;
                 loopObsaclePositions.add(Pair.of(nextI, nextJ));
             }
             map[nextI][nextJ] = EMPTY_INT;
@@ -164,5 +111,47 @@ public final class D06 {
     private static void throwProblemExecutionException(final StackOverflowError e) {
         String errorMessage = "JVM stacksize too small. Set -Xss2M or higher";
         throw new ProblemExecutionException(errorMessage, e);
+    }
+
+    @AocProblemI(year = 2024, day = 6, part = 1)
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        try {
+            int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(), s -> s.split(""),
+                    s -> (int) s.charAt(0));
+            int[] start = LoaderUtils.findOne(map, START_INT);
+
+            int height = map.length;
+            int width = map[0].length;
+
+            Set<Pair<Integer, Integer>> visited = new HashSet<>();
+            traverseWithoutLoops(map, height, width, start[0], start[1], UP, visited);
+            return (long) visited.size();
+        } catch (StackOverflowError e) {
+            throwProblemExecutionException(e);
+        }
+        return 0L;
+    }
+
+    @AocProblemI(year = 2024, day = 6, part = 2)
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        try {
+            int[][] map = LoaderUtils.loadResourcesAsIntMatrix(resourceLoader.resources(), s -> s.split(""),
+                    s -> (int) s.charAt(0));
+            int[] start = LoaderUtils.findOne(map, START_INT);
+
+            int width = map[0].length;
+
+            int i = start[0];
+            int j = start[1];
+
+            int height = map.length;
+
+            Set<Pair<Integer, Integer>> blockingPositions = new HashSet<>();
+            traverseWithLoops(map, height, width, i, j, UP, false, blockingPositions);
+            return (long) blockingPositions.size();
+        } catch (StackOverflowError e) {
+            throwProblemExecutionException(e);
+        }
+        return 0L;
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public final class D23 {
 
     @AocProblemI(year = 2024, day = 23, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph(resourceLoader);
         Collection<Graph<Vertex, Edge>> subGraphsOfSize3 = SubGraphs.getConnectedSubgraphsOfSize3(graph);
         long count = 0;
@@ -32,7 +32,7 @@ public final class D23 {
     }
 
     @AocProblemI(year = 2024, day = 23, part = 2)
-    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         Graph<Vertex, Edge> graph = loadResourcesAsGraph(resourceLoader);
         Collection<Graph<Vertex, Edge>> cliques = Cliques.getCliques(graph);
         long largestCliqueSize = 0;
@@ -50,7 +50,7 @@ public final class D23 {
         return String.join(",", nodeNames);
     }
 
-    private Graph<Vertex, Edge> loadResourcesAsGraph(final ProblemResourceLoader resourceLoader) {
+    private Graph<Vertex, Edge> loadResourcesAsGraph(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
         return Graph.fromResources(lines, (s, b) -> {
             String[] split = s.split("-");

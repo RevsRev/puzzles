@@ -28,12 +28,11 @@ public final class D20 {
     public static final String CONJUNCTION = "&";
     public static final String BROADCASTER = "broadcaster";
     public static final String BUTTON = "button";
-
-    private static final int NUM_BUTTON_PRESSES = 1000;
     public static final String RX = "rx";
+    private static final int NUM_BUTTON_PRESSES = 1000;
 
     @AocProblemI(year = 2023, day = 20, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> strings = resourceLoader.resources();
         Map<String, Module> modules = parseToModules(strings);
 
@@ -45,11 +44,11 @@ public final class D20 {
         for (int i = 0; i < NUM_BUTTON_PRESSES; i++) {
             start(button);
         }
-        return (long) (pulseCounter.numHigh * pulseCounter.numLow);
+        return (long) pulseCounter.numHigh * pulseCounter.numLow;
     }
 
     @AocProblemI(year = 2023, day = 20, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
 //        List<String> strings = resourceLoader.resource();
 //        Map<String, Module> modules = parseToModules(strings);
 //        Module rx = modules.get(RX);
@@ -67,7 +66,8 @@ public final class D20 {
     }
 
     @AocVisualisation(year = 2023, day = 20, part = 1)
-    public void visualiseProblem(final ProblemResourceLoader resourceLoader) throws VisualisationException {
+    public void visualiseProblem(final ProblemResourceLoader<List<String>> resourceLoader)
+            throws VisualisationException {
         List<String> strings = resourceLoader.resources();
         Map<String, Module> modules = parseToModules(strings);
         Graph<Module, DefaultEdge> graph = asGraph(modules);
@@ -147,6 +147,10 @@ public final class D20 {
         return modules;
     }
 
+    private enum Pulse {
+        LOW, HIGH
+    }
+
     private static final class PartOnePulseCounter implements Consumer<Pulse> {
 
         private int numLow = 0;
@@ -179,13 +183,26 @@ public final class D20 {
         private final String name;
         private final List<Module> outputs = new ArrayList<>();
         private final List<Module> inputs = new ArrayList<>();
-        private Consumer<Pulse> pulseSendConsumer = p -> {
+        private final Consumer<Pulse> pulseReceiveConsumer = p -> {
         };
-        private Consumer<Pulse> pulseReceiveConsumer = p -> {
+        private Consumer<Pulse> pulseSendConsumer = p -> {
         };
 
         private Module(final String name) {
             this.name = name;
+        }
+
+        public static Module factory(final String nameAndType) {
+            if (nameAndType.contains(FLIP_FLOP)) {
+                return new FlipFlop(nameAndType.replace(FLIP_FLOP, ""));
+            }
+            if (nameAndType.contains(CONJUNCTION)) {
+                return new Conjunction(nameAndType.replace(CONJUNCTION, ""));
+            }
+            if (BROADCASTER.equals(nameAndType)) {
+                return new Broadcast(nameAndType);
+            }
+            return new Output(nameAndType);
         }
 
         public abstract void receive(Module sender, Pulse p, Queue<Runnable> runQueue);
@@ -200,19 +217,6 @@ public final class D20 {
                 pulseSendConsumer.accept(p);
                 runQueue.add(() -> m.receive(this, p, runQueue));
             }
-        }
-
-        public static Module factory(final String nameAndType) {
-            if (nameAndType.contains(FLIP_FLOP)) {
-                return new FlipFlop(nameAndType.replace(FLIP_FLOP, ""));
-            }
-            if (nameAndType.contains(CONJUNCTION)) {
-                return new Conjunction(nameAndType.replace(CONJUNCTION, ""));
-            }
-            if (BROADCASTER.equals(nameAndType)) {
-                return new Broadcast(nameAndType);
-            }
-            return new Output(nameAndType);
         }
     }
 
@@ -298,10 +302,5 @@ public final class D20 {
             }
             return output;
         }
-    }
-
-    private enum Pulse {
-        LOW,
-        HIGH
     }
 }

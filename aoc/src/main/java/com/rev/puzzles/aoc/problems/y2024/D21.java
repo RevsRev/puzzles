@@ -1,6 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.geom.Direction;
 
 import java.util.ArrayList;
@@ -11,30 +12,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-
 public final class D21 {
 
-    private static final char[][] DOOR_KEYPAD_CHARS = {
-            {'7', '8', '9'},
-            {'4', '5', '6'},
-            {'1', '2', '3'},
-            {'.', '0', 'A'}
-    };
-    private static final char[][] ROBOT_KEYPAD_CHARS = {
-            {'.', '^', 'A'},
-            {'<', 'v', '>'}
-    };
+    private static final char[][] DOOR_KEYPAD_CHARS =
+            {{'7', '8', '9'}, {'4', '5', '6'}, {'1', '2', '3'}, {'.', '0', 'A'}};
+    private static final char[][] ROBOT_KEYPAD_CHARS = {{'.', '^', 'A'}, {'<', 'v', '>'}};
 
-    private static final KeypadOperator DOOR_KEYPAD = new KeypadOperator(DOOR_KEYPAD_CHARS,
-            (i, j) -> !(i == 3 && j == 0));
-    private static final KeypadOperator ROBOT_KEYPAD = new KeypadOperator(ROBOT_KEYPAD_CHARS,
-            (i, j) -> !(i == 0 && j == 0));
+    private static final KeypadOperator DOOR_KEYPAD =
+            new KeypadOperator(DOOR_KEYPAD_CHARS, (i, j) -> !(i == 3 && j == 0));
+    private static final KeypadOperator ROBOT_KEYPAD =
+            new KeypadOperator(ROBOT_KEYPAD_CHARS, (i, j) -> !(i == 0 && j == 0));
     private static final int PART_ONE_DEPTH = 3;
     private static final int PART_TWO_DEPTH = 26;
 
+    private static void putInCache(final Map<Integer, Map<Character, Map<Character, Long>>> movesCache, final int depth,
+                                   final char start, final char end, final long value) {
+        movesCache.computeIfAbsent(depth, k -> new HashMap<>()).computeIfAbsent(start, k -> new HashMap<>())
+                .put(end, value);
+    }
+
+    private static long getFromCache(final Map<Integer, Map<Character, Map<Character, Long>>> movesCache, int depth,
+                                     char start, char end) {
+        return movesCache.computeIfAbsent(depth, k -> new HashMap<>()).computeIfAbsent(start, k -> new HashMap<>())
+                .computeIfAbsent(end, k -> Long.MAX_VALUE);
+    }
+
     @AocProblemI(year = 2024, day = 21, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> codes = resourceLoader.resources();
         long totalComplexity = 0;
         for (String code : codes) {
@@ -45,7 +49,7 @@ public final class D21 {
     }
 
     @AocProblemI(year = 2024, day = 21, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> codes = resourceLoader.resources();
         long totalComplexity = 0;
         for (String code : codes) {
@@ -71,17 +75,12 @@ public final class D21 {
     }
 
     private long getMinimumNumberOfMoves(final Map<Integer, Map<Character, Map<Character, Long>>> movesCache,
-                                         char start,
-                                         char end,
-                                         int maxDepth) {
+                                         char start, char end, int maxDepth) {
         return getMinimumNumberOfMoves(movesCache, start, end, maxDepth, maxDepth);
     }
 
     private long getMinimumNumberOfMoves(final Map<Integer, Map<Character, Map<Character, Long>>> movesCache,
-                                         char start,
-                                         char end,
-                                         int maxDepth,
-                                         int depth) {
+                                         char start, char end, int maxDepth, int depth) {
         if (depth == 0) {
             return 1;
         }
@@ -110,25 +109,6 @@ public final class D21 {
         return getFromCache(movesCache, depth, start, end);
     }
 
-    private static void putInCache(final Map<Integer, Map<Character, Map<Character, Long>>> movesCache,
-                                   final int depth,
-                                   final char start,
-                                   final char end,
-                                   final long value) {
-        movesCache.computeIfAbsent(depth, k -> new HashMap<>())
-                .computeIfAbsent(start, k -> new HashMap<>())
-                .put(end, value);
-    }
-
-    private static long getFromCache(final Map<Integer, Map<Character, Map<Character, Long>>> movesCache,
-                                     int depth,
-                                     char start,
-                                     char end) {
-        return movesCache.computeIfAbsent(depth, k -> new HashMap<>())
-                .computeIfAbsent(start, k -> new HashMap<>())
-                .computeIfAbsent(end, k -> Long.MAX_VALUE);
-    }
-
     private static final class KeypadOperator {
         private final char[][] keypad;
         private final int height;
@@ -142,6 +122,27 @@ public final class D21 {
             this.width = keypad[0].length;
             this.validator = validator;
             cacheMoves(); //doing work in constructor is bad, but hey ho it's Christmas!
+        }
+
+        private static String toCacheString(final Direction[] route) {
+            StringBuilder sb = new StringBuilder();
+            for (Direction dir : route) {
+                sb.append(getChar(dir));
+            }
+            return sb.toString();
+        }
+
+        private static char getChar(final Direction dir) {
+            if (dir == Direction.UP) {
+                return '^';
+            }
+            if (dir == Direction.RIGHT) {
+                return '>';
+            }
+            if (dir == Direction.DOWN) {
+                return 'v';
+            }
+            return '<';
         }
 
         public List<String> getMoves(char start, char end) {
@@ -217,27 +218,6 @@ public final class D21 {
                 }
             }
             return cacheStrings;
-        }
-
-        private static String toCacheString(final Direction[] route) {
-            StringBuilder sb = new StringBuilder();
-            for (Direction dir : route) {
-                sb.append(getChar(dir));
-            }
-            return sb.toString();
-        }
-
-        private static char getChar(final Direction dir) {
-            if (dir == Direction.UP) {
-                return '^';
-            }
-            if (dir == Direction.RIGHT) {
-                return '>';
-            }
-            if (dir == Direction.DOWN) {
-                return 'v';
-            }
-            return '<';
         }
     }
 

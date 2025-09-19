@@ -1,10 +1,11 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.aoc.framework.load.LoaderUtils;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.grid.Grid;
 
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
+import java.util.List;
 
 public final class D18 {
 
@@ -13,14 +14,14 @@ public final class D18 {
     private static final char DEAD = '.';
 
     @AocProblemI(year = 2015, day = 18, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         char[][] chars = LoaderUtils.linesToCharMatrix(resourceLoader.resources());
         char[][] updated = Grid.stateComputer(chars, gridConwaysLifeUpdater(false), ITERATIONS);
         return Grid.countGrid(updated, ALIVE);
     }
 
     @AocProblemI(year = 2015, day = 18, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         char[][] chars = LoaderUtils.linesToCharMatrix(resourceLoader.resources());
 
         final int height = chars.length;
@@ -41,10 +42,8 @@ public final class D18 {
             final int width = grid[0].length;
 
             if (fixCorners) {
-                if ((i == 0 && j == 0)
-                        || (i == 0 && j == width - 1)
-                        || (i == height - 1 && j == 0)
-                        || (i == height - 1 && j == height - 1)) {
+                if ((i == 0 && j == 0) || (i == 0 && j == width - 1) || (i == height - 1 && j == 0) || (i == height - 1
+                        && j == height - 1)) {
                     return ALIVE;
                 }
             }

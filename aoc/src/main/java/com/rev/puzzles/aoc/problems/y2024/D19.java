@@ -1,7 +1,8 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.aoc.framework.load.LoaderUtils;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,15 +10,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-
 public final class D19 {
 
     public static final int REGEX_MAX_LENGTH = 100;
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @AocProblemI(year = 2024, day = 19, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> strings = resourceLoader.resources();
         Set<String>[] regexes = LoaderUtils.emptyArray(new HashSet[0], 100, () -> new HashSet());
 
@@ -54,7 +53,7 @@ public final class D19 {
     }
 
     @AocProblemI(year = 2024, day = 19, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> strings = resourceLoader.resources();
         Set<String>[] regexes = LoaderUtils.emptyArray(new HashSet[0], REGEX_MAX_LENGTH, () -> new HashSet());
 
@@ -88,15 +87,12 @@ public final class D19 {
         return count;
     }
 
-    private long canDesign(final String target,
-                           final Set<String>[] regexes) {
+    private long canDesign(final String target, final Set<String>[] regexes) {
         Long[] cachedResults = LoaderUtils.emptyArray(new Long[0], target.length(), () -> null);
         return canDesign(target, regexes, cachedResults, 0);
     }
 
-    private long canDesign(final String target,
-                           final Set<String>[] regexes,
-                           final Long[] cachedResults,
+    private long canDesign(final String target, final Set<String>[] regexes, final Long[] cachedResults,
                            final int offset) {
         if (offset == target.length()) {
             return 1;
@@ -111,8 +107,7 @@ public final class D19 {
         int end = offset + 1;
         while (end < offset + 1 + regexes.length && end <= target.length()) {
             long designsAtEnd = canDesign(target, regexes, cachedResults, end);
-            if (designsAtEnd != 0
-                    && regexes[end - offset - 1].contains(target.substring(offset, end))) {
+            if (designsAtEnd != 0 && regexes[end - offset - 1].contains(target.substring(offset, end))) {
                 cachedResults[offset] = cachedResults[offset] + designsAtEnd;
             }
             end++;

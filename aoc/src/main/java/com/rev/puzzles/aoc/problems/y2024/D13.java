@@ -16,14 +16,26 @@ public final class D13 {
     public static final double EPSILON = 0.0001;
     public static final long PART_TWO_ERROR = 10000000000000L;
 
+    private static boolean validResultPartOne(double x) {
+        return x >= 0 && x <= PART_ONE_LIMIT && isInteger(x);
+    }
+
+    private static boolean validResultPartTwo(double x) {
+        return x >= 0 && isInteger(x);
+    }
+
+    private static boolean isInteger(double x) {
+        return Math.abs(x - Math.round(x)) < EPSILON;
+    }
+
     @AocProblemI(year = 2024, day = 13, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<SimultaneousSolver> solvers = loadSolvers(resourceLoader, false);
         return computeCost(solvers, D13::validResultPartOne);
     }
 
     @AocProblemI(year = 2024, day = 13, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<SimultaneousSolver> solvers = loadSolvers(resourceLoader, true);
         return computeCost(solvers, D13::validResultPartTwo);
     }
@@ -42,48 +54,22 @@ public final class D13 {
         return cost;
     }
 
-    private static boolean validResultPartOne(double x) {
-        return x >= 0 && x <= PART_ONE_LIMIT && isInteger(x);
-    }
-
-    private static boolean validResultPartTwo(double x) {
-        return x >= 0 && isInteger(x);
-    }
-
-    private static boolean isInteger(double x) {
-        return Math.abs(x - Math.round(x)) < EPSILON;
-    }
-
-    private List<SimultaneousSolver> loadSolvers(final ProblemResourceLoader resourceLoader, boolean partTwo) {
+    private List<SimultaneousSolver> loadSolvers(final ProblemResourceLoader<List<String>> resourceLoader,
+                                                 boolean partTwo) {
         List<String> lines = resourceLoader.resources();
         long amountExtra = partTwo ? PART_TWO_ERROR : 0;
         List<SimultaneousSolver> retval = new ArrayList<>(lines.size() / 3);
         for (int i = 0; i < lines.size(); i += 4) {
-            String[] aStr = lines.get(i)
-                    .replaceAll("\\s+", "")
-                    .replaceAll("ButtonA:", "")
-                    .replaceAll(".\\+", "")
-                    .trim()
+            String[] aStr = lines.get(i).replaceAll("\\s+", "").replaceAll("ButtonA:", "").replaceAll(".\\+", "").trim()
                     .split(",");
-            String[] bStr = lines.get(i + 1)
-                    .replaceAll("\\s+", "")
-                    .replaceAll("ButtonB:", "")
-                    .replaceAll(".\\+", "")
-                    .trim()
+            String[] bStr =
+                    lines.get(i + 1).replaceAll("\\s+", "").replaceAll("ButtonB:", "").replaceAll(".\\+", "").trim()
+                            .split(",");
+            String[] cStr = lines.get(i + 2).replaceAll("\\s+", "").replaceAll("Prize:", "").replaceAll(".=", "").trim()
                     .split(",");
-            String[] cStr = lines.get(i + 2)
-                    .replaceAll("\\s+", "")
-                    .replaceAll("Prize:", "")
-                    .replaceAll(".=", "")
-                    .trim()
-                    .split(",");
-            Mat2 lhs = new Mat2(Double.parseDouble(aStr[0]),
-                    Double.parseDouble(bStr[0]),
-                    Double.parseDouble(aStr[1]),
+            Mat2 lhs = new Mat2(Double.parseDouble(aStr[0]), Double.parseDouble(bStr[0]), Double.parseDouble(aStr[1]),
                     Double.parseDouble(bStr[1]));
-            Vec2 rhs = new Vec2(
-                    Double.parseDouble(cStr[0]) + amountExtra,
-                    Double.parseDouble(cStr[1]) + amountExtra);
+            Vec2 rhs = new Vec2(Double.parseDouble(cStr[0]) + amountExtra, Double.parseDouble(cStr[1]) + amountExtra);
             retval.add(new SimultaneousSolver(lhs, rhs));
         }
         return retval;

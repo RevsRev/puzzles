@@ -8,27 +8,18 @@ import java.util.List;
 public final class D04 {
 
     private static final char[] XMAS = {'X', 'M', 'A', 'S'};
-    private static final int[][] XMAS_STEPS = new int[][]{
-            {1, 0},
-            {1, 1},
-            {0, 1},
-            {-1, 1},
-            {-1, 0},
-            {-1, -1},
-            {0, -1},
-            {1, -1}};
-    private static final int[][] SQUARE_CORNERS = new int[][]{
-            {-1, 1}, {1, 1}, {1, -1}, {-1, -1}
-    };
+    private static final int[][] XMAS_STEPS =
+            new int[][]{{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
+    private static final int[][] SQUARE_CORNERS = new int[][]{{-1, 1}, {1, 1}, {1, -1}, {-1, -1}};
 
     @AocProblemI(year = 2024, day = 4, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         char[][] wordSearch = loadWordSearch(resourceLoader);
         return countXmas(wordSearch);
     }
 
     @AocProblemI(year = 2024, day = 4, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         char[][] wordSearch = loadWordSearch(resourceLoader);
         return countXmasSquares(wordSearch);
     }
@@ -61,8 +52,8 @@ public final class D04 {
         return count;
     }
 
-    private boolean xmasSquareMatches(final char[][] wordSearch,
-                                      final int height, final int width, final int i, final int j) {
+    private boolean xmasSquareMatches(final char[][] wordSearch, final int height, final int width, final int i,
+                                      final int j) {
         if (wordSearch[i][j] != 'A') {
             return false;
         }
@@ -93,8 +84,7 @@ public final class D04 {
         return false;
     }
 
-    private long xmasMatches(final char[][] wordSearch,
-                             final int height, final int width, final int i, final int j) {
+    private long xmasMatches(final char[][] wordSearch, final int height, final int width, final int i, final int j) {
         long count = 0;
         for (int[] step : XMAS_STEPS) {
             if (xmasMatches(wordSearch, height, width, i, j, step)) {
@@ -104,17 +94,12 @@ public final class D04 {
         return count;
     }
 
-    private boolean xmasMatches(final char[][] wordSearch,
-                                final int height, final int width, final int i, final int j, final int[] step) {
+    private boolean xmasMatches(final char[][] wordSearch, final int height, final int width, final int i, final int j,
+                                final int[] step) {
         int index = 0;
         int x = i;
         int y = j;
-        while (Math.abs(x - i) <= 3
-                && x >= 0
-                && x < height
-                && Math.abs(y - j) <= 3
-                && y >= 0
-                && y < width) {
+        while (Math.abs(x - i) <= 3 && x >= 0 && x < height && Math.abs(y - j) <= 3 && y >= 0 && y < width) {
             if (wordSearch[x][y] != XMAS[index]) {
                 return false;
             }
@@ -128,7 +113,7 @@ public final class D04 {
         return false;
     }
 
-    private char[][] loadWordSearch(final ProblemResourceLoader resourceLoader) {
+    private char[][] loadWordSearch(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
         char[][] wordSearch = new char[lines.size()][];
         for (int i = 0; i < lines.size(); i++) {

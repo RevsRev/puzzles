@@ -13,18 +13,6 @@ public final class D03 {
     private static final String MULT_REGEX = "mul\\(\\d+,\\d+\\)|(do\\(\\))|(don't\\(\\))";
     private static final Pattern MULT_PATTERN = Pattern.compile(MULT_REGEX);
 
-    @AocProblemI(year = 2024, day = 3, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
-        List<Instruction> instructions = loadInstructions(resourceLoader);
-        return processInstructions(instructions, true);
-    }
-
-    @AocProblemI(year = 2024, day = 3, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
-        List<Instruction> instructions = loadInstructions(resourceLoader);
-        return processInstructions(instructions, false);
-    }
-
     private static long processInstructions(final List<Instruction> instructions, final boolean mulOnly) {
         long result = 0;
         boolean include = true;
@@ -42,7 +30,19 @@ public final class D03 {
         return result;
     }
 
-    private List<Instruction> loadInstructions(final ProblemResourceLoader resourceLoader) {
+    @AocProblemI(year = 2024, day = 3, part = 1)
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        List<Instruction> instructions = loadInstructions(resourceLoader);
+        return processInstructions(instructions, true);
+    }
+
+    @AocProblemI(year = 2024, day = 3, part = 2)
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        List<Instruction> instructions = loadInstructions(resourceLoader);
+        return processInstructions(instructions, false);
+    }
+
+    private List<Instruction> loadInstructions(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<String> lines = resourceLoader.resources();
         List<Instruction> instructions = new ArrayList<>();
         for (String line : lines) {
@@ -55,15 +55,10 @@ public final class D03 {
     }
 
     private enum Type {
-        MUL,
-        DO,
-        DONT
+        MUL, DO, DONT
     }
 
-    private static class Instruction {
-        private final Type type;
-        private final long first;
-        private final long second;
+    private record Instruction(Type type, long first, long second) {
 
         static Instruction factory(final String instructionStr) {
             if (instructionStr.contains("don't()")) {
@@ -75,12 +70,6 @@ public final class D03 {
 
             String[] toks = instructionStr.replace("mul(", "").replace(")", "").split(",");
             return new Instruction(Type.MUL, Long.parseLong(toks[0]), Long.parseLong(toks[1]));
-        }
-
-        Instruction(final Type type, final long first, final long second) {
-            this.type = type;
-            this.first = first;
-            this.second = second;
         }
     }
 }

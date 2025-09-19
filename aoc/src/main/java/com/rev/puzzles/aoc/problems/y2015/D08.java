@@ -1,6 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +9,12 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-
 public final class D08 {
 
     private static final Pattern ESCAPE = Pattern.compile("\\\\");
 
     @AocProblemI(year = 2015, day = 8, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         long total = 0;
         for (String s : lines) {
@@ -27,7 +26,7 @@ public final class D08 {
     }
 
     @AocProblemI(year = 2015, day = 8, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         long total = 0;
         for (String s : lines) {
@@ -66,7 +65,6 @@ public final class D08 {
     }
 
     private String encode(final String s) {
-        return s.replace("\\", "\\\\")
-                .replace("\"", "\\\"");
+        return s.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 }

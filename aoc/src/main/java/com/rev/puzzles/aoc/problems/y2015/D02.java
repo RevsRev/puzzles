@@ -10,7 +10,7 @@ public final class D02 {
 
 
     @AocProblemI(year = 2015, day = 2, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<Box> boxes = parseBoxes(resourceLoader.resources());
         long areaNeeded = 0;
         for (Box b : boxes) {
@@ -22,7 +22,7 @@ public final class D02 {
     }
 
     @AocProblemI(year = 2015, day = 2, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         List<Box> boxes = parseBoxes(resourceLoader.resources());
         long ribbonNeeded = 0;
         for (Box b : boxes) {

@@ -11,17 +11,38 @@ import java.util.function.Function;
 
 public final class D01 {
 
+    /**
+     * PART TWO
+     */
+    private static final Map<String, String> NUMS_AS_WORDS =
+            Map.of("one", "1", "two", "2", "three", "3", "four", "4", "five", "5", "six", "6", "seven", "7", "eight",
+                    "8", "nine", "9");
+    private static final Map<String, String> NUMS_AS_WORDS_REVERSED = getNumsAsWordsReversed();
+
+    private static Map<String, String> getNumsAsWordsReversed() {
+        Map<String, String> retval = new HashMap<>();
+        Iterator<String> it = NUMS_AS_WORDS.keySet().iterator();
+        while (it.hasNext()) {
+            String word = it.next();
+            String numeral = NUMS_AS_WORDS.get(word);
+            String wordReversed = new StringBuilder().append(word).reverse().toString();
+            retval.put(wordReversed, numeral);
+        }
+        return retval;
+    }
+
     @AocProblemI(year = 2023, day = 1, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         return solve(resourceLoader, this::formatPartOne);
     }
 
     @AocProblemI(year = 2023, day = 1, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         return solve(resourceLoader, this::formatPartTwo);
     }
 
-    private long solve(final ProblemResourceLoader resourceLoader, final Function<String, String> formatter) {
+    private long solve(final ProblemResourceLoader<List<String>> resourceLoader,
+                       final Function<String, String> formatter) {
         List<String> trebLines = resourceLoader.resources();
         long calibrationSum = 0;
         for (int i = 0; i < trebLines.size(); i++) {
@@ -59,29 +80,12 @@ public final class D01 {
         return line;
     }
 
-    /**
-     * PART TWO
-     */
-    private static final Map<String, String> NUMS_AS_WORDS =
-            Map.of(
-                    "one", "1",
-                    "two", "2",
-                    "three", "3",
-                    "four", "4",
-                    "five", "5",
-                    "six", "6",
-                    "seven", "7",
-                    "eight", "8",
-                    "nine", "9");
-    private static final Map<String, String> NUMS_AS_WORDS_REVERSED = getNumsAsWordsReversed();
-
-    protected String formatPartTwo(final String line) {
+    private String formatPartTwo(final String line) {
         String forwardLine = formatForwards(line, NUMS_AS_WORDS);
         String backwardLine =
-                formatForwards(
-                        new StringBuilder().append(line).reverse().toString(), NUMS_AS_WORDS_REVERSED);
+                formatForwards(new StringBuilder().append(line).reverse().toString(), NUMS_AS_WORDS_REVERSED);
 
-        return forwardLine + (new StringBuilder().append(backwardLine).reverse().toString());
+        return forwardLine + (new StringBuilder().append(backwardLine).reverse());
     }
 
     private String formatForwards(final String line, final Map<String, String> words) {
@@ -103,18 +107,6 @@ public final class D01 {
                 retval = retval.replaceFirst(earliestReplacement, words.get(earliestReplacement));
             }
         } while (!earliestReplacement.equals(""));
-        return retval;
-    }
-
-    private static Map<String, String> getNumsAsWordsReversed() {
-        Map<String, String> retval = new HashMap<>();
-        Iterator<String> it = NUMS_AS_WORDS.keySet().iterator();
-        while (it.hasNext()) {
-            String word = it.next();
-            String numeral = NUMS_AS_WORDS.get(word);
-            String wordReversed = new StringBuilder().append(word).reverse().toString();
-            retval.put(wordReversed, numeral);
-        }
         return retval;
     }
 }

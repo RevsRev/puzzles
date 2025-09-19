@@ -8,6 +8,7 @@ import com.rev.puzzles.framework.util.graph.Vertex;
 import com.rev.puzzles.framework.util.graph.algo.TravellingSalesman;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public final class D09 {
@@ -15,22 +16,22 @@ public final class D09 {
     private static final String START = "START";
 
     @AocProblemI(year = 2015, day = 9, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final Graph<Vertex, Edge> graph = loadGraph(resourceLoader, false);
         return TravellingSalesman.heldKarp(graph);
     }
 
     @AocProblemI(year = 2015, day = 9, part = 2)
     @SuppressWarnings("checkstyle:MagicNumber")
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final Graph<Vertex, Edge> graph = loadGraph(resourceLoader, true);
         return -1 * TravellingSalesman.heldKarp(graph);
     }
 
-    private Graph<Vertex, Edge> loadGraph(final ProblemResourceLoader resourceLoader, final boolean negate) {
-        final Graph.Builder<Vertex, Edge> builder = Graph.fromResources(
-                resourceLoader.resources(),
-                getLineProcessor(negate));
+    private Graph<Vertex, Edge> loadGraph(final ProblemResourceLoader<List<String>> resourceLoader,
+                                          final boolean negate) {
+        final Graph.Builder<Vertex, Edge> builder =
+                Graph.fromResources(resourceLoader.resources(), getLineProcessor(negate));
         builder.addVertex(START);
 
         final Collection<Vertex> vertices = builder.getVertices();

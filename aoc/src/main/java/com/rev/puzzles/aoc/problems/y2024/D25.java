@@ -11,7 +11,7 @@ import java.util.Set;
 public final class D25 {
 
     @AocProblemI(year = 2024, day = 25, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         Set<KeyOrLock> keys = new HashSet<>();
         Set<KeyOrLock> locks = new HashSet<>();
         loadKeysAndLocks(resourceLoader, keys, locks);
@@ -28,14 +28,12 @@ public final class D25 {
     }
 
     @AocProblemI(year = 2024, day = 25, part = 2)
-    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public String partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         return "n/a";
     }
 
-    private void loadKeysAndLocks(
-            final ProblemResourceLoader resourceLoader,
-            final Set<KeyOrLock> keys,
-            final Set<KeyOrLock> locks) {
+    private void loadKeysAndLocks(final ProblemResourceLoader<List<String>> resourceLoader, final Set<KeyOrLock> keys,
+                                  final Set<KeyOrLock> locks) {
         List<String> lines = resourceLoader.resources();
         int start = 0;
         while (start < lines.size()) {
@@ -67,13 +65,8 @@ public final class D25 {
         }
     }
 
-    private static final class KeyOrLock {
+    private record KeyOrLock(int[] pins) {
         private static final int PIN_DEPTH = 7;
-        private final int[] pins;
-
-        private KeyOrLock(final int[] pins) {
-            this.pins = pins;
-        }
 
         public boolean accepts(final KeyOrLock other) {
             for (int i = 0; i < pins.length; i++) {

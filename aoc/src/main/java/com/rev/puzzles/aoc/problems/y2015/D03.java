@@ -1,23 +1,23 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D03 {
 
+    public static final int BASEMENT = -1;
     private static final char UP = '^';
     private static final char DOWN = 'v';
     private static final char LEFT = '<';
     private static final char RIGHT = '>';
-    public static final int BASEMENT = -1;
 
     @AocProblemI(year = 2015, day = 3, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         String input = resourceLoader.resources().get(0);
         long x = 0;
         long y = 0;
@@ -39,7 +39,7 @@ public final class D03 {
     }
 
     @AocProblemI(year = 2015, day = 3, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         String input = resourceLoader.resources().get(0);
         long x = 0;
         long y = 0;

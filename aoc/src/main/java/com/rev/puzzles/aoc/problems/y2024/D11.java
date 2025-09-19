@@ -14,13 +14,13 @@ public final class D11 {
     public static final int PART_TWO_ITERATIONS = 75;
 
     @AocProblemI(year = 2024, day = 11, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         long[] stones = loadResourcesAsLongArray(resourceLoader);
         return countStones(stones, PART_ONE_ITERATIONS);
     }
 
     @AocProblemI(year = 2024, day = 11, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         long[] stones = loadResourcesAsLongArray(resourceLoader);
         return countStones(stones, PART_TWO_ITERATIONS);
     }
@@ -80,7 +80,7 @@ public final class D11 {
         return countStonesAfterBlinks(nextInput, numBlinks - 1);
     }
 
-    public long[] loadResourcesAsLongArray(final ProblemResourceLoader resourceLoader) {
+    public long[] loadResourcesAsLongArray(final ProblemResourceLoader<List<String>> resourceLoader) {
         String separatorRegex = "\\s+";
         List<String> lines = resourceLoader.resources();
         List<String[]> linesSplit = new ArrayList<>(lines.size());

@@ -1,17 +1,17 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.aoc.framework.load.LoaderUtils;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.geom.Direction;
 import com.rev.puzzles.framework.util.search.BinarySolutionSearch;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D18 {
 
@@ -19,31 +19,6 @@ public final class D18 {
     private static final int VISITED_FLAG = CORRUPTED_FLAG << 1;
     private static final int PROBLEM_WIDTH = 71;
     private static final int PROBLEM_HEIGHT = 71;
-
-    @SuppressWarnings("checkstyle:MagicNumber")
-    @AocProblemI(year = 2024, day = 18, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
-        int[] ints = LoaderUtils.linesToIntArray(resourceLoader.resources(), s -> s.split(","));
-        int limit = 1024;
-        final Map<Pair<Integer, Integer>, Integer> visited = getVisited(limit, ints);
-        return (long) visited.get(Pair.of(PROBLEM_HEIGHT - 1, PROBLEM_WIDTH - 1));
-    }
-
-    @SuppressWarnings("checkstyle:MagicNumber")
-    @AocProblemI(year = 2024, day = 18, part = 2)
-    public String partTwoImpl(final ProblemResourceLoader resourceLoader) {
-        int[] ints = LoaderUtils.linesToIntArray(resourceLoader.resources(), s -> s.split(","));
-        int start = 1025;
-        final Map<Pair<Integer, Integer>, Integer> visited = new HashMap<>();
-        int firstFailing = BinarySolutionSearch.search(1025, ints.length / 2, i -> {
-            visited.clear();
-            visited.putAll(getVisited(i, ints));
-            return !visited.containsKey(Pair.of(PROBLEM_HEIGHT - 1, PROBLEM_WIDTH - 1));
-        });
-        int yCoord = ints[firstFailing * 2 - 1];
-        int xCoord = ints[firstFailing * 2 - 2];
-        return xCoord + "," + yCoord;
-    }
 
     private static Map<Pair<Integer, Integer>, Integer> getVisited(int limit, final int[] ints) {
         int[][] mem = LoaderUtils.emptyIntMatrix(PROBLEM_HEIGHT, PROBLEM_WIDTH);
@@ -80,5 +55,30 @@ public final class D18 {
             frontier = nextFrontier;
         }
         return visited;
+    }
+
+    @SuppressWarnings("checkstyle:MagicNumber")
+    @AocProblemI(year = 2024, day = 18, part = 1)
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        int[] ints = LoaderUtils.linesToIntArray(resourceLoader.resources(), s -> s.split(","));
+        int limit = 1024;
+        final Map<Pair<Integer, Integer>, Integer> visited = getVisited(limit, ints);
+        return (long) visited.get(Pair.of(PROBLEM_HEIGHT - 1, PROBLEM_WIDTH - 1));
+    }
+
+    @SuppressWarnings("checkstyle:MagicNumber")
+    @AocProblemI(year = 2024, day = 18, part = 2)
+    public String partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        int[] ints = LoaderUtils.linesToIntArray(resourceLoader.resources(), s -> s.split(","));
+        int start = 1025;
+        final Map<Pair<Integer, Integer>, Integer> visited = new HashMap<>();
+        int firstFailing = BinarySolutionSearch.search(1025, ints.length / 2, i -> {
+            visited.clear();
+            visited.putAll(getVisited(i, ints));
+            return !visited.containsKey(Pair.of(PROBLEM_HEIGHT - 1, PROBLEM_WIDTH - 1));
+        });
+        int yCoord = ints[firstFailing * 2 - 1];
+        int xCoord = ints[firstFailing * 2 - 2];
+        return xCoord + "," + yCoord;
     }
 }

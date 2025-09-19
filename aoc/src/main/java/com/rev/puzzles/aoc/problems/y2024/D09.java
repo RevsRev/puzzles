@@ -1,13 +1,13 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.aoc.framework.load.LoaderUtils;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D09 {
 
@@ -15,7 +15,7 @@ public final class D09 {
     public static final int NOT_FOUND_INDEX = -1;
 
     @AocProblemI(year = 2024, day = 9, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         char[] diskMap = LoaderUtils.loadResourcesAsCharArray(resourceLoader.resources());
         int[] disk = loadDisk(diskMap);
         moveFileBlocksPartOne(disk);
@@ -23,7 +23,7 @@ public final class D09 {
     }
 
     @AocProblemI(year = 2024, day = 9, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         char[] diskMap = LoaderUtils.loadResourcesAsCharArray(resourceLoader.resources());
         int[] disk = loadDisk(diskMap);
         moveFileBlocksPartTwo(disk);
@@ -133,7 +133,7 @@ public final class D09 {
             if (disk[i] == EMPTY_VALUE) {
                 continue;
             }
-            checksum += i * disk[i];
+            checksum += (long) i * disk[i];
         }
         return checksum;
     }

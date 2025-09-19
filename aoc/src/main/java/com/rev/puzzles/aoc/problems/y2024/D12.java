@@ -1,20 +1,21 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.geom.Direction;
 import com.rev.puzzles.framework.util.geom.UnitCell;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public final class D12 {
     private static final int[][] DIRS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
     @AocProblemI(year = 2024, day = 12, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         UnitCell<Character>[][] unitCells = getUnitCells(resourceLoader);
         Set<UnitCell<Character>> visitedArea = new HashSet<>();
         Set<UnitCell<Character>> visitedPerimeter = new HashSet<>();
@@ -32,7 +33,7 @@ public final class D12 {
 
 
     @AocProblemI(year = 2024, day = 12, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         UnitCell<Character>[][] unitCells = getUnitCells(resourceLoader);
         Set<UnitCell<Character>> visitedArea = new HashSet<>();
         Set<UnitCell<Character>> visitedEdgeCells = new HashSet<>();
@@ -49,7 +50,7 @@ public final class D12 {
         return score;
     }
 
-    private UnitCell<Character>[][] getUnitCells(final ProblemResourceLoader resourceLoader) {
+    private UnitCell<Character>[][] getUnitCells(final ProblemResourceLoader<List<String>> resourceLoader) {
         char[][] plots = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         int height = plots.length;
         int width = plots[0].length;

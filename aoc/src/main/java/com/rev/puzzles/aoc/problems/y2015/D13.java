@@ -1,17 +1,17 @@
 package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 import com.rev.puzzles.framework.util.graph.Edge;
 import com.rev.puzzles.framework.util.graph.Graph;
 import com.rev.puzzles.framework.util.graph.Vertex;
 import com.rev.puzzles.framework.util.graph.algo.TravellingSalesman;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 public final class D13 {
 
@@ -21,46 +21,36 @@ public final class D13 {
 
     @AocProblemI(year = 2015, day = 13, part = 1)
     @SuppressWarnings("checkstyle:MagicNumber")
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
-        Graph<Vertex, Edge> directedHappinessGraph = Graph.fromResources(
-                        resourceLoader.resources(),
-                        getLineProcessor(),
-                        true)
-                .build();
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        Graph<Vertex, Edge> directedHappinessGraph =
+                Graph.fromResources(resourceLoader.resources(), getLineProcessor(), true).build();
 
-        Graph<Vertex, Edge> aggregatedHappinessGraph = Graph.aggregate(
-                directedHappinessGraph,
-                (e1, e2) -> {
-                    if (e1.isEmpty() || e2.isEmpty()) {
-                        throw new ProblemExecutionException("Badly defined problem");
-                    }
-                    return e1.get().getWeight() + e2.get().getWeight();
-                });
+        Graph<Vertex, Edge> aggregatedHappinessGraph = Graph.aggregate(directedHappinessGraph, (e1, e2) -> {
+            if (e1.isEmpty() || e2.isEmpty()) {
+                throw new ProblemExecutionException("Badly defined problem");
+            }
+            return e1.get().getWeight() + e2.get().getWeight();
+        });
 
         return -1 * TravellingSalesman.heldKarp(aggregatedHappinessGraph);
     }
 
     @AocProblemI(year = 2015, day = 13, part = 1)
     @SuppressWarnings("checkstyle:MagicNumber")
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
-        Graph.Builder<Vertex, Edge> directedHappinessGraphBuilder = Graph.fromResources(
-                resourceLoader.resources(),
-                getLineProcessor(),
-                true);
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
+        Graph.Builder<Vertex, Edge> directedHappinessGraphBuilder =
+                Graph.fromResources(resourceLoader.resources(), getLineProcessor(), true);
 
         final String me = "ME";
         directedHappinessGraphBuilder.addVertex(me);
 
-        directedHappinessGraphBuilder.getVertices().forEach(
-                v -> {
-                    directedHappinessGraphBuilder.addEdge(me, v.getName(), 0);
-                    directedHappinessGraphBuilder.addEdge(v.getName(), me, 0);
-                }
-        );
+        directedHappinessGraphBuilder.getVertices().forEach(v -> {
+            directedHappinessGraphBuilder.addEdge(me, v.getName(), 0);
+            directedHappinessGraphBuilder.addEdge(v.getName(), me, 0);
+        });
 
-        Graph<Vertex, Edge> aggregatedHappinessGraph = Graph.aggregate(
-                directedHappinessGraphBuilder.build(),
-                (e1, e2) -> {
+        Graph<Vertex, Edge> aggregatedHappinessGraph =
+                Graph.aggregate(directedHappinessGraphBuilder.build(), (e1, e2) -> {
                     if (e1.isEmpty() || e2.isEmpty()) {
                         throw new ProblemExecutionException("Badly defined problem");
                     }

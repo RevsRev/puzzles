@@ -9,19 +9,19 @@ import java.util.regex.Pattern;
 
 public final class D15 {
 
-    private static final Pattern NUMBERS_PATTERN = Pattern.compile("-?\\d+");
     public static final int NO_CALORIE_RESTRICTION = -1;
     public static final int PART_TWO_CALORIE_RESTRICTION = 500;
     public static final int TOTAL_SPOONFULLS = 100;
+    private static final Pattern NUMBERS_PATTERN = Pattern.compile("-?\\d+");
 
     @AocProblemI(year = 2015, day = 15, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final List<Ingredient> ingredients = loadIngredients(resourceLoader);
         return computeScore(ingredients, NO_CALORIE_RESTRICTION);
     }
 
     @AocProblemI(year = 2015, day = 15, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final List<Ingredient> ingredients = loadIngredients(resourceLoader);
         return computeScore(ingredients, PART_TWO_CALORIE_RESTRICTION);
     }
@@ -31,12 +31,8 @@ public final class D15 {
         return computeScore(ingredients, 0, 0, propertyScores, calorieRestriction);
     }
 
-    private long computeScore(
-            final List<Ingredient> ingredients,
-            final int spoonsUsed,
-            final int ingredientsIndex,
-            final long[] propertyScores,
-            final int calorieRestriction) {
+    private long computeScore(final List<Ingredient> ingredients, final int spoonsUsed, final int ingredientsIndex,
+                              final long[] propertyScores, final int calorieRestriction) {
         if (ingredientsIndex == ingredients.size()) {
 
             if (spoonsUsed != TOTAL_SPOONFULLS) {
@@ -76,12 +72,8 @@ public final class D15 {
             for (int j = 0; j < ingredientScores.length; j++) {
                 propertyScores[j] += ingredientScores[j];
             }
-            final long newScore = computeScore(
-                    ingredients,
-                    spoonsUsed + i,
-                    ingredientsIndex + 1,
-                    propertyScores,
-                    calorieRestriction);
+            final long newScore =
+                    computeScore(ingredients, spoonsUsed + i, ingredientsIndex + 1, propertyScores, calorieRestriction);
 
             if (newScore > score) {
                 score = newScore;
@@ -93,7 +85,7 @@ public final class D15 {
         return score;
     }
 
-    private List<Ingredient> loadIngredients(final ProblemResourceLoader resourceLoader) {
+    private List<Ingredient> loadIngredients(final ProblemResourceLoader<List<String>> resourceLoader) {
         final List<String> lines = resourceLoader.resources();
         final List<Ingredient> ingredients = new ArrayList<>(lines.size());
 
@@ -108,37 +100,14 @@ public final class D15 {
         String[] split = line.split(":");
         final String name = split[0];
         final String[] properties = split[1].split(",");
-        return new Ingredient(
-                name,
+        return new Ingredient(name,
                 Long.parseLong(NUMBERS_PATTERN.matcher(properties[0]).results().findFirst().orElseThrow().group()),
                 Long.parseLong(NUMBERS_PATTERN.matcher(properties[1]).results().findFirst().orElseThrow().group()),
                 Long.parseLong(NUMBERS_PATTERN.matcher(properties[2]).results().findFirst().orElseThrow().group()),
                 Long.parseLong(NUMBERS_PATTERN.matcher(properties[3]).results().findFirst().orElseThrow().group()),
-                Long.parseLong(NUMBERS_PATTERN.matcher(properties[4]).results().findFirst().orElseThrow().group())
-        );
+                Long.parseLong(NUMBERS_PATTERN.matcher(properties[4]).results().findFirst().orElseThrow().group()));
     }
 
-    private static final class Ingredient {
-        private final String name;
-        private final long capacity;
-        private final long durability;
-        private final long flavor;
-        private final long texture;
-        private final long calories;
-
-        private Ingredient(
-                final String name,
-                final long capacity,
-                final long durability,
-                final long flavor,
-                final long texture,
-                final long calories) {
-            this.name = name;
-            this.capacity = capacity;
-            this.durability = durability;
-            this.flavor = flavor;
-            this.texture = texture;
-            this.calories = calories;
-        }
+    private record Ingredient(String name, long capacity, long durability, long flavor, long texture, long calories) {
     }
 }

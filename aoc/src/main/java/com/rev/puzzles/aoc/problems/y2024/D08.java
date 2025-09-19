@@ -1,7 +1,8 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
 import com.rev.puzzles.aoc.framework.AocProblemI;
+import com.rev.puzzles.aoc.framework.load.LoaderUtils;
+import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -10,14 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-
 public final class D08 {
 
     public static final char EMPTY_CHAR = '.';
 
     @AocProblemI(year = 2024, day = 8, part = 1)
-    public Long partOneImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         int height = grid.length;
         int width = grid[0].length;
@@ -33,7 +32,7 @@ public final class D08 {
     }
 
     @AocProblemI(year = 2024, day = 8, part = 2)
-    public Long partTwoImpl(final ProblemResourceLoader resourceLoader) {
+    public Long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         char[][] grid = LoaderUtils.loadResourcesAsCharMatrix(resourceLoader.resources());
         int height = grid.length;
         int width = grid[0].length;
@@ -48,9 +47,7 @@ public final class D08 {
         return (long) antinodes.size();
     }
 
-    private void addAntinodesForAntennas(final int height,
-                                         final int width,
-                                         final Set<Pair<Integer, Integer>> antinodes,
+    private void addAntinodesForAntennas(final int height, final int width, final Set<Pair<Integer, Integer>> antinodes,
                                          final List<Pair<Integer, Integer>> antennasForCharList,
                                          final boolean partTwo) {
         for (int i = 0; i < antennasForCharList.size(); i++) {
