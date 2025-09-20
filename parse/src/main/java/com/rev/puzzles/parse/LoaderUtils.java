@@ -1,4 +1,4 @@
-package com.rev.puzzles.aoc.framework.load;
+package com.rev.puzzles.parse;
 
 import java.util.Arrays;
 import java.util.List;

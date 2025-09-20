@@ -13,6 +13,7 @@
         <module>framework</module>
         <module>app</module>
         <module>leet</module>
+        <module>parse</module>
     </modules>
 
     <properties>

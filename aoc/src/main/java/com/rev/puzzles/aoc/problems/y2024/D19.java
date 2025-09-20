@@ -1,7 +1,7 @@
 package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
-import com.rev.puzzles.aoc.framework.load.LoaderUtils;
+import com.rev.puzzles.parse.LoaderUtils;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 
 import java.util.ArrayList;
