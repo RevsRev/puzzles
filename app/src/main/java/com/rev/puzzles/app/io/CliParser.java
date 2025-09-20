@@ -21,7 +21,7 @@ public final class CliParser {
     public static ProblemEngine parse(final String[] args) {
         Options options = CliOptions.getOptions();
         try {
-            CommandLine cl = PARSER.parse(options, args, false);
+            CommandLine cl = PARSER.parse(options, args, true);
 
             if (cl.hasOption(CliOptions.ENGINE)) {
                 final String engine = cl.getOptionValue(CliOptions.ENGINE);
