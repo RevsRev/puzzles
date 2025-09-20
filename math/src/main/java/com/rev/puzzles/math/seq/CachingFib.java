@@ -16,32 +16,30 @@ public final class CachingFib {
     }
 
     public long fibN(final int n) {
-        final int index = n - 1;
-        if (index < fibs.size()) {
-            return fibs.get(index);
+        if (n < fibs.size()) {
+            return fibs.get(n);
         }
-        fibs.ensureCapacity(n);
-        for (int i = fibs.size() - 1; i <= index; i++) {
+        fibs.ensureCapacity(n + 1);
+        for (int i = fibs.size() - 1; i <= n; i++) {
             fibs.add(fibs.get(i) + fibs.get(i - 1));
         }
-        return fibs.get(index);
+        return fibs.get(n);
     }
 
     public int fibLimit(final long limit) {
-        if (limit < fibs.get(fibs.size() - 1)) {
-            final int index = Collections.binarySearch(fibs, limit);
-            if (index < 0) {
-                return -(index + 1) + 1; // + 1 because we are not zero indexing fibonacci numbers
+        if (limit > fibs.get(fibs.size() - 1)) {
+            final int estimatedIndex = estimateIndex(limit);
+            fibN(estimatedIndex);
+            while (limit > fibs.get(fibs.size() - 1)) {
+                fibN(fibs.size() + 1);
             }
-            return index + 1;
         }
 
-        final int estimatedIndex = estimateIndex(limit);
-        fibN(estimatedIndex);
-        while (limit > fibs.get(fibs.size() - 1)) {
-            fibN(fibs.size() + 1);
+        final int index = Collections.binarySearch(fibs, limit);
+        if (index < 0) {
+            return -(index + 1) - 1;
         }
-        return fibs.size() - 1;
+        return index;
     }
 
     private int estimateIndex(final long limit) {
@@ -51,8 +49,8 @@ public final class CachingFib {
 
     public void consumeN(final int n, final BiConsumer<Integer, Long> consumer) {
         fibN(n);
-        for (int i = 1; i <= n; i++) {
-            consumer.accept(i, fibs.get(i - 1));
+        for (int i = 0; i < n; i++) {
+            consumer.accept(i, fibs.get(i));
         }
     }
 

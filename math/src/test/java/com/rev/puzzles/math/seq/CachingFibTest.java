@@ -10,15 +10,15 @@ class CachingFibTest {
 
     @Test
     public void cachingFibTest() {
-        // 1, 2, 3, 4,  5,  6
+        // 0, 1, 2, 3,  4,  5
         // 2, 5, 7, 12, 19, 31
         final CachingFib fib = new CachingFib(2, 5);
-        Assertions.assertEquals(31, fib.fibN(6));
+        Assertions.assertEquals(31, fib.fibN(5));
     }
 
     @Test
     public void testConsumer() {
-        // 1, 2, 3, 4, 5, 6,  7
+        // 0, 1, 2, 3, 4, 5,  6
         // 1, 2, 3, 5, 8, 13, 21
         final CachingFib cachingFib = new CachingFib(1, 2);
         final AtomicLong oddSum = new AtomicLong();
@@ -27,26 +27,26 @@ class CachingFibTest {
                 oddSum.addAndGet(fib);
             }
         };
-        cachingFib.consumeN(7, consumer);
-        Assertions.assertEquals(33, oddSum.get());
+        cachingFib.consumeN(6, consumer);
+        Assertions.assertEquals(20, oddSum.get());
     }
 
     @Test
     public void testFibLimitExactIndex() {
-        // 1, 2, 3, 4, 5, 6,  7
+        // 0, 1, 2, 3, 4, 5,  6
         // 1, 2, 3, 5, 8, 13, 21
         final CachingFib cachingFib = new CachingFib(1, 2);
         final int index = cachingFib.fibLimit(8);
-        Assertions.assertEquals(5, index);
+        Assertions.assertEquals(4, index);
     }
 
     @Test
     public void testFibLimitNotExactIndex() {
-        // 1, 2, 3, 4, 5, 6,  7
+        // 0, 1, 2, 3, 4, 5,  6
         // 1, 2, 3, 5, 8, 13, 21
         final CachingFib cachingFib = new CachingFib(1, 2);
         final int index = cachingFib.fibLimit(10);
-        Assertions.assertEquals(5, index);
+        Assertions.assertEquals(4, index);
     }
 
 }
