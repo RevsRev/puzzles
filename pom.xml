@@ -15,6 +15,7 @@
         <module>leet</module>
         <module>parse</module>
         <module>project-euler</module>
+        <module>math</module>
     </modules>
 
     <properties>
