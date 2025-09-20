@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.math.linalg.matrix;
+package com.rev.puzzles.math.linalg.matrix;
 
 import lombok.Getter;
 

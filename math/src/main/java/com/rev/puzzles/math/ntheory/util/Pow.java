@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.math.ntheory.util;
+package com.rev.puzzles.math.ntheory.util;
 
 public final class Pow {
     private Pow() {

@@ -1,7 +1,7 @@
-package com.rev.puzzles.framework.util.math.ntheory.primes;
+package com.rev.puzzles.math.ntheory.primes;
 
 
-import com.rev.puzzles.framework.util.math.ntheory.util.Pow;
+import com.rev.puzzles.math.ntheory.util.Pow;
 
 import java.util.ArrayList;
 import java.util.Collections;

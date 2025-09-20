@@ -1,7 +1,7 @@
-package com.rev.puzzles.framework.util.math.ntheory.eq;
+package com.rev.puzzles.math.ntheory.eq;
 
-import com.rev.puzzles.framework.util.math.linalg.matrix.Mat2;
-import com.rev.puzzles.framework.util.math.linalg.vec.Vec2;
+import com.rev.puzzles.math.linalg.matrix.Mat2;
+import com.rev.puzzles.math.linalg.vec.Vec2;
 
 @SuppressWarnings("checkstyle:MagicNumber")
 public final class SimultaneousSolver {

@@ -1,6 +1,6 @@
-package com.rev.puzzles.framework.util.math.ntheory.eq.diophantine;
+package com.rev.puzzles.math.ntheory.eq.diophantine;
 
-import com.rev.puzzles.framework.util.math.ntheory.primes.Gcd;
+import com.rev.puzzles.math.ntheory.primes.Gcd;
 
 import java.math.BigInteger;
 import java.util.Iterator;

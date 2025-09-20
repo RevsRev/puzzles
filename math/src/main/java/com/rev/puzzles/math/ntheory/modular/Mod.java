@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.math.ntheory.modular;
+package com.rev.puzzles.math.ntheory.modular;
 
 public final class Mod {
 

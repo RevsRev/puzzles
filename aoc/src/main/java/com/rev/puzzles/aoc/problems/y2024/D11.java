@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.framework.util.math.ntheory.util.Pow;
+import com.rev.puzzles.math.ntheory.util.Pow;
 
 import java.util.ArrayList;
 import java.util.HashMap;

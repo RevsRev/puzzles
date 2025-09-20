@@ -3,8 +3,8 @@ package com.rev.puzzles.aoc.problems.y2015;
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
-import com.rev.puzzles.framework.util.math.ntheory.primes.Factors;
-import com.rev.puzzles.framework.util.math.ntheory.primes.SieveOfEratosthenes;
+import com.rev.puzzles.math.ntheory.primes.Factors;
+import com.rev.puzzles.math.ntheory.primes.SieveOfEratosthenes;
 
 import java.util.List;
 

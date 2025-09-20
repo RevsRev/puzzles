@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.math.ntheory.primes;
+package com.rev.puzzles.math.ntheory.primes;
 
 import lombok.Getter;
 

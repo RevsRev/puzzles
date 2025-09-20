@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.math.linalg.vec;
+package com.rev.puzzles.math.linalg.vec;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.math.perm;
+package com.rev.puzzles.math.perm;
 
 import java.util.ArrayList;
 import java.util.Arrays;

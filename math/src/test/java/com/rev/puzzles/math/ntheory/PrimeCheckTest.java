@@ -1,6 +1,6 @@
-package com.rev.puzzles.framework.util.math.ntheory;
+package com.rev.puzzles.math.ntheory;
 
-import com.rev.puzzles.framework.util.math.ntheory.primes.PrimeCheck;
+import com.rev.puzzles.math.ntheory.primes.PrimeCheck;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

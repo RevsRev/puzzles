@@ -2,9 +2,9 @@ package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.framework.util.math.linalg.matrix.Mat2;
-import com.rev.puzzles.framework.util.math.linalg.vec.Vec2;
-import com.rev.puzzles.framework.util.math.ntheory.eq.SimultaneousSolver;
+import com.rev.puzzles.math.linalg.matrix.Mat2;
+import com.rev.puzzles.math.linalg.vec.Vec2;
+import com.rev.puzzles.math.ntheory.eq.SimultaneousSolver;
 
 import java.util.ArrayList;
 import java.util.List;

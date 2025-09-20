@@ -1,7 +1,7 @@
-package com.rev.puzzles.framework.util.math.linalg.matrix;
+package com.rev.puzzles.math.linalg.matrix;
 
 
-import com.rev.puzzles.framework.util.math.linalg.vec.Vec2;
+import com.rev.puzzles.math.linalg.vec.Vec2;
 
 public final class Mat2 {
     /**
