@@ -27,8 +27,26 @@ class CachingFibTest {
                 oddSum.addAndGet(fib);
             }
         };
-        cachingFib.consume(7, consumer);
+        cachingFib.consumeN(7, consumer);
         Assertions.assertEquals(33, oddSum.get());
+    }
+
+    @Test
+    public void testFibLimitExactIndex() {
+        // 1, 2, 3, 4, 5, 6,  7
+        // 1, 2, 3, 5, 8, 13, 21
+        final CachingFib cachingFib = new CachingFib(1, 2);
+        final int index = cachingFib.fibLimit(8);
+        Assertions.assertEquals(5, index);
+    }
+
+    @Test
+    public void testFibLimitNotExactIndex() {
+        // 1, 2, 3, 4, 5, 6,  7
+        // 1, 2, 3, 5, 8, 13, 21
+        final CachingFib cachingFib = new CachingFib(1, 2);
+        final int index = cachingFib.fibLimit(10);
+        Assertions.assertEquals(5, index);
     }
 
 }
