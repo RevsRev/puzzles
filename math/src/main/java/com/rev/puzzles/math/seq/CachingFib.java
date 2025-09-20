@@ -26,6 +26,10 @@ public final class CachingFib {
         return fibs.get(n);
     }
 
+    /**
+     * @param limit
+     * @return The larges fibonacci number <= limit
+     */
     public int fibLimit(final long limit) {
         if (limit > fibs.get(fibs.size() - 1)) {
             final int estimatedIndex = estimateIndex(limit);
@@ -50,6 +54,13 @@ public final class CachingFib {
     public void consumeN(final int n, final BiConsumer<Integer, Long> consumer) {
         fibN(n);
         for (int i = 0; i < n; i++) {
+            consumer.accept(i, fibs.get(i));
+        }
+    }
+
+    public void consumeLimit(final long limit, final BiConsumer<Integer, Long> consumer) {
+        final int index = fibLimit(limit);
+        for (int i = 0; i <= index; i++) {
             consumer.accept(i, fibs.get(i));
         }
     }
