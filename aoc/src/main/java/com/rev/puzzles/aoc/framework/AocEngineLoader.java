@@ -18,6 +18,11 @@ public final class AocEngineLoader implements EngineLoader {
 
     @Override
     public ProblemEngine<?> loadEngine(final String engineName, final String[] args) {
-        return CliParser.parse(args);
+        if (!(AOC.equals(engineName) || AOC_VISUALISE.equals(engineName))) {
+            throw new RuntimeException(String.format("Unknown engine '%s'", engineName));
+        }
+
+        boolean visualise = AOC_VISUALISE.equals(engineName);
+        return CliParser.parse(args, visualise);
     }
 }

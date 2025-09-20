@@ -7,18 +7,16 @@ public final class CliOptions {
     public static final Option HELP = helpOption();
     public static final Option PROBLEM_NUMBER = problemNumberOption();
     public static final Option PROBLEM_OTHER_NUMBER = problemOtherNumberOption();
-    public static final Option PROBLEM_VISUALISE = writeOption();
     public static final Option DEBUG = debugOption();
 
     private CliOptions() {
     }
 
     public static Options getOptions() {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption(HELP);
         options.addOption(PROBLEM_NUMBER);
         options.addOption(PROBLEM_OTHER_NUMBER);
-        options.addOption(PROBLEM_VISUALISE);
         options.addOption(DEBUG);
         return options;
     }
@@ -50,14 +48,6 @@ public final class CliOptions {
                         + "All problems between -p and -pb will be executed (inclusive)")
                 .hasArg()
                 .type(String.class)
-                .build();
-    }
-
-    private static Option writeOption() {
-        return Option.builder()
-                .option("v")
-                .longOpt("visualise")
-                .desc("Visualise a problem, if visualisation has been implemented.")
                 .build();
     }
 

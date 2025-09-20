@@ -27,7 +27,6 @@ import java.util.Arrays;
 import static com.rev.puzzles.aoc.framework.parse.CliOptions.DEBUG;
 import static com.rev.puzzles.aoc.framework.parse.CliOptions.PROBLEM_NUMBER;
 import static com.rev.puzzles.aoc.framework.parse.CliOptions.PROBLEM_OTHER_NUMBER;
-import static com.rev.puzzles.aoc.framework.parse.CliOptions.PROBLEM_VISUALISE;
 
 
 public final class CliParser {
@@ -37,21 +36,21 @@ public final class CliParser {
     private CliParser() {
     }
 
-    public static ProblemEngine parse(final String[] args) {
-        Options options = CliOptions.getOptions();
+    public static ProblemEngine parse(final String[] args, final boolean visualise) {
+        final Options options = CliOptions.getOptions();
         try {
-            CommandLine cl = PARSER.parse(options, args, false);
+            final CommandLine cl = PARSER.parse(options, args, false);
 
             if (cl.hasOption(CliOptions.HELP)) {
                 printHelp(options);
                 return null;
             }
-            return parse(cl);
-        } catch (Exception e) {
+            return parse(cl, visualise);
+        } catch (final Exception e) {
             System.out.println(e.getMessage());
 //            Get the actual arg rather than using cli, incase it was the cli that failed!
             if (Arrays.stream(args).anyMatch(s -> "-d".equals(s) || "--debug".equals(s))) {
-                PrintWriter pw = new PrintWriter(System.out);
+                final PrintWriter pw = new PrintWriter(System.out);
                 e.printStackTrace(pw);
                 pw.flush();
             }
@@ -61,16 +60,15 @@ public final class CliParser {
     }
 
     private static void printHelp(final Options options) {
-        HelpFormatter helpFormatter = new HelpFormatter();
+        final HelpFormatter helpFormatter = new HelpFormatter();
         helpFormatter.printHelp("aoc", options);
     }
 
-    private static ProblemEngine parse(final CommandLine cl) throws ParseException {
+    private static ProblemEngine parse(final CommandLine cl, final boolean visualise) throws ParseException {
         validateOptions(cl);
-        AocCoordinate firstAocCoordinate = parseAocCoordinate(cl.getOptionValue(PROBLEM_NUMBER));
-        AocCoordinate secondAocCoordinate = parseAocCoordinate(cl.getOptionValue(PROBLEM_OTHER_NUMBER));
+        final AocCoordinate firstAocCoordinate = parseAocCoordinate(cl.getOptionValue(PROBLEM_NUMBER));
+        final AocCoordinate secondAocCoordinate = parseAocCoordinate(cl.getOptionValue(PROBLEM_OTHER_NUMBER));
 
-        final boolean visualise = cl.hasOption(PROBLEM_VISUALISE);
         final AnnotationProblemLoader<?, AocCoordinate> problemLoader = getProblemLoader(visualise);
         final ExecutorListener<AocCoordinate> executorListener =
                 visualise ? new NoOpExecutorListener<>() : new AocExecutionListenerPrinter();
@@ -85,7 +83,7 @@ public final class CliParser {
         return engine;
     }
 
-    private static AnnotationProblemLoader<?, AocCoordinate> getProblemLoader(boolean visualise) {
+    private static AnnotationProblemLoader<?, AocCoordinate> getProblemLoader(final boolean visualise) {
         if (visualise) {
             return new AnnotationProblemLoader<>(AOC_PROBLEMS_PACKAGE, AocVisualisation.class,
                     visualisation -> new AocCoordinate(visualisation.year(), visualisation.day(),
@@ -119,7 +117,7 @@ public final class CliParser {
         if (optionValue == null) {
             return null;
         }
-        AocCoordinate parsed = AocCoordinate.parse(optionValue);
+        final AocCoordinate parsed = AocCoordinate.parse(optionValue);
         if (parsed != null) {
             return parsed;
         }
