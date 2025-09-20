@@ -1,16 +1,18 @@
 package com.rev.puzzles.euler.problems;
 
 import com.rev.puzzles.euler.framework.PeProblem;
+import com.rev.puzzles.euler.framework.PeTestData;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.math.Sum;
 
+import java.util.List;
+
 public final class PE001 {
 
-    public static final int LIMIT = 1000;
-
     @PeProblem(number = 1)
-    public long multiplesOf3Or5(final ProblemResourceLoader<?> ignored) {
-        return multiplesOf3Or5(LIMIT);
+    @PeTestData(inputs = {"10"}, solutions = {"23"})
+    public long multiplesOf3Or5(final ProblemResourceLoader<List<String>> inputs) {
+        return multiplesOf3Or5(Long.parseLong(inputs.resources().get(0)));
     }
 
     private long multiplesOf3Or5(final long limit) {

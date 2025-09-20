@@ -68,13 +68,13 @@ public final class CliParser {
         final PeCoordinate firstPeCoordinate = parsePeCoordinate(cl.getOptionValue(PROBLEM_NUMBER));
         final PeCoordinate secondPeCoordinate = parsePeCoordinate(cl.getOptionValue(PROBLEM_OTHER_NUMBER));
 
-        final String leetProblemPath = Optional.ofNullable(System.getProperty("project-euler.gen-path"))
+        final String peProblemPath = Optional.ofNullable(System.getProperty("project-euler.gen-path"))
                 .orElse(System.getProperty("user.dir") + "/problems/project-euler");
 
         final AnnotationProblemLoader<?, PeCoordinate> problemLoader = getProblemLoader();
         final ExecutorListener<PeCoordinate> executorListener = new PeExecutionListenerPrinter();
 
-        final ResourceLoader<PeCoordinate> resourceLoader = getResourceLoader(leetProblemPath);
+        final ResourceLoader<PeCoordinate> resourceLoader = getResourceLoader(peProblemPath);
         final DefaultProblemEngine<PeCoordinate> engine =
                 getPeCoordinateProblemEngine(firstPeCoordinate, secondPeCoordinate, problemLoader,
                         executorListener, resourceLoader);
@@ -83,9 +83,9 @@ public final class CliParser {
         return engine;
     }
 
-    private static ResourceLoader<PeCoordinate> getResourceLoader(final String leetProblemPath) {
+    private static ResourceLoader<PeCoordinate> getResourceLoader(final String peProblemPath) {
         final SingleFileLoader<PeCoordinate> singleFileLoader =
-                new SingleFileLoader<>(leetProblemPath, l -> "/L" + l.toString() + ".txt");
+                new SingleFileLoader<>(peProblemPath, pe -> "/PE" + pe.toString() + ".txt");
         return new PeResourceLoader(singleFileLoader);
     }
 
