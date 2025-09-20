@@ -1,4 +1,4 @@
-package com.rev.puzzles.math;
+package com.rev.puzzles.math.sum;
 
 public final class Sum {
 

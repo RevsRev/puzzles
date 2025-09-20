@@ -3,7 +3,7 @@ package com.rev.puzzles.euler.problems;
 import com.rev.puzzles.euler.framework.PeProblem;
 import com.rev.puzzles.euler.framework.PeTestData;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.math.Sum;
+import com.rev.puzzles.math.sum.Sum;
 
 import java.util.List;
 
