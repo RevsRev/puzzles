@@ -17,16 +17,16 @@ public final class AocInputLoaderFile implements AocInputLoader {
     private final String basePath = problemsBasePath();
 
     private static String problemsBasePath() {
-        String problemsProperty = System.getProperty("aoc.problems");
+        final String problemsProperty = System.getProperty("aoc.problems");
         if (problemsProperty != null) {
             return problemsProperty;
         }
-        return String.format("%s/%s", System.getProperty("user.dir"), "problems");
+        return String.format("%s/%s", System.getProperty("user.dir"), "problems/aoc");
     }
 
     @Override
     public List<String> load(final AocCoordinate coordinate) throws IOException {
-        String fullyQualifiedName = String.format("%s/y%s/D%s.txt",
+        final String fullyQualifiedName = String.format("%s/y%s/D%s.txt",
                 basePath,
                 coordinate.getYear(),
                 AocInputLoader.pad(coordinate.getDay()));
@@ -35,15 +35,15 @@ public final class AocInputLoaderFile implements AocInputLoader {
 
     private List<String> load(final String filePath) throws IOException {
 
-        List<String> lines = new ArrayList<>();
+        final List<String> lines = new ArrayList<>();
         InputStream is = null;
         try {
             is = new FileInputStream(filePath);
             if (is == null) {
                 throw new FileNotFoundException(filePath);
             }
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader r = new BufferedReader(isr);
+            final InputStreamReader isr = new InputStreamReader(is);
+            final BufferedReader r = new BufferedReader(isr);
             String line = r.readLine();
             while (line != null) {
                 lines.add(line);
