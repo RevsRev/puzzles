@@ -30,7 +30,7 @@ import static com.rev.puzzles.euler.framework.parse.CliOptions.DEBUG;
 
 public final class CliParser {
     private static final CommandLineParser PARSER = new DefaultParser();
-    private static final String LEET_PROBLEMS_PACKAGE = "com.rev.puzzles.leet";
+    private static final String LEET_PROBLEMS_PACKAGE = "com.rev.puzzles.euler";
 
     private CliParser() {
     }
