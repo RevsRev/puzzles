@@ -9,10 +9,12 @@ import com.rev.puzzles.framework.framework.impl.AnnotationProblemLoader;
 import com.rev.puzzles.framework.framework.impl.DefaultExecutor;
 import com.rev.puzzles.framework.framework.impl.DefaultProblemEngine;
 import com.rev.puzzles.framework.framework.impl.NoOpResourceLoader;
+import com.rev.puzzles.framework.framework.io.SingleFileLoader;
 import com.rev.puzzles.leet.framework.LeetCoordinate;
 import com.rev.puzzles.leet.framework.LeetExecutionListenerPrinter;
 import com.rev.puzzles.leet.framework.LeetProblem;
 import com.rev.puzzles.leet.framework.LeetProblemGen;
+import com.rev.puzzles.leet.framework.LeetResourceLoader;
 import com.rev.puzzles.leet.gen.LeetExecutionListenerFileWriter;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -70,20 +72,30 @@ public final class CliParser {
         final LeetCoordinate firstLeetCoordinate = parseLeetCoordinate(cl.getOptionValue(PROBLEM_NUMBER));
         final LeetCoordinate secondLeetCoordinate = parseLeetCoordinate(cl.getOptionValue(PROBLEM_OTHER_NUMBER));
 
-        final String fileWriterPath = Optional.ofNullable(System.getProperty("leet.gen-path"))
+        final String leetProblemPath = Optional.ofNullable(System.getProperty("leet.gen-path"))
                 .orElse(System.getProperty("user.dir") + "/problems/leet");
 
         final AnnotationProblemLoader<?, LeetCoordinate> problemLoader = getProblemLoader(gen);
         final ExecutorListener<LeetCoordinate> executorListener =
-                gen ? new LeetExecutionListenerFileWriter(fileWriterPath) : new LeetExecutionListenerPrinter();
+                gen ? new LeetExecutionListenerFileWriter(leetProblemPath) : new LeetExecutionListenerPrinter();
 
-        final ResourceLoader<LeetCoordinate> resourceLoader = new NoOpResourceLoader<>();
+        final ResourceLoader<LeetCoordinate> resourceLoader = getResourceLoader(gen, leetProblemPath);
         final DefaultProblemEngine<LeetCoordinate> engine =
                 getLeetCoordinateProblemEngine(firstLeetCoordinate, secondLeetCoordinate, problemLoader,
                         executorListener, resourceLoader);
 
         engine.setDebug(cl.hasOption(DEBUG));
         return engine;
+    }
+
+    private static ResourceLoader<LeetCoordinate> getResourceLoader(final boolean gen, final String leetProblemPath) {
+        if (gen) {
+            return new NoOpResourceLoader<>();
+        }
+
+        final SingleFileLoader<LeetCoordinate> singleFileLoader =
+                new SingleFileLoader<>(leetProblemPath, l -> "/L" + l.toString() + ".txt");
+        return new LeetResourceLoader(singleFileLoader);
     }
 
     private static AnnotationProblemLoader<?, LeetCoordinate> getProblemLoader(final boolean gen) {

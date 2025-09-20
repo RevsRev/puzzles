@@ -8,7 +8,7 @@ import com.rev.puzzles.leet.framework.display.LeetDisplayConfig;
 
 public final class LeetExecutionListenerPrinter implements ExecutorListener<LeetCoordinate> {
 
-    private final Printer<ProblemResult<LeetCoordinate, ?>> printer = new Printer<>(LeetDisplayConfig.AOC_RESULT_COLS);
+    private final Printer<ProblemResult<LeetCoordinate, ?>> printer = new Printer<>(LeetDisplayConfig.LEET_RESULT_COLS);
 
     @Override
     public void executorStarted() {

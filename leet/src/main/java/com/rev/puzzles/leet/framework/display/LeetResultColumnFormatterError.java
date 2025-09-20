@@ -14,7 +14,7 @@ public final class LeetResultColumnFormatterError extends ResultColumnFormatter<
         if (result.getError().isPresent()) {
             if (result.getError().get().getCause() != null) {
                 final String message = result.getError().get().getCause().getMessage();
-                if (message == null) {
+                if (message == null || message.isBlank()) {
                     return result.getError().get().getCause().toString();
                 }
                 return message;

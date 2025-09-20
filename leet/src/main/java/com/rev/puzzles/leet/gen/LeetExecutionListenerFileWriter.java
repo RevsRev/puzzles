@@ -25,7 +25,7 @@ public final class LeetExecutionListenerFileWriter implements ExecutorListener<L
     public void executorSolved(final ProblemResult<LeetCoordinate, ?> result) {
         result.getProblemResult().ifPresentOrElse(r -> {
             try (FileWriter fileWriter = new FileWriter(
-                    String.format("%s/L%s", leetProblemsDirectory, result.getCoordinate()))) {
+                    String.format("%s/L%s.txt", leetProblemsDirectory, result.getCoordinate()))) {
                 fileWriter.write(r.toString());
             } catch (final IOException e) {
                 System.out.println(String.format("ERROR writing generated solution to file: '%s'", e.getMessage()));

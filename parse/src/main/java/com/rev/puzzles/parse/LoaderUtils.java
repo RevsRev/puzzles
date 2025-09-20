@@ -1,5 +1,8 @@
 package com.rev.puzzles.parse;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -74,6 +77,15 @@ public final class LoaderUtils {
             }
         }
         return retval;
+    }
+
+    public static int[] lineToIntArray(final String line) {
+        final ObjectMapper om = new ObjectMapper();
+        try {
+            return om.readValue(line, int[].class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static <T> T[][] loadResourcesAsMatrix(final List<String> lines,

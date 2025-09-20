@@ -2,8 +2,10 @@ package com.rev.puzzles.leet.problems;
 
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.leet.framework.LeetProblem;
+import com.rev.puzzles.parse.LoaderUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -12,8 +14,11 @@ import java.util.Set;
 
 public final class L001 {
     @LeetProblem(number = 1)
-    public int[] apply(final ProblemResourceLoader<Object[]> problemResourceLoader) {
-        return twoSum((int[]) problemResourceLoader.resources()[0], (Integer) problemResourceLoader.resources()[1]);
+    public String apply(final ProblemResourceLoader<List<String>> problemResourceLoader) {
+        final List<String> resources = problemResourceLoader.resources();
+        final int[] numbers = LoaderUtils.lineToIntArray(resources.get(0));
+        final int target = Integer.parseInt(resources.get(1));
+        return Arrays.toString(twoSum(numbers, target));
     }
 
     public int[] twoSum(final int[] nums, final int target) {
