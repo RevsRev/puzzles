@@ -1,2 +1,3 @@
 com.rev.puzzles.leet.framework.LeetEngineLoader
 com.rev.puzzles.aoc.framework.AocEngineLoader
+com.rev.puzzles.euler.framework.PeEngineLoader
