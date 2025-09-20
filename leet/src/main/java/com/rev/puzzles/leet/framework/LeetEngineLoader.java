@@ -9,14 +9,19 @@ import java.util.Set;
 public final class LeetEngineLoader implements EngineLoader {
 
     private static final String LEET = "leet";
+    private static final String LEET_GEN = "leet-gen";
 
     @Override
     public Set<String> getEngines() {
-        return Set.of(LEET);
+        return Set.of(LEET, LEET_GEN);
     }
 
     @Override
     public ProblemEngine<?> loadEngine(final String engineName, final String[] args) {
-        return CliParser.parse(args);
+        if (!(LEET.equals(engineName) || LEET_GEN.equals(engineName))) {
+            throw new RuntimeException(String.format("Unrecognised engine '%s", engineName));
+        }
+        final boolean gen = LEET_GEN.equals(engineName);
+        return CliParser.parse(args, gen);
     }
 }

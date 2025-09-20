@@ -13,6 +13,7 @@ import com.rev.puzzles.framework.framework.impl.NoOpResourceLoader;
 import com.rev.puzzles.leet.framework.LeetCoordinate;
 import com.rev.puzzles.leet.framework.LeetExecutionListenerPrinter;
 import com.rev.puzzles.leet.framework.LeetProblem;
+import com.rev.puzzles.leet.framework.LeetProblemGen;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -36,7 +37,7 @@ public final class CliParser {
     private CliParser() {
     }
 
-    public static ProblemEngine parse(final String[] args) {
+    public static ProblemEngine parse(final String[] args, final boolean gen) {
         final Options options = CliOptions.getOptions();
         try {
             final CommandLine cl = PARSER.parse(options, args, false);
@@ -45,7 +46,7 @@ public final class CliParser {
                 printHelp(options);
                 return null;
             }
-            return parse(cl);
+            return parse(cl, gen);
         } catch (final Exception e) {
             System.out.println(e.getMessage());
 //            Get the actual arg rather than using cli, incase it was the cli that failed!
@@ -64,13 +65,13 @@ public final class CliParser {
         helpFormatter.printHelp("aoc", options);
     }
 
-    private static ProblemEngine parse(final CommandLine cl) throws ParseException {
+    private static ProblemEngine parse(final CommandLine cl, final boolean gen) throws ParseException {
         validateOptions(cl);
         final LeetCoordinate firstLeetCoordinate = parseLeetCoordinate(cl.getOptionValue(PROBLEM_NUMBER));
         final LeetCoordinate secondLeetCoordinate = parseLeetCoordinate(cl.getOptionValue(PROBLEM_OTHER_NUMBER));
 
         final boolean visualise = cl.hasOption(PROBLEM_VISUALISE);
-        final AnnotationProblemLoader<?, LeetCoordinate> problemLoader = getProblemLoader();
+        final AnnotationProblemLoader<?, LeetCoordinate> problemLoader = getProblemLoader(gen);
         final ExecutorListener<LeetCoordinate> executorListener =
                 visualise ? new NoOpExecutorListener<>() : new LeetExecutionListenerPrinter();
 
@@ -83,7 +84,15 @@ public final class CliParser {
         return engine;
     }
 
-    private static AnnotationProblemLoader<?, LeetCoordinate> getProblemLoader() {
+    private static AnnotationProblemLoader<?, LeetCoordinate> getProblemLoader(final boolean gen) {
+
+        if (gen) {
+            return new AnnotationProblemLoader<>(
+                    LEET_PROBLEMS_PACKAGE,
+                    LeetProblemGen.class,
+                    problemI -> new LeetCoordinate(problemI.number()));
+        }
+
         return new AnnotationProblemLoader<>(LEET_PROBLEMS_PACKAGE, LeetProblem.class,
                 problemI -> new LeetCoordinate(problemI.number()));
     }
