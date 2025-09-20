@@ -8,12 +8,12 @@ import com.rev.puzzles.framework.framework.ResourceLoader;
 import com.rev.puzzles.framework.framework.impl.AnnotationProblemLoader;
 import com.rev.puzzles.framework.framework.impl.DefaultExecutor;
 import com.rev.puzzles.framework.framework.impl.DefaultProblemEngine;
-import com.rev.puzzles.framework.framework.impl.NoOpExecutorListener;
 import com.rev.puzzles.framework.framework.impl.NoOpResourceLoader;
 import com.rev.puzzles.leet.framework.LeetCoordinate;
 import com.rev.puzzles.leet.framework.LeetExecutionListenerPrinter;
 import com.rev.puzzles.leet.framework.LeetProblem;
 import com.rev.puzzles.leet.framework.LeetProblemGen;
+import com.rev.puzzles.leet.gen.LeetExecutionListenerFileWriter;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -23,16 +23,16 @@ import org.apache.commons.cli.ParseException;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static com.rev.puzzles.leet.framework.parse.CliOptions.DEBUG;
 import static com.rev.puzzles.leet.framework.parse.CliOptions.PROBLEM_NUMBER;
 import static com.rev.puzzles.leet.framework.parse.CliOptions.PROBLEM_OTHER_NUMBER;
-import static com.rev.puzzles.leet.framework.parse.CliOptions.PROBLEM_VISUALISE;
 
 
 public final class CliParser {
     private static final CommandLineParser PARSER = new DefaultParser();
-    private static final String LEET_PROBLEMS_PACKAGE = "com.rev.puzzles.leet.problems";
+    private static final String LEET_PROBLEMS_PACKAGE = "com.rev.puzzles.leet";
 
     private CliParser() {
     }
@@ -70,10 +70,12 @@ public final class CliParser {
         final LeetCoordinate firstLeetCoordinate = parseLeetCoordinate(cl.getOptionValue(PROBLEM_NUMBER));
         final LeetCoordinate secondLeetCoordinate = parseLeetCoordinate(cl.getOptionValue(PROBLEM_OTHER_NUMBER));
 
-        final boolean visualise = cl.hasOption(PROBLEM_VISUALISE);
+        final String fileWriterPath = Optional.ofNullable(System.getProperty("leet.gen-path"))
+                .orElse(System.getProperty("user.dir") + "/problems/leet");
+
         final AnnotationProblemLoader<?, LeetCoordinate> problemLoader = getProblemLoader(gen);
         final ExecutorListener<LeetCoordinate> executorListener =
-                visualise ? new NoOpExecutorListener<>() : new LeetExecutionListenerPrinter();
+                gen ? new LeetExecutionListenerFileWriter(fileWriterPath) : new LeetExecutionListenerPrinter();
 
         final ResourceLoader<LeetCoordinate> resourceLoader = new NoOpResourceLoader<>();
         final DefaultProblemEngine<LeetCoordinate> engine =
@@ -87,9 +89,7 @@ public final class CliParser {
     private static AnnotationProblemLoader<?, LeetCoordinate> getProblemLoader(final boolean gen) {
 
         if (gen) {
-            return new AnnotationProblemLoader<>(
-                    LEET_PROBLEMS_PACKAGE,
-                    LeetProblemGen.class,
+            return new AnnotationProblemLoader<>(LEET_PROBLEMS_PACKAGE, LeetProblemGen.class,
                     problemI -> new LeetCoordinate(problemI.number()));
         }
 

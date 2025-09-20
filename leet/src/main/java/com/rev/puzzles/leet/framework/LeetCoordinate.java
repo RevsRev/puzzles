@@ -28,7 +28,7 @@ public record LeetCoordinate(int number) implements ProblemCoordinate<LeetCoordi
 
     @Override
     public String toString() {
-        return String.format("%s", number);
+        return String.format("%03d", number);
     }
 
     @Override
