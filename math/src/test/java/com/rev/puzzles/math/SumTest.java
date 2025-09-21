@@ -28,4 +28,9 @@ class SumTest {
         assertEquals(sum, Sum.sumMtoN(m, n));
     }
 
+    @Test
+    public void testSumSq1ToN() {
+        assertEquals(385, Sum.sumSq1toN(10));
+    }
+
 }
