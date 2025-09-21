@@ -42,7 +42,7 @@ public final class PrimeCheck {
             }
         }
 
-        primeCache.extend((long) Math.sqrt(n));
+        primeCache.extendWithLimit((long) Math.sqrt(n));
         for (long prime : primeCache.getPrimes()) {
             if (n % prime == 0) {
                 return false;

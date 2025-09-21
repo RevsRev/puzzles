@@ -70,7 +70,7 @@ public final class D20 {
 //        final long searchStart = (long) Math.sqrt( ( (Math.log(target) / Math.log (2)) * target * target + 1) / 2);
         final long searchStart = (long) Math.sqrt(target);
 //        final long searchStart = 302010;
-        sieve.extend(target);
+        sieve.extendWithLimit(target);
         Factors factors = new Factors(sieve);
 
         long search = searchStart;
@@ -93,7 +93,7 @@ public final class D20 {
 //        final long searchStart = (long) Math.sqrt( ( (Math.log(target) / Math.log (2)) * target * target + 1) / 2);
         final long searchStart = (long) Math.sqrt(target);
 //        final long searchStart = 302010;
-        sieve.extend(target);
+        sieve.extendWithLimit(target);
         Factors factors = new Factors(sieve);
 
         long search = searchStart;

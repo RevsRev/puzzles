@@ -76,10 +76,21 @@ public final class SieveOfEratosthenes {
         return segmentEnd - 1;
     }
 
-    public void extend(final long n) {
-        if (n < highWaterMark) {
+    public void extendWithLimit(final long searchLimit) {
+        if (searchLimit < highWaterMark) {
             return;
         }
-        highWaterMark = sieve(n, highWaterMark, maxSegmentSize, primes);
+        highWaterMark = sieve(searchLimit, highWaterMark, maxSegmentSize, primes);
+    }
+
+    public void extendForNthPrime(final int nThPrimeLimit) {
+        while (primes.size() < nThPrimeLimit) {
+            extendWithLimit(2 * primes.get(primes.size() - 1));
+        }
+    }
+
+    public long getNthPrime(final int n) {
+        extendForNthPrime(n);
+        return primes.get(n - 1);
     }
 }

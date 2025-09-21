@@ -32,7 +32,7 @@ public final class Factors {
             return factors;
         }
 
-        sieve.extend((long) Math.sqrt(n));
+        sieve.extendWithLimit((long) Math.sqrt(n));
         List<Long> primes = sieve.getPrimes();
 
         int index = Collections.binarySearch(primes, n);
