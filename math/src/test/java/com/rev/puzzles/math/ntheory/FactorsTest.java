@@ -3,6 +3,7 @@ package com.rev.puzzles.math.ntheory;
 import com.rev.puzzles.math.ntheory.primes.Factors;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -33,6 +34,19 @@ public class FactorsTest {
                 Pair.of(12L, List.of(1L, 2L, 3L, 4L, 6L, 12L)),
                 Pair.of(210L, List.of(1L, 2L, 3L, 5L, 6L, 7L, 10L, 14L, 15L, 21L, 30L, 35L, 42L, 70L, 105L, 210L)),
                 Pair.of(1050L, List.of(1L, 2L, 3L, 5L, 6L, 7L, 10L, 14L, 15L, 21L, 25L, 30L, 35L, 42L, 50L, 70L, 75L, 105L, 150L, 175L, 210L, 350L, 525L, 1050L))
+        );
+    }
+
+    @Test
+    public void pairwiseFactorsTest() {
+        Assertions.assertEquals(
+                List.of(Pair.of(1L, 9L), Pair.of(3L, 3L)), Factors.create().pairwiseFactors(9)
+        );
+        Assertions.assertEquals(
+                List.of(Pair.of(1L, 12L),
+                        Pair.of(2L, 6L),
+                        Pair.of(3L, 4L)),
+                Factors.create().pairwiseFactors(12)
         );
     }
 

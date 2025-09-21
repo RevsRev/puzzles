@@ -2,6 +2,7 @@ package com.rev.puzzles.math.ntheory.primes;
 
 
 import com.rev.puzzles.math.ntheory.util.Pow;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,6 +61,21 @@ public final class Factors {
             factors.put(reducedN, 1L);
         }
         return factors;
+    }
+
+    public List<Pair<Long, Long>> pairwiseFactors(final long n) {
+
+        final List<Pair<Long, Long>> pairs = new ArrayList<>();
+
+        final List<Long> factors = factors(n);
+        int start = 0;
+        int end = factors.size() - 1;
+        while (start <= end) {
+            pairs.add(Pair.of(factors.get(start), factors.get(end)));
+            start++;
+            end--;
+        }
+        return pairs;
     }
 
     public List<Long> factors(long n) {
