@@ -16,6 +16,7 @@
         <module>parse</module>
         <module>project-euler</module>
         <module>math</module>
+        <module>utils</module>
     </modules>
 
     <properties>
