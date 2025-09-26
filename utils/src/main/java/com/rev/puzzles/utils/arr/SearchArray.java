@@ -1,5 +1,8 @@
 package com.rev.puzzles.utils.arr;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Arrays;
 import java.util.function.Function;
 
@@ -8,6 +11,15 @@ import static com.rev.puzzles.utils.arr.ArrayUtils.reversed;
 public final class SearchArray<T> {
 
     private final T[][] arr;
+
+    @Getter @Setter
+    private boolean searchColumns = true;
+    @Getter @Setter
+    private boolean searchRows = true;
+    @Getter @Setter
+    private boolean searchLRDownDiagonal = true;
+    @Getter @Setter
+    private boolean searchLRUpDiagonal = true;
 
     public SearchArray(final T[][] arr) {
         this.arr = arr;
@@ -19,10 +31,14 @@ public final class SearchArray<T> {
 
     public boolean search(final int wordSize, final Function<T[], Boolean> predicate) {
         return searchRows(wordSize, predicate) || searchColumns(wordSize, predicate)
-                || searchRLUpDiagonal(wordSize, predicate) || searchRLDownDiagonal(wordSize, predicate);
+                || searchLRUpDiagonal(wordSize, predicate) || searchLRDownDiagonal(wordSize, predicate);
     }
 
     private boolean searchColumns(final int wordSize, final Function<T[], Boolean> predicate) {
+        if (!searchColumns) {
+            return false;
+        }
+
         final int len = arr[0].length;
         final T[] candidate = Arrays.copyOf(arr[0], wordSize);
         for (int j = 0; j < len; j++) {
@@ -39,6 +55,10 @@ public final class SearchArray<T> {
     }
 
     private boolean searchRows(final int wordSize, final Function<T[], Boolean> predicate) {
+        if (!searchRows) {
+            return false;
+        }
+
         final T[] candidate = Arrays.copyOf(arr[0], wordSize);
         for (int i = 0; i < arr.length; i++) {
             final int len = arr[i].length;
@@ -55,7 +75,11 @@ public final class SearchArray<T> {
         return false;
     }
 
-    private boolean searchRLDownDiagonal(final int wordSize, final Function<T[], Boolean> predicate) {
+    private boolean searchLRDownDiagonal(final int wordSize, final Function<T[], Boolean> predicate) {
+        if (!searchLRDownDiagonal) {
+            return false;
+        }
+
         final T[] candidate = Arrays.copyOf(arr[0], wordSize);
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
@@ -78,7 +102,11 @@ public final class SearchArray<T> {
         return false;
     }
 
-    private boolean searchRLUpDiagonal(final int wordSize, final Function<T[], Boolean> predicate) {
+    private boolean searchLRUpDiagonal(final int wordSize, final Function<T[], Boolean> predicate) {
+        if (!searchLRUpDiagonal) {
+            return false;
+        }
+
         final T[] candidate = Arrays.copyOf(arr[0], wordSize);
         for (int i = 0; i < arr.length; i++) {
             for (int j = arr[i].length - 1; j >= 0; j--) {
