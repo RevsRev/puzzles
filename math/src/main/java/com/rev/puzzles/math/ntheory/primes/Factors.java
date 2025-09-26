@@ -17,6 +17,8 @@ public final class Factors {
     public static final int DEFAULT_CACHE_INITIALIZATION_SIZE = 1000;
     private final SieveOfEratosthenes sieve;
 
+    private final Map<Long, TreeMap<Long, Long>> factorsCache = new HashMap<>();
+
     public Factors(final SieveOfEratosthenes sieve) {
         this.sieve = sieve;
     }
@@ -25,11 +27,37 @@ public final class Factors {
         return new Factors(SieveOfEratosthenes.create(DEFAULT_CACHE_INITIALIZATION_SIZE));
     }
 
+    /**
+     * Returns prime factors of n*m. Useful for problems where we already know some factors by some other logic.
+     *
+     * @param n
+     * @param m
+     * @return
+     */
+    public TreeMap<Long, Long> primeFactors(final long n, final long m) {
+        final TreeMap<Long, Long> firstFactors = primeFactors(n);
+        final TreeMap<Long, Long> secondFactors = primeFactors(m);
+
+        final TreeMap<Long, Long> combinedFactors = new TreeMap<>();
+
+        combinedFactors.putAll(firstFactors);
+        for (final Map.Entry<Long, Long> primeAndPower : secondFactors.entrySet()) {
+            final Long power = combinedFactors.getOrDefault(primeAndPower.getKey(), 0L);
+            combinedFactors.computeIfAbsent(primeAndPower.getKey(), k -> primeAndPower.getValue() + power);
+        }
+        return combinedFactors;
+    }
+
     public TreeMap<Long, Long> primeFactors(final long n) {
+
+        if (factorsCache.containsKey(n)) {
+            return factorsCache.get(n);
+        }
 
         TreeMap<Long, Long> factors = new TreeMap<>();
 
         if (n == 1) {
+            factorsCache.put(n, factors);
             return factors;
         }
 
@@ -39,6 +67,7 @@ public final class Factors {
         int index = Collections.binarySearch(primes, n);
         if (index >= 0) {
             factors.put(n, 1L);
+            factorsCache.put(n, factors);
             return factors;
         }
 
@@ -54,12 +83,19 @@ public final class Factors {
             }
             if (j != 0) {
                 factors.put(prime, j);
+                if (factorsCache.containsKey(reducedN)) {
+                    final TreeMap<Long, Long> computedFactors = factorsCache.get(reducedN);
+                    factors.putAll(computedFactors);
+                    factorsCache.put(n, factors);
+                    return factors;
+                }
             }
         }
 
         if (reducedN > 1) {
             factors.put(reducedN, 1L);
         }
+        factorsCache.put(n, factors);
         return factors;
     }
 
@@ -78,6 +114,24 @@ public final class Factors {
         return pairs;
     }
 
+    public long numFactors(long n) {
+        TreeMap<Long, Long> primeFactors = primeFactors(n);
+        long numFactors = 1;
+        for (final long value : primeFactors.values()) {
+            numFactors *= (value + 1);
+        }
+        return numFactors;
+    }
+
+    public long numFactors(long m, long n) {
+        TreeMap<Long, Long> primeFactors = primeFactors(m, n);
+        long numFactors = 1;
+        for (final long value : primeFactors.values()) {
+            numFactors *= (value + 1);
+        }
+        return numFactors;
+    }
+
     public List<Long> factors(long n) {
         TreeMap<Long, Long> primeFactors = primeFactors(n);
         int capacity = (int) (Math.log(n) / Math.log(2)) + 1;
@@ -88,11 +142,8 @@ public final class Factors {
         return factors;
     }
 
-    private static void factors(
-            final List<Long> factors,
-            final TreeMap<Long, Long> primeFactors,
-            final long factor,
-            final long low) {
+    private static void factors(final List<Long> factors, final TreeMap<Long, Long> primeFactors, final long factor,
+                                final long low) {
 
         Map.Entry<Long, Long> ceilingEntry = primeFactors.ceilingEntry(low);
 
