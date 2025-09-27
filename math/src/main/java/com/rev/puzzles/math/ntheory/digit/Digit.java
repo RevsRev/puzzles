@@ -1,5 +1,7 @@
 package com.rev.puzzles.math.ntheory.digit;
 
+import java.math.BigInteger;
+
 public final class Digit {
 
     private Digit() {
@@ -12,6 +14,16 @@ public final class Digit {
             n = n / 10;
         }
         return product;
+    }
+
+    @SuppressWarnings("checkstyle:FinalParameters")
+    public static long digitSum(BigInteger n) {
+        long sum = 0;
+        while (n.compareTo(BigInteger.ZERO) > 0) {
+            sum += n.mod(BigInteger.TEN).longValue();
+            n = n.divide(BigInteger.TEN);
+        }
+        return sum;
     }
 
 }
