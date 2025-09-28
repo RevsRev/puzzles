@@ -29,6 +29,7 @@ public class FactorsTest {
                 Pair.of(1L, List.of(1L)),
                 Pair.of(2L, List.of(1L, 2L)),
                 Pair.of(3L, List.of(1L, 3L)),
+                Pair.of(9L, List.of(1L, 3L, 9L)),
                 Pair.of(16L, List.of(1L, 2L, 4L, 8L, 16L)),
                 Pair.of(72L, List.of(1L, 2L, 3L, 4L, 6L, 8L, 9L, 12L, 18L, 24L, 36L, 72L)),
                 Pair.of(12L, List.of(1L, 2L, 3L, 4L, 6L, 12L)),
