@@ -2,7 +2,9 @@ package com.rev.puzzles.math.part;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.math.BigInteger;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class IntegerPartitionsTest {
 
@@ -10,13 +12,13 @@ class IntegerPartitionsTest {
     public void testIntegerPartitions() {
         final IntegerPartitions partitions = IntegerPartitions.create();
 
-        assertEquals(1L, partitions.partitions(0));
-        assertEquals(1L, partitions.partitions(1));
-        assertEquals(2L, partitions.partitions(2));
-        assertEquals(3L, partitions.partitions(3));
-        assertEquals(5L, partitions.partitions(4));
-        assertEquals(7L, partitions.partitions(5));
-        assertEquals(11L, partitions.partitions(6));
+        assertEquals(BigInteger.valueOf(1L), partitions.partitions(BigInteger.valueOf(0)));
+        assertEquals(BigInteger.valueOf(1L), partitions.partitions(BigInteger.valueOf(1)));
+        assertEquals(BigInteger.valueOf(2L), partitions.partitions(BigInteger.valueOf(2)));
+        assertEquals(BigInteger.valueOf(3L), partitions.partitions(BigInteger.valueOf(3)));
+        assertEquals(BigInteger.valueOf(5L), partitions.partitions(BigInteger.valueOf(4)));
+        assertEquals(BigInteger.valueOf(7L), partitions.partitions(BigInteger.valueOf(5)));
+        assertEquals(BigInteger.valueOf(11L), partitions.partitions(BigInteger.valueOf(6)));
     }
 
 }
