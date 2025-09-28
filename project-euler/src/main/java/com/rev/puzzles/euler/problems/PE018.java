@@ -1,10 +1,10 @@
 package com.rev.puzzles.euler.problems;
 
+import com.rev.puzzles.algo.DynamicProgram;
 import com.rev.puzzles.euler.framework.PeProblem;
 import com.rev.puzzles.euler.framework.PeTestData;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.parse.LoaderUtils;
-import com.rev.puzzles.utils.dp.DynamicProgram;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;

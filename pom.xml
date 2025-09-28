@@ -17,6 +17,7 @@
         <module>project-euler</module>
         <module>math</module>
         <module>utils</module>
+        <module>algo</module>
     </modules>
 
     <properties>
