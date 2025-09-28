@@ -19,4 +19,12 @@
         </maven-checkstyle-plugin.config-location>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.rev.puzzles</groupId>
+            <artifactId>algo</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 </project>
