@@ -28,7 +28,7 @@ class PeriodicityDetectorTest {
 
         final AtomicInteger index = new AtomicInteger(0);
 
-        final PeriodicityDetector detector = new PeriodicityDetector.Builder(
+        final PeriodicityDetector detector = new DirectPeriodicityDetector.Builder(
                 () -> sequence[index.getAndIncrement()])
                 .setMaxPeriod(2)
                 .setMaxThreshold(10)
@@ -56,7 +56,7 @@ class PeriodicityDetectorTest {
 
         final AtomicInteger index = new AtomicInteger(0);
 
-        final PeriodicityDetector detector = new PeriodicityDetector.Builder(
+        final PeriodicityDetector detector = new DirectPeriodicityDetector.Builder(
                 () -> sequence[index.getAndIncrement()])
                 .setMaxPeriod(2)
                 .setMaxThreshold(10)
@@ -70,7 +70,7 @@ class PeriodicityDetectorTest {
     public void moreComplicatedShouldDetectPeriods() {
         final BigInteger seventyOne = BigInteger.valueOf(71);
         final AtomicLong index = new AtomicLong(0);
-        final PeriodicityDetector detector = new PeriodicityDetector.Builder(() -> {
+        final PeriodicityDetector detector = new DirectPeriodicityDetector.Builder(() -> {
             final long n = index.getAndIncrement();
             if (n < 1000) {
                 return BigInteger.valueOf(n);
@@ -89,7 +89,7 @@ class PeriodicityDetectorTest {
     @Test
     public void moreComplicatedShouldNotDetectPeriods() {
         final AtomicLong index = new AtomicLong(0);
-        final PeriodicityDetector detector = new PeriodicityDetector.Builder(() -> {
+        final PeriodicityDetector detector = new DirectPeriodicityDetector.Builder(() -> {
             final long n = index.getAndIncrement();
             return BigInteger.valueOf(n * n);
         }).build();
