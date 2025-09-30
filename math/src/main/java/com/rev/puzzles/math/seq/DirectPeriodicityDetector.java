@@ -2,6 +2,7 @@ package com.rev.puzzles.math.seq;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -14,7 +15,7 @@ public final class DirectPeriodicityDetector implements PeriodicityDetector {
 
     private boolean run = false;
     private BigInteger[] cachedSequence;
-    private int detectedPeriodLength = -1;
+    private final List<BigInteger> detectedPeriodicSubsequence = new ArrayList<>();
 
     private DirectPeriodicityDetector(
             final int maxPeriod,
@@ -57,18 +58,19 @@ public final class DirectPeriodicityDetector implements PeriodicityDetector {
             }
 
             if (periodDetected) {
-                detectedPeriodLength = periodCandidate;
+                Collections.reverse(subSequence);
+                detectedPeriodicSubsequence.addAll(subSequence);
                 break;
             }
         }
 
-        return detectedPeriodLength != -1;
+        return !detectedPeriodicSubsequence.isEmpty();
     }
 
     @Override
     public int getDetectedPeriodLength() {
         validate();
-        return detectedPeriodLength;
+        return detectedPeriodicSubsequence.size();
     }
 
     @Override
@@ -79,13 +81,19 @@ public final class DirectPeriodicityDetector implements PeriodicityDetector {
             return cachedSequence[n.intValue()];
         }
 
+        int detectedPeriodLength = detectedPeriodicSubsequence.size();
         final BigInteger lookAhead = n.subtract(BigInteger.valueOf(cachedSequence.length));
         final int mod = lookAhead.mod(BigInteger.valueOf(detectedPeriodLength)).intValue();
         return cachedSequence[cachedSequence.length - detectedPeriodLength + mod];
     }
 
+    public List<BigInteger> getDetectedPeriodicSubsequence() {
+        validate();
+        return detectedPeriodicSubsequence;
+    }
+
     private void validate() {
-        if (detectedPeriodLength == -1) {
+        if (detectedPeriodicSubsequence.isEmpty()) {
             if (run) {
                 throw new IllegalStateException("No period was detected");
             }
@@ -124,7 +132,7 @@ public final class DirectPeriodicityDetector implements PeriodicityDetector {
             return this;
         }
 
-        public PeriodicityDetector build() {
+        public DirectPeriodicityDetector build() {
             validate();
             return new DirectPeriodicityDetector(maxPeriod, maxThreshold, periodDetectionCycles, sequence);
         }
