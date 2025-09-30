@@ -74,4 +74,19 @@ class FirstOrderPeriodicityDetectorTest {
         );
     }
 
+    @Test
+    public void testUlamHasPeriodicDifferences() {
+        final Ulam ulam = new Ulam(BigInteger.valueOf(2), BigInteger.valueOf(5));
+        final AtomicInteger index = new AtomicInteger(0);
+
+        final FirstOrderPeriodicityDetector detector = new FirstOrderPeriodicityDetector.Builder(
+                () -> ulam.at(index.getAndIncrement())
+        )
+                .setMaxThreshold(1001)
+                .setMaxPeriod(200)
+                .build();
+
+        assertTrue(detector.detect());
+    }
+
 }
