@@ -75,8 +75,8 @@ class FirstOrderPeriodicityDetectorTest {
     }
 
     @Test
-    public void testUlamHasPeriodicDifferences() {
-        final Ulam ulam = new Ulam(2, 5);
+    public void testUlamHasPeriodicDifferences25() {
+        final Ulam ulam = Ulam.create(2, 5);
         final AtomicInteger index = new AtomicInteger(0);
 
         final FirstOrderPeriodicityDetector detector = new FirstOrderPeriodicityDetector.Builder(
@@ -87,6 +87,7 @@ class FirstOrderPeriodicityDetectorTest {
                 .build();
 
         assertTrue(detector.detect());
+        System.out.println(detector.getDetectedPeriodLength());
     }
 
 }

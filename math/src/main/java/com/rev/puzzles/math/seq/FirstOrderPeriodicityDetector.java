@@ -4,13 +4,13 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.function.Supplier;
 
-public final class FirstOrderPeriodicityDetector implements PeriodicityDetector{
+public final class FirstOrderPeriodicityDetector implements PeriodicityDetector {
 
     private final DifferenceSequence differenceSequence;
     private final DirectPeriodicityDetector differenceDetector;
 
     private FirstOrderPeriodicityDetector(final DifferenceSequence differenceSequence,
-                                          DirectPeriodicityDetector differenceDetector) {
+                                          final DirectPeriodicityDetector differenceDetector) {
         this.differenceSequence = differenceSequence;
         this.differenceDetector = differenceDetector;
     }
