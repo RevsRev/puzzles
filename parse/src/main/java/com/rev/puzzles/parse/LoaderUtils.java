@@ -64,6 +64,14 @@ public final class LoaderUtils {
         return retval;
     }
 
+    public static long[] linesToLongArray(final List<String> lines) {
+        long[] retval = new long[lines.size()];
+        for (int i = 0; i < lines.size(); i++) {
+            retval[i] = Long.parseLong(lines.get(i));
+        }
+        return retval;
+    }
+
     public static int[] linesToIntArray(final List<String> lines, final Function<String, String[]> lineSplitter) {
         int[][] intMatrix = loadResourcesAsIntMatrix(lines, lineSplitter);
         int size = 0;
