@@ -1,4 +1,4 @@
-package com.rev.puzzles.algo;
+package com.rev.puzzles.algo.dp;
 
 import java.util.HashMap;
 import java.util.Map;

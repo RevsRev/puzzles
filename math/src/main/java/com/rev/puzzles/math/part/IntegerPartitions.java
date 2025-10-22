@@ -1,6 +1,6 @@
 package com.rev.puzzles.math.part;
 
-import com.rev.puzzles.algo.DynamicProgram;
+import com.rev.puzzles.algo.dp.DynamicProgram;
 import com.rev.puzzles.math.seq.Pentagonal;
 
 import java.math.BigInteger;

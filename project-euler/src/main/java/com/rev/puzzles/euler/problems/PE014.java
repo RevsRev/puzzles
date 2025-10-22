@@ -3,7 +3,7 @@ package com.rev.puzzles.euler.problems;
 import com.rev.puzzles.euler.framework.PeProblem;
 import com.rev.puzzles.euler.framework.PeTestData;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.algo.DynamicProgram;
+import com.rev.puzzles.algo.dp.DynamicProgram;
 
 import java.util.List;
 import java.util.function.BiFunction;
