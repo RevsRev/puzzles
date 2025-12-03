@@ -13,17 +13,17 @@ public final class D03 {
 
         final List<String> banks = resourceLoader.resources();
 
-        return extracted(banks, 2);
+        return getSumOfBatteryBanks(banks, 2);
     }
 
     @AocProblemI(year = 2025, day = 3, part = 2)
     public long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final List<String> banks = resourceLoader.resources();
 
-        return extracted(banks, 12);
+        return getSumOfBatteryBanks(banks, 12);
     }
 
-    private static long extracted(final List<String> banks, final int stringLength) {
+    private static long getSumOfBatteryBanks(final List<String> banks, final int stringLength) {
         long sum = 0;
 
         final int input = stringLength - 1;
