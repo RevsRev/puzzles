@@ -107,6 +107,16 @@ public final class LoaderUtils {
         return values;
     }
 
+    public static char[][] loadResourcesAsCharMatrix(final List<String> lines,
+                                                  final Function<String, char[]> splitter) {
+        char[][] values = new char[lines.size()][];
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            values[i] = splitter.apply(line);
+        }
+        return values;
+    }
+
     public static int[] findOne(final char[][] arr, char c) {
         int height = arr.length;
         int width = arr[0].length;
