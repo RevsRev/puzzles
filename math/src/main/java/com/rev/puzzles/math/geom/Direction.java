@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.geom;
+package com.rev.puzzles.math.geom;
 
 import lombok.Getter;
 
@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Getter
+//TODO - Remove in favour of V2
 public enum Direction implements Iterable<Direction> {
 
     UP(-1, 0),

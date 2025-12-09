@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.geom;
+package com.rev.puzzles.math.geom;
 
 import java.util.HashSet;
 import java.util.Optional;

@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2016;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.framework.util.geom.Triangle;
+import com.rev.puzzles.math.geom.Triangle;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.geom;
+package com.rev.puzzles.math.geom;
 
 public final class Triangle {
 

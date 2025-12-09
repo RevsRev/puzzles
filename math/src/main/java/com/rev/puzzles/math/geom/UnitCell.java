@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.geom;
+package com.rev.puzzles.math.geom;
 
 import lombok.Getter;
 import lombok.Setter;

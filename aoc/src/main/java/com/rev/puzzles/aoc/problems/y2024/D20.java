@@ -3,7 +3,7 @@ package com.rev.puzzles.aoc.problems.y2024;
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.parse.LoaderUtils;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.framework.util.geom.Direction;
+import com.rev.puzzles.math.geom.Direction;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;

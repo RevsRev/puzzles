@@ -1,6 +1,5 @@
-package com.rev.puzzles.framework.util.math.geom;
+package com.rev.puzzles.math.geom;
 
-import com.rev.puzzles.framework.util.geom.PointRectangle;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

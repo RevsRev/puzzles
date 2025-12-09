@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.framework.util.geom.PointRectangle;
+import com.rev.puzzles.math.geom.PointRectangle;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
