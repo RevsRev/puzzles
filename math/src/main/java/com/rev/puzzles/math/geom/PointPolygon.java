@@ -151,27 +151,27 @@ public class PointPolygon {
                     }
                     case PointIntersectionResult pointIntersectionResult -> {
                         final Point intersection = pointIntersectionResult.intersection;
-                        //TODO - This is broken, need to fix and then should be able to solve AOC 2025 9 2
-                        if (intersection.equals(interiorSide.start())) {
+                        //TODO - I think this is broken, need to fix and then should be able to solve AOC 2025 9 2
+                        if (intersection.equals(interiorSide.start()) && interiorSide.direction().equals(maybeExteriorNormal.opposite())) {
 //                            if (interiorSide.direction() == interiorNormal) {
 //                                return false;
 //                            }
                             atLeastOneNonEmptyIntersectionResult = true;
-                            return true;
+//                            return true;
                         }
-                        else if (intersection.equals(interiorSide.end())) {
+                        else if (intersection.equals(interiorSide.end()) && interiorSide.direction().equals(maybeExteriorNormal)) {
 //                            if (interiorSide.direction().opposite() == interiorNormal) {
 //                                return false;
 //                            }
                             atLeastOneNonEmptyIntersectionResult = true;
-                            return true;
-                        } else if (intersection.equals(maybeExteriorSide.start())) {
+//                            return true;
+                        } /*else if (intersection.equals(maybeExteriorSide.start())) {
                             atLeastOneNonEmptyIntersectionResult = true;
                             return true;
                         } else if (intersection.equals(maybeExteriorSide.end())) {
                             atLeastOneNonEmptyIntersectionResult = true;
                             return true;
-                        } else {
+                        }*/ else {
                             return false;
                         }
                     }

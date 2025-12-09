@@ -73,10 +73,16 @@ public final class PointSide {
 
         if (withinEpsilonOfInteger(intersection.getX(), epsilon)
                 && withinEpsilonOfInteger(intersection.getY(), epsilon)) {
-            return new PointIntersectionResult(
-                    new Point(Math.round(intersection.getX()), Math.round(intersection.getY())));
+            final Point point = new Point(Math.round(intersection.getX()), Math.round(intersection.getY()));
+            if (contains(point) && other.contains(point)) {
+                return new PointIntersectionResult(point);
+            }
         }
         return new EmptyIntersectionResult();
+    }
+
+    public boolean contains(final Point p) {
+        return start.x() <= p.x() && p.x() <= end.x() && start.y() <= p.y() && p.y() <= end.x();
     }
 
     private IntersectionResult intersectParallel(final PointSide other, final DirectionV2 pointSideNormal) {
