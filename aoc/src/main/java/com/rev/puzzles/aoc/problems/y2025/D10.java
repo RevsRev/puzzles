@@ -3,6 +3,10 @@ package com.rev.puzzles.aoc.problems.y2025;
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
+import org.ojalgo.optimisation.Expression;
+import org.ojalgo.optimisation.ExpressionsBasedModel;
+import org.ojalgo.optimisation.Optimisation;
+import org.ojalgo.optimisation.Variable;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -79,62 +83,38 @@ public final class D10 {
     }
 
     private long computeNumPressesToConfigureJoltage(final int[] targetJoltage, final List<Set<Integer>> buttons) {
-        final Queue<List<Set<Integer>>> attempts = new ArrayDeque<>();
-        buttons.forEach(b -> {
-            attempts.add(List.of(b));
-        });
+        ExpressionsBasedModel model = new ExpressionsBasedModel();
 
-        while (!attempts.isEmpty()) {
+        Variable[] variables = new Variable[buttons.size()];
+        for (int i = 0; i < variables.length; i++) {
+            variables[i] = model.addVariable("b" + i).lower(0).integer(true);
+        }
 
-            final List<Set<Integer>> pop = attempts.poll();
-            int[] startState = new int[targetJoltage.length];
-            for (int i = 0; i < targetJoltage.length; i++) {
-                startState[i] = targetJoltage[i];
-            }
+        Expression objective = model.addExpression("obj").weight(1);
+        for (int i = 0; i < variables.length; i++) {
+            objective.set(variables[i], 1);
+        }
 
-            boolean solutionFound = true;
-            for (final Set<Integer> integers : pop) {
-                for (final int lightIndex : integers) {
-                    startState[lightIndex] -= 1;
-                    if (startState[lightIndex] > targetJoltage[lightIndex]) {
-                        solutionFound = false;
-                        break;
-                    }
+        for (int j = 0; j < targetJoltage.length; j++) {
+            Expression e = model.addExpression("j" + j).level(targetJoltage[j]);
+            for (int b = 0; b < buttons.size(); b++) {
+                if (buttons.get(b).contains(j)) {
+                    e.set(variables[b], 1);
                 }
-                if (!solutionFound) {
-                    break;
-                }
-            }
-
-
-            // early exit
-            if (!solutionFound) {
-                for (final Set<Integer> button : buttons) {
-                    final List<Set<Integer>> nextButtons = new ArrayList<>(pop);
-                    nextButtons.add(button);
-                    attempts.add(nextButtons);
-                }
-                continue;
-            }
-
-            for (int i = 0; i < targetJoltage.length; i++) {
-                if (startState[i] != targetJoltage[i]) {
-                    solutionFound = false;
-                    break;
-                }
-            }
-
-            if (solutionFound) {
-                return pop.size();
-            }
-
-            for (final Set<Integer> button : buttons) {
-                final List<Set<Integer>> nextButtons = new ArrayList<>(pop);
-                nextButtons.add(button);
-                attempts.add(nextButtons);
             }
         }
-        throw new ProblemExecutionException("Could not solve problem!");
+
+        final Optimisation.Result result = model.minimise();
+
+        if (!result.getState().isFeasible()) {
+            throw new ProblemExecutionException("Infeasible!");
+        }
+
+        long sum = 0;
+        for (int i = 0; i < result.size(); i++) {
+            sum += result.longValue(i);
+        }
+        return sum;
     }
 
     private long computeNumPressesToTurnOn(final char[] target, final List<Set<Integer>> buttons) {
@@ -171,8 +151,10 @@ public final class D10 {
 
             for (final Set<Integer> button : buttons) {
                 final List<Set<Integer>> nextButtons = new ArrayList<>(pop);
-                nextButtons.add(button);
-                attempts.add(nextButtons);
+                if (!nextButtons.contains(button)) {
+                    nextButtons.add(button);
+                    attempts.add(nextButtons);
+                }
             }
         }
         throw new ProblemExecutionException("Could not solve problem!");

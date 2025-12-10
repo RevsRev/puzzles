@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-checkstyle-plugin.config-location>${project.parent.basedir}/checkstyle.xml
         </maven-checkstyle-plugin.config-location>
+        <ojalgo.version>56.1.1</ojalgo.version>
     </properties>
 
     <dependencies>
@@ -34,6 +35,11 @@
             <groupId>com.rev.puzzles</groupId>
             <artifactId>math</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ojalgo</groupId>
+            <artifactId>ojalgo</artifactId>
+            <version>${ojalgo.version}</version>
         </dependency>
     </dependencies>
 
