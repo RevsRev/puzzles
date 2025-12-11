@@ -1,6 +1,5 @@
-package com.rev.puzzles.framework.util.math.set;
+package com.rev.puzzles.math.set;
 
-import com.rev.puzzles.framework.util.set.SetUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

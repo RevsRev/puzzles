@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.graph;
+package com.rev.puzzles.math.graph;
 
 import lombok.Getter;
 
@@ -150,7 +150,7 @@ public final class Graph<V extends Vertex, E extends Edge> {
 
     public Collection<V> getNeighbours(final V node) {
         if (!containsVertex(node)) {
-            throw new IllegalArgumentException("Graph does not contain edge");
+            throw new IllegalArgumentException("Graph does not contain node %s".formatted(node.name));
         }
         return new HashSet<>(vertexEdgeMap.get(node).keySet());
     }

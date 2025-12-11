@@ -2,10 +2,10 @@ package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.framework.util.graph.Edge;
-import com.rev.puzzles.framework.util.graph.Graph;
-import com.rev.puzzles.framework.util.graph.Vertex;
-import com.rev.puzzles.framework.util.graph.algo.TravellingSalesman;
+import com.rev.puzzles.math.graph.Edge;
+import com.rev.puzzles.math.graph.Graph;
+import com.rev.puzzles.math.graph.Vertex;
+import com.rev.puzzles.math.graph.algo.TravellingSalesman;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,8 +1,8 @@
-package com.rev.puzzles.framework.util.graph.algo;
+package com.rev.puzzles.math.graph.algo;
 
-import com.rev.puzzles.framework.util.graph.Edge;
-import com.rev.puzzles.framework.util.graph.Graph;
-import com.rev.puzzles.framework.util.graph.Vertex;
+import com.rev.puzzles.math.graph.Edge;
+import com.rev.puzzles.math.graph.Graph;
+import com.rev.puzzles.math.graph.Vertex;
 
 import java.util.ArrayList;
 import java.util.Collection;

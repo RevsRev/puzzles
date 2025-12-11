@@ -4,7 +4,7 @@ import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.util.arr.ArrayUtils;
 import com.rev.puzzles.framework.util.search.BinarySolutionSearch;
-import com.rev.puzzles.framework.util.set.SetUtils;
+import com.rev.puzzles.math.set.SetUtils;
 
 import java.util.Arrays;
 import java.util.Comparator;

@@ -3,7 +3,7 @@ package com.rev.puzzles.aoc.problems.y2015;
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
-import com.rev.puzzles.framework.util.set.SetUtils;
+import com.rev.puzzles.math.set.SetUtils;
 
 import java.util.HashMap;
 import java.util.HashSet;

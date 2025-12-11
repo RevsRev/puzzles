@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.graph;
+package com.rev.puzzles.math.graph;
 
 import lombok.Getter;
 
@@ -6,11 +6,11 @@ import java.util.Objects;
 
 @SuppressWarnings("checkstyle:VisibilityModifier")
 @Getter
-public final class Edge {
-    final long weight;
+public final class Vertex {
+    final String name;
 
-    public Edge(final long weight) {
-        this.weight = weight;
+    public Vertex(final String name) {
+        this.name = name;
     }
 
     @Override
@@ -18,12 +18,12 @@ public final class Edge {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Edge edge = (Edge) o;
-        return weight == edge.weight;
+        final Vertex vertex = (Vertex) o;
+        return Objects.equals(name, vertex.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(weight);
+        return Objects.hashCode(name);
     }
 }

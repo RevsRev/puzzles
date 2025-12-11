@@ -1,6 +1,4 @@
-package com.rev.puzzles.framework.util.set;
-
-import com.rev.puzzles.framework.util.arr.ArrayUtils;
+package com.rev.puzzles.math.set;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -166,7 +164,7 @@ public final class SetUtils {
             return;
         }
 
-        final long sum = ArrayUtils.sum(arr);
+        final long sum = Arrays.stream(arr).sum();
         if (sum % numberOfBins != 0) {
             throw new IllegalArgumentException(String.format(
                     "Cannot divide '%s' equally amongst '%s' bins",

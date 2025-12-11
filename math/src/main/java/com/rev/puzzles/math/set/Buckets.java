@@ -1,4 +1,4 @@
-package com.rev.puzzles.framework.util.set;
+package com.rev.puzzles.math.set;
 
 import java.util.ArrayList;
 import java.util.Arrays;

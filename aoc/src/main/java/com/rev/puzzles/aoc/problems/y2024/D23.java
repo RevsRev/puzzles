@@ -2,11 +2,11 @@ package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.framework.util.graph.Edge;
-import com.rev.puzzles.framework.util.graph.Graph;
-import com.rev.puzzles.framework.util.graph.Vertex;
-import com.rev.puzzles.framework.util.graph.algo.Cliques;
-import com.rev.puzzles.framework.util.graph.algo.SubGraphs;
+import com.rev.puzzles.math.graph.Edge;
+import com.rev.puzzles.math.graph.Graph;
+import com.rev.puzzles.math.graph.Vertex;
+import com.rev.puzzles.math.graph.algo.Cliques;
+import com.rev.puzzles.math.graph.algo.SubGraphs;
 
 import java.util.ArrayList;
 import java.util.Collection;

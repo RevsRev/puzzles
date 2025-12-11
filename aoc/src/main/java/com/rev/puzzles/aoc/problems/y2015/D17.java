@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2015;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.framework.util.set.Buckets;
+import com.rev.puzzles.math.set.Buckets;
 
 import java.util.List;
 import java.util.function.Consumer;
