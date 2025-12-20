@@ -2,14 +2,17 @@ package com.rev.puzzles.math.geom;
 
 import com.rev.puzzles.math.geom.result.EmptyIntersectionResult;
 import com.rev.puzzles.math.geom.result.IntersectionResult;
-import com.rev.puzzles.math.geom.result.PointSideIntersectionResult;
 import com.rev.puzzles.math.geom.result.PointIntersectionResult;
-import org.junit.jupiter.api.Assertions;
+import com.rev.puzzles.math.geom.result.PointSideIntersectionResult;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Collection;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GridSideTest {
 
@@ -19,14 +22,22 @@ class GridSideTest {
         final GridSide s = testParams.s();
         final GridPoint p = testParams.p();
 
-        Assertions.assertEquals(testParams.expected, s.contains(p));
+        assertEquals(testParams.expected, s.contains(p));
     }
 
     @ParameterizedTest
     @MethodSource("intersectionTestParams")
     void testContains(final IntersectionTestParams testParams) {
         IntersectionResult actual = testParams.first.intersect(testParams.second);
-        Assertions.assertEquals(testParams.expected, actual);
+        assertEquals(testParams.expected, actual);
+    }
+
+    @Test
+    void shouldReturnLength() {
+        assertAll(
+                () -> assertEquals(2L, GridSide.create(new GridPoint(0, 0), new GridPoint(0, 2)).length()),
+                () -> assertEquals(7L, GridSide.create(new GridPoint(1, 3), new GridPoint(8, 3)).length())
+        );
     }
 
     public static Collection<IntersectionTestParams> intersectionTestParams() {

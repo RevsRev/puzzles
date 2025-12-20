@@ -175,4 +175,8 @@ public final class GridSide {
     private static boolean withinEpsilonOfInteger(double x) {
         return Math.abs(x - Math.round(x)) < EPSILON;
     }
+
+    public long length() {
+        return Math.abs(start.x() - end.x() + start.y() - end.y());
+    }
 }
