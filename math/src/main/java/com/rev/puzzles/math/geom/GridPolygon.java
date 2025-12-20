@@ -52,17 +52,20 @@ public class GridPolygon {
                 break;
             }
         }
-        final List<PolygonSide> polygonSides = new ArrayList<>();
 
+        final List<PolygonSide> polygonSides = new ArrayList<>();
+        final DirectionV2 startNormal = normal;
+        int windingNumber = 0;
         boolean ascending = true;
         int index = 0;
+
         while (polygonSides.isEmpty() || !polygonSides.getFirst().side.start().equals(polygonSides.getLast().side.end())) {
 
             GridPolygon first = rectangles.get(index);
             GridPolygon second = rectangles.get(ascending ? index + 1 : index - 1);
 
-            final DirectionV2 finalNormal = normal;
-            final PolygonSide sideConsidered = first.sides.stream().filter(s -> s.normal.equals(finalNormal)).findFirst().orElseThrow();
+            final DirectionV2 previousNormal = normal;
+            final PolygonSide sideConsidered = first.sides.stream().filter(s -> s.normal.equals(previousNormal)).findFirst().orElseThrow();
             final PolygonSide maybeNextSide = second.sides.stream().filter(s -> s.normal.equals(sideConsidered.normal.next())).findFirst().orElseThrow();
 
             final IntersectionResult intersectionResult = maybeNextSide.side.intersect(sideConsidered.side);
@@ -93,6 +96,13 @@ public class GridPolygon {
                                 default -> throw new IllegalStateException();
                             }
                         }
+
+                        index = ascending ? index + 1 : index - 1;
+                        if (ascending && index == rectangles.size() - 1) {
+                            ascending = false;
+                        } else if (!ascending && index == 0) {
+                            ascending = true;
+                        }
                     } else {
                         if (polygonSides.isEmpty()) {
                             PolygonSide sideToAdd = sideConsidered;
@@ -120,22 +130,23 @@ public class GridPolygon {
                             polygonSides.add(new PolygonSide(GridSide.create(polygonSides.getLast().side().end(), sideConsidered.side().end()), sideConsidered.normal()));
                         }
                         normal = normal.next();
-                        continue;
-                    }
-
-                    index = ascending ? index + 1 : index - 1;
-
-                    if (ascending && index == rectangles.size() - 1) {
-                        ascending = false;
-                    } else if (!ascending && index == 0) {
-                        ascending = true;
                     }
                 }
                 case PointSideIntersectionResult pointSideIntersectionResult -> throw new IllegalStateException();
             }
+
+            if (previousNormal.next() == normal) {
+                windingNumber++;
+            } else {
+                windingNumber--;
+            }
         }
 
-        return new GridPolygon(polygonSides, 1);
+        if (windingNumber % 4 != 0) {
+            throw new IllegalStateException("Non integer winding number!");
+        }
+
+        return new GridPolygon(polygonSides, windingNumber / 4);
     }
 
     private static GridPolygon rectangle(final GridPoint first, final GridPoint second) {
