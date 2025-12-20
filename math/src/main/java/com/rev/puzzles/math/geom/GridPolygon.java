@@ -3,11 +3,14 @@ package com.rev.puzzles.math.geom;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.rev.puzzles.math.geom.DirectionV2.*;
+import static com.rev.puzzles.math.geom.DirectionV2.DOWN;
+
 public class GridPolygon {
 
-    final List<GridSide> sides;
+    final List<PolygonSide> sides;
 
-    private GridPolygon(List<GridSide> sides) {
+    private GridPolygon(List<PolygonSide> sides) {
         this.sides = sides;
     }
 
@@ -47,13 +50,16 @@ public class GridPolygon {
     }
 
     private static GridPolygon rectangle(long minX, long minY, long maxY, long maxX) {
-        final List<GridSide> sides = new ArrayList<>();
+        final List<PolygonSide> sides = new ArrayList<>();
 
-        sides.add(GridSide.create(new GridPoint(minX, minY), new GridPoint(minX, maxY)));
-        sides.add(GridSide.create(new GridPoint(minX, maxY), new GridPoint(maxX, maxY)));
-        sides.add(GridSide.create(new GridPoint(maxX, maxY), new GridPoint(maxX, minY)));
-        sides.add(GridSide.create(new GridPoint(maxX, minY), new GridPoint(minX, minY)));
+        sides.add(new PolygonSide(GridSide.create(new GridPoint(minX, minY), new GridPoint(minX, maxY)), LEFT));
+        sides.add(new PolygonSide(GridSide.create(new GridPoint(minX, maxY), new GridPoint(maxX, maxY)), UP));
+        sides.add(new PolygonSide(GridSide.create(new GridPoint(maxX, maxY), new GridPoint(maxX, minY)), RIGHT));
+        sides.add(new PolygonSide(GridSide.create(new GridPoint(maxX, minY), new GridPoint(minX, minY)), DOWN));
 
         return new GridPolygon(sides);
+    }
+
+    public record PolygonSide(GridSide side, DirectionV2 normal) {
     }
 }
