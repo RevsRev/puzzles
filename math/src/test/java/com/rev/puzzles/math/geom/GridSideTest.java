@@ -1,5 +1,8 @@
 package com.rev.puzzles.math.geom;
 
+import com.rev.puzzles.math.geom.result.EmptyIntersectionResult;
+import com.rev.puzzles.math.geom.result.IntersectionResult;
+import com.rev.puzzles.math.geom.result.PointIntersectionResult;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -18,6 +21,35 @@ class GridSideTest {
         Assertions.assertEquals(testParams.expected, s.contains(p));
     }
 
+    @ParameterizedTest
+    @MethodSource("intersectionTestParams")
+    void testContains(final IntersectionTestParams testParams) {
+        IntersectionResult actual = testParams.first.intersect(testParams.second);
+        Assertions.assertEquals(testParams.expected, actual);
+    }
+
+    public static Collection<IntersectionTestParams> intersectionTestParams() {
+        return List.of(
+
+                //Point or empty intersection results
+                new IntersectionTestParams(GridSide.create(new Point(0, 4), new Point(4, 4)), GridSide.create(new Point(2, 2), new Point(2, 3)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new Point(0, 4), new Point(4, 4)), GridSide.create(new Point(2, 2), new Point(2, 4)), new PointIntersectionResult(new Point(2, 4))),
+                new IntersectionTestParams(GridSide.create(new Point(0, 4), new Point(4, 4)), GridSide.create(new Point(2, 2), new Point(2, 5)), new PointIntersectionResult(new Point(2, 4))),
+
+                new IntersectionTestParams(GridSide.create(new Point(4, 4), new Point(0, 4)), GridSide.create(new Point(2, 2), new Point(2, 3)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new Point(4, 4), new Point(0, 4)), GridSide.create(new Point(2, 2), new Point(2, 4)), new PointIntersectionResult(new Point(2, 4))),
+                new IntersectionTestParams(GridSide.create(new Point(4, 4), new Point(0, 4)), GridSide.create(new Point(2, 2), new Point(2, 5)), new PointIntersectionResult(new Point(2, 4))),
+
+                new IntersectionTestParams(GridSide.create(new Point(4, 0), new Point(4, 4)), GridSide.create(new Point(2, 2), new Point(3, 2)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new Point(4, 0), new Point(4, 4)), GridSide.create(new Point(2, 2), new Point(4, 2)), new PointIntersectionResult(new Point(4, 2))),
+                new IntersectionTestParams(GridSide.create(new Point(4, 0), new Point(4, 4)), GridSide.create(new Point(2, 2), new Point(5, 2)), new PointIntersectionResult(new Point(4, 2))),
+
+                new IntersectionTestParams(GridSide.create(new Point(4, 4), new Point(4, 0)), GridSide.create(new Point(2, 2), new Point(3, 2)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new Point(4, 4), new Point(4, 0)), GridSide.create(new Point(2, 2), new Point(4, 2)), new PointIntersectionResult(new Point(4, 2))),
+                new IntersectionTestParams(GridSide.create(new Point(4, 4), new Point(4, 0)), GridSide.create(new Point(2, 2), new Point(5, 2)), new PointIntersectionResult(new Point(4, 2)))
+        );
+    }
+
     public static Collection<ContainsTestParams> containsTestParams() {
         return List.of(
                 new ContainsTestParams(GridSide.create(new Point(0, 4), new Point(4, 4)), new Point(2, 4), true),
@@ -33,6 +65,9 @@ class GridSideTest {
     }
 
     public record ContainsTestParams(GridSide s, Point p, boolean expected) {
+    }
+
+    public record IntersectionTestParams(GridSide first, GridSide second, IntersectionResult expected) {
     }
 
 }

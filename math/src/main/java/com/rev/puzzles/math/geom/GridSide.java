@@ -1,7 +1,12 @@
 package com.rev.puzzles.math.geom;
 
+import com.rev.puzzles.math.geom.result.EmptyIntersectionResult;
+import com.rev.puzzles.math.geom.result.IntersectionResult;
+import com.rev.puzzles.math.geom.result.PointIntersectionResult;
+import com.rev.puzzles.math.linalg.matrix.Mat2;
+import com.rev.puzzles.math.linalg.vec.Vec2;
+
 import static com.rev.puzzles.math.geom.DirectionV2.*;
-import static com.rev.puzzles.math.geom.DirectionV2.RIGHT;
 
 public final class GridSide {
     private static final double EPSILON = 0.0001;
@@ -16,6 +21,14 @@ public final class GridSide {
         this.direction = direction;
     }
 
+    public Point start() {
+        return start;
+    }
+
+    public Point end() {
+        return end;
+    }
+
     public boolean contains(final Point p) {
         return switch (direction) {
             case UP -> p.x() == start.x() && start.y() <= p.y() && p.y() <= end.y();
@@ -25,12 +38,47 @@ public final class GridSide {
         };
     }
 
-    public Point start() {
-        return start;
+
+    public IntersectionResult intersect(final GridSide other) {
+
+        if (direction.equals(other.direction) || direction.equals(other.direction.opposite())) {
+            //TODO - parallel case
+            return null;
+        }
+
+        final Mat2 mat = new Mat2(
+                (start.x() - end.x()), - (other.start.x() - other.end.x()),
+                (start.y() - end.y()), - (other.start.y() - other.end.y()));
+
+        double det = mat.det();
+        if (Math.abs(det) < EPSILON) {
+            return new EmptyIntersectionResult();
+        }
+
+        final Vec2 differences = new Vec2(other.start.x() - start.x(), other.start.y() - start.y());
+        final Vec2 intersectionParams = mat.inverse().mult(differences);
+
+        final Vec2 thisGradient = new Vec2(
+                start.x() - end.x(),
+                start.y() - end.y()
+        );
+        final Vec2 intersection = new Vec2(start.x(), start.y()).plus(thisGradient.mult(intersectionParams.getX()));
+
+        if (withinEpsilonOfInteger(intersection.getX()) && withinEpsilonOfInteger(intersection.getY())) {
+            final Point maybeIntersection = new Point(
+                    Math.round(intersection.getX()), Math.round(intersection.getY())
+            );
+            if (this.contains(maybeIntersection) && other.contains(maybeIntersection)) {
+                return new PointIntersectionResult(
+                        maybeIntersection
+                );
+            }
+        }
+        return new EmptyIntersectionResult();
     }
 
-    public Point end() {
-        return end;
+    private static boolean withinEpsilonOfInteger(double x) {
+        return Math.abs(x - Math.round(x)) < EPSILON;
     }
 
     public static GridSide create(final Point start, final Point end) {
