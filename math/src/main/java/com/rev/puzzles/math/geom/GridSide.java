@@ -138,7 +138,7 @@ public final class GridSide {
                         ), first.direction)
                 );
             }
-        } else if (first.start.x() == second.start.x()){
+        } else if ((first.direction.equals(UP) || first.direction.equals(DOWN)) && first.start.x() == second.start.x()){
             final GridSide thisOriented = withOrientation(first, UP);
             final GridSide otherOriented = withOrientation(second, UP);
 

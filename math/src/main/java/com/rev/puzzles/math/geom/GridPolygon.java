@@ -44,6 +44,12 @@ public class GridPolygon {
 
         //we've got all our constituent rectangles in order, now we just need to fix up the sides
         DirectionV2 normal = LEFT;
+        for (int i = 0; i < rectangles.getFirst().sides.size(); i++) {
+            if (rectangles.getFirst().sides.get(i).side.length() > 1) {
+                normal = rectangles.getFirst().sides.get(i).normal;
+                break;
+            }
+        }
         final List<PolygonSide> polygonSides = new ArrayList<>();
 
         boolean ascending = true;
@@ -87,7 +93,27 @@ public class GridPolygon {
                         }
                     } else {
                         if (polygonSides.isEmpty()) {
-                            polygonSides.add(sideConsidered);
+                            PolygonSide sideToAdd = sideConsidered;
+                            for (GridPolygon rectangle : rectangles) {
+                                if (rectangle == first) {
+                                    continue;
+                                }
+
+                                for (PolygonSide side : rectangle.sides) {
+                                    if (side.side.intersect(sideConsidered.side) instanceof PointIntersectionResult firstIntersect && firstIntersect.intersection().equals(sideConsidered.side.start())) {
+                                        if (firstIntersect.intersection().equals(side.side.end())) {
+                                            sideToAdd = sideConsidered;
+                                        } else {
+                                            PolygonSide opposite = rectangle.sides.stream().filter(s -> s.normal == side.normal.opposite()).findFirst().orElseThrow();
+                                            switch (opposite.side.intersect(sideConsidered.side)) {
+                                                case PointIntersectionResult secondIntersect -> sideToAdd = new PolygonSide(GridSide.create(secondIntersect.intersection(), sideConsidered.side().end()), sideConsidered.normal);
+                                                default -> throw new IllegalStateException();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            polygonSides.add(sideToAdd);
                         } else {
                             polygonSides.add(new PolygonSide(GridSide.create(polygonSides.getLast().side().end(), sideConsidered.side().end()), sideConsidered.normal()));
                         }
@@ -99,6 +125,8 @@ public class GridPolygon {
 
                     if (ascending && index == rectangles.size() - 1) {
                         ascending = false;
+                    } else if (!ascending && index == 0) {
+                        ascending = true;
                     }
                 }
                 case PointSideIntersectionResult pointSideIntersectionResult -> throw new IllegalStateException();

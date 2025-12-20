@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.rev.puzzles.math.geom.DirectionV2.*;
-import static com.rev.puzzles.math.geom.DirectionV2.DOWN;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GridPolygonTest {
 
@@ -57,6 +55,28 @@ class GridPolygonTest {
                         new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 1), new GridPoint(5, 0)), RIGHT),
                         new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 0), new GridPoint(0, 0)), DOWN)
                 ),
+                lPolygon.sides
+        );
+    }
+
+    @Test
+    void shouldCreateLShapeOppositeOrder() {
+        final GridPolygon lPolygon = GridPolygon.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(4, 0),
+                        new GridPoint(0, 0),
+                        new GridPoint(0, 2)
+                )
+        );
+        Assertions.assertEquals(
+                List.of(
+                        new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 1), new GridPoint(5, 1)), UP),
+                        new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 1), new GridPoint(5, 0)), RIGHT),
+                        new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 0), new GridPoint(0, 0)), DOWN),
+                        new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 3)), LEFT),
+                        new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 3), new GridPoint(1, 3)), UP),
+                        new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 3), new GridPoint(1, 1)), RIGHT)
+                        ),
                 lPolygon.sides
         );
     }
