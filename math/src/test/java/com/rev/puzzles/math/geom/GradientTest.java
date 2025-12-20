@@ -1,37 +1,40 @@
 package com.rev.puzzles.math.geom;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Collection;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GradientTest {
 
-    @Test
-    void shouldBeParallel() {
-        final Gradient first = Gradient.create(1, 2);
-        final Gradient second = Gradient.create(3, 6);
-        assertTrue(first.parallel(second));
+    @ParameterizedTest
+    @MethodSource("testParams")
+    void testGradients(final GradientTestParams testParams) {
+        final Gradient first = Gradient.create(testParams.firstRise, testParams.firstRun);
+        final Gradient second = Gradient.create(testParams.secondRise, testParams.secondRun);
+        Assertions.assertAll(
+                () -> assertEquals(testParams.parallel, first.parallel(second)),
+                () -> assertEquals(testParams.perpendicular, first.perpendicular(second))
+        );
     }
 
-    @Test
-    void shouldNotBeParallel() {
-        final Gradient first = Gradient.create(1, 2);
-        final Gradient second = Gradient.create(3, 7);
-        assertFalse(first.parallel(second));
+    @MethodSource("gradientTestParams")
+    public static Collection<GradientTestParams> testParams() {
+        return List.of(
+                new GradientTestParams(1, 2, 3, 6, true, false),
+                new GradientTestParams(-1, -2, -3, -6, true, false),
+                new GradientTestParams(1, 2, 3, 7, false, false),
+                new GradientTestParams(-1, -2, -3, -7, false, false),
+                new GradientTestParams(1, 2, -2, 1, false, true),
+                new GradientTestParams(1, 2, -2, 4, false, false)
+        );
     }
 
-    @Test
-    void shouldBePerpendicular() {
-        final Gradient first = Gradient.create(1, 2);
-        final Gradient second = Gradient.create(-2, 1);
-        assertTrue(first.perpendicular(second));
-    }
+    public record GradientTestParams(long firstRise, long firstRun, long secondRise, long secondRun, boolean parallel, boolean perpendicular) {
 
-    @Test
-    void shouldNotBePerpendicular() {
-        final Gradient first = Gradient.create(1, 2);
-        final Gradient second = Gradient.create(-2, 4);
-        assertFalse(first.perpendicular(second));
     }
 }

@@ -14,7 +14,8 @@ public final class Gradient {
     }
 
     public static Gradient create(long rise, long run) {
-        long gcd = Gcd.gcd(rise, run);
+        long sign = rise * run > 0 ? 1 : -1;
+        long gcd = sign * Gcd.gcd(Math.abs(rise), Math.abs(run));
         return new Gradient(rise / gcd, run / gcd);
     }
 
