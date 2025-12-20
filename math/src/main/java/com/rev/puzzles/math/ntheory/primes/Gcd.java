@@ -15,11 +15,11 @@ public final class Gcd {
         if (steps.isEmpty()) {
             return -1;
         }
-        return steps.get(steps.size() - 1)[3];
+        return steps.get(steps.size() - 1)[1];
     }
 
     public static List<long[]> euclid(long a, long b) {
-        if (b < a) {
+        if (b > a) {
             return euclid(b, a);
         }
 
@@ -44,7 +44,7 @@ public final class Gcd {
         if (steps.isEmpty()) {
             return BigInteger.ZERO.subtract(BigInteger.ONE);
         }
-        return steps.get(steps.size() - 1)[3];
+        return steps.get(steps.size() - 1)[1];
     }
 
     @SuppressWarnings("checkstyle:FinalParameters")
