@@ -14,17 +14,17 @@ import static com.rev.puzzles.math.geom.DirectionV2.*;
 public final class GridSide {
     private static final double EPSILON = 0.0001;
 
-    private final Point start;
-    private final Point end;
+    private final GridPoint start;
+    private final GridPoint end;
     private final DirectionV2 direction;
 
-    private GridSide(final Point start, final Point end, DirectionV2 direction) {
+    private GridSide(final GridPoint start, final GridPoint end, DirectionV2 direction) {
         this.start = start;
         this.end = end;
         this.direction = direction;
     }
 
-    public static GridSide create(final Point start, final Point end) {
+    public static GridSide create(final GridPoint start, final GridPoint end) {
         if (start.equals(end)) {
             throw new IllegalArgumentException("Start and end must be different!");
         }
@@ -41,15 +41,15 @@ public final class GridSide {
         return new GridSide(start, end, direction);
     }
 
-    public Point start() {
+    public GridPoint start() {
         return start;
     }
 
-    public Point end() {
+    public GridPoint end() {
         return end;
     }
 
-    public boolean contains(final Point p) {
+    public boolean contains(final GridPoint p) {
         return switch (direction) {
             case UP -> p.x() == start.x() && start.y() <= p.y() && p.y() <= end.y();
             case RIGHT -> p.y() == start.y() && start.x() <= p.x() && p.x() <= end.x();
@@ -98,7 +98,7 @@ public final class GridSide {
         final Vec2 intersection = new Vec2(first.start.x(), first.start.y()).plus(thisGradient.mult(intersectionParams.getX()));
 
         if (withinEpsilonOfInteger(intersection.getX()) && withinEpsilonOfInteger(intersection.getY())) {
-            final Point maybeIntersection = new Point(
+            final GridPoint maybeIntersection = new GridPoint(
                     Math.round(intersection.getX()), Math.round(intersection.getY())
             );
             if (first.contains(maybeIntersection) && second.contains(maybeIntersection)) {
@@ -117,8 +117,8 @@ public final class GridSide {
 
             final long startX = Math.max(thisOriented.start.x(), otherOriented.start.x());
             final long endX = Math.min(thisOriented.end.x(), otherOriented.end.x());
-            final Point start = new Point(startX, thisOriented.start.y());
-            final Point end = new Point(endX, thisOriented.start.y());
+            final GridPoint start = new GridPoint(startX, thisOriented.start.y());
+            final GridPoint end = new GridPoint(endX, thisOriented.start.y());
             if (start.equals(end)) {
                 return new PointIntersectionResult(start);
             } else if (startX < endX) {
@@ -135,8 +135,8 @@ public final class GridSide {
 
             final long startY = Math.max(thisOriented.start.y(), otherOriented.start.y());
             final long endY = Math.min(thisOriented.end.y(), otherOriented.end.y());
-            final Point start = new Point(thisOriented.start.x(), startY);
-            final Point end = new Point(thisOriented.start.x(), endY);
+            final GridPoint start = new GridPoint(thisOriented.start.x(), startY);
+            final GridPoint end = new GridPoint(thisOriented.start.x(), endY);
             if (start.equals(end)) {
                 return new PointIntersectionResult(start);
             } else if (startY < endY) {
