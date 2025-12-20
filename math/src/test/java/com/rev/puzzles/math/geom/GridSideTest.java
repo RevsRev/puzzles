@@ -2,6 +2,7 @@ package com.rev.puzzles.math.geom;
 
 import com.rev.puzzles.math.geom.result.EmptyIntersectionResult;
 import com.rev.puzzles.math.geom.result.IntersectionResult;
+import com.rev.puzzles.math.geom.result.PointSideIntersectionResult;
 import com.rev.puzzles.math.geom.result.PointIntersectionResult;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -30,6 +31,21 @@ class GridSideTest {
 
     public static Collection<IntersectionTestParams> intersectionTestParams() {
         return List.of(
+
+                //Parallel or empty intersection results
+                new IntersectionTestParams(GridSide.create(new Point(0, 4), new Point(4, 4)), GridSide.create(new Point(0, 4), new Point(4, 4)), new PointSideIntersectionResult(GridSide.create(new Point(0, 4), new Point(4, 4)))),
+                new IntersectionTestParams(GridSide.create(new Point(0, 4), new Point(2, 4)), GridSide.create(new Point(0, 4), new Point(4, 4)), new PointSideIntersectionResult(GridSide.create(new Point(0, 4), new Point(2, 4)))),
+                new IntersectionTestParams(GridSide.create(new Point(2, 4), new Point(4, 4)), GridSide.create(new Point(0, 4), new Point(4, 4)), new PointSideIntersectionResult(GridSide.create(new Point(2, 4), new Point(4, 4)))),
+                new IntersectionTestParams(GridSide.create(new Point(2, 4), new Point(4, 4)), GridSide.create(new Point(0, 4), new Point(2, 4)), new PointIntersectionResult(new Point(2, 4))),
+                new IntersectionTestParams(GridSide.create(new Point(2, 4), new Point(4, 4)), GridSide.create(new Point(0, 3), new Point(2, 3)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new Point(2, 4), new Point(4, 4)), GridSide.create(new Point(0, 4), new Point(1, 4)), new EmptyIntersectionResult()),
+
+                new IntersectionTestParams(GridSide.create(new Point(4, 4), new Point(4, 0)), GridSide.create(new Point(4, 0), new Point(4, 4)), new PointSideIntersectionResult(GridSide.create(new Point(4, 4), new Point(4, 0)))),
+                new IntersectionTestParams(GridSide.create(new Point(4, 2), new Point(4, 0)), GridSide.create(new Point(4, 0), new Point(4, 4)), new PointSideIntersectionResult(GridSide.create(new Point(4, 2), new Point(4, 0)))),
+                new IntersectionTestParams(GridSide.create(new Point(4, 4), new Point(4, 2)), GridSide.create(new Point(4, 0), new Point(4, 4)), new PointSideIntersectionResult(GridSide.create(new Point(4, 4), new Point(4, 2)))),
+                new IntersectionTestParams(GridSide.create(new Point(4, 4), new Point(4, 2)), GridSide.create(new Point(4, 0), new Point(4, 2)), new PointIntersectionResult(new Point(4, 2))),
+                new IntersectionTestParams(GridSide.create(new Point(4, 4), new Point(4, 2)), GridSide.create(new Point(3, 0), new Point(3, 2)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new Point(4, 4), new Point(4, 2)), GridSide.create(new Point(4, 0), new Point(4, 1)), new EmptyIntersectionResult()),
 
                 //Point or empty intersection results
                 new IntersectionTestParams(GridSide.create(new Point(0, 4), new Point(4, 4)), GridSide.create(new Point(2, 2), new Point(2, 3)), new EmptyIntersectionResult()),
