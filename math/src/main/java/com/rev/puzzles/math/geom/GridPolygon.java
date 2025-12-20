@@ -1,10 +1,14 @@
 package com.rev.puzzles.math.geom;
 
+import com.rev.puzzles.math.geom.result.EmptyIntersectionResult;
+import com.rev.puzzles.math.geom.result.IntersectionResult;
+import com.rev.puzzles.math.geom.result.PointIntersectionResult;
+import com.rev.puzzles.math.geom.result.PointSideIntersectionResult;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.rev.puzzles.math.geom.DirectionV2.*;
-import static com.rev.puzzles.math.geom.DirectionV2.DOWN;
 
 public class GridPolygon {
 
@@ -27,7 +31,81 @@ public class GridPolygon {
             return rectangle(points.get(0), points.get(1));
         }
 
-        return null;
+        final boolean enclosed = points.getFirst().equals(points.getLast());
+
+        final List<GridPolygon> rectangles = new ArrayList<>();
+        for (int i = 0; i < points.size() - 1; i++) {
+            final GridPoint first = points.get(i);
+            final GridPoint second = points.get(i + 1);
+
+            final GridPolygon rectangle = rectangle(first, second);
+            rectangles.add(rectangle);
+        }
+
+        //we've got all our constituent rectangles in order, now we just need to fix up the sides
+        DirectionV2 normal = LEFT;
+        final List<PolygonSide> polygonSides = new ArrayList<>();
+
+        boolean ascending = true;
+        int index = 0;
+        while (polygonSides.isEmpty() || !polygonSides.getFirst().side.start().equals(polygonSides.getLast().side.end())) {
+
+            GridPolygon first = rectangles.get(index);
+            GridPolygon second = rectangles.get(ascending ? index + 1 : index - 1);
+
+            final DirectionV2 finalNormal = normal;
+            final PolygonSide sideConsidered = first.sides.stream().filter(s -> s.normal.equals(finalNormal)).findFirst().orElseThrow();
+            final PolygonSide maybeNextSide = second.sides.stream().filter(s -> s.normal.equals(sideConsidered.normal.next())).findFirst().orElseThrow();
+
+            final IntersectionResult intersectionResult = maybeNextSide.side.intersect(sideConsidered.side);
+
+            switch (intersectionResult) {
+                case EmptyIntersectionResult emptyIntersectionResult -> {
+                    //No intersections with next rectangle, so we need to go around this one.
+                    polygonSides.add(sideConsidered);
+                    normal = normal.next();
+                }
+                case PointIntersectionResult pointIntersectionResult -> {
+                    //Rectangles have +ve winding number, i.e. we're going clockwise.
+                    GridPoint intersection = pointIntersectionResult.intersection();
+
+                    if (intersection.equals(sideConsidered.side.end())) {
+                        if (intersection.equals(maybeNextSide.side.start())) {
+                            polygonSides.add(sideConsidered);
+                            normal = maybeNextSide.normal();
+                        } else {
+                            final PolygonSide maybeNextSideOpposite = second.sides.stream().filter(s -> s.normal.equals(sideConsidered.normal.next().opposite())).findFirst().orElseThrow();
+
+                            IntersectionResult secondIntersectResult = maybeNextSideOpposite.side.intersect(sideConsidered.side);
+                            switch (secondIntersectResult) {
+                                case PointIntersectionResult result -> {
+                                    polygonSides.add(new PolygonSide(GridSide.create(sideConsidered.side().start(), result.intersection()), sideConsidered.normal));
+                                    normal = maybeNextSideOpposite.normal();
+                                }
+                                default -> throw new IllegalStateException();
+                            }
+                        }
+                    } else {
+                        if (polygonSides.isEmpty()) {
+                            polygonSides.add(sideConsidered);
+                        } else {
+                            polygonSides.add(new PolygonSide(GridSide.create(polygonSides.getLast().side().end(), sideConsidered.side().end()), sideConsidered.normal()));
+                        }
+                        normal = normal.next();
+                        continue;
+                    }
+
+                    index = ascending ? index + 1 : index - 1;
+
+                    if (ascending && index == rectangles.size() - 1) {
+                        ascending = false;
+                    }
+                }
+                case PointSideIntersectionResult pointSideIntersectionResult -> throw new IllegalStateException();
+            }
+        }
+
+        return new GridPolygon(polygonSides);
     }
 
     private static GridPolygon rectangle(final GridPoint first, final GridPoint second) {

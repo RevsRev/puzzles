@@ -78,6 +78,15 @@ public final class GridSide {
         return Objects.hash(start, end, direction);
     }
 
+    @Override
+    public String toString() {
+        return "GridSide{" +
+                "start=" + start +
+                ", end=" + end +
+                ", direction=" + direction +
+                '}';
+    }
+
     private static IntersectionResult pointIntersect(final GridSide first, final GridSide second) {
         final Mat2 mat = new Mat2(
                 (first.start.x() - first.end.x()), - (second.start.x() - second.end.x()),
