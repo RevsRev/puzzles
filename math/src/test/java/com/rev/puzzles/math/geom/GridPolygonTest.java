@@ -22,4 +22,18 @@ class GridPolygonTest {
                 square.sides
         );
     }
+
+    @Test
+    void shouldCreateRectangle() {
+        final GridPolygon rectangle = GridPolygon.createFromGridSquareCorners(List.of(new GridPoint(1, 2), new GridPoint(1, 10)));
+        Assertions.assertEquals(
+                List.of(
+                        GridSide.create(new GridPoint(1, 2), new GridPoint(1, 11)),
+                        GridSide.create(new GridPoint(1, 11), new GridPoint(2, 11)),
+                        GridSide.create(new GridPoint(2, 11), new GridPoint(2, 2)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(1, 2))
+                ),
+                rectangle.sides
+        );
+    }
 }
