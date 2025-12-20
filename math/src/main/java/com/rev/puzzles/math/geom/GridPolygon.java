@@ -13,9 +13,11 @@ import static com.rev.puzzles.math.geom.DirectionV2.*;
 public class GridPolygon {
 
     final List<PolygonSide> sides;
+    final int windingNumber;
 
-    private GridPolygon(List<PolygonSide> sides) {
+    private GridPolygon(List<PolygonSide> sides, int windingNumber) {
         this.sides = sides;
+        this.windingNumber = windingNumber;
     }
 
     public static GridPolygon createFromGridSquareCorners(final List<GridPoint> points) {
@@ -133,7 +135,7 @@ public class GridPolygon {
             }
         }
 
-        return new GridPolygon(polygonSides);
+        return new GridPolygon(polygonSides, 1);
     }
 
     private static GridPolygon rectangle(final GridPoint first, final GridPoint second) {
@@ -163,7 +165,7 @@ public class GridPolygon {
         sides.add(new PolygonSide(GridSide.create(new GridPoint(maxX, maxY), new GridPoint(maxX, minY)), RIGHT));
         sides.add(new PolygonSide(GridSide.create(new GridPoint(maxX, minY), new GridPoint(minX, minY)), DOWN));
 
-        return new GridPolygon(sides);
+        return new GridPolygon(sides, 1);
     }
 
     public record PolygonSide(GridSide side, DirectionV2 normal) {
