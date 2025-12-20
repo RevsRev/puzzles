@@ -19,6 +19,14 @@ public final class Gradient {
         return new Gradient(rise / gcd, run / gcd);
     }
 
+    public boolean parallel(final Gradient other) {
+        return parallel(this, other);
+    }
+
+    public boolean antiParallel(final Gradient other) {
+        return antiParallel(this, other);
+    }
+
     public boolean parallelOrAntiParallel(final Gradient other) {
         return parallelOrAntiParallel(this, other);
     }
@@ -50,7 +58,15 @@ public final class Gradient {
 
     private static boolean parallelOrAntiParallel(final Gradient gradient, final Gradient other) {
         //We've already factored out gcd's in the create method
-        return gradient.equals(other) || new Gradient(-1 * gradient.rise, -1 * gradient.run).equals(other);
+        return parallel(gradient, other) || antiParallel(gradient, other);
+    }
+
+    private static boolean antiParallel(Gradient gradient, Gradient other) {
+        return parallel(new Gradient(-1 * gradient.rise, -1 * gradient.run), other);
+    }
+
+    private static boolean parallel(Gradient gradient, Gradient other) {
+        return gradient.equals(other);
     }
 
     private static boolean perpendicular(final Gradient gradient, final Gradient other) {
