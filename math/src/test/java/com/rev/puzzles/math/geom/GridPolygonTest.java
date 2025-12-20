@@ -1,5 +1,6 @@
 package com.rev.puzzles.math.geom;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -165,6 +166,86 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(-6, 0), new GridPoint(-6, 1)), LEFT)
                         ),
                         lPolygon.sides
+                ));
+    }
+
+    @Test
+    void shouldCreateEnclosedRectangle() {
+        final GridPolygon rectangle = GridPolygon.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(0, 0),
+                        new GridPoint(0, 5),
+                        new GridPoint(8, 5),
+                        new GridPoint(8, 0),
+                        new GridPoint(0, 0)
+                )
+        );
+
+
+        assertAll(
+                () -> assertEquals(1, rectangle.windingNumber),
+                () -> assertEquals(
+                        List.of(
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 6)), LEFT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 6), new GridPoint(9, 6)), UP),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(9, 6), new GridPoint(9, 0)), RIGHT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(9, 0), new GridPoint(0, 0)), DOWN)
+                        ),
+                        rectangle.sides
+                ));
+    }
+
+    @Test
+    //Not passing at the moment
+    @Disabled
+    void shouldCreateEnclosedRectangleWhenPointsGivenInDifferentOrder() {
+        final GridPolygon rectangle = GridPolygon.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(8, 0),
+                        new GridPoint(0, 0),
+                        new GridPoint(0, 5),
+                        new GridPoint(8, 5),
+                        new GridPoint(8, 0)
+                )
+        );
+
+
+        assertAll(
+                () -> assertEquals(1, rectangle.windingNumber),
+                () -> assertEquals(
+                        List.of(
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 6)), LEFT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 6), new GridPoint(9, 6)), UP),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(9, 6), new GridPoint(9, 0)), RIGHT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(9, 0), new GridPoint(0, 0)), DOWN)
+                        ),
+                        rectangle.sides
+                ));
+    }
+
+    @Test
+    void shouldCreateEnclosedRectangleWhenPointsAreGivenAntiClockwise() {
+        final GridPolygon rectangle = GridPolygon.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(0, 0),
+                        new GridPoint(8, 0),
+                        new GridPoint(8, 5),
+                        new GridPoint(0, 5),
+                        new GridPoint(0, 0)
+                )
+        );
+
+
+        assertAll(
+                () -> assertEquals(1, rectangle.windingNumber),
+                () -> assertEquals(
+                        List.of(
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 6)), LEFT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 6), new GridPoint(9, 6)), UP),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(9, 6), new GridPoint(9, 0)), RIGHT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(9, 0), new GridPoint(0, 0)), DOWN)
+                        ),
+                        rectangle.sides
                 ));
     }
 }

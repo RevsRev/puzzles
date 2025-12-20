@@ -33,16 +33,7 @@ public class GridPolygon {
             return rectangle(points.get(0), points.get(1));
         }
 
-        final boolean enclosed = points.getFirst().equals(points.getLast());
-
-        final List<GridPolygon> rectangles = new ArrayList<>();
-        for (int i = 0; i < points.size() - 1; i++) {
-            final GridPoint first = points.get(i);
-            final GridPoint second = points.get(i + 1);
-
-            final GridPolygon rectangle = rectangle(first, second);
-            rectangles.add(rectangle);
-        }
+        final List<GridPolygon> rectangles = parsePointsToRectanglesWithClockwiseWindingNumber(points);
 
         //we've got all our constituent rectangles in order, now we just need to fix up the sides
         DirectionV2 normal = LEFT;
@@ -147,6 +138,41 @@ public class GridPolygon {
         }
 
         return new GridPolygon(polygonSides, windingNumber / 4);
+    }
+
+    private static List<GridPolygon> parsePointsToRectanglesWithClockwiseWindingNumber(List<GridPoint> points) {
+
+        int pointsWindingNumber = 0;
+        DirectionV2 pointsDirection = null;
+        final List<GridPolygon> rectangles = new ArrayList<>();
+        for (int i = 0; i < points.size() - 1; i++) {
+            final GridPoint first = points.get(i);
+            final GridPoint second = points.get(i + 1);
+
+            final GridSide gridSide = GridSide.create(first, second);
+            if (pointsDirection != null) {
+                pointsWindingNumber = pointsDirection.next().equals(gridSide.direction()) ? pointsWindingNumber + 1 : pointsWindingNumber -1;
+            }
+            pointsDirection = gridSide.direction();
+
+            final GridPolygon rectangle = rectangle(first, second);
+            rectangles.add(rectangle);
+        }
+
+        //We have an "enclosed" shape, so we want to make sure we traverse it with a positive winding number
+        if (points.getFirst().equals(points.getLast())) {
+            final GridSide firstSide = GridSide.create(points.get(0), points.get(1));
+            pointsWindingNumber = pointsDirection.next().equals(firstSide.direction()) ? pointsWindingNumber + 1 : pointsWindingNumber -1;
+
+            if (pointsWindingNumber % 4 != 0) {
+                throw new IllegalStateException();
+            }
+
+            if (pointsWindingNumber < 0) {
+                return rectangles.reversed();
+            }
+        }
+        return rectangles;
     }
 
     private static GridPolygon rectangle(final GridPoint first, final GridPoint second) {

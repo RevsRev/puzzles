@@ -49,6 +49,10 @@ public final class GridSide {
         return end;
     }
 
+    public DirectionV2 direction() {
+        return direction;
+    }
+
     public boolean contains(final GridPoint p) {
         return switch (direction) {
             case UP -> p.x() == start.x() && start.y() <= p.y() && p.y() <= end.y();
