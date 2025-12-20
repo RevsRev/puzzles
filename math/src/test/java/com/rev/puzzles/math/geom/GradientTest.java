@@ -17,7 +17,7 @@ class GradientTest {
         final Gradient first = Gradient.create(testParams.firstRise, testParams.firstRun);
         final Gradient second = Gradient.create(testParams.secondRise, testParams.secondRun);
         Assertions.assertAll(
-                () -> assertEquals(testParams.parallel, first.parallel(second)),
+                () -> assertEquals(testParams.parallel, first.parallelOrAntiParallel(second)),
                 () -> assertEquals(testParams.perpendicular, first.perpendicular(second))
         );
     }
@@ -26,7 +26,7 @@ class GradientTest {
     public static Collection<GradientTestParams> testParams() {
         return List.of(
                 new GradientTestParams(1, 2, 3, 6, true, false),
-                new GradientTestParams(-1, -2, -3, -6, true, false),
+                new GradientTestParams(1, 2, -3, -6, true, false),
                 new GradientTestParams(1, 2, 3, 7, false, false),
                 new GradientTestParams(-1, -2, -3, -7, false, false),
                 new GradientTestParams(1, 2, -2, 1, false, true),
