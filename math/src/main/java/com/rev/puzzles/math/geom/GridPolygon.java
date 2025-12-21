@@ -61,7 +61,11 @@ public class GridPolygon {
 
                     if (intersection.equals(sideConsidered.side.end())) {
                         if (intersection.equals(maybeNextSide.side.start())) {
-                            polygonSides.add(sideConsidered);
+                            if (polygonSides.isEmpty()) {
+                                polygonSides.add(sideConsidered);
+                            } else {
+                                polygonSides.add(new PolygonSide(GridSide.create(polygonSides.getLast().side().end(), sideConsidered.side().end()), sideConsidered.normal()));
+                            }
                             normal = maybeNextSide.normal();
                         } else {
                             final PolygonSide maybeNextSideOpposite = second.sides.stream().filter(s -> s.normal.equals(sideConsidered.normal.next().opposite())).findFirst().orElseThrow();
@@ -69,7 +73,11 @@ public class GridPolygon {
                             IntersectionResult secondIntersectResult = maybeNextSideOpposite.side.intersect(sideConsidered.side);
                             switch (secondIntersectResult) {
                                 case PointIntersectionResult result -> {
-                                    polygonSides.add(new PolygonSide(GridSide.create(sideConsidered.side().start(), result.intersection()), sideConsidered.normal));
+                                    if (polygonSides.isEmpty()) {
+                                        polygonSides.add(new PolygonSide(GridSide.create(sideConsidered.side().start(), result.intersection()), sideConsidered.normal));
+                                    } else {
+                                        polygonSides.add(new PolygonSide(GridSide.create(polygonSides.getLast().side().end(), result.intersection()), sideConsidered.normal()));
+                                    }
                                     normal = maybeNextSideOpposite.normal();
                                 }
                                 default -> throw new IllegalStateException();

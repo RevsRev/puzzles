@@ -169,6 +169,34 @@ class GridPolygonTest {
     }
 
     @Test
+    void shouldCreateUShape() {
+        final GridPolygon lPolygon = GridPolygon.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(0, 2),
+                        new GridPoint(0, 0),
+                        new GridPoint(4, 0),
+                        new GridPoint(4, 2)
+                )
+        );
+
+        assertAll(
+                () -> assertEquals(1, lPolygon.windingNumber),
+                () -> assertEquals(
+                        List.of(
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 3)), LEFT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 3), new GridPoint(1, 3)), UP),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 3), new GridPoint(1, 1)), RIGHT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 1), new GridPoint(4, 1)), UP),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(4, 1), new GridPoint(4, 3)), LEFT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(4, 3), new GridPoint(5, 3)), UP),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 3), new GridPoint(5, 0)), RIGHT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 0), new GridPoint(0, 0)), DOWN)
+                        ),
+                        lPolygon.sides
+                ));
+    }
+
+    @Test
     void shouldCreateEnclosedRectangle() {
         final GridPolygon rectangle = GridPolygon.createFromGridSquareCorners(
                 List.of(
