@@ -2,6 +2,7 @@ package com.rev.puzzles.math.geom;
 
 import com.rev.puzzles.math.geom.result.EmptyIntersectionResult;
 import com.rev.puzzles.math.geom.result.IntersectionResult;
+import com.rev.puzzles.math.linalg.matrix.Mat2;
 
 import java.util.Comparator;
 import java.util.List;
@@ -59,6 +60,20 @@ public class GridPolygon {
             }
         }
         return true;
+    }
+
+    public long area() {
+        double area = 0;
+        //(shoelace formula)
+        for (PolygonSide side : sides) {
+            final GridPoint start = side.side.start();
+            final GridPoint end = side.side.end();
+
+            final Mat2 mat = new Mat2(start.x(), end.x(), start.y(), end.y());
+            area += mat.det();
+        }
+        //- sign because all my shapes are oriented clockwise, but shoelace assumes counter clockwise
+        return - Math.round(area / 2);
     }
 
     public static final class PolygonSide {

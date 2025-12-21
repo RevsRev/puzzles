@@ -22,7 +22,9 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(2, 2), new GridPoint(1, 2)), DOWN)
                         ),
                         square.sides
-                ));
+                ),
+                () -> assertEquals(1, square.area())
+        );
     }
 
     @Test
@@ -38,7 +40,8 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(2, 2), new GridPoint(1, 2)), DOWN)
                         ),
                         rectangle.sides
-                ));
+                ),
+                () -> assertEquals(9, rectangle.area()));
     }
 
     @Test
@@ -63,7 +66,8 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 0), new GridPoint(0, 0)), DOWN)
                         ),
                         lPolygon.sides
-                ));
+                ),
+                () -> assertEquals(7, lPolygon.area()));
     }
 
     @Test
@@ -88,12 +92,13 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 0), new GridPoint(0, 0)), DOWN)
                         ),
                         lPolygon.sides
-                ));
+                ),
+                () -> assertEquals(7, lPolygon.area()));
     }
 
     @Test
     void shouldCreaterShape() {
-        final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
+        final GridPolygon rPolygon = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(0, 0),
                         new GridPoint(0, 6),
@@ -102,7 +107,7 @@ class GridPolygonTest {
         );
 
         assertAll(
-                () -> assertEquals(1, lPolygon.windingNumber),
+                () -> assertEquals(1, rPolygon.windingNumber),
                 () -> assertEquals(
                         List.of(
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 7)), LEFT),
@@ -112,13 +117,14 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 6), new GridPoint(1, 0)), RIGHT),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 0), new GridPoint(0, 0)), DOWN)
                         ),
-                        lPolygon.sides
-                ));
+                        rPolygon.sides
+                ),
+                () -> assertEquals(11, rPolygon.area()));
     }
 
     @Test
     void shouldCreate7Shape() {
-        final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
+        final GridPolygon sevenPolygon = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(0, 0),
                         new GridPoint(0, 4),
@@ -127,7 +133,7 @@ class GridPolygonTest {
         );
 
         assertAll(
-                () -> assertEquals(1, lPolygon.windingNumber),
+                () -> assertEquals(1, sevenPolygon.windingNumber),
                 () -> assertEquals(
                         List.of(
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(-10, 4), new GridPoint(-10, 5)), LEFT),
@@ -137,13 +143,14 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 4)), LEFT),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 4), new GridPoint(-10, 4)), DOWN)
                         ),
-                        lPolygon.sides
-                ));
+                        sevenPolygon.sides
+                ),
+                () -> assertEquals(15, sevenPolygon.area()));
     }
 
     @Test
     void shouldCreateBackwardsLShape() {
-        final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
+        final GridPolygon backwardsLPolygon = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(-6, 0),
                         new GridPoint(-1, 0),
@@ -153,7 +160,7 @@ class GridPolygonTest {
 
 
         assertAll(
-                () -> assertEquals(1, lPolygon.windingNumber),
+                () -> assertEquals(1, backwardsLPolygon.windingNumber),
                 () -> assertEquals(
                         List.of(
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(-6, 0), new GridPoint(-6, 1)), LEFT),
@@ -163,13 +170,14 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 4), new GridPoint(0, 0)), RIGHT),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(-6, 0)), DOWN)
                         ),
-                        lPolygon.sides
-                ));
+                        backwardsLPolygon.sides
+                ),
+                () -> assertEquals(9, backwardsLPolygon.area()));
     }
 
     @Test
     void shouldCreateUShape() {
-        final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
+        final GridPolygon uShape = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(0, 2),
                         new GridPoint(0, 0),
@@ -179,7 +187,7 @@ class GridPolygonTest {
         );
 
         assertAll(
-                () -> assertEquals(1, lPolygon.windingNumber),
+                () -> assertEquals(1, uShape.windingNumber),
                 () -> assertEquals(
                         List.of(
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 3)), LEFT),
@@ -191,8 +199,9 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 3), new GridPoint(5, 0)), RIGHT),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 0), new GridPoint(0, 0)), DOWN)
                         ),
-                        lPolygon.sides
-                ));
+                        uShape.sides
+                ),
+                () -> assertEquals(9, uShape.area()));
     }
 
     @Test
@@ -218,7 +227,8 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(9, 0), new GridPoint(0, 0)), DOWN)
                         ),
                         rectangle.sides
-                ));
+                ),
+                () -> assertEquals(54, rectangle.area()));
     }
 
     @Test
@@ -244,7 +254,8 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(9, 0), new GridPoint(0, 0)), DOWN)
                         ),
                         rectangle.sides
-                ));
+                ),
+                () -> assertEquals(54, rectangle.area()));
     }
 
     @Test
@@ -270,7 +281,8 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(9, 0), new GridPoint(0, 0)), DOWN)
                         ),
                         rectangle.sides
-                ));
+                ),
+                () -> assertEquals(54, rectangle.area()));
     }
 
     @Test
