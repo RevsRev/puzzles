@@ -33,18 +33,15 @@ public class GridPolygon {
             return rectangle(points.get(0), points.get(1));
         }
 
-        final List<GridPolygon> rectangles = parsePointsToRectanglesWithClockwiseWindingNumber(points);
-
+        ConstructionIterationPolicy iterationPolicy = ConstructionIterationPolicy.factory(points);
         DirectionV2 normal = LEFT;
         final List<PolygonSide> polygonSides = new ArrayList<>();
         int windingNumber = 0;
-        int index = getALeftMostSide(rectangles);
-        boolean ascending = index != rectangles.size() - 1;
 
         while (polygonSides.isEmpty() || !polygonSides.getFirst().side.start().equals(polygonSides.getLast().side.end())) {
 
-            GridPolygon first = rectangles.get(index);
-            GridPolygon second = rectangles.get(ascending ? index + 1 : index - 1);
+            GridPolygon first = iterationPolicy.current();
+            GridPolygon second = iterationPolicy.next();
 
             final DirectionV2 previousNormal = normal;
             final PolygonSide sideConsidered = first.sides.stream().filter(s -> s.normal.equals(previousNormal)).findFirst().orElseThrow();
@@ -79,12 +76,7 @@ public class GridPolygon {
                             }
                         }
 
-                        index = ascending ? index + 1 : index - 1;
-                        if (ascending && index == rectangles.size() - 1) {
-                            ascending = false;
-                        } else if (!ascending && index == 0) {
-                            ascending = true;
-                        }
+                        iterationPolicy.progress();
                     } else {
                         if (polygonSides.isEmpty()) {
                             polygonSides.add(sideConsidered);
@@ -194,5 +186,81 @@ public class GridPolygon {
     }
 
     public record PolygonSide(GridSide side, DirectionV2 normal) {
+    }
+
+    private interface ConstructionIterationPolicy {
+        GridPolygon current();
+        GridPolygon next();
+        void progress();
+
+        private static ConstructionIterationPolicy factory(final List<GridPoint> points) {
+            boolean closedPointsList = points.getFirst().equals(points.getLast());
+            final List<GridPolygon> rectangles = parsePointsToRectanglesWithClockwiseWindingNumber(points);
+            final int index = getALeftMostSide(rectangles);
+            if (closedPointsList) {
+                return new ClosedPointsConstructionIterationPolicy(rectangles, index);
+            }
+            final boolean ascending = index != rectangles.size() - 1;
+            return new OpenPointsConstructionIterationPolicy(rectangles, index, ascending);
+        }
+    }
+
+    private static class ClosedPointsConstructionIterationPolicy implements ConstructionIterationPolicy {
+
+        private List<GridPolygon> rectangles;
+        private int index;
+
+        private ClosedPointsConstructionIterationPolicy(List<GridPolygon> rectangles, int index) {
+            this.rectangles = rectangles;
+            this.index = index;
+        }
+
+        @Override
+        public GridPolygon current() {
+            return rectangles.get(index);
+        }
+
+        @Override
+        public GridPolygon next() {
+            return rectangles.get((index + 1) % rectangles.size());
+        }
+
+        @Override
+        public void progress() {
+            index = (index + 1) % rectangles.size();
+        }
+    }
+
+    private static class OpenPointsConstructionIterationPolicy implements ConstructionIterationPolicy {
+
+        private List<GridPolygon> rectangles;
+        private int index;
+        private boolean ascending;
+
+        public OpenPointsConstructionIterationPolicy(final List<GridPolygon> rectangles, final int index, final boolean ascending) {
+            this.rectangles = rectangles;
+            this.index = index;
+            this.ascending = ascending;
+        }
+
+        @Override
+        public GridPolygon current() {
+            return rectangles.get(index);
+        }
+
+        @Override
+        public GridPolygon next() {
+            return rectangles.get(ascending ? index + 1 : index - 1);
+        }
+
+        @Override
+        public void progress() {
+            index = ascending ? index + 1 : index - 1;
+            if (ascending && index == rectangles.size() - 1) {
+                ascending = false;
+            } else if (!ascending && index == 0) {
+                ascending = true;
+            }
+        }
     }
 }

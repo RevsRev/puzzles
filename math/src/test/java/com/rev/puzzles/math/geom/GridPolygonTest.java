@@ -1,6 +1,5 @@
 package com.rev.puzzles.math.geom;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -196,8 +195,6 @@ class GridPolygonTest {
     }
 
     @Test
-    //Not passing at the moment
-    @Disabled
     void shouldCreateEnclosedRectangleWhenPointsGivenInDifferentOrder() {
         final GridPolygon rectangle = GridPolygon.createFromGridSquareCorners(
                 List.of(
