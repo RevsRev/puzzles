@@ -9,19 +9,19 @@ import com.rev.puzzles.math.linalg.vec.Vec2;
 
 import java.util.Objects;
 
-import static com.rev.puzzles.math.geom.DirectionV2.DOWN;
-import static com.rev.puzzles.math.geom.DirectionV2.LEFT;
-import static com.rev.puzzles.math.geom.DirectionV2.RIGHT;
-import static com.rev.puzzles.math.geom.DirectionV2.UP;
+import static com.rev.puzzles.math.geom.Direction.DOWN;
+import static com.rev.puzzles.math.geom.Direction.LEFT;
+import static com.rev.puzzles.math.geom.Direction.RIGHT;
+import static com.rev.puzzles.math.geom.Direction.UP;
 
 public final class GridSide {
     private static final double EPSILON = 0.0001;
 
     private final GridPoint start;
     private final GridPoint end;
-    private final DirectionV2 direction;
+    private final Direction direction;
 
-    private GridSide(final GridPoint start, final GridPoint end, final DirectionV2 direction) {
+    private GridSide(final GridPoint start, final GridPoint end, final Direction direction) {
         this.start = start;
         this.end = end;
         this.direction = direction;
@@ -32,7 +32,7 @@ public final class GridSide {
             throw new IllegalArgumentException("Start and end must be different!");
         }
 
-        final DirectionV2 direction;
+        final Direction direction;
         if (start.x() == end.x()) {
             direction = start.y() < end.y() ? UP : DOWN;
         } else if (start.y() == end.y()) {
@@ -52,7 +52,7 @@ public final class GridSide {
         return end;
     }
 
-    public DirectionV2 direction() {
+    public Direction direction() {
         return direction;
     }
 
@@ -167,7 +167,7 @@ public final class GridSide {
         return new EmptyIntersectionResult();
     }
 
-    private static GridSide withOrientation(final GridSide gs, final DirectionV2 direction) {
+    private static GridSide withOrientation(final GridSide gs, final Direction direction) {
         if (!direction.equals(gs.direction) && !direction.equals(gs.direction.opposite())) {
             throw new IllegalArgumentException();
         }

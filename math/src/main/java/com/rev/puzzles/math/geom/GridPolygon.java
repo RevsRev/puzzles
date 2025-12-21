@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
-import static com.rev.puzzles.math.geom.DirectionV2.LEFT;
+import static com.rev.puzzles.math.geom.Direction.LEFT;
 
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public final class GridPolygon {
@@ -34,7 +34,7 @@ public final class GridPolygon {
         return new ArrayList<>(sides);
     }
 
-    public PolygonSide getAnExtremalBoundarySide(final DirectionV2 direction) {
+    public PolygonSide getAnExtremalBoundarySide(final Direction direction) {
         final Comparator<PolygonSide> comparator = PolygonSide.extremalSideComparator(direction);
         return sides.stream().max(comparator).orElseThrow();
     }
@@ -45,7 +45,7 @@ public final class GridPolygon {
         }
 
         int boundaryCrossings = 0;
-        DirectionV2 lastCrossing = null;
+        Direction lastCrossing = null;
         for (int i = 0; i < sides.size(); i++) {
             final PolygonSide side = sides.get(i);
             if (side.side.contains(point)) {
@@ -132,9 +132,9 @@ public final class GridPolygon {
     public static final class PolygonSide {
 
         final GridSide side;
-        final DirectionV2 normal;
+        final Direction normal;
 
-        public PolygonSide(final GridSide side, final DirectionV2 normal) {
+        public PolygonSide(final GridSide side, final Direction normal) {
             this.side = side;
             this.normal = normal;
         }
@@ -143,7 +143,7 @@ public final class GridPolygon {
             return side;
         }
 
-        public DirectionV2 normal() {
+        public Direction normal() {
             return normal;
         }
 
@@ -169,7 +169,7 @@ public final class GridPolygon {
             return "PolygonSide[" + "side=" + side + ", " + "normal=" + normal + ']';
         }
 
-        public static Comparator<PolygonSide> extremalSideComparator(final DirectionV2 direction) {
+        public static Comparator<PolygonSide> extremalSideComparator(final Direction direction) {
             final Function<PolygonSide, Integer> normalComparatorFunc = s -> {
                 if (s.normal.equals(direction)) {
                     return 3;

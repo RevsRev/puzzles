@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.rev.puzzles.math.geom.DirectionV2.DOWN;
-import static com.rev.puzzles.math.geom.DirectionV2.LEFT;
-import static com.rev.puzzles.math.geom.DirectionV2.RIGHT;
-import static com.rev.puzzles.math.geom.DirectionV2.UP;
+import static com.rev.puzzles.math.geom.Direction.DOWN;
+import static com.rev.puzzles.math.geom.Direction.LEFT;
+import static com.rev.puzzles.math.geom.Direction.RIGHT;
+import static com.rev.puzzles.math.geom.Direction.UP;
 
 public final class GridPolygonBuilder {
 
@@ -34,7 +34,7 @@ public final class GridPolygonBuilder {
         }
 
         final ConstructionIterationPolicy iterationPolicy = ConstructionIterationPolicy.factory(points);
-        DirectionV2 normal = LEFT;
+        Direction normal = LEFT;
         final List<PolygonSide> polygonSides = new ArrayList<>();
         int windingNumber = 0;
 
@@ -44,7 +44,7 @@ public final class GridPolygonBuilder {
             final GridPolygon first = iterationPolicy.current();
             final GridPolygon second = iterationPolicy.next();
 
-            final DirectionV2 previousNormal = normal;
+            final Direction previousNormal = normal;
             final PolygonSide sideConsidered =
                     first.sides.stream().filter(s -> s.normal.equals(previousNormal)).findFirst().orElseThrow();
             final PolygonSide maybeNextSide =
@@ -128,7 +128,7 @@ public final class GridPolygonBuilder {
     private static List<GridPolygon> parsePointsToRectanglesWithClockwiseWindingNumber(final List<GridPoint> points) {
 
         int pointsWindingNumber = 0;
-        DirectionV2 pointsDirection = null;
+        Direction pointsDirection = null;
         final List<GridPolygon> rectangles = new ArrayList<>();
         for (int i = 0; i < points.size() - 1; i++) {
             final GridPoint first = points.get(i);
@@ -214,7 +214,7 @@ public final class GridPolygonBuilder {
             return new OpenPointsConstructionIterationPolicy(rectangles, index, ascending);
         }
 
-        private static int getAnExtremalBoundarySide(final List<GridPolygon> rectangles, final DirectionV2 direction) {
+        private static int getAnExtremalBoundarySide(final List<GridPolygon> rectangles, final Direction direction) {
 
             final Comparator<PolygonSide> comparator = PolygonSide.extremalSideComparator(direction);
 

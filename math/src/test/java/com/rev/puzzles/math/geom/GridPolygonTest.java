@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.rev.puzzles.math.geom.DirectionV2.DOWN;
-import static com.rev.puzzles.math.geom.DirectionV2.LEFT;
-import static com.rev.puzzles.math.geom.DirectionV2.RIGHT;
-import static com.rev.puzzles.math.geom.DirectionV2.UP;
+import static com.rev.puzzles.math.geom.Direction.DOWN;
+import static com.rev.puzzles.math.geom.Direction.LEFT;
+import static com.rev.puzzles.math.geom.Direction.RIGHT;
+import static com.rev.puzzles.math.geom.Direction.UP;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
