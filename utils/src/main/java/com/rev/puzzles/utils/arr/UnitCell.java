@@ -1,4 +1,5 @@
-package com.rev.puzzles.math.geom;
+package com.rev.puzzles.utils.arr;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,12 +18,12 @@ public final class UnitCell<T> {
      * |    V
      * # <- #
      */
-    private Map<Direction, BorderVector> borders = linkedSquare();
-    private final Map<Direction, UnitCell<T>> neighbours = new HashMap<>() {{
-        put(Direction.UP, null);
-        put(Direction.RIGHT, null);
-        put(Direction.DOWN, null);
-        put(Direction.LEFT, null);
+    private Map<CellDirection, BorderVector> borders = linkedSquare();
+    private final Map<CellDirection, UnitCell<T>> neighbours = new HashMap<>() {{
+        put(CellDirection.UP, null);
+        put(CellDirection.RIGHT, null);
+        put(CellDirection.DOWN, null);
+        put(CellDirection.LEFT, null);
     }};
 
     private final int i;
@@ -35,9 +36,9 @@ public final class UnitCell<T> {
         this.val = val;
     }
 
-    public void addNeighbour(final UnitCell<T> neighbour, final Direction dir) {
+    public void addNeighbour(final UnitCell<T> neighbour, final CellDirection dir) {
         neighbours.put(dir, neighbour);
-        neighbour.neighbours.put(Direction.opposite(dir), this);
+        neighbour.neighbours.put(CellDirection.opposite(dir), this);
     }
 
     public long area(final Set<UnitCell<T>> visited) {
@@ -96,7 +97,7 @@ public final class UnitCell<T> {
                 continue;
             }
             BorderVector nextSide = side;
-            Direction dir = nextSide.direction;
+            CellDirection dir = nextSide.direction;
             while (!visitedSides.contains(Pair.of(nextSide.uid, cell.val))) {
                 visitedSides.add(Pair.of(nextSide.uid, cell.val));
                 nextSide = nextSide.next;
@@ -117,7 +118,7 @@ public final class UnitCell<T> {
     }
 
     public void mergeBorders() {
-        for (Direction dir : Direction.UP) {
+        for (CellDirection dir : CellDirection.UP) {
             if (!neighbours.containsKey(dir) || neighbours.get(dir) == null || !borders.containsKey(dir)) {
                 continue;
                 //can't merge / have already merged
@@ -128,7 +129,7 @@ public final class UnitCell<T> {
             }
 
             //remove the border they share in common, and link the other sides...
-            Direction opposite = Direction.opposite(dir);
+            CellDirection opposite = CellDirection.opposite(dir);
             BorderVector side = borders.remove(dir);
             BorderVector neighbourOpposite = neighbour.borders.remove(opposite);
 
@@ -140,27 +141,27 @@ public final class UnitCell<T> {
         }
     }
 
-    private static Map<Direction, BorderVector> linkedSquare() {
-        Map<Direction, BorderVector> directions = new HashMap<>();
-        directions.put(Direction.UP, new BorderVector(Direction.UP));
-        directions.put(Direction.RIGHT, new BorderVector(Direction.RIGHT));
-        directions.put(Direction.DOWN, new BorderVector(Direction.DOWN));
-        directions.put(Direction.LEFT, new BorderVector(Direction.LEFT));
+    private static Map<CellDirection, BorderVector> linkedSquare() {
+        Map<CellDirection, BorderVector> directions = new HashMap<>();
+        directions.put(CellDirection.UP, new BorderVector(CellDirection.UP));
+        directions.put(CellDirection.RIGHT, new BorderVector(CellDirection.RIGHT));
+        directions.put(CellDirection.DOWN, new BorderVector(CellDirection.DOWN));
+        directions.put(CellDirection.LEFT, new BorderVector(CellDirection.LEFT));
 
         //link directions
-        directions.get(Direction.UP).setPrevious(directions.get(Direction.LEFT));
-        directions.get(Direction.UP).setNext(directions.get(Direction.RIGHT));
-        directions.get(Direction.RIGHT).setPrevious(directions.get(Direction.UP));
-        directions.get(Direction.RIGHT).setNext(directions.get(Direction.DOWN));
-        directions.get(Direction.DOWN).setPrevious(directions.get(Direction.RIGHT));
-        directions.get(Direction.DOWN).setNext(directions.get(Direction.LEFT));
-        directions.get(Direction.LEFT).setPrevious(directions.get(Direction.DOWN));
-        directions.get(Direction.LEFT).setNext(directions.get(Direction.UP));
+        directions.get(CellDirection.UP).setPrevious(directions.get(CellDirection.LEFT));
+        directions.get(CellDirection.UP).setNext(directions.get(CellDirection.RIGHT));
+        directions.get(CellDirection.RIGHT).setPrevious(directions.get(CellDirection.UP));
+        directions.get(CellDirection.RIGHT).setNext(directions.get(CellDirection.DOWN));
+        directions.get(CellDirection.DOWN).setPrevious(directions.get(CellDirection.RIGHT));
+        directions.get(CellDirection.DOWN).setNext(directions.get(CellDirection.LEFT));
+        directions.get(CellDirection.LEFT).setPrevious(directions.get(CellDirection.DOWN));
+        directions.get(CellDirection.LEFT).setNext(directions.get(CellDirection.UP));
         return directions;
     }
 
     public static final class BorderVector {
-        private final Direction direction;
+        private final CellDirection direction;
 
         @SuppressWarnings("checkstyle:StaticVariableName")
         private static int UID = 0;
@@ -175,9 +176,10 @@ public final class UnitCell<T> {
         @Setter
         private BorderVector next = null; //link vectors to get a border in the processing phase
 
-        public BorderVector(final Direction direction) {
+        public BorderVector(final CellDirection direction) {
             this.direction = direction;
         }
     }
 
 }
+

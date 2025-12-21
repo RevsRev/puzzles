@@ -3,7 +3,7 @@ package com.rev.puzzles.aoc.problems.y2024;
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.parse.LoaderUtils;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.math.geom.Direction;
+import com.rev.puzzles.utils.arr.CellDirection;
 import com.rev.puzzles.framework.util.search.BinarySolutionSearch;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -37,7 +37,7 @@ public final class D18 {
                 int i = tile.getLeft();
                 int j = tile.getRight();
                 int nextCost = visited.get(tile) + 1;
-                for (Direction direction : Direction.values()) {
+                for (CellDirection direction : CellDirection.values()) {
                     int nextI = i + direction.getI();
                     int nextJ = j + direction.getJ();
                     if (nextI >= 0 && nextI < PROBLEM_HEIGHT && nextJ >= 0 && nextJ < PROBLEM_WIDTH) {

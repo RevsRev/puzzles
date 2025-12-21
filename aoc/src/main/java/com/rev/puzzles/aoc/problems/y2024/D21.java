@@ -2,7 +2,7 @@ package com.rev.puzzles.aoc.problems.y2024;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.math.geom.Direction;
+import com.rev.puzzles.utils.arr.CellDirection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -124,22 +124,22 @@ public final class D21 {
             cacheMoves(); //doing work in constructor is bad, but hey ho it's Christmas!
         }
 
-        private static String toCacheString(final Direction[] route) {
+        private static String toCacheString(final CellDirection[] route) {
             StringBuilder sb = new StringBuilder();
-            for (Direction dir : route) {
+            for (CellDirection dir : route) {
                 sb.append(getChar(dir));
             }
             return sb.toString();
         }
 
-        private static char getChar(final Direction dir) {
-            if (dir == Direction.UP) {
+        private static char getChar(final CellDirection dir) {
+            if (dir == CellDirection.UP) {
                 return '^';
             }
-            if (dir == Direction.RIGHT) {
+            if (dir == CellDirection.RIGHT) {
                 return '>';
             }
-            if (dir == Direction.DOWN) {
+            if (dir == CellDirection.DOWN) {
                 return 'v';
             }
             return '<';
@@ -171,20 +171,20 @@ public final class D21 {
         }
 
         private List<String> getCacheStrings(int startI, int startJ, int endI, int endJ) {
-            Direction vertDir = startI >= endI ? Direction.UP : Direction.DOWN;
-            Direction horizDir = startJ >= endJ ? Direction.LEFT : Direction.RIGHT;
+            CellDirection vertDir = startI >= endI ? CellDirection.UP : CellDirection.DOWN;
+            CellDirection horizDir = startJ >= endJ ? CellDirection.LEFT : CellDirection.RIGHT;
 
             int verticalAmount = Math.abs(endI - startI);
             int horizontalAmount = Math.abs(endJ - startJ);
 
-            Direction[] dirsVertFirst = new Direction[verticalAmount + horizontalAmount];
+            CellDirection[] dirsVertFirst = new CellDirection[verticalAmount + horizontalAmount];
             for (int i = 0; i < verticalAmount; i++) {
                 dirsVertFirst[i] = vertDir;
             }
             for (int i = verticalAmount; i < verticalAmount + horizontalAmount; i++) {
                 dirsVertFirst[i] = horizDir;
             }
-            Direction[] dirsHorizFirst = new Direction[verticalAmount + horizontalAmount];
+            CellDirection[] dirsHorizFirst = new CellDirection[verticalAmount + horizontalAmount];
             for (int i = 0; i < horizontalAmount; i++) {
                 dirsHorizFirst[i] = horizDir;
             }
@@ -192,7 +192,7 @@ public final class D21 {
                 dirsHorizFirst[i] = vertDir;
             }
 
-            Collection<Direction[]> directions = new ArrayList<>();
+            Collection<CellDirection[]> directions = new ArrayList<>();
             directions.add(dirsVertFirst);
             if (Arrays.hashCode(dirsVertFirst) != Arrays.hashCode(dirsHorizFirst)) {
                 directions.add(dirsHorizFirst);
@@ -201,11 +201,11 @@ public final class D21 {
 //            Collection<Direction[]> directions = Permutations.uniquePermutations(dirsVertFirst);
 
             List<String> cacheStrings = new ArrayList<>(directions.size());
-            for (Direction[] route : directions) {
+            for (CellDirection[] route : directions) {
                 int i = startI;
                 int j = startJ;
                 boolean valid = true;
-                for (Direction dir : route) {
+                for (CellDirection dir : route) {
                     i += dir.getI();
                     j += dir.getJ();
                     if (!validator.apply(i, j)) {

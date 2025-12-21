@@ -4,14 +4,14 @@ import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.parse.LoaderUtils;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
-import com.rev.puzzles.math.geom.Direction;
+import com.rev.puzzles.utils.arr.CellDirection;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.rev.puzzles.math.geom.Direction.UP;
+import static com.rev.puzzles.utils.arr.CellDirection.UP;
 
 public final class D06 {
 
@@ -34,7 +34,7 @@ public final class D06 {
 
     @SuppressWarnings("checkstyle:ParameterNumber")
     private static void traverseWithoutLoops(final int[][] map, final int height, final int width, final int i,
-                                             final int j, final Direction startDir,
+                                             final int j, final CellDirection startDir,
                                              final Set<Pair<Integer, Integer>> visited) {
         visited.add(Pair.of(i, j));
         int nextI = i + startDir.getI();
@@ -53,7 +53,7 @@ public final class D06 {
 
     @SuppressWarnings("checkstyle:ParameterNumber")
     private static boolean traverseWithLoops(final int[][] map, final int height, final int width, final int i,
-                                             final int j, final Direction startDir, final boolean placedObstacle,
+                                             final int j, final CellDirection startDir, final boolean placedObstacle,
                                              final Set<Pair<Integer, Integer>> loopObsaclePositions) {
         int visitedFlag = getFlag(startDir);
         if ((map[i][j] & visitedFlag) == visitedFlag) {
@@ -91,7 +91,7 @@ public final class D06 {
         return found;
     }
 
-    private static int getFlag(final Direction dir) {
+    private static int getFlag(final CellDirection dir) {
         switch (dir) {
             case DOWN -> {
                 return VISIT_DOWN_FLAG;

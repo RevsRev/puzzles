@@ -3,8 +3,8 @@ package com.rev.puzzles.aoc.problems.y2024;
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.parse.LoaderUtils;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.math.geom.Direction;
-import com.rev.puzzles.math.geom.UnitCell;
+import com.rev.puzzles.utils.arr.CellDirection;
+import com.rev.puzzles.utils.arr.UnitCell;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
@@ -65,7 +65,7 @@ public final class D12 {
         //link cells
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < height; j++) {
-                for (Direction dir : Direction.UP) {
+                for (CellDirection dir : CellDirection.UP) {
                     int nextI = i + dir.getI();
                     int nextJ = j + dir.getJ();
 

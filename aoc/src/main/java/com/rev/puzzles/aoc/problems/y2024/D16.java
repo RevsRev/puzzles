@@ -3,7 +3,7 @@ package com.rev.puzzles.aoc.problems.y2024;
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.parse.LoaderUtils;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
-import com.rev.puzzles.math.geom.Direction;
+import com.rev.puzzles.utils.arr.CellDirection;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -30,12 +30,12 @@ public final class D16 {
         return rotationCost;
     }
 
-    private static void updateScores(final Direction direction, final Map<Direction, Long>[][] scores, final int i,
+    private static void updateScores(final CellDirection direction, final Map<CellDirection, Long>[][] scores, final int i,
                                      final int j, final long startCellScore,
                                      final Set<Pair<Integer, Integer>> frontiere) {
-        Map<Direction, Long> startCellScores = scores[i][j];
+        Map<CellDirection, Long> startCellScores = scores[i][j];
         int numRotations = 0;
-        for (Direction dir : direction) {
+        for (CellDirection dir : direction) {
             long bestCellScore = startCellScores.getOrDefault(dir, Long.MAX_VALUE);
             long cellScore = startCellScore + getRotationCost(numRotations);
             if (cellScore < bestCellScore) {
@@ -53,8 +53,8 @@ public final class D16 {
         int[] start = LoaderUtils.findOne(maze, START_CHAR);
         int[] end = LoaderUtils.findOne(maze, END_CHAR);
 
-        Map<Direction, Long>[][] scores = computeScore(maze, start, Direction.RIGHT);
-        Map<Direction, Long> endScores = scores[end[0]][end[1]];
+        Map<CellDirection, Long>[][] scores = computeScore(maze, start, CellDirection.RIGHT);
+        Map<CellDirection, Long> endScores = scores[end[0]][end[1]];
         return endScores.values().stream().min(Long::compare).get();
     }
 
@@ -66,12 +66,12 @@ public final class D16 {
         int[] start = LoaderUtils.findOne(maze, START_CHAR);
         int[] end = LoaderUtils.findOne(maze, END_CHAR);
 
-        Map<Direction, Long>[][] scores = computeScore(maze, start, Direction.RIGHT);
-        Map<Direction, Long> endScores = scores[end[0]][end[1]];
+        Map<CellDirection, Long>[][] scores = computeScore(maze, start, CellDirection.RIGHT);
+        Map<CellDirection, Long> endScores = scores[end[0]][end[1]];
         long minScore = endScores.values().stream().min(Long::compare).get();
 
         Set<Pair<Integer, Integer>> optimalTiles = new HashSet<>();
-        for (Map.Entry<Direction, Long> entry : endScores.entrySet()) {
+        for (Map.Entry<CellDirection, Long> entry : endScores.entrySet()) {
             if (entry.getValue() == minScore) {
                 backTrack(scores, end, entry.getKey(), optimalTiles);
             }
@@ -79,7 +79,7 @@ public final class D16 {
         return (long) optimalTiles.size();
     }
 
-    private void backTrack(final Map<Direction, Long>[][] scores, final int[] position, final Direction direction,
+    private void backTrack(final Map<CellDirection, Long>[][] scores, final int[] position, final CellDirection direction,
                            final Set<Pair<Integer, Integer>> optimalTiles) {
         optimalTiles.add(Pair.of(position[0], position[1]));
         if (scores[position[0]][position[1]].get(direction) == 0) {
@@ -90,7 +90,7 @@ public final class D16 {
 
         //First check if we've rotated on this same spot
         int numRotations = 0;
-        for (Direction dir : direction) {
+        for (CellDirection dir : direction) {
             int i = position[0];
             int j = position[1];
 
@@ -111,10 +111,10 @@ public final class D16 {
         }
     }
 
-    private Map<Direction, Long>[][] computeScore(final char[][] maze, final int[] start, final Direction direction) {
+    private Map<CellDirection, Long>[][] computeScore(final char[][] maze, final int[] start, final CellDirection direction) {
         int height = maze.length;
         int width = maze[0].length;
-        Map<Direction, Long>[][] scores = LoaderUtils.emptyMatrix(new Map[1][1], height, width, () -> new HashMap());
+        Map<CellDirection, Long>[][] scores = LoaderUtils.emptyMatrix(new Map[1][1], height, width, () -> new HashMap());
 
         Set<Pair<Integer, Integer>> frontiere = new HashSet<>();
 
@@ -127,7 +127,7 @@ public final class D16 {
             Iterator<Pair<Integer, Integer>> it = frontiere.iterator();
             while (it.hasNext()) {
                 Pair<Integer, Integer> front = it.next();
-                for (Direction dir : Direction.UP) {
+                for (CellDirection dir : CellDirection.UP) {
                     int nextI = front.getLeft() + dir.getI();
                     int nextJ = front.getRight() + dir.getJ();
                     if (maze[nextI][nextJ] == '#') {

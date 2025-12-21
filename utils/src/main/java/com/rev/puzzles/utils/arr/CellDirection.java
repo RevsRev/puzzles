@@ -1,4 +1,4 @@
-package com.rev.puzzles.math.geom;
+package com.rev.puzzles.utils.arr;
 
 import lombok.Getter;
 
@@ -8,38 +8,38 @@ import java.util.NoSuchElementException;
 
 @Getter
 //TODO - Remove in favour of V2
-public enum Direction implements Iterable<Direction> {
+public enum CellDirection implements Iterable<CellDirection> {
 
     UP(-1, 0), RIGHT(0, 1), DOWN(1, 0), LEFT(0, -1);
 
-    private static final Direction[] DIRECTIONS =
-            new Direction[]{Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT};
+    private static final CellDirection[] DIRECTIONS =
+            new CellDirection[]{CellDirection.UP, CellDirection.RIGHT, CellDirection.DOWN, CellDirection.LEFT};
 
-    private static final List<Direction> DIRECTIONS_LIST = List.of(DIRECTIONS);
+    private static final List<CellDirection> DIRECTIONS_LIST = List.of(DIRECTIONS);
 
     private final int i;
     private final int j;
 
-    Direction(int i, int j) {
+    CellDirection(int i, int j) {
         this.i = i;
         this.j = j;
     }
 
     @Override
-    public Iterator<Direction> iterator() {
+    public Iterator<CellDirection> iterator() {
         return new DirectionIterator(this);
     }
 
-    public Direction previous() {
-        return Direction.previous(this);
+    public CellDirection previous() {
+        return CellDirection.previous(this);
     }
 
-    public Direction next() {
-        return Direction.next(this);
+    public CellDirection next() {
+        return CellDirection.next(this);
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")
-    public static Direction of(int i, int j) {
+    public static CellDirection of(int i, int j) {
         if (i == -1 && j == 0) {
             return UP;
         }
@@ -55,24 +55,24 @@ public enum Direction implements Iterable<Direction> {
         throw new NoSuchElementException(String.format("No direction for (i,j) = (%s,%s)", i, j));
     }
 
-    public static Direction get(int dirIndex) {
+    public static CellDirection get(int dirIndex) {
         return DIRECTIONS[dirIndex];
     }
 
-    public static Direction opposite(final Direction d) {
+    public static CellDirection opposite(final CellDirection d) {
         return add(d, 2);
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")
-    public static Direction previous(final Direction d) {
+    public static CellDirection previous(final CellDirection d) {
         return add(d, 3);
     }
 
-    public static Direction next(final Direction d) {
+    public static CellDirection next(final CellDirection d) {
         return add(d, 1);
     }
 
-    public static Direction add(final Direction d, final int amount) {
+    public static CellDirection add(final CellDirection d, final int amount) {
         for (int i = 0; i < DIRECTIONS.length; i++) {
             if (DIRECTIONS[i] == d) {
                 return DIRECTIONS[(i + amount) % 4];
@@ -81,11 +81,11 @@ public enum Direction implements Iterable<Direction> {
         return null;
     }
 
-    private static final class DirectionIterator implements Iterator<Direction> {
-        private Direction start;
-        private Direction current;
+    private static final class DirectionIterator implements Iterator<CellDirection> {
+        private CellDirection start;
+        private CellDirection current;
 
-        private DirectionIterator(final Direction direction) {
+        private DirectionIterator(final CellDirection direction) {
             start = direction;
             current = direction;
         }
@@ -96,12 +96,12 @@ public enum Direction implements Iterable<Direction> {
         }
 
         @Override
-        public Direction next() {
+        public CellDirection next() {
             if (current == null) {
                 throw new NoSuchElementException();
             }
-            Direction curr = current;
-            current = Direction.next(current);
+            CellDirection curr = current;
+            current = CellDirection.next(current);
             if (current == start) {
                 current = null;
             }

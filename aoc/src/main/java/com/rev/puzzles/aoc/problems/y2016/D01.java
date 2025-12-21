@@ -3,7 +3,7 @@ package com.rev.puzzles.aoc.problems.y2016;
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
 import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
-import com.rev.puzzles.math.geom.Direction;
+import com.rev.puzzles.utils.arr.CellDirection;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
@@ -20,7 +20,7 @@ public final class D01 {
 
         int x = 0;
         int y = 0;
-        Direction dir = Direction.UP;
+        CellDirection dir = CellDirection.UP;
 
         for (int i = 0; i < directions.length; i++) {
             String direction = directions[i];
@@ -45,7 +45,7 @@ public final class D01 {
 
         int x = 0;
         int y = 0;
-        Direction dir = Direction.UP;
+        CellDirection dir = CellDirection.UP;
 
         for (int i = 0; i < directions.length; i++) {
             String direction = directions[i];
