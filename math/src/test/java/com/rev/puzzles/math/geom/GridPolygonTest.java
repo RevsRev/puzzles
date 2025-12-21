@@ -12,7 +12,7 @@ class GridPolygonTest {
 
     @Test
     void shouldCreateSquare() {
-        final GridPolygon square = GridPolygon.createFromGridSquareCorners(List.of(new GridPoint(1, 2)));
+        final GridPolygon square = GridPolygonBuilder.createFromGridSquareCorners(List.of(new GridPoint(1, 2)));
         assertAll(
                 () -> assertEquals(1, square.windingNumber),
                 () -> assertEquals(
@@ -28,7 +28,7 @@ class GridPolygonTest {
 
     @Test
     void shouldCreateRectangle() {
-        final GridPolygon rectangle = GridPolygon.createFromGridSquareCorners(List.of(new GridPoint(1, 2), new GridPoint(1, 10)));
+        final GridPolygon rectangle = GridPolygonBuilder.createFromGridSquareCorners(List.of(new GridPoint(1, 2), new GridPoint(1, 10)));
         assertAll(
                 () -> assertEquals(1, rectangle.windingNumber),
                 () -> assertEquals(
@@ -44,7 +44,7 @@ class GridPolygonTest {
 
     @Test
     void shouldCreateLShape() {
-        final GridPolygon lPolygon = GridPolygon.createFromGridSquareCorners(
+        final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(0, 2),
                         new GridPoint(0, 0),
@@ -69,7 +69,7 @@ class GridPolygonTest {
 
     @Test
     void shouldCreateLShapeOppositeOrder() {
-        final GridPolygon lPolygon = GridPolygon.createFromGridSquareCorners(
+        final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(4, 0),
                         new GridPoint(0, 0),
@@ -94,7 +94,7 @@ class GridPolygonTest {
 
     @Test
     void shouldCreaterShape() {
-        final GridPolygon lPolygon = GridPolygon.createFromGridSquareCorners(
+        final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(0, 0),
                         new GridPoint(0, 6),
@@ -119,7 +119,7 @@ class GridPolygonTest {
 
     @Test
     void shouldCreate7Shape() {
-        final GridPolygon lPolygon = GridPolygon.createFromGridSquareCorners(
+        final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(0, 0),
                         new GridPoint(0, 4),
@@ -144,7 +144,7 @@ class GridPolygonTest {
 
     @Test
     void shouldCreateBackwardsLShape() {
-        final GridPolygon lPolygon = GridPolygon.createFromGridSquareCorners(
+        final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(-6, 0),
                         new GridPoint(-1, 0),
@@ -170,7 +170,7 @@ class GridPolygonTest {
 
     @Test
     void shouldCreateUShape() {
-        final GridPolygon lPolygon = GridPolygon.createFromGridSquareCorners(
+        final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(0, 2),
                         new GridPoint(0, 0),
@@ -198,7 +198,7 @@ class GridPolygonTest {
 
     @Test
     void shouldCreateEnclosedRectangle() {
-        final GridPolygon rectangle = GridPolygon.createFromGridSquareCorners(
+        final GridPolygon rectangle = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(0, 0),
                         new GridPoint(0, 5),
@@ -224,7 +224,7 @@ class GridPolygonTest {
 
     @Test
     void shouldCreateEnclosedRectangleWhenPointsGivenInDifferentOrder() {
-        final GridPolygon rectangle = GridPolygon.createFromGridSquareCorners(
+        final GridPolygon rectangle = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(8, 0),
                         new GridPoint(0, 0),
@@ -250,7 +250,7 @@ class GridPolygonTest {
 
     @Test
     void shouldCreateEnclosedRectangleWhenPointsAreGivenAntiClockwise() {
-        final GridPolygon rectangle = GridPolygon.createFromGridSquareCorners(
+        final GridPolygon rectangle = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
                         new GridPoint(0, 0),
                         new GridPoint(8, 0),
