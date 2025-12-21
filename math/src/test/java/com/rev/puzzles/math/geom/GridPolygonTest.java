@@ -45,6 +45,23 @@ class GridPolygonTest {
     }
 
     @Test
+    void shouldCreateRectangleFromOppositeCorners() {
+        final GridPolygon rectangle = GridPolygonBuilder.rectangle(new GridPoint(1, 2), new GridPoint(4, 10), true);
+        assertAll(
+                () -> assertEquals(1, rectangle.windingNumber),
+                () -> assertEquals(
+                        List.of(
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 2), new GridPoint(1, 11)), LEFT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 11), new GridPoint(5, 11)), UP),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 11), new GridPoint(5, 2)), RIGHT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 2), new GridPoint(1, 2)), DOWN)
+                        ),
+                        rectangle.sides
+                ),
+                () -> assertEquals(36, rectangle.area()));
+    }
+
+    @Test
     void shouldCreateLShape() {
         final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(

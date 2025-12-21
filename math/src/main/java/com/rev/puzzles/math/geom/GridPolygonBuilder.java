@@ -140,17 +140,20 @@ public class GridPolygonBuilder {
         return rectangles;
     }
 
-    private static GridPolygon rectangle(final GridPoint first, final GridPoint second) {
-        if (first.x() != second.x() && first.y() != second.y()) {
+    public static GridPolygon rectangle(final GridPoint first, final GridPoint second) {
+        return rectangle(first, second, false);
+    }
+
+    public static GridPolygon rectangle(final GridPoint first, final GridPoint second, boolean allowOppositeCorners) {
+        if (first.x() != second.x() && first.y() != second.y() && !allowOppositeCorners) {
             throw new IllegalArgumentException("Cannot construct rectangle from points not on a horizontal/vertical line");
         }
 
-        final GridSide s = GridSide.create(first, second);
-        final long minX = Math.min(s.start().x(), s.end().x());
-        final long maxX = Math.max(s.start().x(), s.end().x()) + 1;
+        final long minX = Math.min(first.x(), second.x());
+        final long maxX = Math.max(first.x(), second.x()) + 1;
 
-        final long minY = Math.min(s.start().y(), s.end().y());
-        final long maxY = Math.max(s.start().y(), s.end().y()) + 1;
+        final long minY = Math.min(first.y(), second.y());
+        final long maxY = Math.max(first.y(), second.y()) + 1;
 
         return rectangle(minX, minY, maxY, maxX);
     }
