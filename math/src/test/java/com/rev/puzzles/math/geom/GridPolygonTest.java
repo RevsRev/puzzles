@@ -1,5 +1,6 @@
 package com.rev.puzzles.math.geom;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -23,6 +24,10 @@ class GridPolygonTest {
                         ),
                         square.sides
                 ),
+                () -> assertTrue(square.contains(new GridPoint(1, 2))),
+                () -> assertTrue(square.contains(new GridPoint(1, 3))),
+                () -> assertTrue(square.contains(new GridPoint(2, 3))),
+                () -> assertTrue(square.contains(new GridPoint(2, 2))),
                 () -> assertEquals(1, square.area())
         );
     }
@@ -490,6 +495,28 @@ class GridPolygonTest {
         assertAll(
                 () -> assertFalse(rectangle.isInteriorOf(uShape)),
                 () -> assertTrue(uShape.isInteriorOf(rectangle))
+        );
+    }
+
+    @Test
+    public void sideEdgeCaseInteriorTest() {
+        final GridPolygon shape = GridPolygonBuilder.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(3, 0),
+                        new GridPoint(9, 0),
+                        new GridPoint(9, 5),
+                        new GridPoint(0, 5),
+                        new GridPoint(0, 2),
+                        new GridPoint(1, 2),
+                        new GridPoint(1, 1),
+                        new GridPoint(3 ,1),
+                        new GridPoint(3, 0)
+                )
+        );
+
+        Assertions.assertAll(
+                () -> assertFalse(shape.contains(new GridPoint(11, 1))),
+                () -> assertTrue(shape.isInteriorOf(shape))
         );
     }
 

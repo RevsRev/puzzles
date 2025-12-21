@@ -12,14 +12,18 @@ import static com.rev.puzzles.math.geom.DirectionV2.LEFT;
 public class GridPolygon {
 
     final List<PolygonSide> sides;
+
     final int windingNumber;
-
     private List<PolygonSide> leftSortedSides = null;
-    private final Map<GridPoint, Boolean> containsCache = new HashMap<>();
 
+    private final Map<GridPoint, Boolean> containsCache = new HashMap<>();
     GridPolygon(List<PolygonSide> sides, int windingNumber) {
         this.sides = sides;
         this.windingNumber = windingNumber;
+    }
+
+    public List<PolygonSide> getSides() {
+        return new ArrayList<>(sides);
     }
 
     public PolygonSide getAnExtremalBoundarySide(final DirectionV2 direction) {
@@ -28,30 +32,34 @@ public class GridPolygon {
     }
 
     public boolean contains(final GridPoint point) {
-        final List<PolygonSide> sortedSides = getLeftSortedSides();
-
         if (containsCache.containsKey(point)) {
             return containsCache.get(point);
         }
 
-        int timesEntered = 0;
-        int timesExited = 0;
-        for (final PolygonSide side : sortedSides) {
+        int boundaryCrossings = 0;
+        DirectionV2 lastCrossing = null;
+        for (int i = 0; i < sides.size(); i++) {
+            PolygonSide side = sides.get(i);
             if (side.side.contains(point)) {
                 containsCache.put(point, true);
                 return true;
             }
             if ((side.normal == LEFT || side.normal == LEFT.opposite()) && side.side.minX() <= point.x()) {
                 if (side.side.minY() <= point.y() && point.y() <= side.side.maxY()) {
-                    timesEntered = side.normal == LEFT ? timesEntered : timesEntered + 1;
-                    timesExited = side.normal == LEFT ? timesExited + 1 : timesExited;
+                    if (lastCrossing == null) {
+                        boundaryCrossings++;
+                    } else {
+                        //if side.normal == lastCrossing, we've hit a degenerate edge case so we skip the count
+                        if (side.normal != lastCrossing) {
+                            boundaryCrossings++;
+                        }
+                    }
+                    lastCrossing = side.normal;
                 }
             }
         }
 
-        //The equality case is always false: we've either started outside the polygon and gone in / out same number of times,
-        //or we started on a horizontal side (which would return true), but this is caught by the early return.
-        boolean contains = timesExited > timesEntered;
+        boolean contains = boundaryCrossings % 2 == 1;
         containsCache.put(point, contains);
         return contains;
     }
@@ -67,6 +75,10 @@ public class GridPolygon {
 
         for (PolygonSide maybeExteriorSide : maybeExterior.sides) {
             for (PolygonSide maybeInteriorSide : sides) {
+                if (!maybeExterior.contains(maybeInteriorSide.side.start()) || !maybeExterior.contains(maybeInteriorSide.side.end())) {
+                    return false;
+                }
+
                 final IntersectionResult intersect = maybeExteriorSide.side.intersect(maybeInteriorSide.side);
                 switch (intersect) {
                     case EmptyIntersectionResult emptyIntersectionResult -> {
