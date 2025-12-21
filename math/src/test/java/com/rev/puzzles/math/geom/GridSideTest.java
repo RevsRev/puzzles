@@ -34,61 +34,105 @@ class GridSideTest {
 
     @Test
     void shouldReturnLength() {
-        assertAll(
-                () -> assertEquals(2L, GridSide.create(new GridPoint(0, 0), new GridPoint(0, 2)).length()),
-                () -> assertEquals(7L, GridSide.create(new GridPoint(1, 3), new GridPoint(8, 3)).length())
-        );
+        assertAll(() -> assertEquals(2L, GridSide.create(new GridPoint(0, 0), new GridPoint(0, 2)).length()),
+                () -> assertEquals(7L, GridSide.create(new GridPoint(1, 3), new GridPoint(8, 3)).length()));
     }
 
     public static Collection<IntersectionTestParams> intersectionTestParams() {
         return List.of(
 
                 //Parallel or empty intersection results
-                new IntersectionTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)), GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)), new PointSideIntersectionResult(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(2, 4)), GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)), new PointSideIntersectionResult(GridSide.create(new GridPoint(0, 4), new GridPoint(2, 4)))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(2, 4), new GridPoint(4, 4)), GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)), new PointSideIntersectionResult(GridSide.create(new GridPoint(2, 4), new GridPoint(4, 4)))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(2, 4), new GridPoint(4, 4)), GridSide.create(new GridPoint(0, 4), new GridPoint(2, 4)), new PointIntersectionResult(new GridPoint(2, 4))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(2, 4), new GridPoint(4, 4)), GridSide.create(new GridPoint(0, 3), new GridPoint(2, 3)), new EmptyIntersectionResult()),
-                new IntersectionTestParams(GridSide.create(new GridPoint(2, 4), new GridPoint(4, 4)), GridSide.create(new GridPoint(0, 4), new GridPoint(1, 4)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)),
+                        GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)),
+                        new PointSideIntersectionResult(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(2, 4)),
+                        GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)),
+                        new PointSideIntersectionResult(GridSide.create(new GridPoint(0, 4), new GridPoint(2, 4)))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(2, 4), new GridPoint(4, 4)),
+                        GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)),
+                        new PointSideIntersectionResult(GridSide.create(new GridPoint(2, 4), new GridPoint(4, 4)))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(2, 4), new GridPoint(4, 4)),
+                        GridSide.create(new GridPoint(0, 4), new GridPoint(2, 4)),
+                        new PointIntersectionResult(new GridPoint(2, 4))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(2, 4), new GridPoint(4, 4)),
+                        GridSide.create(new GridPoint(0, 3), new GridPoint(2, 3)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new GridPoint(2, 4), new GridPoint(4, 4)),
+                        GridSide.create(new GridPoint(0, 4), new GridPoint(1, 4)), new EmptyIntersectionResult()),
 
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 0)), GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)), new PointSideIntersectionResult(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 0)))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 2), new GridPoint(4, 0)), GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)), new PointSideIntersectionResult(GridSide.create(new GridPoint(4, 2), new GridPoint(4, 0)))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 2)), GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)), new PointSideIntersectionResult(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 2)))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 2)), GridSide.create(new GridPoint(4, 0), new GridPoint(4, 2)), new PointIntersectionResult(new GridPoint(4, 2))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 2)), GridSide.create(new GridPoint(3, 0), new GridPoint(3, 2)), new EmptyIntersectionResult()),
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 2)), GridSide.create(new GridPoint(4, 0), new GridPoint(4, 1)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 0)),
+                        GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)),
+                        new PointSideIntersectionResult(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 0)))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 2), new GridPoint(4, 0)),
+                        GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)),
+                        new PointSideIntersectionResult(GridSide.create(new GridPoint(4, 2), new GridPoint(4, 0)))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 2)),
+                        GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)),
+                        new PointSideIntersectionResult(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 2)))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 2)),
+                        GridSide.create(new GridPoint(4, 0), new GridPoint(4, 2)),
+                        new PointIntersectionResult(new GridPoint(4, 2))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 2)),
+                        GridSide.create(new GridPoint(3, 0), new GridPoint(3, 2)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 2)),
+                        GridSide.create(new GridPoint(4, 0), new GridPoint(4, 1)), new EmptyIntersectionResult()),
 
                 //Point or empty intersection results
-                new IntersectionTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)), GridSide.create(new GridPoint(2, 2), new GridPoint(2, 3)), new EmptyIntersectionResult()),
-                new IntersectionTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)), GridSide.create(new GridPoint(2, 2), new GridPoint(2, 4)), new PointIntersectionResult(new GridPoint(2, 4))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)), GridSide.create(new GridPoint(2, 2), new GridPoint(2, 5)), new PointIntersectionResult(new GridPoint(2, 4))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(2, 3)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(2, 4)),
+                        new PointIntersectionResult(new GridPoint(2, 4))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(2, 5)),
+                        new PointIntersectionResult(new GridPoint(2, 4))),
 
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(0, 4)), GridSide.create(new GridPoint(2, 2), new GridPoint(2, 3)), new EmptyIntersectionResult()),
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(0, 4)), GridSide.create(new GridPoint(2, 2), new GridPoint(2, 4)), new PointIntersectionResult(new GridPoint(2, 4))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(0, 4)), GridSide.create(new GridPoint(2, 2), new GridPoint(2, 5)), new PointIntersectionResult(new GridPoint(2, 4))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(0, 4)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(2, 3)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(0, 4)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(2, 4)),
+                        new PointIntersectionResult(new GridPoint(2, 4))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(0, 4)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(2, 5)),
+                        new PointIntersectionResult(new GridPoint(2, 4))),
 
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)), GridSide.create(new GridPoint(2, 2), new GridPoint(3, 2)), new EmptyIntersectionResult()),
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)), GridSide.create(new GridPoint(2, 2), new GridPoint(4, 2)), new PointIntersectionResult(new GridPoint(4, 2))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)), GridSide.create(new GridPoint(2, 2), new GridPoint(5, 2)), new PointIntersectionResult(new GridPoint(4, 2))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(3, 2)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(4, 2)),
+                        new PointIntersectionResult(new GridPoint(4, 2))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 0), new GridPoint(4, 4)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(5, 2)),
+                        new PointIntersectionResult(new GridPoint(4, 2))),
 
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 0)), GridSide.create(new GridPoint(2, 2), new GridPoint(3, 2)), new EmptyIntersectionResult()),
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 0)), GridSide.create(new GridPoint(2, 2), new GridPoint(4, 2)), new PointIntersectionResult(new GridPoint(4, 2))),
-                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 0)), GridSide.create(new GridPoint(2, 2), new GridPoint(5, 2)), new PointIntersectionResult(new GridPoint(4, 2)))
-        );
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 0)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(3, 2)), new EmptyIntersectionResult()),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 0)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(4, 2)),
+                        new PointIntersectionResult(new GridPoint(4, 2))),
+                new IntersectionTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(4, 0)),
+                        GridSide.create(new GridPoint(2, 2), new GridPoint(5, 2)),
+                        new PointIntersectionResult(new GridPoint(4, 2))));
     }
 
     public static Collection<ContainsTestParams> containsTestParams() {
         return List.of(
-                new ContainsTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)), new GridPoint(2, 4), true),
-                new ContainsTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(0, 4)), new GridPoint(2, 4), true),
-                new ContainsTestParams(GridSide.create(new GridPoint(4, 0), new GridPoint(0, 0)), new GridPoint(2, 0), true),
-                new ContainsTestParams(GridSide.create(new GridPoint(0, 0), new GridPoint(4, 0)), new GridPoint(2, 0), true),
+                new ContainsTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)), new GridPoint(2, 4),
+                        true),
+                new ContainsTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(0, 4)), new GridPoint(2, 4),
+                        true),
+                new ContainsTestParams(GridSide.create(new GridPoint(4, 0), new GridPoint(0, 0)), new GridPoint(2, 0),
+                        true),
+                new ContainsTestParams(GridSide.create(new GridPoint(0, 0), new GridPoint(4, 0)), new GridPoint(2, 0),
+                        true),
 
-                new ContainsTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)), new GridPoint(6, 4), false),
-                new ContainsTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(0, 4)), new GridPoint(6, 4), false),
-                new ContainsTestParams(GridSide.create(new GridPoint(4, 0), new GridPoint(0, 0)), new GridPoint(2, 6), false),
-                new ContainsTestParams(GridSide.create(new GridPoint(0, 0), new GridPoint(4, 0)), new GridPoint(2, 6), false)
-        );
+                new ContainsTestParams(GridSide.create(new GridPoint(0, 4), new GridPoint(4, 4)), new GridPoint(6, 4),
+                        false),
+                new ContainsTestParams(GridSide.create(new GridPoint(4, 4), new GridPoint(0, 4)), new GridPoint(6, 4),
+                        false),
+                new ContainsTestParams(GridSide.create(new GridPoint(4, 0), new GridPoint(0, 0)), new GridPoint(2, 6),
+                        false),
+                new ContainsTestParams(GridSide.create(new GridPoint(0, 0), new GridPoint(4, 0)), new GridPoint(2, 6),
+                        false));
     }
 
     public record ContainsTestParams(GridSide s, GridPoint p, boolean expected) {

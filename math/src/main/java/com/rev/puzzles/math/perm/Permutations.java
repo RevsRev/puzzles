@@ -85,10 +85,8 @@ public final class Permutations {
         return allPerms;
     }
 
-    private static <T> void getCombinations(final List<List<T>> input,
-                                            final List<T> perm,
-                                            final Consumer<List<T>> permConsumer,
-                                            int index) {
+    private static <T> void getCombinations(final List<List<T>> input, final List<T> perm,
+                                            final Consumer<List<T>> permConsumer, int index) {
         if (index == input.size()) {
             permConsumer.accept(List.copyOf(perm));
             return;

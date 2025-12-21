@@ -16,9 +16,7 @@ public final class DiophantineSolver {
     private final BigInteger c;
     private Optional<BigInteger[]> solution;
 
-    public DiophantineSolver(final BigInteger a,
-                             final BigInteger b,
-                             final BigInteger c) {
+    public DiophantineSolver(final BigInteger a, final BigInteger b, final BigInteger c) {
         this.a = a;
         this.b = b;
         this.c = c;
@@ -53,9 +51,7 @@ public final class DiophantineSolver {
      * <p>For k an integer.
      */
     @SuppressWarnings("checkstyle:MagicNumber")
-    public static Optional<BigInteger[]> solveDiophantine(final BigInteger a,
-                                                          final BigInteger b,
-                                                          final BigInteger c) {
+    public static Optional<BigInteger[]> solveDiophantine(final BigInteger a, final BigInteger b, final BigInteger c) {
         boolean aNeg = a.compareTo(BigInteger.ZERO) < 0;
         boolean bNeg = b.compareTo(BigInteger.ZERO) < 0;
         Optional<BigInteger[]> result = solveDiophantinePositive(a.abs(), b.abs(), c);
@@ -77,10 +73,8 @@ public final class DiophantineSolver {
     /**
      * Solves diophantine equation with a,b both positive
      */
-    private static Optional<BigInteger[]> solveDiophantinePositive(
-            final BigInteger a,
-            final BigInteger b,
-            final BigInteger c) {
+    private static Optional<BigInteger[]> solveDiophantinePositive(final BigInteger a, final BigInteger b,
+                                                                   final BigInteger c) {
         if (a.compareTo(b) < 0) {
             Optional<BigInteger[]> result = solveDiophantinePositive(b, a, c);
             if (result.isEmpty()) {
@@ -145,8 +139,7 @@ public final class DiophantineSolver {
      * @param congruences - Map of mod value to remainder (i.e. b1 --> a1, b2 --> a2, ..., bN --> aN)
      * @return
      */
-    public static Optional<BigInteger[]> solveChineseRemainders(
-            final Map<BigInteger, BigInteger> congruences) {
+    public static Optional<BigInteger[]> solveChineseRemainders(final Map<BigInteger, BigInteger> congruences) {
 
         Iterator<BigInteger> itMods = congruences.keySet().iterator();
         if (!itMods.hasNext()) {
@@ -166,9 +159,7 @@ public final class DiophantineSolver {
             BigInteger nextValue = congruences.get(nextMod);
 
             BigInteger[] diophantineParams =
-                    new BigInteger[]{
-                            thisMod, nextMod.multiply(BigInteger.valueOf(-1)), nextValue.subtract(thisValue)
-                    };
+                    new BigInteger[]{thisMod, nextMod.multiply(BigInteger.valueOf(-1)), nextValue.subtract(thisValue)};
             Optional<BigInteger[]> result =
                     solveDiophantine(diophantineParams[0], diophantineParams[1], diophantineParams[2]);
             if (result.isEmpty()) {

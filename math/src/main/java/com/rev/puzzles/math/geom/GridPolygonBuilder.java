@@ -10,9 +10,15 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.rev.puzzles.math.geom.DirectionV2.*;
+import static com.rev.puzzles.math.geom.DirectionV2.DOWN;
+import static com.rev.puzzles.math.geom.DirectionV2.LEFT;
+import static com.rev.puzzles.math.geom.DirectionV2.RIGHT;
+import static com.rev.puzzles.math.geom.DirectionV2.UP;
 
-public class GridPolygonBuilder {
+public final class GridPolygonBuilder {
+
+    private GridPolygonBuilder() {
+    }
 
     public static GridPolygon createFromGridSquareCorners(final List<GridPoint> points) {
         if (points == null || points.isEmpty()) {
@@ -27,19 +33,23 @@ public class GridPolygonBuilder {
             return rectangle(points.get(0), points.get(1));
         }
 
-        ConstructionIterationPolicy iterationPolicy = ConstructionIterationPolicy.factory(points);
+        final ConstructionIterationPolicy iterationPolicy = ConstructionIterationPolicy.factory(points);
         DirectionV2 normal = LEFT;
         final List<PolygonSide> polygonSides = new ArrayList<>();
         int windingNumber = 0;
 
-        while (polygonSides.isEmpty() || !polygonSides.getFirst().side.start().equals(polygonSides.getLast().side.end())) {
+        while (polygonSides.isEmpty() || !polygonSides.getFirst().side.start()
+                .equals(polygonSides.getLast().side.end())) {
 
-            GridPolygon first = iterationPolicy.current();
-            GridPolygon second = iterationPolicy.next();
+            final GridPolygon first = iterationPolicy.current();
+            final GridPolygon second = iterationPolicy.next();
 
             final DirectionV2 previousNormal = normal;
-            final PolygonSide sideConsidered = first.sides.stream().filter(s -> s.normal.equals(previousNormal)).findFirst().orElseThrow();
-            final PolygonSide maybeNextSide = second.sides.stream().filter(s -> s.normal.equals(sideConsidered.normal.next())).findFirst().orElseThrow();
+            final PolygonSide sideConsidered =
+                    first.sides.stream().filter(s -> s.normal.equals(previousNormal)).findFirst().orElseThrow();
+            final PolygonSide maybeNextSide =
+                    second.sides.stream().filter(s -> s.normal.equals(sideConsidered.normal.next())).findFirst()
+                            .orElseThrow();
 
             final IntersectionResult intersectionResult = maybeNextSide.side.intersect(sideConsidered.side);
 
@@ -51,26 +61,34 @@ public class GridPolygonBuilder {
                 }
                 case PointIntersectionResult pointIntersectionResult -> {
                     //Rectangles have +ve winding number, i.e. we're going clockwise.
-                    GridPoint intersection = pointIntersectionResult.intersection();
+                    final GridPoint intersection = pointIntersectionResult.intersection();
 
                     if (intersection.equals(sideConsidered.side.end())) {
                         if (intersection.equals(maybeNextSide.side.start())) {
                             if (polygonSides.isEmpty()) {
                                 polygonSides.add(sideConsidered);
                             } else {
-                                polygonSides.add(new PolygonSide(GridSide.create(polygonSides.getLast().side().end(), sideConsidered.side().end()), sideConsidered.normal()));
+                                polygonSides.add(new PolygonSide(GridSide.create(polygonSides.getLast().side().end(),
+                                        sideConsidered.side().end()), sideConsidered.normal()));
                             }
                             normal = maybeNextSide.normal();
                         } else {
-                            final PolygonSide maybeNextSideOpposite = second.sides.stream().filter(s -> s.normal.equals(sideConsidered.normal.next().opposite())).findFirst().orElseThrow();
+                            final PolygonSide maybeNextSideOpposite = second.sides.stream()
+                                    .filter(s -> s.normal.equals(sideConsidered.normal.next().opposite())).findFirst()
+                                    .orElseThrow();
 
-                            IntersectionResult secondIntersectResult = maybeNextSideOpposite.side.intersect(sideConsidered.side);
+                            final IntersectionResult secondIntersectResult =
+                                    maybeNextSideOpposite.side.intersect(sideConsidered.side);
                             switch (secondIntersectResult) {
                                 case PointIntersectionResult result -> {
                                     if (polygonSides.isEmpty()) {
-                                        polygonSides.add(new PolygonSide(GridSide.create(sideConsidered.side().start(), result.intersection()), sideConsidered.normal));
+                                        polygonSides.add(new PolygonSide(
+                                                GridSide.create(sideConsidered.side().start(), result.intersection()),
+                                                sideConsidered.normal));
                                     } else {
-                                        polygonSides.add(new PolygonSide(GridSide.create(polygonSides.getLast().side().end(), result.intersection()), sideConsidered.normal()));
+                                        polygonSides.add(new PolygonSide(
+                                                GridSide.create(polygonSides.getLast().side().end(),
+                                                        result.intersection()), sideConsidered.normal()));
                                     }
                                     normal = maybeNextSideOpposite.normal();
                                 }
@@ -83,7 +101,9 @@ public class GridPolygonBuilder {
                         if (polygonSides.isEmpty()) {
                             polygonSides.add(sideConsidered);
                         } else {
-                            polygonSides.add(new PolygonSide(GridSide.create(polygonSides.getLast().side().end(), sideConsidered.side().end()), sideConsidered.normal()));
+                            polygonSides.add(new PolygonSide(
+                                    GridSide.create(polygonSides.getLast().side().end(), sideConsidered.side().end()),
+                                    sideConsidered.normal()));
                         }
                         normal = normal.next();
                     }
@@ -105,7 +125,7 @@ public class GridPolygonBuilder {
         return new GridPolygon(polygonSides, windingNumber / 4);
     }
 
-    private static List<GridPolygon> parsePointsToRectanglesWithClockwiseWindingNumber(List<GridPoint> points) {
+    private static List<GridPolygon> parsePointsToRectanglesWithClockwiseWindingNumber(final List<GridPoint> points) {
 
         int pointsWindingNumber = 0;
         DirectionV2 pointsDirection = null;
@@ -116,7 +136,8 @@ public class GridPolygonBuilder {
 
             final GridSide gridSide = GridSide.create(first, second);
             if (pointsDirection != null) {
-                pointsWindingNumber = pointsDirection.next().equals(gridSide.direction()) ? pointsWindingNumber + 1 : pointsWindingNumber - 1;
+                pointsWindingNumber = pointsDirection.next().equals(gridSide.direction()) ? pointsWindingNumber + 1
+                        : pointsWindingNumber - 1;
             }
             pointsDirection = gridSide.direction();
 
@@ -127,7 +148,8 @@ public class GridPolygonBuilder {
         //We have an "enclosed" shape, so we want to make sure we traverse it with a positive winding number
         if (points.getFirst().equals(points.getLast())) {
             final GridSide firstSide = GridSide.create(points.get(0), points.get(1));
-            pointsWindingNumber = pointsDirection.next().equals(firstSide.direction()) ? pointsWindingNumber + 1 : pointsWindingNumber - 1;
+            pointsWindingNumber = pointsDirection.next().equals(firstSide.direction()) ? pointsWindingNumber + 1
+                    : pointsWindingNumber - 1;
 
             if (pointsWindingNumber % 4 != 0) {
                 throw new IllegalStateException();
@@ -146,7 +168,8 @@ public class GridPolygonBuilder {
 
     public static GridPolygon rectangle(final GridPoint first, final GridPoint second, boolean allowOppositeCorners) {
         if (first.x() != second.x() && first.y() != second.y() && !allowOppositeCorners) {
-            throw new IllegalArgumentException("Cannot construct rectangle from points not on a horizontal/vertical line");
+            throw new IllegalArgumentException(
+                    "Cannot construct rectangle from points not on a horizontal/vertical " + "line");
         }
 
         final long minX = Math.min(first.x(), second.x());
@@ -158,11 +181,11 @@ public class GridPolygonBuilder {
         return rectangle(minX, minY, maxY, maxX);
     }
 
-    private static GridPolygon square(GridPoint first) {
+    private static GridPolygon square(final GridPoint first) {
         return rectangle(first.x(), first.y(), first.y() + 1, first.x() + 1);
     }
 
-    private static GridPolygon rectangle(long minX, long minY, long maxY, long maxX) {
+    private static GridPolygon rectangle(final long minX, final long minY, final long maxY, final long maxX) {
         final List<PolygonSide> sides = new ArrayList<>();
 
         sides.add(new PolygonSide(GridSide.create(new GridPoint(minX, minY), new GridPoint(minX, maxY)), LEFT));
@@ -175,7 +198,9 @@ public class GridPolygonBuilder {
 
     private interface ConstructionIterationPolicy {
         GridPolygon current();
+
         GridPolygon next();
+
         void progress();
 
         private static ConstructionIterationPolicy factory(final List<GridPoint> points) {
@@ -189,7 +214,7 @@ public class GridPolygonBuilder {
             return new OpenPointsConstructionIterationPolicy(rectangles, index, ascending);
         }
 
-        private static int getAnExtremalBoundarySide(List<GridPolygon> rectangles, DirectionV2 direction) {
+        private static int getAnExtremalBoundarySide(final List<GridPolygon> rectangles, final DirectionV2 direction) {
 
             final Comparator<PolygonSide> comparator = PolygonSide.extremalSideComparator(direction);
 
@@ -213,12 +238,12 @@ public class GridPolygonBuilder {
         }
     }
 
-    private static class ClosedPointsConstructionIterationPolicy implements ConstructionIterationPolicy {
+    private static final class ClosedPointsConstructionIterationPolicy implements ConstructionIterationPolicy {
 
-        private List<GridPolygon> rectangles;
+        private final List<GridPolygon> rectangles;
         private int index;
 
-        private ClosedPointsConstructionIterationPolicy(List<GridPolygon> rectangles, int index) {
+        private ClosedPointsConstructionIterationPolicy(final List<GridPolygon> rectangles, final int index) {
             this.rectangles = rectangles;
             this.index = index;
         }
@@ -239,13 +264,14 @@ public class GridPolygonBuilder {
         }
     }
 
-    private static class OpenPointsConstructionIterationPolicy implements ConstructionIterationPolicy {
+    private static final class OpenPointsConstructionIterationPolicy implements ConstructionIterationPolicy {
 
-        private List<GridPolygon> rectangles;
+        private final List<GridPolygon> rectangles;
         private int index;
         private boolean ascending;
 
-        public OpenPointsConstructionIterationPolicy(final List<GridPolygon> rectangles, final int index, final boolean ascending) {
+        OpenPointsConstructionIterationPolicy(final List<GridPolygon> rectangles, final int index,
+                                                     final boolean ascending) {
             this.rectangles = rectangles;
             this.index = index;
             this.ascending = ascending;

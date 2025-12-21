@@ -9,16 +9,10 @@ import java.util.NoSuchElementException;
 @Getter
 public enum DirectionV2 implements Iterable<DirectionV2> {
 
-    UP(0, 1),
-    RIGHT(1, 0),
-    DOWN(0, -1),
-    LEFT(-1, 0);
+    UP(0, 1), RIGHT(1, 0), DOWN(0, -1), LEFT(-1, 0);
 
-    private static final DirectionV2[] DIRECTIONS = new DirectionV2[]{
-            DirectionV2.UP,
-            DirectionV2.RIGHT,
-            DirectionV2.DOWN,
-            DirectionV2.LEFT};
+    private static final DirectionV2[] DIRECTIONS =
+            new DirectionV2[]{DirectionV2.UP, DirectionV2.RIGHT, DirectionV2.DOWN, DirectionV2.LEFT};
 
     private static final List<DirectionV2> DIRECTIONS_LIST = List.of(DIRECTIONS);
 

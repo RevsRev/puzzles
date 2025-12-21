@@ -5,12 +5,18 @@ import com.rev.puzzles.math.geom.result.IntersectionResult;
 import com.rev.puzzles.math.geom.result.PointIntersectionResult;
 import com.rev.puzzles.math.linalg.matrix.Mat2;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 import static com.rev.puzzles.math.geom.DirectionV2.LEFT;
 
-public class GridPolygon {
+@SuppressWarnings("checkstyle:VisibilityModifier")
+public final class GridPolygon {
 
     final List<PolygonSide> sides;
 
@@ -18,7 +24,8 @@ public class GridPolygon {
     private List<PolygonSide> leftSortedSides = null;
 
     private final Map<GridPoint, Boolean> containsCache = new HashMap<>();
-    GridPolygon(List<PolygonSide> sides, int windingNumber) {
+
+    GridPolygon(final List<PolygonSide> sides, final int windingNumber) {
         this.sides = sides;
         this.windingNumber = windingNumber;
     }
@@ -40,7 +47,7 @@ public class GridPolygon {
         int boundaryCrossings = 0;
         DirectionV2 lastCrossing = null;
         for (int i = 0; i < sides.size(); i++) {
-            PolygonSide side = sides.get(i);
+            final PolygonSide side = sides.get(i);
             if (side.side.contains(point)) {
                 containsCache.put(point, true);
                 return true;
@@ -60,7 +67,7 @@ public class GridPolygon {
             }
         }
 
-        boolean contains = boundaryCrossings % 2 == 1;
+        final boolean contains = boundaryCrossings % 2 == 1;
         containsCache.put(point, contains);
         return contains;
     }
@@ -76,7 +83,8 @@ public class GridPolygon {
 
         for (PolygonSide maybeExteriorSide : maybeExterior.sides) {
             for (PolygonSide maybeInteriorSide : sides) {
-                if (!maybeExterior.contains(maybeInteriorSide.side.start()) || !maybeExterior.contains(maybeInteriorSide.side.end())) {
+                if (!maybeExterior.contains(maybeInteriorSide.side.start()) || !maybeExterior.contains(
+                        maybeInteriorSide.side.end())) {
                     return false;
                 }
 
@@ -91,13 +99,16 @@ public class GridPolygon {
                     case PointIntersectionResult pointIntersectionResult -> {
                         if (maybeInteriorSide.normal.perpendicularTo(maybeExteriorSide.normal)) {
                             final GridPoint intersection = pointIntersectionResult.intersection();
-                            if (!intersection.equals(maybeExteriorSide.side.start()) && !intersection.equals(maybeExteriorSide.side.end())
-                              && !intersection.equals(maybeInteriorSide.side.start()) && !intersection.equals(maybeInteriorSide.side.end())) {
+                            if (!intersection.equals(maybeExteriorSide.side.start()) && !intersection.equals(
+                                    maybeExteriorSide.side.end()) && !intersection.equals(
+                                    maybeInteriorSide.side.start()) && !intersection.equals(
+                                    maybeInteriorSide.side.end())) {
                                 return false;
                             }
                         }
                     }
-                    default -> {}
+                    default -> {
+                    }
                 }
             }
         }
@@ -115,7 +126,7 @@ public class GridPolygon {
             area += mat.det();
         }
         //- sign because all my shapes are oriented clockwise, but shoelace assumes counter clockwise
-        return - Math.round(area / 2);
+        return -Math.round(area / 2);
     }
 
     public static final class PolygonSide {
@@ -123,7 +134,7 @@ public class GridPolygon {
         final GridSide side;
         final DirectionV2 normal;
 
-        public PolygonSide(GridSide side, DirectionV2 normal) {
+        public PolygonSide(final GridSide side, final DirectionV2 normal) {
             this.side = side;
             this.normal = normal;
         }
@@ -137,12 +148,15 @@ public class GridPolygon {
         }
 
         @Override
-        public boolean equals(Object obj) {
-            if (obj == this) return true;
-            if (obj == null || obj.getClass() != this.getClass()) return false;
-            var that = (PolygonSide) obj;
-            return Objects.equals(this.side, that.side) &&
-                    Objects.equals(this.normal, that.normal);
+        public boolean equals(final Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (obj == null || obj.getClass() != this.getClass()) {
+                return false;
+            }
+            final PolygonSide that = (PolygonSide) obj;
+            return Objects.equals(this.side, that.side) && Objects.equals(this.normal, that.normal);
         }
 
         @Override
@@ -152,9 +166,7 @@ public class GridPolygon {
 
         @Override
         public String toString() {
-            return "PolygonSide[" +
-                    "side=" + side + ", " +
-                    "normal=" + normal + ']';
+            return "PolygonSide[" + "side=" + side + ", " + "normal=" + normal + ']';
         }
 
         public static Comparator<PolygonSide> extremalSideComparator(final DirectionV2 direction) {
@@ -171,13 +183,13 @@ public class GridPolygon {
                 return 0;
             };
 
-            Comparator<PolygonSide> normalComparator = Comparator.comparingInt(normalComparatorFunc::apply);
+            final Comparator<PolygonSide> normalComparator = Comparator.comparingInt(normalComparatorFunc::apply);
 
             final Comparator<PolygonSide> sideExtremityComparator = switch (direction) {
                 case UP -> Comparator.comparingLong(ps -> ps.side.maxY());
                 case RIGHT -> Comparator.comparingLong(ps -> ps.side.maxX());
-                case DOWN -> Comparator.comparingLong(ps -> - ps.side.minY());
-                case LEFT -> Comparator.comparingLong(ps -> - ps.side.minX());
+                case DOWN -> Comparator.comparingLong(ps -> -ps.side.minY());
+                case LEFT -> Comparator.comparingLong(ps -> -ps.side.minX());
             };
 
             final Comparator<PolygonSide> sideLengthComparator = Comparator.comparingLong(s -> s.side.length());

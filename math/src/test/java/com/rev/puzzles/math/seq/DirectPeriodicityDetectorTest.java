@@ -28,12 +28,9 @@ class DirectPeriodicityDetectorTest {
 
         final AtomicInteger index = new AtomicInteger(0);
 
-        final PeriodicityDetector detector = new DirectPeriodicityDetector.Builder(
-                () -> sequence[index.getAndIncrement()])
-                .setMaxPeriod(2)
-                .setMaxThreshold(10)
-                .setPeriodDetectionCycles(5)
-                .build();
+        final PeriodicityDetector detector =
+                new DirectPeriodicityDetector.Builder(() -> sequence[index.getAndIncrement()]).setMaxPeriod(2)
+                        .setMaxThreshold(10).setPeriodDetectionCycles(5).build();
 
         assertTrue(detector.detect());
         assertEquals(2, detector.getDetectedPeriodLength());
@@ -56,12 +53,9 @@ class DirectPeriodicityDetectorTest {
 
         final AtomicInteger index = new AtomicInteger(0);
 
-        final PeriodicityDetector detector = new DirectPeriodicityDetector.Builder(
-                () -> sequence[index.getAndIncrement()])
-                .setMaxPeriod(2)
-                .setMaxThreshold(10)
-                .setPeriodDetectionCycles(5)
-                .build();
+        final PeriodicityDetector detector =
+                new DirectPeriodicityDetector.Builder(() -> sequence[index.getAndIncrement()]).setMaxPeriod(2)
+                        .setMaxThreshold(10).setPeriodDetectionCycles(5).build();
 
         assertFalse(detector.detect());
     }
@@ -80,10 +74,8 @@ class DirectPeriodicityDetectorTest {
 
         assertTrue(detector.detect());
         assertEquals(71, detector.getDetectedPeriodLength());
-        assertEquals(
-                BigInteger.valueOf((230_001L * 230_001L) % 71),
-                detector.getSequenceElement(BigInteger.valueOf(230_001L))
-        );
+        assertEquals(BigInteger.valueOf((230_001L * 230_001L) % 71),
+                detector.getSequenceElement(BigInteger.valueOf(230_001L)));
     }
 
     @Test

@@ -83,8 +83,7 @@ public final class UnitCell<T> {
         return edges(this, visitedSides, visitedCells);
     }
 
-    private static <T> long edges(final UnitCell<T> cell,
-                                  final Set<Pair<Integer, T>> visitedSides,
+    private static <T> long edges(final UnitCell<T> cell, final Set<Pair<Integer, T>> visitedSides,
                                   final Set<UnitCell<T>> visitedCells) {
         if (visitedCells.contains(cell)) {
             return 0;

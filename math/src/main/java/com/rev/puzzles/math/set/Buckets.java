@@ -16,32 +16,19 @@ public final class Buckets {
         });
     }
 
-    public static long fillEntireCombinations(
-            final long[] buckets,
-            final long target,
-            final boolean reuseBuckets,
-            final Consumer<List<Long>> solutionListener) {
+    public static long fillEntireCombinations(final long[] buckets, final long target, final boolean reuseBuckets,
+                                              final Consumer<List<Long>> solutionListener) {
 
         long[] sortedBuckets = Arrays.copyOf(buckets, buckets.length);
         Arrays.sort(sortedBuckets);
-        return fillEntireCombinations(
-                sortedBuckets,
-                target,
-                reuseBuckets,
-                sortedBuckets.length - 1,
-                0,
-                new Stack<>(),
+        return fillEntireCombinations(sortedBuckets, target, reuseBuckets, sortedBuckets.length - 1, 0, new Stack<>(),
                 solutionListener);
     }
 
-    private static long fillEntireCombinations(
-            final long[] sortedBuckets,
-            final long target,
-            final boolean reuseBuckets,
-            final int index,
-            final long sum,
-            final Stack<Long> solution,
-            final Consumer<List<Long>> solutionListener) {
+    private static long fillEntireCombinations(final long[] sortedBuckets, final long target,
+                                               final boolean reuseBuckets, final int index, final long sum,
+                                               final Stack<Long> solution,
+                                               final Consumer<List<Long>> solutionListener) {
 
         if (index < 0) {
             if (sum == target) {
@@ -58,14 +45,9 @@ public final class Buckets {
             for (int j = 0; j < i; j++) {
                 solution.push(bucketSize);
             }
-            numCombinations += fillEntireCombinations(
-                    sortedBuckets,
-                    target,
-                    reuseBuckets,
-                    index - 1,
-                    sum + i * bucketSize,
-                    solution,
-                    solutionListener);
+            numCombinations +=
+                    fillEntireCombinations(sortedBuckets, target, reuseBuckets, index - 1, sum + i * bucketSize,
+                            solution, solutionListener);
 
             for (int j = 0; j < i; j++) {
                 solution.pop();

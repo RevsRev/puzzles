@@ -24,7 +24,8 @@ class UlamTest {
             final Ulam ulam2 = Ulam.create(2, 2 * n + 1);
             final Ulam ulamSlow = new Ulam.UlamAb(2, 2 * n + 1);
             for (int i = 0; i < 1000; i++) {
-                assertEquals(ulamSlow.at(i), ulam2.at(i), "Comparison failed for U(2, %s) at index %s".formatted(2 * n + 1, i));
+                assertEquals(ulamSlow.at(i), ulam2.at(i),
+                        "Comparison failed for U(2, %s) at index %s".formatted(2 * n + 1, i));
             }
         }
     }

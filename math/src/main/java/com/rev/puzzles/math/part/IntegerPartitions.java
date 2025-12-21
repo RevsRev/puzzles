@@ -26,8 +26,8 @@ public final class IntegerPartitions {
         return dynamicProgram.compute(n);
     }
 
-    private static final class IpDpFunc
-            implements BiFunction<DynamicProgram<BigInteger, BigInteger>, BigInteger, BigInteger> {
+    private static final class IpDpFunc implements
+            BiFunction<DynamicProgram<BigInteger, BigInteger>, BigInteger, BigInteger> {
 
         @Override
         public BigInteger apply(final DynamicProgram<BigInteger, BigInteger> dp, final BigInteger n) {

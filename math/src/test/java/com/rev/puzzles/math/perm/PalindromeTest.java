@@ -11,24 +11,15 @@ class PalindromeTest {
     public void testArrayIsPalindrome() {
         final Map[] arr = new Map[3];
         arr[0] = Map.of("Hello", "World", "Foo", "Bar");
-        arr[1] = Map.of("Middle doesn't" , "really matter");
+        arr[1] = Map.of("Middle doesn't", "really matter");
         arr[2] = Map.of("Hello", "World", "Foo", "Bar");
         Assertions.assertTrue(Palindrome.isPalindrome(arr));
     }
 
     @Test
     public void testArrayIsNotPalindrome() {
-        final String[] notPalindrome = new String[] {
-                "this",
-                "is",
-                "nearly",
-                "a",
-                "palindrome",
-                "a",
-                "nearly",
-                "i5",
-                "this",
-        };
+        final String[] notPalindrome =
+                new String[]{"this", "is", "nearly", "a", "palindrome", "a", "nearly", "i5", "this",};
         Assertions.assertFalse(Palindrome.isPalindrome(notPalindrome));
     }
 

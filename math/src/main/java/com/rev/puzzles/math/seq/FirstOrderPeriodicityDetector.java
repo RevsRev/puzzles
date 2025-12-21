@@ -115,11 +115,9 @@ public final class FirstOrderPeriodicityDetector implements PeriodicityDetector 
             validate();
 
             final DifferenceSequence differenceSequence = new DifferenceSequence(sequence, maxThreshold);
-            final DirectPeriodicityDetector directDetector = new DirectPeriodicityDetector.Builder(differenceSequence)
-                    .setMaxPeriod(maxPeriod)
-                    .setMaxThreshold(maxThreshold - 1)
-                    .setPeriodDetectionCycles(periodDetectionCycles)
-                    .build();
+            final DirectPeriodicityDetector directDetector =
+                    new DirectPeriodicityDetector.Builder(differenceSequence).setMaxPeriod(maxPeriod)
+                            .setMaxThreshold(maxThreshold - 1).setPeriodDetectionCycles(periodDetectionCycles).build();
 
             return new FirstOrderPeriodicityDetector(differenceSequence, directDetector);
         }

@@ -50,10 +50,7 @@ public final class SetUtils {
         return results;
     }
 
-    private static <T> void setsOfSizeN(final T[] input,
-                                        final T[] set,
-                                        final int inputIndex,
-                                        final int setIndex,
+    private static <T> void setsOfSizeN(final T[] input, final T[] set, final int inputIndex, final int setIndex,
                                         final Consumer<T[]> consumer) {
         if (setIndex == set.length) {
             consumer.accept(set);
@@ -75,39 +72,25 @@ public final class SetUtils {
     }
 
     public static <T> List<T[]> subsetsOfSizeLeqN(final T[] input, final T[] set, final int inputStart) {
-        return constrainedSetsOfSizeLeqN(
-                input,
-                set,
-                inputStart,
-                Constraint.unconstrained()
-        );
+        return constrainedSetsOfSizeLeqN(input, set, inputStart, Constraint.unconstrained());
     }
 
-    public static <T> List<T[]> constrainedSetsOfSizeLeqN(
-            final T[] input,
-            final T[] set,
-            final Constraint<T> constraint) {
+    public static <T> List<T[]> constrainedSetsOfSizeLeqN(final T[] input, final T[] set,
+                                                          final Constraint<T> constraint) {
         return constrainedSetsOfSizeLeqN(input, set, 0, constraint);
     }
 
-    public static <T> List<T[]> constrainedSetsOfSizeLeqN(
-            final T[] input,
-            final T[] set,
-            final int inputStart,
-            final Constraint<T> constraint) {
+    public static <T> List<T[]> constrainedSetsOfSizeLeqN(final T[] input, final T[] set, final int inputStart,
+                                                          final Constraint<T> constraint) {
         final List<T[]> results = new ArrayList<>();
         Consumer<T[]> consumer = arr -> results.add(arr);
         constrainedSetsOfSizeLeqN(input, set, inputStart, 0, constraint, consumer);
         return results;
     }
 
-    private static <T> void constrainedSetsOfSizeLeqN(
-            final T[] input,
-            final T[] set,
-            final int inputIndex,
-            final int setIndex,
-            final Constraint<T> constraint,
-            final Consumer<T[]> consumer) {
+    private static <T> void constrainedSetsOfSizeLeqN(final T[] input, final T[] set, final int inputIndex,
+                                                      final int setIndex, final Constraint<T> constraint,
+                                                      final Consumer<T[]> consumer) {
 
         if (setIndex <= set.length) {
             if (constraint.satisfied(setIndex, set)) {
@@ -156,21 +139,16 @@ public final class SetUtils {
         return solutions;
     }
 
-    public static void divideIntoEqualBins(
-            final long[] arr,
-            final int numberOfBins,
-            final BiConsumer<long[][], int[]> solutionConsumer) {
+    public static void divideIntoEqualBins(final long[] arr, final int numberOfBins,
+                                           final BiConsumer<long[][], int[]> solutionConsumer) {
         if (arr.length == 0) {
             return;
         }
 
         final long sum = Arrays.stream(arr).sum();
         if (sum % numberOfBins != 0) {
-            throw new IllegalArgumentException(String.format(
-                    "Cannot divide '%s' equally amongst '%s' bins",
-                    sum,
-                    numberOfBins)
-            );
+            throw new IllegalArgumentException(
+                    String.format("Cannot divide '%s' equally amongst '%s' bins", sum, numberOfBins));
         }
 
         final long binSize = sum / numberOfBins;
@@ -184,15 +162,9 @@ public final class SetUtils {
         divideIntoEqualBins(arr, 0, bins, binSize, binEnds, binSums, solutionConsumer);
     }
 
-    private static void divideIntoEqualBins(
-            final long[] arr,
-            final int arrayIndex,
-            final long[][] bins,
-            final long binSize,
-            final int[] binEnds,
-            final long[] binSums,
-            final BiConsumer<long[][], int[]> solutionConsumer
-    ) {
+    private static void divideIntoEqualBins(final long[] arr, final int arrayIndex, final long[][] bins,
+                                            final long binSize, final int[] binEnds, final long[] binSums,
+                                            final BiConsumer<long[][], int[]> solutionConsumer) {
 
         if (arrayIndex == arr.length) {
             solutionConsumer.accept(bins, binEnds);

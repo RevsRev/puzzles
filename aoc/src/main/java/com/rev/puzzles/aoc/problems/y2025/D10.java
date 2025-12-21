@@ -23,25 +23,19 @@ public final class D10 {
     @AocProblemI(year = 2025, day = 10, part = 1)
     public long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         Map<char[], List<Set<Integer>>> statesAndButtons = new HashMap<>();
-        resourceLoader.resources()
-                .stream().forEach(
-                        s -> {
-                            final String[] split = s.split("\\s+");
-                            final char[] lights = split[0]
-                                    .replaceAll("\\[", "")
-                                    .replaceAll("]", "")
-                                    .toCharArray();
+        resourceLoader.resources().stream().forEach(s -> {
+            final String[] split = s.split("\\s+");
+            final char[] lights = split[0].replaceAll("\\[", "").replaceAll("]", "").toCharArray();
 
-                            List<Set<Integer>> buttonsList = new ArrayList<>();
-                            for (int i = 1; i < split.length -1; i++) {
-                                final String[] buttons = split[i].replaceAll("\\(", "").replaceAll("\\)", "").split(",");
-                                final Set<Integer> buttonsSet = Arrays.stream(buttons).map(but -> Integer.parseInt(but))
-                                        .collect(Collectors.toSet());
-                                buttonsList.add(buttonsSet);
-                            }
-                            statesAndButtons.put(lights, buttonsList);
-                        }
-                );
+            List<Set<Integer>> buttonsList = new ArrayList<>();
+            for (int i = 1; i < split.length - 1; i++) {
+                final String[] buttons = split[i].replaceAll("\\(", "").replaceAll("\\)", "").split(",");
+                final Set<Integer> buttonsSet =
+                        Arrays.stream(buttons).map(but -> Integer.parseInt(but)).collect(Collectors.toSet());
+                buttonsList.add(buttonsSet);
+            }
+            statesAndButtons.put(lights, buttonsList);
+        });
 
         long totalPresses = 0;
         for (final Map.Entry<char[], List<Set<Integer>>> stateAndButtons : statesAndButtons.entrySet()) {
@@ -53,31 +47,27 @@ public final class D10 {
     @AocProblemI(year = 2025, day = 10, part = 2)
     public long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         Map<int[], List<Set<Integer>>> joltagesAndButtons = new HashMap<>();
-        resourceLoader.resources()
-                .stream().forEach(
-                        s -> {
-                            final String[] split = s.split("\\s+");
-                            final String joltagesStr = split[split.length - 1]
-                                    .replaceAll("\\{", "")
-                                    .replaceAll("}", "");
-                            final int[] joltages =
-                                    Arrays.stream(joltagesStr.split(",")).map(Integer::parseInt).mapToInt(i -> i).toArray();
+        resourceLoader.resources().stream().forEach(s -> {
+            final String[] split = s.split("\\s+");
+            final String joltagesStr = split[split.length - 1].replaceAll("\\{", "").replaceAll("}", "");
+            final int[] joltages =
+                    Arrays.stream(joltagesStr.split(",")).map(Integer::parseInt).mapToInt(i -> i).toArray();
 
-                            List<Set<Integer>> buttonsList = new ArrayList<>();
-                            for (int i = 1; i < split.length -1; i++) {
-                                final String[] buttons = split[i].replaceAll("\\(", "").replaceAll("\\)", "").split(",");
-                                final Set<Integer> buttonsSet = Arrays.stream(buttons).map(but -> Integer.parseInt(but))
-                                        .collect(Collectors.toSet());
-                                buttonsList.add(buttonsSet);
-                            }
-                            joltagesAndButtons.put(joltages, buttonsList);
-                        }
-                );
+            List<Set<Integer>> buttonsList = new ArrayList<>();
+            for (int i = 1; i < split.length - 1; i++) {
+                final String[] buttons = split[i].replaceAll("\\(", "").replaceAll("\\)", "").split(",");
+                final Set<Integer> buttonsSet =
+                        Arrays.stream(buttons).map(but -> Integer.parseInt(but)).collect(Collectors.toSet());
+                buttonsList.add(buttonsSet);
+            }
+            joltagesAndButtons.put(joltages, buttonsList);
+        });
 
         long totalPresses = 0;
         for (final Map.Entry<int[], List<Set<Integer>>> joltageAndButtons : joltagesAndButtons.entrySet()) {
             System.out.println("Computing joltages for: " + Arrays.toString(joltageAndButtons.getKey()));
-            totalPresses += computeNumPressesToConfigureJoltage(joltageAndButtons.getKey(), joltageAndButtons.getValue());
+            totalPresses +=
+                    computeNumPressesToConfigureJoltage(joltageAndButtons.getKey(), joltageAndButtons.getValue());
         }
         return totalPresses;
     }

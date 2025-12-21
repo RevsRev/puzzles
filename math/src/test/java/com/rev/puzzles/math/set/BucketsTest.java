@@ -18,9 +18,7 @@ public class BucketsTest {
     }
 
     public static List<Pair<long[], Long>> getTestCases() {
-        return List.of(
-                Pair.of(new long[]{15, 20, 5, 10, 5}, 4L)
-        );
+        return List.of(Pair.of(new long[]{15, 20, 5, 10, 5}, 4L));
     }
 
 }

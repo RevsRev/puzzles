@@ -15,25 +15,21 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class D09
-{
+public final class D09 {
 
     @AocProblemI(year = 2025, day = 9, part = 1)
-    public long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader)
-    {
+    public long partOneImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
 
         final List<GridPoint> redTiles = getGridPoints(resourceLoader);
 
         long maxArea = 0;
 
-        for (int i = 0; i < redTiles.size(); i++)
-        {
-            for (int j = i; j < redTiles.size(); j++)
-            {
+        for (int i = 0; i < redTiles.size(); i++) {
+            for (int j = i; j < redTiles.size(); j++) {
                 final GridPolygon rectangle = GridPolygonBuilder.rectangle(redTiles.get(i), redTiles.get(j), true);
                 maxArea = Math.max(maxArea, rectangle.area());
             }
@@ -43,8 +39,7 @@ public final class D09
     }
 
     @AocProblemI(year = 2025, day = 9, part = 2)
-    public long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader)
-    {
+    public long partTwoImpl(final ProblemResourceLoader<List<String>> resourceLoader) {
         final List<GridPoint> redTiles = getGridPoints(resourceLoader);
 
         final List<GridPoint> loopedList = new ArrayList<>(redTiles);
@@ -53,10 +48,8 @@ public final class D09
         final GridPolygon polygon = GridPolygonBuilder.createFromGridSquareCorners(loopedList);
 
         long maxArea = 0;
-        for (int i = 0; i < loopedList.size(); i++)
-        {
-            for (int j = i; j < loopedList.size(); j++)
-            {
+        for (int i = 0; i < loopedList.size(); i++) {
+            for (int j = i; j < loopedList.size(); j++) {
                 final GridPolygon rectangle = GridPolygonBuilder.rectangle(loopedList.get(i), loopedList.get(j), true);
                 final long area = rectangle.area();
                 if (area > maxArea && rectangle.isInteriorOf(polygon)) {
@@ -80,10 +73,8 @@ public final class D09
         long maxArea = 0;
         GridPolygon maxRectangle = null;
 
-        for (int i = 0; i < loopedList.size(); i++)
-        {
-            for (int j = i; j < loopedList.size(); j++)
-            {
+        for (int i = 0; i < loopedList.size(); i++) {
+            for (int j = i; j < loopedList.size(); j++) {
                 final GridPolygon rectangle = GridPolygonBuilder.rectangle(loopedList.get(i), loopedList.get(j), true);
                 final long area = rectangle.area();
                 if (area > maxArea && rectangle.isInteriorOf(polygon)) {
@@ -127,7 +118,7 @@ public final class D09
         frame.setVisible(true);
     }
 
-    private static List<GridPoint> getGridPoints(ProblemResourceLoader<List<String>> resourceLoader) {
+    private static List<GridPoint> getGridPoints(final ProblemResourceLoader<List<String>> resourceLoader) {
         final List<GridPoint> redTiles = resourceLoader.resources().stream().map(
                 s -> {
                     final String[] split = s.replaceAll("\\s+", "").split(",");

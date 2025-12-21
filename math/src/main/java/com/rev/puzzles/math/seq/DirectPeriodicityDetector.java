@@ -17,12 +17,8 @@ public final class DirectPeriodicityDetector implements PeriodicityDetector {
     private BigInteger[] cachedSequence;
     private final List<BigInteger> detectedPeriodicSubsequence = new ArrayList<>();
 
-    private DirectPeriodicityDetector(
-            final int maxPeriod,
-            final int maxThreshold,
-            final int periodDetectionCycles,
-            final Supplier<BigInteger> sequence
-    ) {
+    private DirectPeriodicityDetector(final int maxPeriod, final int maxThreshold, final int periodDetectionCycles,
+                                      final Supplier<BigInteger> sequence) {
         this.maxPeriod = maxPeriod;
         this.maxThreshold = maxThreshold;
         this.periodDetectionCycles = periodDetectionCycles;
@@ -46,8 +42,8 @@ public final class DirectPeriodicityDetector implements PeriodicityDetector {
             boolean periodDetected = true;
             for (int j = 1; j < periodDetectionCycles; j++) {
                 for (int k = 0; k < periodCandidate; k++) {
-                    if (!cachedSequence[cachedSequence.length - 1 - periodCandidate * j - k]
-                            .equals(subSequence.get(k))) {
+                    if (!cachedSequence[cachedSequence.length - 1 - periodCandidate * j - k].equals(
+                            subSequence.get(k))) {
                         periodDetected = false;
                         break;
                     }

@@ -27,21 +27,15 @@ public final class SubGraphs {
                     if (!graph.getNeighbours(first).contains(second)) {
                         continue;
                     }
-                    final Graph.Builder<V, E> subGraphBuilder = new Graph.Builder<>(
-                            graph.getVertexCreator(),
-                            graph.getEdgeCreator(),
-                            false);
+                    final Graph.Builder<V, E> subGraphBuilder =
+                            new Graph.Builder<>(graph.getVertexCreator(), graph.getEdgeCreator(), false);
 
                     subGraphBuilder.addVertex(node.getName());
                     subGraphBuilder.addVertex(first.getName());
                     subGraphBuilder.addVertex(second.getName());
-                    subGraphBuilder.addEdge(
-                            node.getName(),
-                            first.getName(),
+                    subGraphBuilder.addEdge(node.getName(), first.getName(),
                             graph.getEdge(node, first).get().getWeight());
-                    subGraphBuilder.addEdge(
-                            node.getName(),
-                            second.getName(),
+                    subGraphBuilder.addEdge(node.getName(), second.getName(),
                             graph.getEdge(node, second).get().getWeight());
 
                     final Graph<V, E> subGraph = subGraphBuilder.build();

@@ -13,18 +13,11 @@ class DiscreteMonteCarloTest {
     public void testMonteCarloWithSixSidedDie() {
         final Distribution<Integer> die = new SixSidedDie();
         final Set<Integer> values = Set.of(1, 2, 3, 4, 5, 6);
-        final DiscreteMonteCarlo<Integer> monteCarlo = new DiscreteMonteCarlo<>(
-                die,
-                values,
-                100,
-                0.0001
-        );
+        final DiscreteMonteCarlo<Integer> monteCarlo = new DiscreteMonteCarlo<>(die, values, 100, 0.0001);
 
         final Map<Integer, Double> probabilities = monteCarlo.run();
         Assertions.assertEquals(values, probabilities.keySet());
-        probabilities.values().forEach(
-                v -> Assertions.assertTrue(Math.abs(v - 1 / 6d) < 0.01)
-        );
+        probabilities.values().forEach(v -> Assertions.assertTrue(Math.abs(v - 1 / 6d) < 0.01));
     }
 
     private static final class SixSidedDie implements Distribution<Integer> {

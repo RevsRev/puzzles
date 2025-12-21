@@ -30,11 +30,8 @@ public final class SieveOfEratosthenes {
         return new SieveOfEratosthenes(highWaterMark, primes, maxSegmentSize);
     }
 
-    private static long sieve(
-            final long n,
-            final long highWaterMark,
-            final int maxSegmentSize,
-            final List<Long> primes) {
+    private static long sieve(final long n, final long highWaterMark, final int maxSegmentSize,
+                              final List<Long> primes) {
         long segmentStart = highWaterMark + 1;
         long segmentSize = Math.min(maxSegmentSize, (int) (n + 1 - segmentStart));
         long segmentEnd = segmentStart + segmentSize;

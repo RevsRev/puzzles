@@ -6,7 +6,8 @@ import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FirstOrderPeriodicityDetectorTest {
 
@@ -19,12 +20,9 @@ class FirstOrderPeriodicityDetectorTest {
 
         final AtomicInteger index = new AtomicInteger(0);
 
-        final FirstOrderPeriodicityDetector detector = new FirstOrderPeriodicityDetector.Builder(
-                () -> sequence[index.getAndIncrement()])
-                .setMaxPeriod(3)
-                .setMaxThreshold(30)
-                .setPeriodDetectionCycles(5)
-                .build();
+        final FirstOrderPeriodicityDetector detector =
+                new FirstOrderPeriodicityDetector.Builder(() -> sequence[index.getAndIncrement()]).setMaxPeriod(3)
+                        .setMaxThreshold(30).setPeriodDetectionCycles(5).build();
 
         assertTrue(detector.detect());
         assertEquals(3, detector.getDetectedPeriodLength());
@@ -40,12 +38,9 @@ class FirstOrderPeriodicityDetectorTest {
 
         final AtomicInteger index = new AtomicInteger(0);
 
-        final FirstOrderPeriodicityDetector detector = new FirstOrderPeriodicityDetector.Builder(
-                () -> sequence[index.getAndIncrement()])
-                .setMaxPeriod(3)
-                .setMaxThreshold(30)
-                .setPeriodDetectionCycles(5)
-                .build();
+        final FirstOrderPeriodicityDetector detector =
+                new FirstOrderPeriodicityDetector.Builder(() -> sequence[index.getAndIncrement()]).setMaxPeriod(3)
+                        .setMaxThreshold(30).setPeriodDetectionCycles(5).build();
 
         assertTrue(detector.detect());
         assertEquals(1, detector.getDetectedPeriodLength());
@@ -68,10 +63,8 @@ class FirstOrderPeriodicityDetectorTest {
         assertTrue(detector.detect());
         assertEquals(71, detector.getDetectedPeriodLength());
         final BigInteger testIndex = BigInteger.valueOf(230_001L);
-        assertEquals(
-                testIndex.add(testIndex.multiply(testIndex).mod(seventyOne)),
-                detector.getSequenceElement(testIndex)
-        );
+        assertEquals(testIndex.add(testIndex.multiply(testIndex).mod(seventyOne)),
+                detector.getSequenceElement(testIndex));
     }
 
     @Test
@@ -80,10 +73,7 @@ class FirstOrderPeriodicityDetectorTest {
         final AtomicInteger index = new AtomicInteger(0);
 
         final FirstOrderPeriodicityDetector detector = new FirstOrderPeriodicityDetector.Builder(
-                () -> BigInteger.valueOf(ulam.at(index.getAndIncrement()))
-        )
-                .setMaxThreshold(1001)
-                .setMaxPeriod(200)
+                () -> BigInteger.valueOf(ulam.at(index.getAndIncrement()))).setMaxThreshold(1001).setMaxPeriod(200)
                 .build();
 
         assertTrue(detector.detect());

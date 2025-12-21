@@ -12,10 +12,7 @@ import java.util.Set;
 public record PointRectangle(int x, int y, int w, int h) {
 
     public static boolean overlapping(final PointRectangle a, final PointRectangle b) {
-        return a.x <= b.x + b.w
-                && b.x <= a.x + a.w
-                && a.y <= b.y + b.h
-                && b.y <= a.y + a.h;
+        return a.x <= b.x + b.w && b.x <= a.x + a.w && a.y <= b.y + b.h && b.y <= a.y + a.h;
     }
 
     public static Optional<PointRectangle> getOverlappingRegion(final PointRectangle a, final PointRectangle b) {
@@ -55,9 +52,7 @@ public record PointRectangle(int x, int y, int w, int h) {
             }
             //deal with bottom split
             if (subInSup.y + subInSup.h < sup.y + sup.h) {
-                compliment.add(new PointRectangle(sup.x,
-                        subInSup.y + subInSup.h + 1,
-                        w,
+                compliment.add(new PointRectangle(sup.x, subInSup.y + subInSup.h + 1, w,
                         (sup.y + sup.h) - (subInSup.y + subInSup.h + 1)));
             }
             //deal with the (vertical) middle
@@ -73,9 +68,7 @@ public record PointRectangle(int x, int y, int w, int h) {
             }
             //deal with bottom split
             if (subInSup.y + subInSup.h < sup.y + sup.h) {
-                compliment.add(new PointRectangle(subInSup.x + subInSup.w + 1,
-                        subInSup.y + subInSup.h + 1,
-                        w,
+                compliment.add(new PointRectangle(subInSup.x + subInSup.w + 1, subInSup.y + subInSup.h + 1, w,
                         (sup.y + sup.h) - (subInSup.y + subInSup.h + 1)));
             }
             //deal with the (vertical) middle
@@ -89,9 +82,7 @@ public record PointRectangle(int x, int y, int w, int h) {
         }
         //deal with bottom split
         if (subInSup.y + subInSup.h < sup.y + sup.h) {
-            compliment.add(new PointRectangle(subInSup.x,
-                    subInSup.y + subInSup.h + 1,
-                    w,
+            compliment.add(new PointRectangle(subInSup.x, subInSup.y + subInSup.h + 1, w,
                     (sup.y + sup.h) - (subInSup.y + subInSup.h + 1)));
         }
         //(ignore the (vertical) middle)
@@ -101,11 +92,6 @@ public record PointRectangle(int x, int y, int w, int h) {
 
     @Override
     public String toString() {
-        return "Rectangle{"
-                + "x=" + x
-                + ", y=" + y
-                + ", w=" + w
-                + ", h=" + h
-                + '}';
+        return "Rectangle{" + "x=" + x + ", y=" + y + ", w=" + w + ", h=" + h + '}';
     }
 }

@@ -45,11 +45,7 @@ public final class Vec3 {
     }
 
     public static Vec3 minus(final Vec3 first, final Vec3 second) {
-        return new Vec3(
-                first.x - second.x,
-                first.y - second.y,
-                first.z - second.z
-        );
+        return new Vec3(first.x - second.x, first.y - second.y, first.z - second.z);
     }
 
     public void mult(double a) {

@@ -58,8 +58,7 @@ public final class TravellingSalesman {
                         V v2 = vertices.get(m);
                         if (graph.containsEdge(v1, v2)) {
                             final long value =
-                                    cache.get(Pair.of(mutablePermSet, m))
-                                            + graph.getEdge(v1, v2).get().getWeight();
+                                    cache.get(Pair.of(mutablePermSet, m)) + graph.getEdge(v1, v2).get().getWeight();
                             if (value < smallest) {
                                 smallest = value;
                             }

@@ -7,32 +7,34 @@ import com.rev.puzzles.math.graph.Vertex;
 
 import java.util.function.BiFunction;
 
-public class Routes {
+public final class Routes {
+
+    private Routes() {
+    }
 
     /**
      * Assumes a directed graph going from start to end
+     *
      * @param graph
      * @param startVertex
      * @param endVertex
-     * @return
      * @param <V>
      * @param <E>
+     * @return
      */
-    public static <V extends Vertex, E extends Edge> long numRoutesFromAToB(
-            final Graph<V, E> graph,
-            final V startVertex,
-            final V endVertex
-    ) {
+    public static <V extends Vertex, E extends Edge> long numRoutesFromAToB(final Graph<V, E> graph,
+                                                                            final V startVertex, final V endVertex) {
         final DynamicProgram<V, Long> dp = new DynamicProgram<>(new RouteDpFunction<>(graph, endVertex));
         return dp.compute(startVertex);
     }
 
-    private static final class RouteDpFunction<V extends Vertex, E extends Edge> implements BiFunction<DynamicProgram<V, Long>, V, Long> {
+    private static final class RouteDpFunction<V extends Vertex, E extends Edge> implements
+            BiFunction<DynamicProgram<V, Long>, V, Long> {
 
-        final Graph<V, E> graph;
+        private final Graph<V, E> graph;
         private final Vertex endVertex;
 
-        public RouteDpFunction(final Graph<V, E> graph, final V endVertex) {
+        RouteDpFunction(final Graph<V, E> graph, final V endVertex) {
             this.graph = graph;
             this.endVertex = endVertex;
         }

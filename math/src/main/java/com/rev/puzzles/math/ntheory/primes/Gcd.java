@@ -48,8 +48,7 @@ public final class Gcd {
     }
 
     @SuppressWarnings("checkstyle:FinalParameters")
-    public static List<BigInteger[]> euclid(BigInteger a,
-                                            BigInteger b) {
+    public static List<BigInteger[]> euclid(BigInteger a, BigInteger b) {
         if (b.compareTo(a) > 0) {
             return euclid(b, a);
         }

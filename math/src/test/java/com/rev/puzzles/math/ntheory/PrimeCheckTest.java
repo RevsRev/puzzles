@@ -17,18 +17,9 @@ public class PrimeCheckTest {
     }
 
     public static List<Pair<Long, Boolean>> primeCheckTestParams() {
-        return List.of(
-                Pair.of(1L, false),
-                Pair.of(2L, true),
-                Pair.of(4L, false),
-                Pair.of(3L, true),
-                Pair.of(11L, true),
-                Pair.of(15L, false),
-                Pair.of(113L, true),
-                Pair.of(215L, false),
-                Pair.of(9839L, true),
-                Pair.of(21662657L, false)
-        );
+        return List.of(Pair.of(1L, false), Pair.of(2L, true), Pair.of(4L, false), Pair.of(3L, true), Pair.of(11L, true),
+                Pair.of(15L, false), Pair.of(113L, true), Pair.of(215L, false), Pair.of(9839L, true),
+                Pair.of(21662657L, false));
     }
 
 }
