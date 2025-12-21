@@ -18,6 +18,7 @@
         <maven-checkstyle-plugin.config-location>${project.parent.basedir}/checkstyle.xml
         </maven-checkstyle-plugin.config-location>
         <ojalgo.version>56.1.1</ojalgo.version>
+        <jfreechart.version>1.0.13</jfreechart.version>
     </properties>
 
     <dependencies>
@@ -40,6 +41,11 @@
             <groupId>org.ojalgo</groupId>
             <artifactId>ojalgo</artifactId>
             <version>${ojalgo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>${jfreechart.version}</version>
         </dependency>
     </dependencies>
 
