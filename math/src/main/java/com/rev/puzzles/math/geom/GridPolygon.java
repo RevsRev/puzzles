@@ -4,9 +4,7 @@ import com.rev.puzzles.math.geom.result.EmptyIntersectionResult;
 import com.rev.puzzles.math.geom.result.IntersectionResult;
 import com.rev.puzzles.math.linalg.matrix.Mat2;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 
 import static com.rev.puzzles.math.geom.DirectionV2.LEFT;
@@ -15,6 +13,9 @@ public class GridPolygon {
 
     final List<PolygonSide> sides;
     final int windingNumber;
+
+    private List<PolygonSide> leftSortedSides = null;
+    private final Map<GridPoint, Boolean> containsCache = new HashMap<>();
 
     GridPolygon(List<PolygonSide> sides, int windingNumber) {
         this.sides = sides;
@@ -27,12 +28,17 @@ public class GridPolygon {
     }
 
     public boolean contains(final GridPoint point) {
-        final List<PolygonSide> sortedSides = sides.stream().sorted(PolygonSide.extremalSideComparator(LEFT).reversed()).toList();
+        final List<PolygonSide> sortedSides = getLeftSortedSides();
+
+        if (containsCache.containsKey(point)) {
+            return containsCache.get(point);
+        }
 
         int timesEntered = 0;
         int timesExited = 0;
         for (final PolygonSide side : sortedSides) {
             if (side.side.contains(point)) {
+                containsCache.put(point, true);
                 return true;
             }
             if ((side.normal == LEFT || side.normal == LEFT.opposite()) && side.side.minX() <= point.x()) {
@@ -45,7 +51,16 @@ public class GridPolygon {
 
         //The equality case is always false: we've either started outside the polygon and gone in / out same number of times,
         //or we started on a horizontal side (which would return true), but this is caught by the early return.
-        return timesExited > timesEntered;
+        boolean contains = timesExited > timesEntered;
+        containsCache.put(point, contains);
+        return contains;
+    }
+
+    private List<PolygonSide> getLeftSortedSides() {
+        if (leftSortedSides == null) {
+            leftSortedSides = sides.stream().sorted(PolygonSide.extremalSideComparator(LEFT).reversed()).toList();
+        }
+        return leftSortedSides;
     }
 
     public boolean isInteriorOf(final GridPolygon maybeExterior) {
