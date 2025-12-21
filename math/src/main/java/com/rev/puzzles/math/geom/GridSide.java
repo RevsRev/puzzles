@@ -53,6 +53,22 @@ public final class GridSide {
         return direction;
     }
 
+    public long minX() {
+        return Math.min(start.x(), end.x());
+    }
+
+    public long maxX() {
+        return Math.max(start.x(), end.x());
+    }
+
+    public long minY() {
+        return Math.min(start.y(), end.y());
+    }
+
+    public long maxY() {
+        return Math.max(start.y(), end.y());
+    }
+
     public boolean contains(final GridPoint p) {
         return switch (direction) {
             case UP -> p.x() == start.x() && start.y() <= p.y() && p.y() <= end.y();

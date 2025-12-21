@@ -7,6 +7,7 @@ import com.rev.puzzles.math.geom.result.PointIntersectionResult;
 import com.rev.puzzles.math.geom.result.PointSideIntersectionResult;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.rev.puzzles.math.geom.DirectionV2.*;
@@ -177,7 +178,7 @@ public class GridPolygonBuilder {
         private static ConstructionIterationPolicy factory(final List<GridPoint> points) {
             boolean closedPointsList = points.getFirst().equals(points.getLast());
             final List<GridPolygon> rectangles = parsePointsToRectanglesWithClockwiseWindingNumber(points);
-            final int index = getALeftMostSide(rectangles);
+            final int index = getAnExtremalBoundarySide(rectangles, LEFT);
             if (closedPointsList) {
                 return new ClosedPointsConstructionIterationPolicy(rectangles, index);
             }
@@ -185,17 +186,23 @@ public class GridPolygonBuilder {
             return new OpenPointsConstructionIterationPolicy(rectangles, index, ascending);
         }
 
-        private static int getALeftMostSide(List<GridPolygon> rectangles) {
-            PolygonSide candidateLeftSide = rectangles.getFirst().sides.stream().filter(s -> s.normal.equals(LEFT)).findFirst().orElseThrow();
+        private static int getAnExtremalBoundarySide(List<GridPolygon> rectangles, DirectionV2 direction) {
+
+            final Comparator<PolygonSide> comparator = PolygonSide.extremalSideComparator(direction);
+
+            final Comparator<GridPolygon> leftMostComparator = (a, b) -> {
+                final PolygonSide leftMostFromA = a.getAnExtremalBoundarySide(direction);
+                final PolygonSide leftMostFromB = b.getAnExtremalBoundarySide(direction);
+                return comparator.compare(leftMostFromA, leftMostFromB);
+            };
+
+            GridPolygon candidate = rectangles.getFirst();
             int index = 0;
             for (int i = 1; i < rectangles.size(); i++) {
                 GridPolygon rectangle = rectangles.get(i);
-                final PolygonSide side = rectangle.sides.stream().filter(s -> s.normal.equals(LEFT)).findFirst().orElseThrow();
 
-                //we're more left, or we're the same left and equal length (to avoid nasty edge case of starting on one side that is a sub-side of a longer side)
-                if (side.side.start().x() < candidateLeftSide.side.start().x()
-                        || side.side.start().x() == candidateLeftSide.side.start().x() && side.side.length() > candidateLeftSide.side.length()) {
-                    candidateLeftSide = side;
+                if (leftMostComparator.compare(rectangle, candidate) > 0) {
+                    candidate = rectangle;
                     index = i;
                 }
             }
