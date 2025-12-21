@@ -383,4 +383,83 @@ class GridPolygonTest {
                         lPolygon.sides
                 ));
     }
+
+    @Test
+    void testOneRectangleIsInteriorOfAnother() {
+        final GridPolygon interior = GridPolygonBuilder.createFromGridSquareCorners(List.of(new GridPoint(1, 2), new GridPoint(1, 10)));
+        final GridPolygon exterior = GridPolygonBuilder.createFromGridSquareCorners(List.of(new GridPoint(1, 2), new GridPoint(1, 15)));
+        assertAll(
+                () -> assertTrue(interior.isInteriorOf(exterior)),
+                () -> assertFalse(exterior.isInteriorOf(interior))
+        );
+    }
+
+    @Test
+    void testDisjointRectanglesAreNotInteriorOfEachOther() {
+        final GridPolygon first = GridPolygonBuilder.createFromGridSquareCorners(List.of(new GridPoint(1, 2), new GridPoint(1, 10)));
+        final GridPolygon second = GridPolygonBuilder.createFromGridSquareCorners(List.of(new GridPoint(1, 11), new GridPoint(1, 15)));
+        assertAll(
+                () -> assertFalse(first.isInteriorOf(second)),
+                () -> assertFalse(second.isInteriorOf(first))
+        );
+    }
+
+    @Test
+    void testRectangleIsInteriorOfUShape() {
+        final GridPolygon uShape = GridPolygonBuilder.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(0, 2),
+                        new GridPoint(0, 0),
+                        new GridPoint(4, 0),
+                        new GridPoint(4, 2)
+                )
+        );
+
+        final GridPolygon rectangle = GridPolygonBuilder.createFromGridSquareCorners(List.of(new GridPoint(0, 0), new GridPoint(0, 2)));
+        assertAll(
+                () -> assertTrue(rectangle.isInteriorOf(uShape)),
+                () -> assertFalse(uShape.isInteriorOf(rectangle))
+        );
+    }
+
+    @Test
+    void testShapeIsInteriorOfItself() {
+        final GridPolygon uShape = GridPolygonBuilder.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(0, 2),
+                        new GridPoint(0, 0),
+                        new GridPoint(4, 0),
+                        new GridPoint(4, 2)
+                )
+        );
+
+        assertTrue(uShape.isInteriorOf(uShape));
+    }
+
+    @Test
+    void testUShapeIsInteriorOfBigRectangle() {
+        final GridPolygon uShape = GridPolygonBuilder.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(0, 2),
+                        new GridPoint(0, 0),
+                        new GridPoint(4, 0),
+                        new GridPoint(4, 2)
+                )
+        );
+
+        final GridPolygon rectangle = GridPolygonBuilder.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(0, 0),
+                        new GridPoint(0, 5),
+                        new GridPoint(8, 5),
+                        new GridPoint(8, 0),
+                        new GridPoint(0, 0)
+                )
+        );
+
+        assertAll(
+                () -> assertFalse(rectangle.isInteriorOf(uShape)),
+                () -> assertTrue(uShape.isInteriorOf(rectangle))
+        );
+    }
 }

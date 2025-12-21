@@ -1,5 +1,8 @@
 package com.rev.puzzles.math.geom;
 
+import com.rev.puzzles.math.geom.result.EmptyIntersectionResult;
+import com.rev.puzzles.math.geom.result.IntersectionResult;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +40,25 @@ public class GridPolygon {
             }
         }
         return boundariesPassed % 2 == 1;
+    }
+
+    public boolean isInteriorOf(final GridPolygon maybeExterior) {
+
+        for (PolygonSide maybeExteriorSide : maybeExterior.sides) {
+            for (PolygonSide maybeInteriorSide : sides) {
+                final IntersectionResult intersect = maybeExteriorSide.side.intersect(maybeInteriorSide.side);
+                switch (intersect) {
+                    case EmptyIntersectionResult emptyIntersectionResult -> {
+                        final GridPoint pointToTest = maybeInteriorSide.side.start();
+                        if (!maybeExterior.contains(pointToTest)) {
+                            return false;
+                        }
+                    }
+                    default -> {}
+                }
+            }
+        }
+        return true;
     }
 
     public static final class PolygonSide {
