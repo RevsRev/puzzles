@@ -35,20 +35,11 @@ public class GridPolygon {
 
         final List<GridPolygon> rectangles = parsePointsToRectanglesWithClockwiseWindingNumber(points);
 
-        //we've got all our constituent rectangles in order, now we just need to fix up the sides
         DirectionV2 normal = LEFT;
-        for (int i = 0; i < rectangles.getFirst().sides.size(); i++) {
-            if (rectangles.getFirst().sides.get(i).side.length() > 1) {
-                normal = rectangles.getFirst().sides.get(i).normal;
-                break;
-            }
-        }
-
         final List<PolygonSide> polygonSides = new ArrayList<>();
-        final DirectionV2 startNormal = normal;
         int windingNumber = 0;
-        boolean ascending = true;
-        int index = 0;
+        int index = getALeftMostSide(rectangles);
+        boolean ascending = index != rectangles.size() - 1;
 
         while (polygonSides.isEmpty() || !polygonSides.getFirst().side.start().equals(polygonSides.getLast().side.end())) {
 
@@ -96,27 +87,7 @@ public class GridPolygon {
                         }
                     } else {
                         if (polygonSides.isEmpty()) {
-                            PolygonSide sideToAdd = sideConsidered;
-                            for (GridPolygon rectangle : rectangles) {
-                                if (rectangle == first) {
-                                    continue;
-                                }
-
-                                for (PolygonSide side : rectangle.sides) {
-                                    if (side.side.intersect(sideConsidered.side) instanceof PointIntersectionResult firstIntersect && firstIntersect.intersection().equals(sideConsidered.side.start())) {
-                                        if (firstIntersect.intersection().equals(side.side.end())) {
-                                            sideToAdd = sideConsidered;
-                                        } else {
-                                            PolygonSide opposite = rectangle.sides.stream().filter(s -> s.normal == side.normal.opposite()).findFirst().orElseThrow();
-                                            switch (opposite.side.intersect(sideConsidered.side)) {
-                                                case PointIntersectionResult secondIntersect -> sideToAdd = new PolygonSide(GridSide.create(secondIntersect.intersection(), sideConsidered.side().end()), sideConsidered.normal);
-                                                default -> throw new IllegalStateException();
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            polygonSides.add(sideToAdd);
+                            polygonSides.add(sideConsidered);
                         } else {
                             polygonSides.add(new PolygonSide(GridSide.create(polygonSides.getLast().side().end(), sideConsidered.side().end()), sideConsidered.normal()));
                         }
@@ -140,6 +111,23 @@ public class GridPolygon {
         return new GridPolygon(polygonSides, windingNumber / 4);
     }
 
+    private static int getALeftMostSide(List<GridPolygon> rectangles) {
+        PolygonSide candidateLeftSide = rectangles.getFirst().sides.stream().filter(s -> s.normal.equals(LEFT)).findFirst().orElseThrow();
+        int index = 0;
+        for (int i = 1; i < rectangles.size(); i++) {
+            GridPolygon rectangle = rectangles.get(i);
+            final PolygonSide side = rectangle.sides.stream().filter(s -> s.normal.equals(LEFT)).findFirst().orElseThrow();
+
+            //we're more left, or we're the same left and equal length (to avoid nasty edge case of starting on one side that is a sub-side of a longer side)
+            if (side.side.start().x() < candidateLeftSide.side.start().x()
+                    || side.side.start().x() == candidateLeftSide.side.start().x() && side.side.length() > candidateLeftSide.side.length()) {
+                candidateLeftSide = side;
+                index = i;
+            }
+        }
+        return index;
+    }
+
     private static List<GridPolygon> parsePointsToRectanglesWithClockwiseWindingNumber(List<GridPoint> points) {
 
         int pointsWindingNumber = 0;
@@ -151,7 +139,7 @@ public class GridPolygon {
 
             final GridSide gridSide = GridSide.create(first, second);
             if (pointsDirection != null) {
-                pointsWindingNumber = pointsDirection.next().equals(gridSide.direction()) ? pointsWindingNumber + 1 : pointsWindingNumber -1;
+                pointsWindingNumber = pointsDirection.next().equals(gridSide.direction()) ? pointsWindingNumber + 1 : pointsWindingNumber - 1;
             }
             pointsDirection = gridSide.direction();
 
@@ -162,7 +150,7 @@ public class GridPolygon {
         //We have an "enclosed" shape, so we want to make sure we traverse it with a positive winding number
         if (points.getFirst().equals(points.getLast())) {
             final GridSide firstSide = GridSide.create(points.get(0), points.get(1));
-            pointsWindingNumber = pointsDirection.next().equals(firstSide.direction()) ? pointsWindingNumber + 1 : pointsWindingNumber -1;
+            pointsWindingNumber = pointsDirection.next().equals(firstSide.direction()) ? pointsWindingNumber + 1 : pointsWindingNumber - 1;
 
             if (pointsWindingNumber % 4 != 0) {
                 throw new IllegalStateException();

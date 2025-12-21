@@ -82,12 +82,12 @@ class GridPolygonTest {
                 () -> assertEquals(1, lPolygon.windingNumber),
                 () -> assertEquals(
                         List.of(
-                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 1), new GridPoint(5, 1)), UP),
-                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 1), new GridPoint(5, 0)), RIGHT),
-                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 0), new GridPoint(0, 0)), DOWN),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 3)), LEFT),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 3), new GridPoint(1, 3)), UP),
-                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 3), new GridPoint(1, 1)), RIGHT)
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 3), new GridPoint(1, 1)), RIGHT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 1), new GridPoint(5, 1)), UP),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 1), new GridPoint(5, 0)), RIGHT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 0), new GridPoint(0, 0)), DOWN)
                         ),
                         lPolygon.sides
                 ));
@@ -132,12 +132,12 @@ class GridPolygonTest {
                 () -> assertEquals(1, lPolygon.windingNumber),
                 () -> assertEquals(
                         List.of(
-                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 4)), LEFT),
-                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 4), new GridPoint(-10, 4)), DOWN),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(-10, 4), new GridPoint(-10, 5)), LEFT),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(-10, 5), new GridPoint(1, 5)), UP),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 5), new GridPoint(1, 0)), RIGHT),
-                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 0), new GridPoint(0, 0)), DOWN)
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 0), new GridPoint(0, 0)), DOWN),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 4)), LEFT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 4), new GridPoint(-10, 4)), DOWN)
                         ),
                         lPolygon.sides
                 ));
@@ -158,12 +158,12 @@ class GridPolygonTest {
                 () -> assertEquals(1, lPolygon.windingNumber),
                 () -> assertEquals(
                         List.of(
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(-6, 0), new GridPoint(-6, 1)), LEFT),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(-6, 1), new GridPoint(-1, 1)), UP),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(-1, 1), new GridPoint(-1, 4)), LEFT),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(-1, 4), new GridPoint(0, 4)), UP),
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 4), new GridPoint(0, 0)), RIGHT),
-                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(-6, 0)), DOWN),
-                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(-6, 0), new GridPoint(-6, 1)), LEFT)
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(-6, 0)), DOWN)
                         ),
                         lPolygon.sides
                 ));
