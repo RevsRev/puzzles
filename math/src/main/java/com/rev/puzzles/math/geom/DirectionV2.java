@@ -47,6 +47,10 @@ public enum DirectionV2 implements Iterable<DirectionV2> {
         return DirectionV2.opposite(this);
     }
 
+    public boolean perpendicularTo(final DirectionV2 other) {
+        return this == other.next() || this == other.previous();
+    }
+
     @SuppressWarnings("checkstyle:MagicNumber")
     public static DirectionV2 of(int i, int j) {
         if (i == 0 && j == 1) {

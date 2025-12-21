@@ -2,6 +2,7 @@ package com.rev.puzzles.math.geom;
 
 import com.rev.puzzles.math.geom.result.EmptyIntersectionResult;
 import com.rev.puzzles.math.geom.result.IntersectionResult;
+import com.rev.puzzles.math.geom.result.PointIntersectionResult;
 import com.rev.puzzles.math.linalg.matrix.Mat2;
 
 import java.util.*;
@@ -85,6 +86,15 @@ public class GridPolygon {
                         final GridPoint pointToTest = maybeInteriorSide.side.start();
                         if (!maybeExterior.contains(pointToTest)) {
                             return false;
+                        }
+                    }
+                    case PointIntersectionResult pointIntersectionResult -> {
+                        if (maybeInteriorSide.normal.perpendicularTo(maybeExteriorSide.normal)) {
+                            final GridPoint intersection = pointIntersectionResult.intersection();
+                            if (!intersection.equals(maybeExteriorSide.side.start()) && !intersection.equals(maybeExteriorSide.side.end())
+                              && !intersection.equals(maybeInteriorSide.side.start()) && !intersection.equals(maybeInteriorSide.side.end())) {
+                                return false;
+                            }
                         }
                     }
                     default -> {}

@@ -458,6 +458,24 @@ class GridPolygonTest {
     }
 
     @Test
+    void testRectangleIsNotInteriorOfUShape() {
+        final GridPolygon uShape = GridPolygonBuilder.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(0, 3),
+                        new GridPoint(0, 0),
+                        new GridPoint(4, 0),
+                        new GridPoint(4, 3)
+                )
+        );
+
+        final GridPolygon spanningRectangle = GridPolygonBuilder.createFromGridSquareCorners(List.of(new GridPoint(0, 2), new GridPoint(4 ,2)));
+
+        assertAll(
+                () -> assertFalse(spanningRectangle.isInteriorOf(uShape))
+        );
+    }
+
+    @Test
     void testShapeIsInteriorOfItself() {
         final GridPolygon uShape = GridPolygonBuilder.createFromGridSquareCorners(
                 List.of(
