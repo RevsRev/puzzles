@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.rev.puzzles.math.geom.DirectionV2.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GridPolygonTest {
 
@@ -271,6 +270,117 @@ class GridPolygonTest {
                                 new GridPolygon.PolygonSide(GridSide.create(new GridPoint(9, 0), new GridPoint(0, 0)), DOWN)
                         ),
                         rectangle.sides
+                ));
+    }
+
+    @Test
+    void test1byNRectangleContains() {
+        final GridPolygon rectangle = GridPolygonBuilder.createFromGridSquareCorners(List.of(new GridPoint(1, 2), new GridPoint(1, 10)));
+
+        assertAll(
+                //exterior points
+                () -> assertFalse(rectangle.contains(new GridPoint(0, 2))),
+                () -> assertFalse(rectangle.contains(new GridPoint(-10, 4))),
+                () -> assertFalse(rectangle.contains(new GridPoint(0, 11))),
+                () -> assertFalse(rectangle.contains(new GridPoint(2, -8))),
+
+                //Interior points
+                () -> assertTrue(rectangle.contains(new GridPoint(1, 2))),
+                () -> assertTrue(rectangle.contains(new GridPoint(2, 2))),
+                () -> assertTrue(rectangle.contains(new GridPoint(2, 7))),
+                () -> assertTrue(rectangle.contains(new GridPoint(1, 7))),
+                () -> assertTrue(rectangle.contains(new GridPoint(2, 11))),
+                () -> assertTrue(rectangle.contains(new GridPoint(1, 11)))
+        );
+    }
+
+    @Test
+    void testMByNRectangleContains() {
+        final GridPolygon rectangle = GridPolygonBuilder.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(8, 0),
+                        new GridPoint(0, 0),
+                        new GridPoint(0, 5),
+                        new GridPoint(8, 5),
+                        new GridPoint(8, 0)
+                )
+        );
+
+        assertAll(
+                //exterior points
+                () -> assertFalse(rectangle.contains(new GridPoint(-1, 2))),
+                () -> assertFalse(rectangle.contains(new GridPoint(-10, 4))),
+                () -> assertFalse(rectangle.contains(new GridPoint(0, 11))),
+                () -> assertFalse(rectangle.contains(new GridPoint(2, -8))),
+
+                //Interior points
+                () -> assertTrue(rectangle.contains(new GridPoint(0, 0))),
+                () -> assertTrue(rectangle.contains(new GridPoint(2, 2))),
+                () -> assertTrue(rectangle.contains(new GridPoint(4, 1))),
+                () -> assertTrue(rectangle.contains(new GridPoint(6, 5))),
+                () -> assertTrue(rectangle.contains(new GridPoint(1, 6))),
+                () -> assertTrue(rectangle.contains(new GridPoint(8, 3))),
+                () -> assertTrue(rectangle.contains(new GridPoint(8, 6)))
+        );
+    }
+
+    @Test
+    void testUShapeContains() {
+        final GridPolygon lPolygon = GridPolygonBuilder.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(0, 2),
+                        new GridPoint(0, 0),
+                        new GridPoint(4, 0),
+                        new GridPoint(4, 2)
+                )
+        );
+
+        assertAll(
+                //exterior points
+                () -> assertFalse(lPolygon.contains(new GridPoint(-1, 2)), "Expected to not contain (x,y) = (-1, 2) but did"),
+                () -> assertFalse(lPolygon.contains(new GridPoint(-1, 3)), "Expected to not contain (x,y) = (-1, 3) but did"),
+                () -> assertFalse(lPolygon.contains(new GridPoint(3, 2)), "Expected to not contain (x,y) = (3, 2) but did"),
+                () -> assertFalse(lPolygon.contains(new GridPoint(3, 3)), "Expected to not contain (x,y) = (3, 3) but did"),
+                () -> assertFalse(lPolygon.contains(new GridPoint(8, 2)), "Expected to not contain (x,y) = (8, 2) but did"),
+                () -> assertFalse(lPolygon.contains(new GridPoint(8, 3)), "Expected to not contain (x,y) = (8, 3) but did"),
+                () -> assertFalse(lPolygon.contains(new GridPoint(8, 5)), "Expected to not contain (x,y) = (8, 5) but did"),
+                () -> assertFalse(lPolygon.contains(new GridPoint(8, 0)), "Expected to not contain (x,y) = (8, 0) but did"),
+
+                //Interior points
+                () -> assertTrue(lPolygon.contains(new GridPoint(0, 0)), "Expected to contain (x,y) = (0, 0) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(0, 1)), "Expected to contain (x,y) = (0, 1) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(0, 2)), "Expected to contain (x,y) = (0, 2) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(1, 2)), "Expected to contain (x,y) = (1, 2) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(1, 1)), "Expected to contain (x,y) = (1, 1) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(2, 1)), "Expected to contain (x,y) = (2, 1) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(3, 1)), "Expected to contain (x,y) = (3, 1) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(4, 1)), "Expected to contain (x,y) = (4, 1) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(4, 2)), "Expected to contain (x,y) = (4, 2) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(4, 3)), "Expected to contain (x,y) = (4, 3) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(5, 3)), "Expected to contain (x,y) = (5, 3) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(5, 2)), "Expected to contain (x,y) = (5, 2) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(5, 1)), "Expected to contain (x,y) = (5, 1) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(5, 0)), "Expected to contain (x,y) = (5, 0) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(4, 0)), "Expected to contain (x,y) = (4, 0) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(3, 0)), "Expected to contain (x,y) = (3, 0) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(2, 0)), "Expected to contain (x,y) = (2, 0) but did not"),
+                () -> assertTrue(lPolygon.contains(new GridPoint(1, 0)), "Expected to contain (x,y) = (1, 0) but did not")
+        );
+
+        assertAll(
+                () -> assertEquals(1, lPolygon.windingNumber),
+                () -> assertEquals(
+                        List.of(
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 0), new GridPoint(0, 3)), LEFT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(0, 3), new GridPoint(1, 3)), UP),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 3), new GridPoint(1, 1)), RIGHT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(1, 1), new GridPoint(4, 1)), UP),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(4, 1), new GridPoint(4, 3)), LEFT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(4, 3), new GridPoint(5, 3)), UP),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 3), new GridPoint(5, 0)), RIGHT),
+                                new GridPolygon.PolygonSide(GridSide.create(new GridPoint(5, 0), new GridPoint(0, 0)), DOWN)
+                        ),
+                        lPolygon.sides
                 ));
     }
 }

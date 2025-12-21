@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
+import static com.rev.puzzles.math.geom.DirectionV2.LEFT;
+
 public class GridPolygon {
 
     final List<PolygonSide> sides;
@@ -18,6 +20,23 @@ public class GridPolygon {
     public PolygonSide getAnExtremalBoundarySide(final DirectionV2 direction) {
         final Comparator<PolygonSide> comparator = PolygonSide.extremalSideComparator(direction);
         return sides.stream().max(comparator).orElseThrow();
+    }
+
+    public boolean contains(final GridPoint point) {
+        final List<PolygonSide> sortedSides = sides.stream().sorted(PolygonSide.extremalSideComparator(LEFT).reversed()).toList();
+
+        int boundariesPassed = 0;
+        for (final PolygonSide side : sortedSides) {
+            if (side.side.contains(point)) {
+                return true;
+            }
+            if ((side.normal == LEFT || side.normal == LEFT.opposite()) && side.side.minX() <= point.x()) {
+                if (side.side.minY() <= point.y() && point.y() <= side.side.maxY()) {
+                    boundariesPassed++;
+                }
+            }
+        }
+        return boundariesPassed % 2 == 1;
     }
 
     public static final class PolygonSide {
@@ -60,7 +79,18 @@ public class GridPolygon {
         }
 
         public static Comparator<PolygonSide> extremalSideComparator(final DirectionV2 direction) {
-            final Function<PolygonSide, Integer> normalComparatorFunc = s -> s.normal.equals(direction) ? 1 : 0;
+            final Function<PolygonSide, Integer> normalComparatorFunc = s -> {
+                if (s.normal.equals(direction)) {
+                    return 3;
+                }
+                if (s.normal.equals(direction.opposite())) {
+                    return 2;
+                }
+                if (s.normal.equals(direction.next())) {
+                    return 1;
+                }
+                return 0;
+            };
 
             Comparator<PolygonSide> normalComparator = Comparator.comparingInt(normalComparatorFunc::apply);
 
