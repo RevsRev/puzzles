@@ -26,14 +26,16 @@ public final class Vec2 {
         return Math.sqrt(this.dot(this));
     }
 
-    public void plus(final Vec2 v) {
+    public Vec2 plus(final Vec2 v) {
         x += v.x;
         y += v.y;
+        return this;
     }
 
-    public void mult(double a) {
+    public Vec2 mult(double a) {
         x *= a;
         y *= a;
+        return this;
     }
 
     private static final double EPSILON = 0.001;
