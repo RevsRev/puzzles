@@ -370,6 +370,7 @@ class GridPolygonTest {
                 () -> assertFalse(lPolygon.contains(new GridPoint(-1, 3)), "Expected to not contain (x,y) = (-1, 3) but did"),
                 () -> assertFalse(lPolygon.contains(new GridPoint(3, 2)), "Expected to not contain (x,y) = (3, 2) but did"),
                 () -> assertFalse(lPolygon.contains(new GridPoint(3, 3)), "Expected to not contain (x,y) = (3, 3) but did"),
+                () -> assertFalse(lPolygon.contains(new GridPoint(2, 3)), "Expected to not contain (x,y) = (2, 3) but did"),
                 () -> assertFalse(lPolygon.contains(new GridPoint(8, 2)), "Expected to not contain (x,y) = (8, 2) but did"),
                 () -> assertFalse(lPolygon.contains(new GridPoint(8, 3)), "Expected to not contain (x,y) = (8, 3) but did"),
                 () -> assertFalse(lPolygon.contains(new GridPoint(8, 5)), "Expected to not contain (x,y) = (8, 5) but did"),
@@ -489,6 +490,29 @@ class GridPolygonTest {
         assertAll(
                 () -> assertFalse(rectangle.isInteriorOf(uShape)),
                 () -> assertTrue(uShape.isInteriorOf(rectangle))
+        );
+    }
+
+    @Test
+    void testMoreComplexShapeFromAoc2025Day9() {
+        final GridPolygon polygon = GridPolygonBuilder.createFromGridSquareCorners(
+                List.of(
+                        new GridPoint(7,1),
+                        new GridPoint(11,1),
+                        new GridPoint(11,7),
+                        new GridPoint(9,7),
+                        new GridPoint(9,5),
+                        new GridPoint(2,5),
+                        new GridPoint(2,3),
+                        new GridPoint(7,3),
+                        new GridPoint(7,1)
+                )
+        );
+
+        final GridPolygon rectangle = GridPolygonBuilder.rectangle(new GridPoint(2, 3), new GridPoint(9, 5), true);
+        assertAll(
+                () -> assertTrue(polygon.contains(new GridPoint(10, 6))),
+                () -> assertTrue(rectangle.isInteriorOf(polygon))
         );
     }
 }

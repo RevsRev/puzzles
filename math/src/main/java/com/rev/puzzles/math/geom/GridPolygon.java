@@ -29,18 +29,23 @@ public class GridPolygon {
     public boolean contains(final GridPoint point) {
         final List<PolygonSide> sortedSides = sides.stream().sorted(PolygonSide.extremalSideComparator(LEFT).reversed()).toList();
 
-        int boundariesPassed = 0;
+        int timesEntered = 0;
+        int timesExited = 0;
         for (final PolygonSide side : sortedSides) {
             if (side.side.contains(point)) {
                 return true;
             }
             if ((side.normal == LEFT || side.normal == LEFT.opposite()) && side.side.minX() <= point.x()) {
                 if (side.side.minY() <= point.y() && point.y() <= side.side.maxY()) {
-                    boundariesPassed++;
+                    timesEntered = side.normal == LEFT ? timesEntered : timesEntered + 1;
+                    timesExited = side.normal == LEFT ? timesExited + 1 : timesExited;
                 }
             }
         }
-        return boundariesPassed % 2 == 1;
+
+        //The equality case is always false: we've either started outside the polygon and gone in / out same number of times,
+        //or we started on a horizontal side (which would return true), but this is caught by the early return.
+        return timesExited > timesEntered;
     }
 
     public boolean isInteriorOf(final GridPolygon maybeExterior) {
