@@ -35,7 +35,7 @@ public final class DefaultExecutor<C extends ProblemCoordinate<C>> implements Pr
     public static <C extends ProblemCoordinate<C>> DefaultExecutor<C> create(final ExecutorListener<C> executorListener,
                                                                              final ResourceLoader<C> resourceLoader) {
         return new DefaultExecutor<>(new ParallelExecutionListener<>(executorListener), resourceLoader,
-                Executors.newSingleThreadExecutor());
+                Executors.newFixedThreadPool(8));
     }
 
     @Override
