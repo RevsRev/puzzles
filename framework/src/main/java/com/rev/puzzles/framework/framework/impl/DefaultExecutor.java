@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public final class DefaultExecutor<C extends ProblemCoordinate<C>> implements ProblemExecutor<C> {
 
@@ -23,42 +25,61 @@ public final class DefaultExecutor<C extends ProblemCoordinate<C>> implements Pr
     private final ResourceLoader<C> resourceLoader;
     private final ExecutorService executorService;
 
-    private DefaultExecutor(
-            final ExecutorListener<C> executorListener,
-            final ResourceLoader<C> resourceLoader,
-            final ExecutorService executorService) {
+    private DefaultExecutor(final ExecutorListener<C> executorListener, final ResourceLoader<C> resourceLoader,
+                            final ExecutorService executorService) {
         this.executorListener = executorListener;
         this.resourceLoader = resourceLoader;
         this.executorService = executorService;
     }
 
-    public static <C extends ProblemCoordinate<C>> DefaultExecutor<C> create(
-            final ExecutorListener<C> executorListener,
-            final ResourceLoader<C> resourceLoader) {
-        return new DefaultExecutor<>(
-                new ParallelExecutionListener<>(executorListener),
-                resourceLoader,
+    public static <C extends ProblemCoordinate<C>> DefaultExecutor<C> create(final ExecutorListener<C> executorListener,
+                                                                             final ResourceLoader<C> resourceLoader) {
+        return new DefaultExecutor<>(new ParallelExecutionListener<>(executorListener), resourceLoader,
                 Executors.newSingleThreadExecutor());
     }
 
     @Override
     public List<Throwable> solve(final Iterable<Map.Entry<C, Problem<?>>> problems) {
         executorListener.executorStarted();
+        final List<CompletableFuture<Void>> futures = new ArrayList<>();
         List<Throwable> errors = new ArrayList<>();
         for (Map.Entry<C, Problem<?>> problem : problems) {
-            executorListener.problemStarted(problem.getKey());
-            ProblemResult<C, ?> result;
-            try {
-                result = solve(problem.getKey(), problem.getValue()).get();
-            } catch (InterruptedException | ExecutionException e) {
-                result = new ProblemResult<>(problem.getKey(), Optional.empty(), Optional.empty(),
-                        Optional.of(new ProblemExecutionException(e)));
-            }
-            result.getError().ifPresent(errors::add);
-            executorListener.problemSolved(result);
+            futures.add(solve(problem.getKey(), errors, problem.getValue()));
         }
-        executorListener.executorStopped();
+        CompletableFuture<Void> waitForEverything = CompletableFuture.allOf(futures.toArray(new CompletableFuture[]{}));
+        try {
+            waitForEverything.get(100, TimeUnit.SECONDS);
+        } catch (final InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (final TimeoutException e) {
+            System.out.println("Timed out before all problems could be executed");
+        } finally {
+            executorListener.executorStopped();
+        }
         return errors;
+    }
+
+    private CompletableFuture<Void> solve(
+            final C coordinate,
+            final List<Throwable> errors,
+            final Problem<?> problem) {
+        executorListener.problemStarted(coordinate);
+        return CompletableFuture.supplyAsync(() -> solve(coordinate, problem), executorService)
+                .thenAccept(result -> handleSuccess(result, errors)).exceptionally(e -> {
+                    handleException(e, coordinate);
+                    return null;
+                });
+    }
+
+    private void handleSuccess(final ProblemResult<C, ?> result, final List<Throwable> errors) {
+        result.getError().ifPresent(errors::add);
+        executorListener.problemSolved(result);
+    }
+
+    private void handleException(final Throwable e, final C coordinate) {
+        ProblemResult<C, Object> errorResult = new ProblemResult<>(coordinate, Optional.empty(), Optional.empty(),
+                Optional.of(new ProblemExecutionException(e)));
+        executorListener.problemSolved(errorResult);
     }
 
     @Override
@@ -66,19 +87,14 @@ public final class DefaultExecutor<C extends ProblemCoordinate<C>> implements Pr
         executorService.shutdown();
     }
 
-    private <P1> Future<ProblemResult<C, P1>> solve(final C coordinate, final Problem<P1> problem) {
-        return executorService.submit(() -> {
-            try {
-                long time = System.nanoTime();
-                P1 result = problem.solve(resourceLoader.getProblemResourceLoader(coordinate));
-                time = System.nanoTime() - time;
-                return new ProblemResult<>(coordinate, Optional.of(result), Optional.of(time), Optional.empty());
-            } catch (Throwable t) {
-                return new ProblemResult<>(coordinate,
-                        Optional.empty(),
-                        Optional.empty(),
-                        Optional.of(t));
-            }
-        });
+    private <P1> ProblemResult<C, P1> solve(final C coordinate, final Problem<P1> problem) {
+        try {
+            long time = System.nanoTime();
+            P1 result = problem.solve(resourceLoader.getProblemResourceLoader(coordinate));
+            time = System.nanoTime() - time;
+            return new ProblemResult<>(coordinate, Optional.of(result), Optional.of(time), Optional.empty());
+        } catch (final Throwable t) {
+            return new ProblemResult<>(coordinate, Optional.empty(), Optional.empty(), Optional.of(t));
+        }
     }
 }
