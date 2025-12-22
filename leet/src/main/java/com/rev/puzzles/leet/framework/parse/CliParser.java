@@ -114,7 +114,8 @@ public final class CliParser {
             final ProblemLoader<LeetCoordinate> problemLoader, final ExecutorListener<LeetCoordinate> executorListener,
             final ResourceLoader<LeetCoordinate> resourceLoader) {
 
-        final ProblemExecutor<LeetCoordinate> problemExecutor = new DefaultExecutor<>(executorListener, resourceLoader);
+        final ProblemExecutor<LeetCoordinate> problemExecutor =
+                DefaultExecutor.create(executorListener, resourceLoader);
 
         if (firstLeetCoordinate != null && secondLeetCoordinate != null) {
             if (firstLeetCoordinate.compareTo(secondLeetCoordinate) < 0) {

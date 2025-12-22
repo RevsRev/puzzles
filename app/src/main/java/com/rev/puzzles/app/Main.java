@@ -23,7 +23,11 @@ public final class Main {
         if (engine == null) {
             return;
         }
-        engine.run();
+        try {
+            engine.run();
+        } finally {
+            engine.shutdown();
+        }
     }
 
     private static void loadProperties(final boolean debug) {

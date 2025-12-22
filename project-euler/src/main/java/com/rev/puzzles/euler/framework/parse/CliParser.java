@@ -24,9 +24,9 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Optional;
 
+import static com.rev.puzzles.euler.framework.parse.CliOptions.DEBUG;
 import static com.rev.puzzles.euler.framework.parse.CliOptions.PROBLEM_NUMBER;
 import static com.rev.puzzles.euler.framework.parse.CliOptions.PROBLEM_OTHER_NUMBER;
-import static com.rev.puzzles.euler.framework.parse.CliOptions.DEBUG;
 
 public final class CliParser {
     private static final CommandLineParser PARSER = new DefaultParser();
@@ -99,7 +99,7 @@ public final class CliParser {
             final ProblemLoader<PeCoordinate> problemLoader, final ExecutorListener<PeCoordinate> executorListener,
             final ResourceLoader<PeCoordinate> resourceLoader) {
 
-        final ProblemExecutor<PeCoordinate> problemExecutor = new DefaultExecutor<>(executorListener, resourceLoader);
+        final ProblemExecutor<PeCoordinate> problemExecutor = DefaultExecutor.create(executorListener, resourceLoader);
 
         if (firstPeCoordinate != null && secondPeCoordinate != null) {
             if (firstPeCoordinate.compareTo(secondPeCoordinate) < 0) {

@@ -98,7 +98,7 @@ public final class CliParser {
             final ProblemLoader<AocCoordinate> problemLoader, final ExecutorListener<AocCoordinate> executorListener,
             final ResourceLoader<AocCoordinate> resourceLoader) {
 
-        final ProblemExecutor<AocCoordinate> problemExecutor = new DefaultExecutor<>(executorListener, resourceLoader);
+        final ProblemExecutor<AocCoordinate> problemExecutor = DefaultExecutor.create(executorListener, resourceLoader);
 
         if (firstAocCoordinate != null && secondAocCoordinate != null) {
             if (firstAocCoordinate.compareTo(secondAocCoordinate) < 0) {

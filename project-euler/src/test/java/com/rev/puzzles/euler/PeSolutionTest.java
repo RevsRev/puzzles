@@ -36,7 +36,8 @@ public final class PeSolutionTest {
                         problemI -> new PeCoordinate(problemI.number()));
 
         final CachingExecutionListener executorListener = new CachingExecutionListener();
-        final ProblemExecutor<PeCoordinate> executor = new DefaultExecutor<>(executorListener, TEST_RESOURCE_LOADER);
+        final ProblemExecutor<PeCoordinate> executor =
+                DefaultExecutor.create(executorListener, TEST_RESOURCE_LOADER);
         final DefaultProblemEngine<PeCoordinate> engine = new DefaultProblemEngine<>(
                 problemLoader,
                 executor,
@@ -44,7 +45,11 @@ public final class PeSolutionTest {
                 null
         );
 
-        engine.run();
+        try {
+            engine.run();
+        } finally {
+            engine.shutdown();
+        }
 
         final List<String> expectedSolutions = TEST_RESOURCE_LOADER.expectedSolutions(coordinate);
         final ProblemResult<PeCoordinate, ?> result = executorListener.getResult(coordinate);

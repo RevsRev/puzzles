@@ -8,4 +8,5 @@ import java.util.Map;
 
 public interface ProblemExecutor<T extends ProblemCoordinate<T>> {
     List<Throwable> solve(Iterable<Map.Entry<T, Problem<?>>> problems);
+    void shutdown();
 }

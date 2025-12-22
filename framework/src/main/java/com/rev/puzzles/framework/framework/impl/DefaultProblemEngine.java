@@ -48,4 +48,8 @@ public final class DefaultProblemEngine<C extends ProblemCoordinate<C>> implemen
         }
     }
 
+    @Override
+    public void shutdown() {
+        executor.shutdown();
+    }
 }
