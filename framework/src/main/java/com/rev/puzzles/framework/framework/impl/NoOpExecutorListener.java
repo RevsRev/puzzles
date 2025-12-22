@@ -10,10 +10,15 @@ public class NoOpExecutorListener<C extends ProblemCoordinate<C>> implements Exe
     }
 
     @Override
-    public void executorSolved(final ProblemResult<C, ?> result) {
+    public void problemSolved(final ProblemResult<C, ?> result) {
     }
 
     @Override
     public void executorStopped() {
+    }
+
+    @Override
+    public void problemStarted(final C coordinate) {
+
     }
 }

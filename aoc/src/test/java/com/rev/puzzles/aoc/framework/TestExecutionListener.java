@@ -18,12 +18,17 @@ public final class TestExecutionListener implements ExecutorListener<AocCoordina
     }
 
     @Override
-    public void executorSolved(final ProblemResult<AocCoordinate, ?> result) {
+    public void problemSolved(final ProblemResult<AocCoordinate, ?> result) {
         results.add(result);
     }
 
     @Override
     public void executorStopped() {
         //do nothing
+    }
+
+    @Override
+    public void problemStarted(final AocCoordinate coordinate) {
+
     }
 }

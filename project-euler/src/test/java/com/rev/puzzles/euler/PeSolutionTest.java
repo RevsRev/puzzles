@@ -71,7 +71,7 @@ public final class PeSolutionTest {
         }
 
         @Override
-        public void executorSolved(final ProblemResult<PeCoordinate, ?> result) {
+        public void problemSolved(final ProblemResult<PeCoordinate, ?> result) {
             results.put(result.getCoordinate(), result);
         }
 
@@ -82,6 +82,11 @@ public final class PeSolutionTest {
 
         public ProblemResult<PeCoordinate, ?> getResult(final PeCoordinate coordinate) {
             return results.get(coordinate);
+        }
+
+        @Override
+        public void problemStarted(final PeCoordinate coordinate) {
+
         }
     }
 

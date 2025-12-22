@@ -16,12 +16,17 @@ public final class LeetExecutionListenerPrinter implements ExecutorListener<Leet
     }
 
     @Override
-    public void executorSolved(final ProblemResult<LeetCoordinate, ?> result) {
+    public void problemSolved(final ProblemResult<LeetCoordinate, ?> result) {
         printer.printResult(result);
     }
 
     @Override
     public void executorStopped() {
         printer.printSeparator();
+    }
+
+    @Override
+    public void problemStarted(final LeetCoordinate coordinate) {
+
     }
 }

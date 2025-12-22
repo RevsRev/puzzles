@@ -16,12 +16,17 @@ public final class AocExecutionListenerPrinter implements ExecutorListener<AocCo
     }
 
     @Override
-    public void executorSolved(final ProblemResult<AocCoordinate, ?> result) {
+    public void problemSolved(final ProblemResult<AocCoordinate, ?> result) {
         printer.printResult(result);
     }
 
     @Override
     public void executorStopped() {
         printer.printSeparator();
+    }
+
+    @Override
+    public void problemStarted(final AocCoordinate coordinate) {
+
     }
 }

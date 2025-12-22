@@ -22,7 +22,7 @@ public final class LeetExecutionListenerFileWriter implements ExecutorListener<L
     }
 
     @Override
-    public void executorSolved(final ProblemResult<LeetCoordinate, ?> result) {
+    public void problemSolved(final ProblemResult<LeetCoordinate, ?> result) {
         result.getProblemResult().ifPresentOrElse(r -> {
             try (FileWriter fileWriter = new FileWriter(
                     String.format("%s/L%s.txt", leetProblemsDirectory, result.getCoordinate()))) {
@@ -36,5 +36,10 @@ public final class LeetExecutionListenerFileWriter implements ExecutorListener<L
 
     @Override
     public void executorStopped() {
+    }
+
+    @Override
+    public void problemStarted(final LeetCoordinate coordinate) {
+
     }
 }

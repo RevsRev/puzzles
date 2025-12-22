@@ -17,12 +17,17 @@ public final class PeExecutionListenerPrinter implements ExecutorListener<PeCoor
     }
 
     @Override
-    public void executorSolved(final ProblemResult<PeCoordinate, ?> result) {
+    public void problemSolved(final ProblemResult<PeCoordinate, ?> result) {
         printer.printResult(result);
     }
 
     @Override
     public void executorStopped() {
         printer.printSeparator();
+    }
+
+    @Override
+    public void problemStarted(final PeCoordinate coordinate) {
+
     }
 }

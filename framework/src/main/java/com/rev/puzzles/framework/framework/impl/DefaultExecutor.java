@@ -35,7 +35,10 @@ public final class DefaultExecutor<C extends ProblemCoordinate<C>> implements Pr
     public static <C extends ProblemCoordinate<C>> DefaultExecutor<C> create(
             final ExecutorListener<C> executorListener,
             final ResourceLoader<C> resourceLoader) {
-        return new DefaultExecutor<>(executorListener, resourceLoader, Executors.newSingleThreadExecutor());
+        return new DefaultExecutor<>(
+                new ParallelExecutionListener<>(executorListener),
+                resourceLoader,
+                Executors.newSingleThreadExecutor());
     }
 
     @Override
@@ -43,6 +46,7 @@ public final class DefaultExecutor<C extends ProblemCoordinate<C>> implements Pr
         executorListener.executorStarted();
         List<Throwable> errors = new ArrayList<>();
         for (Map.Entry<C, Problem<?>> problem : problems) {
+            executorListener.problemStarted(problem.getKey());
             ProblemResult<C, ?> result;
             try {
                 result = solve(problem.getKey(), problem.getValue()).get();
@@ -51,7 +55,7 @@ public final class DefaultExecutor<C extends ProblemCoordinate<C>> implements Pr
                         Optional.of(new ProblemExecutionException(e)));
             }
             result.getError().ifPresent(errors::add);
-            executorListener.executorSolved(result);
+            executorListener.problemSolved(result);
         }
         executorListener.executorStopped();
         return errors;
