@@ -65,7 +65,6 @@ public final class D10 {
 
         long totalPresses = 0;
         for (final Map.Entry<int[], List<Set<Integer>>> joltageAndButtons : joltagesAndButtons.entrySet()) {
-            System.out.println("Computing joltages for: " + Arrays.toString(joltageAndButtons.getKey()));
             totalPresses +=
                     computeNumPressesToConfigureJoltage(joltageAndButtons.getKey(), joltageAndButtons.getValue());
         }

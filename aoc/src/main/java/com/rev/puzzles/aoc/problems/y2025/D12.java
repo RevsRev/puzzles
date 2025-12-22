@@ -2,6 +2,7 @@ package com.rev.puzzles.aoc.problems.y2025;
 
 import com.rev.puzzles.aoc.framework.AocProblemI;
 import com.rev.puzzles.framework.framework.ProblemResourceLoader;
+import com.rev.puzzles.framework.framework.problem.ProblemExecutionException;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -44,14 +45,6 @@ public final class D12 {
             }
         }
 
-        presents.forEach(present -> {
-            for (int i = 0; i < present.length; i++) {
-                System.out.println(Arrays.toString(present[i]));
-            }
-            System.out.println(computeArea(present));
-            System.out.println();
-        });
-
         int feasibleCount = 0;
         int restrictedFeasibleCount = 0;
         for (final Pair<Rectangle, List<Integer>> binAndEntries : bins) {
@@ -75,11 +68,11 @@ public final class D12 {
             }
         }
 
-        System.out.println("Total considered: " + bins.size());
-        System.out.println("Feasible: " + feasibleCount);
-        System.out.println("Restricted Feasible: " + restrictedFeasibleCount);
+        if (feasibleCount != restrictedFeasibleCount) {
+            throw new ProblemExecutionException("Stupid method does not work for this stupid problem!");
+        }
 
-        return -1L;
+        return feasibleCount;
     }
 
     private static int computeArea(final char[][] present) {

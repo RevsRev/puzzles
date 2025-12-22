@@ -30,7 +30,8 @@ public final class D16 {
         return rotationCost;
     }
 
-    private static void updateScores(final CellDirection direction, final Map<CellDirection, Long>[][] scores, final int i,
+    private static void updateScores(final CellDirection direction, final Map<CellDirection, Long>[][] scores,
+                                     final int i,
                                      final int j, final long startCellScore,
                                      final Set<Pair<Integer, Integer>> frontiere) {
         Map<CellDirection, Long> startCellScores = scores[i][j];
@@ -79,7 +80,8 @@ public final class D16 {
         return (long) optimalTiles.size();
     }
 
-    private void backTrack(final Map<CellDirection, Long>[][] scores, final int[] position, final CellDirection direction,
+    private void backTrack(final Map<CellDirection, Long>[][] scores, final int[] position,
+                           final CellDirection direction,
                            final Set<Pair<Integer, Integer>> optimalTiles) {
         optimalTiles.add(Pair.of(position[0], position[1]));
         if (scores[position[0]][position[1]].get(direction) == 0) {
@@ -111,10 +113,12 @@ public final class D16 {
         }
     }
 
-    private Map<CellDirection, Long>[][] computeScore(final char[][] maze, final int[] start, final CellDirection direction) {
+    private Map<CellDirection, Long>[][] computeScore(final char[][] maze, final int[] start,
+                                                      final CellDirection direction) {
         int height = maze.length;
         int width = maze[0].length;
-        Map<CellDirection, Long>[][] scores = LoaderUtils.emptyMatrix(new Map[1][1], height, width, () -> new HashMap());
+        Map<CellDirection, Long>[][] scores =
+                LoaderUtils.emptyMatrix(new Map[1][1], height, width, () -> new HashMap());
 
         Set<Pair<Integer, Integer>> frontiere = new HashSet<>();
 
